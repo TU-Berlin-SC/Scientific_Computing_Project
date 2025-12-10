@@ -1,0 +1,40 @@
+# =====================
+# Rust / Cargo
+# =====================
+target/
+**/*.rs.bk
+**/*.rlib
+**/*.d
+Cargo.lock  # 라이브러리 패키지면 커밋 안하는 경우도 있음
+
+# =====================
+# Node / Vite / React
+# =====================
+node_modules/
+dist/
+.env
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =====================
+# WASM output
+# =====================
+frontend/src/wasm/wasm_pkg/pkg/
+frontend/src/wasm/wasm_pkg/*.ts
+frontend/src/wasm/wasm_pkg/*.js.map
+frontend/src/wasm/wasm_pkg/*.d.ts
+
+# =====================
+# IDE / Editor
+# =====================
+.vscode/
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
