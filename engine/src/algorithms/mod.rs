@@ -1,5 +1,12 @@
+/**
+* Module for different algorithms to solve the Minesweeper game.
+* Each algorithm should implement the Algorithm trait.
+* I have added 0 ~ 5 comments to guide you when adding a new algorithm! (~ ˘∇˘ )~
+*/
+
 pub mod greedy;
 pub mod exact_solver;
+// [0] when adding a new algorithm, careate a new module here
 
 use crate::board::Board;
 use wasm_bindgen::prelude::*;
@@ -11,6 +18,7 @@ pub trait Algorithm {
 // Algorithm types enum
 #[wasm_bindgen]
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+// [1] when adding a new algorithm, add it here
 pub enum WasmAlgorithmType {
     Greedy,
     ExactSolver,
@@ -18,6 +26,7 @@ pub enum WasmAlgorithmType {
 
 impl WasmAlgorithmType {
     pub fn as_str(&self) -> &'static str {
+        // [2] when adding a new algorithm, add it here
         match self {
             WasmAlgorithmType::Greedy => "greedy",
             WasmAlgorithmType::ExactSolver => "exact_solver",
@@ -25,6 +34,7 @@ impl WasmAlgorithmType {
     }
     
     pub fn all() -> Vec<WasmAlgorithmType> {
+        // [3] when adding a new algorithm, add it here
         vec![
             WasmAlgorithmType::Greedy,
             WasmAlgorithmType::ExactSolver,
@@ -49,10 +59,11 @@ impl AlgorithmFactory {
             WasmAlgorithmType::ExactSolver => {
                 Box::new(exact_solver::ExactSolver::new(width, height, mines))
             }
+            // [4] when adding a new algorithm, add it here
         }
     }
 }
 
-// directly export the type.
+//[5] when adding a new algorithm, add it here
 pub use greedy::GreedyAlgorithm;
 pub use exact_solver::ExactSolver;

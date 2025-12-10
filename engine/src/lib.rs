@@ -1,4 +1,10 @@
-// src/lib.rs
+/**
+* A WebAssembly module for simulating Minesweeper games with various algorithms.
+* It provides functionality to run single steps, full games, and batch simulations,
+* as well as to compare different algorithms over multiple games.
+* so it's like an interface between frontend and backend engine
+*/
+
 use wasm_bindgen::prelude::*;
 use serde_wasm_bindgen::to_value;
 
@@ -8,6 +14,7 @@ mod algorithms;
 use board::Board;
 use algorithms::{Algorithm, AlgorithmFactory, WasmAlgorithmType};
 
+// Simulator struct
 #[wasm_bindgen]
 pub struct Simulator {
     board: Board,
@@ -16,6 +23,7 @@ pub struct Simulator {
     steps: usize,
 }
 
+// Simulator methods
 #[wasm_bindgen]
 impl Simulator {
     #[wasm_bindgen(constructor)]
@@ -33,12 +41,13 @@ impl Simulator {
             steps: 0 
         }
     }
-
+    // Get the current state of the board
     #[wasm_bindgen(js_name = getState)]
     pub fn get_state(&self) -> JsValue {
         to_value(&self.board).unwrap()
     }
 
+    // Run a single step of the algorithm
     #[wasm_bindgen(js_name = runStep)]
     pub fn run_step(&mut self) -> JsValue {
         if self.board.game_over || self.board.game_won { 
@@ -53,6 +62,7 @@ impl Simulator {
         self.get_state()
     }
 
+    // Run the full game until completion
     #[wasm_bindgen(js_name = runFullGame)]
     pub fn run_full_game(&mut self) -> JsValue {
         while !self.board.game_over && !self.board.game_won {
@@ -66,7 +76,7 @@ impl Simulator {
         
         self.get_state()
     }
-
+    // Run multiple games in batch and return aggregated results
     #[wasm_bindgen(js_name = runBatch)]
     pub fn run_batch(&self, games: usize) -> JsValue {
         let width = self.board.width;
@@ -75,7 +85,7 @@ impl Simulator {
         
         let mut results = Vec::new();
         
-        for game_idx in 0..games {
+        for game_idx in 0..games {  // 0부터 games-1까지
             let mut board = Board::new(width, height, mines);
             let mut algorithm = AlgorithmFactory::create_algorithm(
                 self.algorithm_type.into(),
@@ -83,12 +93,12 @@ impl Simulator {
             );
             let mut steps = 0;
             let mut clicks = 0;
-            
+            // 게임 진행
             while !board.game_over && !board.game_won {
-                if let Some((x, y)) = algorithm.next_move(&board) {
-                    board.reveal_cell(x, y);
-                    steps += 1;
-                    clicks = board.total_clicks;
+                if let Some((x, y)) = algorithm.next_move(&board) {    // 다음 수를 얻음
+                    board.reveal_cell(x, y);                            // 셀을 공개
+                    steps += 1;                                         // 단계 증가
+                    clicks = board.total_clicks;                      // 클릭 수 갱신
                 } else {
                     break;
                 }
@@ -112,6 +122,7 @@ impl Simulator {
         to_value(&results).unwrap()
     }
 
+    // Reset the simulator to initial state
     #[wasm_bindgen(js_name = reset)]
     pub fn reset(&mut self) {
         let width = self.board.width;
@@ -126,6 +137,7 @@ impl Simulator {
         self.steps = 0;
     }
 
+    // Set a new algorithm for the simulator
     #[wasm_bindgen(js_name = setAlgorithm)]
     pub fn set_algorithm(&mut self, algorithm_type: WasmAlgorithmType) {
         let width = self.board.width;
@@ -139,13 +151,15 @@ impl Simulator {
         );
     }
 
+    // Get the current algorithm type as a string
     #[wasm_bindgen(js_name = getAlgorithm)]
     pub fn get_algorithm(&self) -> String {
         self.algorithm_type.as_str().to_string()
     }
 }
 
-// 간단한 테스트 함수들
+// ONLY FOR TESTING PURPOSES
+// trying to see if wasm is working with our web deployment and dev setup
 #[wasm_bindgen]
 pub fn hello_world() -> String {
     "Hello from WASM Minesweeper!".to_string()
@@ -156,12 +170,14 @@ pub fn test_add(a: i32, b: i32) -> i32 {
     a + b
 }
 
+// Create a simple board for testing. maybe i should remove this later
 #[wasm_bindgen]
 pub fn create_simple_board() -> JsValue {
     let board = Board::new(8, 8, 10);
     to_value(&board).unwrap()
 }
 
+// Compare different algorithms over multiple games
 #[wasm_bindgen]
 pub fn compare_algorithms(width: usize, height: usize, mines: usize, games: usize) -> JsValue {
     let mut results = Vec::new();

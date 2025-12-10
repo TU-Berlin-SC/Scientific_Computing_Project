@@ -1,7 +1,14 @@
+/**
+* Minesweeper Board Module
+* This module defines the Board and Cell structures for the Minesweeper game,
+* along with methods to initialize the board, place mines, reveal cells, and manage game state.
+*/
+
 use serde::{Serialize, Deserialize};
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 
+// Cell struct
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct Cell {
     pub is_mine: bool,
@@ -12,6 +19,7 @@ pub struct Cell {
     pub y: usize,
 }
 
+// Board struct
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Board {
     pub width: usize,
@@ -36,7 +44,7 @@ impl Board {
         for y in 0..height {
             for x in 0..width {
                 cells.push(Cell {
-                    is_mine: false,  // 처음에는 지뢰 없음
+                    is_mine: false,  // no mines placed yet
                     is_revealed: false,
                     is_flagged: false,
                     adjacent_mines: 0,
@@ -56,19 +64,19 @@ impl Board {
             total_revealed: 0,
             total_clicks: 0,
         }
-        // place_mines를 호출하지 않음!
+        // do not call place_mines here, as mines are placed after the first click
     }
     
-    // 첫 번째 클릭 후 지뢰 배치
+    // Place mines after the first click
     pub fn place_mines_after_first_click(&mut self, first_x: usize, first_y: usize) {
         let total_cells = self.width * self.height;
         let mut indices: Vec<usize> = (0..total_cells).collect();
         
-        // 첫 번째 클릭 위치 제외
+        // Exclude the first clicked cell
         let first_idx = first_y * self.width + first_x;
         indices.retain(|&idx| idx != first_idx);
         
-        // 첫 번째 클릭 주변 8칸도 제외 (실제 Windows 지뢰찾기처럼)
+        // Exclude surrounding 8 cells of the first click (like actual Windows Minesweeper)
         indices.retain(|&idx| {
             let x = idx % self.width;
             let y = idx / self.width;
@@ -78,16 +86,16 @@ impl Board {
         let mut rng = thread_rng();
         indices.shuffle(&mut rng);
         
-        // 지뢰 배치
+        // Place mines
         for &idx in indices.iter().take(self.mines) {
             self.cells[idx].is_mine = true;
         }
         
-        // 인접 지뢰 수 계산
+        // Calculate adjacent mines after placing mines
         self.calculate_adjacent_mines();
     }
     
-    // 인접 지뢰 수 계산
+    // Calculate adjacent mines for each cell
     pub(crate) fn calculate_adjacent_mines(&mut self) {
         for y in 0..self.height {
             for x in 0..self.width {
@@ -119,7 +127,7 @@ impl Board {
         }
     }
     
-    // 셀 열기
+    // Cell reveal
     pub fn reveal_cell(&mut self, x: usize, y: usize) -> bool {
         let idx = y * self.width + x;
         
@@ -131,7 +139,7 @@ impl Board {
             return false;
         }
         
-        // 첫 번째 클릭이면 지뢰 배치
+        // Place mines on first click
         if self.total_clicks == 0 {
             self.place_mines_after_first_click(x, y);
         }
@@ -146,19 +154,20 @@ impl Board {
         
         self.total_revealed += 1;
         
-        // 0인 셀 자동으로 열기
+        // Clicked cell has 0 adjacent mines
         if self.cells[idx].adjacent_mines == 0 {
             self.reveal_adjacent_zero_cells(x, y);
         }
         
-        // 승리 조건 체크
+        // Check win condition
         if self.total_revealed == self.width * self.height - self.mines {
             self.game_won = true;
         }
         
         true
     }
-    
+
+    // adjacent zero cells reveal
     fn reveal_adjacent_zero_cells(&mut self, x: usize, y: usize) {
         let mut stack = vec![(x, y)];
         let mut visited = vec![false; self.width * self.height];
@@ -205,7 +214,7 @@ impl Board {
         }
     }
     
-    // 게임 상태 초기화 (재시작용)
+    // Reset the board to initial state
     pub fn reset(&mut self) {
         for cell in &mut self.cells {
             cell.is_mine = false;
@@ -218,6 +227,6 @@ impl Board {
         self.game_won = false;
         self.total_revealed = 0;
         self.total_clicks = 0;
-        // 지뢰는 첫 클릭 시 배치됨
+        // 지뢰는 첫 클릭 시 배치됨 (Mine placement is done on first click - according to the minesweeper rules)
     }
 }
