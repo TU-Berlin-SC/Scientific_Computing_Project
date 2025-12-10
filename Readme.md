@@ -64,31 +64,82 @@ npm run dev
 ## Architecture
 
 ```bash
+(base) ➜  Scientific_Computing_Project git:(main) ✗ tree -L 4
 .
-├── engine/
-│   ├── Cargo.toml
-│   ├── src/
-│   │   ├── lib.rs          # main library
-│   │   ├── board.rs        # game board structure
-│   │   ├── algorithms/     # Algorithms modules
-│   │   │   ├── mod.rs
-│   │   │   ├── exact.rs    # exact solution (ILP)
-│   │   │   ├── greedy.rs   # greedy
-│   │   │   ├── local_search.rs # greedy + local search
-│   │   │   └── metaheuristic.rs # metahuristic
-│   │   └── simulator.rs    # simulator
-│   └── ...
-└── frontend/
-    ├── src/
-    │   ├── components/
-    │   │   ├── SimulationView.tsx
-    │   │   ├── ResultView.tsx
+├── Readme.md
+├── engine
+│   ├── Cargo.toml # add library dependencies
+│   ├── Readme.md
+│   ├── src
+│   │   ├── algorithms
+│   │   │   ├── exact_solver.rs
+│   │   │   ├── greedy.rs
+│   │   │   ├── local_search.rs # maybe something like this
+│   │   │   ├── macros.rs # macro tool to make my life easier
+│   │   │   ├── metaheuristic.rs
+│   │   │   └── mod.rs # you need to add your algorithm here as well
+│   └─── board.rs
+│     ├── lib.rs
+│     └──├simulator.rs
+└── frontend
+    ├── src
+    │   ├── App.css
+    │   ├── App.tsx
+    │   ├── assets
+    │   │   └── react.svg
+    │   ├── components
+    │   │   ├── AlgorithmSelector.css
+    │   │   ├── AlgorithmSelector.tsx
+    │   │   ├── BoardView.css
     │   │   ├── BoardView.tsx
-    │   │   └── Controls.tsx
-    │   ├── types/
-    │   │   └── simulation.ts
-    │   ├── utils/
-    │   │   └── visualization.ts
-    │   └── ...
-    └── ...
+    │   │   ├── Controls.css
+    │   │   ├── Controls.tsx
+    │   │   ├── ResultView.css
+    │   │   └── ResultView.tsx
+    │   ├── index.css
+    │   ├── main.tsx
+    │   ├── types
+    │   │   ├── simulation.ts
+    │   │   └── wasm.d.ts
+    │   └── utils
+    │       └── visualization.ts
+    ├── tsconfig.app.json
+    ├── tsconfig.json
+    ├── tsconfig.node.json
+    └── vite.config.ts
+
+```
+
+will use Cloudflare Pages for Hosting
+
+### Setting up Cloudflare pages
+
+debugging
+
+- modify root folder to /frontend
+
+setup
+Project name: minesweeper-simulator
+Root directory: frontend
+Build Command
+
+```
+# took me an hour to debug
+if ! command -v rustc &> /dev/null; then curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y; source $HOME/.cargo/env; fi && if ! command -v wasm-pack &> /dev/null; then curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh; fi && cd ../engine && wasm-pack build --target web --out-dir ../frontend/src/wasm_pkg
+```
+
+Deploy command: cd ../frontend && /opt/buildhome/.cargo/bin/wasm-pack --version > /dev/null 2>&1 && echo "WASM already built, skipping..." || (cd ../engine && /opt/buildhome/.cargo/bin/wasm-pack build --target web --out-dir ../frontend/src/wasm_pkg) && npm run build
+
+and for the package.json
+
+```json
+{
+  "scripts": {
+    "prebuild": "if [ -n \"$CF_PAGES\" ]; then cd ../engine && /opt/buildhome/.cargo/bin/wasm-pack build --target web --out-dir ../frontend/src/wasm_pkg; else cd ../engine && wasm-pack build --target web --out-dir ../frontend/src/wasm_pkg; fi",
+    "build": "tsc --noEmit && vite build",
+    "dev": "vite",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  }
+}
 ```

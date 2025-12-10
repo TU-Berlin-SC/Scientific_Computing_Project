@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "if [ -n \"$CF_PAGES\" ]; then cd ../engine && /opt/buildhome/.cargo/bin/wasm-pack build --target web --out-dir ../frontend/src/wasm_pkg; else cd ../engine && wasm-pack build --target web --out-dir ../frontend/src/wasm_pkg; fi",    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
