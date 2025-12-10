@@ -122,3 +122,16 @@ Enabled
 ```
 
 and vite.config.ts, package.json, and \_headers had to be modified as well
+
+### How to add to our codes?
+
+still working on writing this.
+
+```bash
+# create branch
+# git add <files>
+# git commit -m "something"
+# git push
+# pull requst & merge
+# if we merge it, let's update our tag as well
+```
