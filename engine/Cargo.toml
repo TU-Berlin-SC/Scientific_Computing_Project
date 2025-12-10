@@ -1,18 +1,20 @@
 [package]
 name = "engine"
 version = "0.1.0"
-edition = "2021"  # stable edition instead of 2024
+edition = "2021"
 
 [lib]
-crate-type = ["cdylib"]  # library for WASM 
+crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-wasm-bindgen = "0.2.106"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-serde-wasm-bindgen = "0.5"
+serde-wasm-bindgen = "0.5.0"
+rand = "0.8"
+wasm-bindgen = "0.2"
+getrandom = { version = "0.2", features = ["js"] }
 
 
 [profile.release]
-# optimizatio option for WASM
+lto = true
 opt-level = "s"
