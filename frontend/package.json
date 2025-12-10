@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "cd ../engine && wasm-pack build --target web --out-dir ../frontend/src/wasm_pkg",
+    "prebuild": "cd ../engine && /opt/buildhome/.cargo/bin/wasm-pack build --target web --out-dir ../frontend/src/wasm_pkg",
     "build": "tsc --noEmit && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
