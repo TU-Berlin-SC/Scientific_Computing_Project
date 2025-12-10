@@ -1,5 +1,4 @@
-/assets/*.wasm
+/*.wasm
   Content-Type: application/wasm
-
-/engine_bg.wasm
+/assets/*.wasm
   Content-Type: application/wasm

@@ -46,9 +46,10 @@ const wasmPlugin = () => ({
 })
 
 export default defineConfig({
-  plugins: [react(), wasmPlugin()],
+  plugins: [react()],
   build: {
-    target: 'es2020'
-    // rollupOptions 제거!
+    target: 'es2020',
+    // public 폴더 내용을 dist로 복사
+    copyPublicDir: true
   }
 })
