@@ -6,9 +6,10 @@
   Content-Type: application/javascript
   Access-Control-Allow-Origin: *
 
-/*.mjs
-  Content-Type: application/javascript  
+/*.css
+  Content-Type: text/css
   Access-Control-Allow-Origin: *
 
-/assets/*
-  Content-Type: auto
+/*.mjs
+  Content-Type: application/javascript
+  Access-Control-Allow-Origin: *
