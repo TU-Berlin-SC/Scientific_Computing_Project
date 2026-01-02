@@ -10,72 +10,42 @@ pub struct ExactSolver {
     first_move: bool,
 }
 
+// src/algorithms/exact_solver.rs (수정된 부분)
 impl ExactSolver {
-    pub fn new(width: usize, height: usize, mines: usize) -> Self {
-        Self { width, height, mines, first_move: true }
+    pub fn new(dimensions: Vec<usize>, mines: usize) -> Self {
+        Self { 
+            dimensions,
+            mines, 
+            first_move: true 
+        }
     }
 
-    fn first_click_position(&self) -> (usize, usize) {
-        (self.width / 2, self.height / 2)
+    fn first_click_position(&self) -> Vec<usize> {
+        // 중앙 셀 클릭
+        self.dimensions.iter().map(|&dim| dim / 2).collect()
     }
 
-    fn solve_exact(&self, board: &Board) -> Option<(usize, usize)> {
-        // 1. 제약 조건 수집
-        let mut constraints = Vec::new();
-        let mut all_hidden_cells = HashSet::new();
-        
-        for y in 0..self.height {
-            for x in 0..self.width {
-                let idx = y * self.width + x;
-                let cell = &board.cells[idx];
-                
-                if cell.is_revealed && cell.adjacent_mines > 0 {
-                    let constraint = self.build_constraint(board, x, y);
-                    if !constraint.hidden_cells.is_empty() {
-                        all_hidden_cells.extend(constraint.hidden_cells.iter().cloned());
-                        constraints.push(constraint);
-                    }
-                }
-            }
-        }
-        
-        // 2. 확실히 안전한 셀 찾기 (제약 조건 분석)
-        if let Some(safe) = self.find_definitely_safe(&constraints, board) {
-            return Some(safe);
-        }
-        
-        // 3. 확률 계산
-        self.calculate_best_cell(&all_hidden_cells, board)
-    }
-    
-    fn build_constraint(&self, board: &Board, x: usize, y: usize) -> Constraint {
-        let idx = y * self.width + x;
+    fn build_constraint(&self, board: &Board, coords: &[usize]) -> Constraint {
+        let idx = board.coords_to_index(coords);
         let cell = &board.cells[idx];
         let mut hidden = Vec::new();
         let mut flags = 0;
         
-        for dy in -1..=1 {
-            for dx in -1..=1 {
-                if dx == 0 && dy == 0 { continue; }
-                
-                let nx = x as isize + dx;
-                let ny = y as isize + dy;
-                
-                if nx >= 0 && nx < self.width as isize && ny >= 0 && ny < self.height as isize {
-                    let nidx = ny as usize * self.width + nx as usize;
-                    let neighbor = &board.cells[nidx];
-                    
-                    if neighbor.is_flagged {
-                        flags += 1;
-                    } else if !neighbor.is_revealed {
-                        hidden.push((nx as usize, ny as usize));
-                    }
-                }
+        let neighbors = board.generate_neighbors(coords);
+        
+        for neighbor_coords in neighbors {
+            let nidx = board.coords_to_index(&neighbor_coords);
+            let neighbor = &board.cells[nidx];
+            
+            if neighbor.is_flagged {
+                flags += 1;
+            } else if !neighbor.is_revealed {
+                hidden.push(neighbor_coords);
             }
         }
         
         Constraint {
-            center: (x, y),
+            center: coords.to_vec(),
             total_mines: cell.adjacent_mines as usize,
             flagged: flags,
             hidden_cells: hidden,
