@@ -12,7 +12,7 @@ use crate::board::Board;
 use wasm_bindgen::prelude::*;
 
 pub trait Algorithm {
-    fn next_move(&mut self, board: &Board) -> Option<(usize, usize)>;
+    fn next_move(&mut self, board: &Board) -> Option<Vec<usize>>; // 좌표를 Vec<usize>로 변경
 }
 
 // Algorithm types enum
@@ -48,18 +48,16 @@ pub struct AlgorithmFactory;
 impl AlgorithmFactory {
     pub fn create_algorithm(
         algo_type: WasmAlgorithmType,
-        width: usize,
-        height: usize,
+        dimensions: Vec<usize>,
         mines: usize,
     ) -> Box<dyn Algorithm> {
         match algo_type {
             WasmAlgorithmType::Greedy => {
-                Box::new(greedy::GreedyAlgorithm::new(width, height, mines))
+                Box::new(greedy::GreedyAlgorithm::new(dimensions, mines))
             }
             WasmAlgorithmType::ExactSolver => {
-                Box::new(exact_solver::ExactSolver::new(width, height, mines))
+                Box::new(exact_solver::ExactSolver::new(dimensions, mines))
             }
-            // [4] when adding a new algorithm, add it here
         }
     }
 }
