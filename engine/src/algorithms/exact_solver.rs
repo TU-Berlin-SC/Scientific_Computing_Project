@@ -3,210 +3,171 @@ use crate::board::Board;
 use crate::algorithms::Algorithm;
 use std::collections::HashSet;
 
+/// Human Expert Algorithm
+/// uses set difference rules to mimic how a human expert would play the game
 pub struct ExactSolver {
     width: usize,
     height: usize,
     mines: usize,
-    first_move: bool,
+    // first move is handled by the agent now
 }
 
 impl ExactSolver {
     pub fn new(width: usize, height: usize, mines: usize) -> Self {
-        Self { width, height, mines, first_move: true }
+        Self { width, height, mines}
     }
 
-    fn first_click_position(&self) -> (usize, usize) {
-        (self.width / 2, self.height / 2)
-    }
-
-    fn solve_exact(&self, board: &Board) -> Option<(usize, usize)> {
-        // 1. 제약 조건 수집
+    /// primary solver logic to find all safe cells using constraint analysis
+    fn solve_exact(&self, board: &Board) -> Vec<usize> {
         let mut constraints = Vec::new();
-        let mut all_hidden_cells = HashSet::new();
         
-        for y in 0..self.height {
-            for x in 0..self.width {
-                let idx = y * self.width + x;
-                let cell = &board.cells[idx];
-                
-                if cell.is_revealed && cell.adjacent_mines > 0 {
-                    let constraint = self.build_constraint(board, x, y);
-                    if !constraint.hidden_cells.is_empty() {
-                        all_hidden_cells.extend(constraint.hidden_cells.iter().cloned());
-                        constraints.push(constraint);
-                    }
+        // collect constraints using the 3D adjacency map
+        for idx in 0..board.cells.len() {
+            let cell = &board.cells[idx];
+            
+            if cell.is_revealed && cell.adjacent_mines > 0 {
+                let constraint = self.build_constraint(board, idx);
+                if !constraint.hidden_cells.is_empty() {
+                    constraints.push(constraint);
                 }
             }
         }
         
-        // 2. 확실히 안전한 셀 찾기 (제약 조건 분석)
-        if let Some(safe) = self.find_definitely_safe(&constraints, board) {
-            return Some(safe);
+        // look for definitely safe cells through constraint analysis
+        let safe_cells = self.find_all_definitely_safe(&constraints, board);
+        if !safe_cells.is_empty() {
+            return safe_cells;
         }
         
-        // 3. 확률 계산
-        self.calculate_best_cell(&all_hidden_cells, board)
+        // if no definitely safe cells, return probabilistic candidates
+        self.get_best_probability_candidates(&constraints, board)
     }
     
-    fn build_constraint(&self, board: &Board, x: usize, y: usize) -> Constraint {
-        let idx = y * self.width + x;
+    /// converts a revealed numbered cell into a mathematical constraint
+    /// sum of mines in [hidden_cells] = (adjacent_mines - flagged_neighbors)
+    /// solver uses this to compare constraints across neighbors to deduce stuff
+    fn build_constraint(&self, board: &Board, idx: usize) -> Constraint {
         let cell = &board.cells[idx];
         let mut hidden = Vec::new();
         let mut flags = 0;
         
-        for dy in -1..=1 {
-            for dx in -1..=1 {
-                if dx == 0 && dy == 0 { continue; }
-                
-                let nx = x as isize + dx;
-                let ny = y as isize + dy;
-                
-                if nx >= 0 && nx < self.width as isize && ny >= 0 && ny < self.height as isize {
-                    let nidx = ny as usize * self.width + nx as usize;
-                    let neighbor = &board.cells[nidx];
-                    
-                    if neighbor.is_flagged {
-                        flags += 1;
-                    } else if !neighbor.is_revealed {
-                        hidden.push((nx as usize, ny as usize));
-                    }
-                }
+        // use 3D adjacency map
+        for &n_idx in &board.adjacency_map[idx] {
+            let neighbor = &board.cells[n_idx];
+            if neighbor.is_flagged {
+                flags += 1;
+            } else if !neighbor.is_revealed {
+                hidden.push(n_idx);
             }
         }
         
         Constraint {
-            center: (x, y),
             total_mines: cell.adjacent_mines as usize,
             flagged: flags,
             hidden_cells: hidden,
         }
     }
     
-    fn find_definitely_safe(&self, constraints: &[Constraint], board: &Board) -> Option<(usize, usize)> {
-        // 고급 제약 조건 분석
-        // 1. 단순 비교: 남은 지뢰가 0이면 모든 숨겨진 셀 안전
+    fn find_all_definitely_safe(&self, constraints: &[Constraint], _board: &Board) -> Vec<usize> {
+        let mut safe_indices = HashSet::new();
+
+        // if remaining mines == 0, all hidden neighbors are safe
         for constraint in constraints {
-            if constraint.remaining_mines() == 0 && !constraint.hidden_cells.is_empty() {
-                // 이미 확인되지 않은 안전한 셀 반환
-                for &cell in &constraint.hidden_cells {
-                    let idx = cell.1 * self.width + cell.0;
-                    if !board.cells[idx].is_revealed && !board.cells[idx].is_flagged {
-                        return Some(cell);
+            if constraint.remaining_mines() == 0 {
+                for &idx in &constraint.hidden_cells {
+                    safe_indices.insert(idx);
+                }
+            }
+        }
+
+        // set difference analysis - comparing pairs of constraints
+        if safe_indices.is_empty() {
+            for i in 0..constraints.len() {
+                for j in i + 1..constraints.len() {
+                    // two cells c1 and c2
+                    let c1 = &constraints[i];
+                    let c2 = &constraints[j];
+                    
+                    let set1: HashSet<usize> = c1.hidden_cells.iter().cloned().collect();
+                    let set2: HashSet<usize> = c2.hidden_cells.iter().cloned().collect();
+                    
+                    let intersection: HashSet<_> = set1.intersection(&set2).cloned().collect();
+                    
+                    if !intersection.is_empty() {
+                        let only_in_c1: Vec<usize> = set1.difference(&set2).cloned().collect();
+                        let only_in_c2: Vec<usize> = set2.difference(&set1).cloned().collect();
+                        
+                        // subset reduction logic: if mine difference equals cell difference
+                        let m_diff = c1.remaining_mines() as isize - c2.remaining_mines() as isize;
+                        
+                        if m_diff == only_in_c1.len() as isize {
+                            // all cells only in C2 must be safe
+                            for &idx in &only_in_c2 { safe_indices.insert(idx); }
+                        }
+                        if -m_diff == only_in_c2.len() as isize {
+                            // all cells only in C1 must be safe
+                            for &idx in &only_in_c1 { safe_indices.insert(idx); }
+                        }
                     }
                 }
             }
         }
         
-        // 2. 제약 조건 비교 분석
-        self.analyze_constraint_pairs(constraints, board)
+        safe_indices.into_iter().collect()
     }
     
-    fn analyze_constraint_pairs(&self, constraints: &[Constraint], board: &Board) -> Option<(usize, usize)> {
-        for i in 0..constraints.len() {
-            for j in i+1..constraints.len() {
-                if let Some(safe) = self.compare_two_constraints(&constraints[i], &constraints[j], board) {
-                    return Some(safe);
+    fn get_best_probability_candidates(&self, _constraints: &[Constraint], board: &Board) -> Vec<usize> {
+        let mut best_indices = Vec::new();
+        let mut min_prob = 1.1;
+
+        // Optimized probability baseline calculation
+        let flag_count = board.cells.iter().filter(|c| c.is_flagged).count();
+        let remaining_cells = (6 * self.width * self.height) - board.total_revealed;
+        let remaining_mines = self.mines.saturating_sub(flag_count);
+        
+        let global_prob = if remaining_cells > 0 {
+            remaining_mines as f64 / remaining_cells as f64
+        } else {
+            1.0
+        };
+
+        // Iterate through all hidden cells to find those matching the best probability
+        for idx in 0..board.cells.len() {
+            if !board.cells[idx].is_revealed && !board.cells[idx].is_flagged {
+                let prob = global_prob; // In this version, we use global baseline
+
+                if prob < min_prob - 1e-6 {
+                    min_prob = prob;
+                    best_indices = vec![idx];
+                } else if (prob - min_prob).abs() < 1e-6 {
+                    best_indices.push(idx);
                 }
             }
         }
-        None
-    }
-    
-    fn compare_two_constraints(&self, c1: &Constraint, c2: &Constraint, board: &Board) -> Option<(usize, usize)> {
-        // 두 제약 조건 비교 (집합 연산)
-        let set1: HashSet<_> = c1.hidden_cells.iter().collect();
-        let set2: HashSet<_> = c2.hidden_cells.iter().collect();
-        
-        // 교집합
-        let intersection: HashSet<_> = set1.intersection(&set2).collect();
-        
-        if !intersection.is_empty() {
-            // 차집합
-            let only_in_c1: Vec<_> = set1.difference(&set2).collect();
-            let only_in_c2: Vec<_> = set2.difference(&set1).collect();
-            
-            // 수학적 분석
-            if c1.remaining_mines() as isize - c2.remaining_mines() as isize == only_in_c1.len() as isize {
-                // only_in_c2의 모든 셀 안전
-                for &&cell in &only_in_c2 {
-                    let idx = cell.1 * self.width + cell.0;
-                    if !board.cells[idx].is_revealed && !board.cells[idx].is_flagged {
-                        // return Some(*cell);
-                        return Some(*cell); 
-                    }
-                }
-            }
-            
-            if c2.remaining_mines() as isize - c1.remaining_mines() as isize == only_in_c2.len() as isize {
-                // only_in_c1의 모든 셀 안전
-                for &&cell in &only_in_c1 {
-                    let idx = cell.1 * self.width + cell.0;
-                    if !board.cells[idx].is_revealed && !board.cells[idx].is_flagged {
-                        return Some(*cell);  // *로 역참조
-                    }
-                }
-            }
-        }
-        
-        None
-    }
-    
-    fn calculate_best_cell(&self, all_hidden: &HashSet<(usize, usize)>, board: &Board) -> Option<(usize, usize)> {
-        // 확률 계산 (단순화된 버전)
-        let mut best_cell = None;
-        let mut best_probability = 1.0;
-        
-        for &(x, y) in all_hidden {
-            let idx = y * self.width + x;
-            let cell = &board.cells[idx];
-            
-            if !cell.is_revealed && !cell.is_flagged {
-                // 기본 확률 계산
-                let mut flag_count = 0;
-                for c in &board.cells {
-                    if c.is_flagged { flag_count += 1; }
-                }
-                
-                let remaining_cells = (self.width * self.height) - board.total_revealed;
-                let remaining_mines = self.mines - flag_count;
-                
-                let probability = if remaining_cells > 0 {
-                    remaining_mines as f64 / remaining_cells as f64
-                } else {
-                    1.0
-                };
-                
-                if probability < best_probability {
-                    best_probability = probability;
-                    best_cell = Some((x, y));
-                }
-            }
-        }
-        
-        best_cell
+        best_indices
     }
 }
 
-#[derive(Clone)]  // Clone 트레잇 구현 추가
+/// represents a numbered cell and its hidden neighbors
+#[derive(Clone)]
 struct Constraint {
-    center: (usize, usize),
     total_mines: usize,
     flagged: usize,
-    hidden_cells: Vec<(usize, usize)>,
+    hidden_cells: Vec<usize>,
 }
 
 impl Constraint {
     fn remaining_mines(&self) -> usize {
+        // calculating remaining mines: total - flagged
+        // stops at 0 to prevent panic
         self.total_mines.saturating_sub(self.flagged)
     }
 }
 
+/// implementation of the shared Algorithm trait
 impl Algorithm for ExactSolver {
-    fn next_move(&mut self, board: &Board) -> Option<(usize, usize)> {
-        if self.first_move {
-            self.first_move = false;
-            return Some(self.first_click_position());
-        }
+    fn find_candidates(&mut self, board: &Board) -> Vec<usize> {
+        // agent handles first move and tsp, solver only provides candidates
         self.solve_exact(board)
     }
 }
