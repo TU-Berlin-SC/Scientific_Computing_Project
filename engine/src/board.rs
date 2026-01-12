@@ -1,25 +1,23 @@
 /**
-* Minesweeper Board Module
-* This module defines the Board and Cell structures for the Minesweeper game,
-* along with methods to initialize the board, place mines, reveal cells, and manage game state.
-*/
+ * Minesweeper Board Module (3D Cube Version)
+ * This module defines the Board and Cell structures for the 6-faced Minesweeper cube.
+ */
 
 use serde::{Serialize, Deserialize};
-use rand::seq::SliceRandom;
 use rand::thread_rng;
+use rand::seq::SliceRandom;
 
-// Cell struct
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct Cell {
     pub is_mine: bool,
     pub is_revealed: bool,
     pub is_flagged: bool,
     pub adjacent_mines: u8,
-    pub x: usize,
-    pub y: usize,
+    pub x: usize,     // local face coordinate
+    pub y: usize,     // local face coordinate
+    pub face: usize   // the face of the cube - numbered 0 to 5
 }
 
-// Board struct
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Board {
     pub width: usize,
@@ -30,31 +28,36 @@ pub struct Board {
     pub game_won: bool,
     pub total_revealed: usize,
     pub total_clicks: usize,
+    pub last_click_idx: usize,         
+    pub adjacency_map: Vec<Vec<usize>> 
 }
 
 impl Board {
-    pub fn new(width: usize, height: usize, mines: usize) -> Self {
-        let total_cells = width * height;
+    pub fn new(width: usize, height: usize, mines: usize, adjacency_map: Vec<Vec<usize>>) -> Self {
+        let total_cells = 6 * width * height; 
         if mines >= total_cells {
             panic!("Too many mines for board size!");
         }
         
+        // intialising all the cells on all the faces
         let mut cells = Vec::with_capacity(total_cells);
-        
-        for y in 0..height {
-            for x in 0..width {
-                cells.push(Cell {
-                    is_mine: false,  // no mines placed yet
-                    is_revealed: false,
-                    is_flagged: false,
-                    adjacent_mines: 0,
-                    x,
-                    y,
-                });
+        for face in 0..6 {
+            for y in 0..height {
+                for x in 0..width {
+                    cells.push(Cell {
+                        is_mine: false,
+                        is_revealed: false,
+                        is_flagged: false,
+                        adjacent_mines: 0,
+                        x,
+                        y,
+                        face
+                    });
+                }
             }
         }
-        
-        Board {
+
+        let mut board = Board {
             width,
             height,
             mines,
@@ -63,170 +66,125 @@ impl Board {
             game_won: false,
             total_revealed: 0,
             total_clicks: 0,
-        }
-        // do not call place_mines here, as mines are placed after the first click
+            last_click_idx: 0,
+            adjacency_map
+        };
+
+        board.place_mines();
+        board
     }
-    
-    // Place mines after the first click
-    pub fn place_mines_after_first_click(&mut self, first_x: usize, first_y: usize) {
-        let total_cells = self.width * self.height;
-        let mut indices: Vec<usize> = (0..total_cells).collect();
-        
-        // Exclude the first clicked cell
-        let first_idx = first_y * self.width + first_x;
-        indices.retain(|&idx| idx != first_idx);
-        
-        // Exclude surrounding 8 cells of the first click (like actual Windows Minesweeper)
-        indices.retain(|&idx| {
-            let x = idx % self.width;
-            let y = idx / self.width;
-            (x as isize - first_x as isize).abs() > 1 || (y as isize - first_y as isize).abs() > 1
-        });
-        
+
+    /// logic for placing mines randomly on the board
+    fn place_mines(&mut self) {
         let mut rng = thread_rng();
+        let mut indices: Vec<usize> = (0..self.cells.len()).collect();
         indices.shuffle(&mut rng);
-        
-        // Place mines
+
         for &idx in indices.iter().take(self.mines) {
             self.cells[idx].is_mine = true;
         }
-        
-        // Calculate adjacent mines after placing mines
-        self.calculate_adjacent_mines();
-    }
-    
-    // Calculate adjacent mines for each cell
-    pub(crate) fn calculate_adjacent_mines(&mut self) {
-        for y in 0..self.height {
-            for x in 0..self.width {
-                let idx = y * self.width + x;
-                if !self.cells[idx].is_mine {
-                    let mut count = 0;
-                    
-                    for dy in -1..=1 {
-                        for dx in -1..=1 {
-                            if dx == 0 && dy == 0 {
-                                continue;
-                            }
-                            
-                            let nx = x as isize + dx;
-                            let ny = y as isize + dy;
-                            
-                            if nx >= 0 && nx < self.width as isize && ny >= 0 && ny < self.height as isize {
-                                let nidx = ny as usize * self.width + nx as usize;
-                                if self.cells[nidx].is_mine {
-                                    count += 1;
-                                }
-                            }
-                        }
-                    }
-                    
-                    self.cells[idx].adjacent_mines = count;
-                }
+
+        for i in 0..self.cells.len() {
+            if !self.cells[i].is_mine {
+                let count = self.adjacency_map[i].iter()
+                    .filter(|&&neighbor_idx| self.cells[neighbor_idx].is_mine)
+                    .count();
+                self.cells[i].adjacent_mines = count as u8;
             }
         }
-    }
-    
-    // Cell reveal
-    pub fn reveal_cell(&mut self, x: usize, y: usize) -> bool {
-        let idx = y * self.width + x;
-        
-        if idx >= self.cells.len() {
-            return false;
-        }
-        
-        if self.cells[idx].is_revealed || self.cells[idx].is_flagged {
-            return false;
-        }
-        
-        // Place mines on first click
-        if self.total_clicks == 0 {
-            self.place_mines_after_first_click(x, y);
-        }
-        
-        self.total_clicks += 1;
-        self.cells[idx].is_revealed = true;
-        
-        if self.cells[idx].is_mine {
-            self.game_over = true;
-            return true;
-        }
-        
-        self.total_revealed += 1;
-        
-        // Clicked cell has 0 adjacent mines
-        if self.cells[idx].adjacent_mines == 0 {
-            self.reveal_adjacent_zero_cells(x, y);
-        }
-        
-        // Check win condition
-        if self.total_revealed == self.width * self.height - self.mines {
-            self.game_won = true;
-        }
-        
-        true
     }
 
-    // adjacent zero cells reveal
-    fn reveal_adjacent_zero_cells(&mut self, x: usize, y: usize) {
-        let mut stack = vec![(x, y)];
-        let mut visited = vec![false; self.width * self.height];
-        visited[y * self.width + x] = true;
+    /// function for revealing a cell, handles game over and flood fill
+    pub fn reveal(&mut self, idx: usize) {
+        if self.game_over || self.cells[idx].is_revealed || self.cells[idx].is_flagged {
+            return;
+        }
+
+        self.last_click_idx = idx;
+        self.total_clicks += 1;
+
+        if self.cells[idx].is_mine {
+            self.game_over = true;
+            self.game_won = false;
+            return;
+        }
+
+        self.flood_fill(idx);
         
-        while let Some((cx, cy)) = stack.pop() {
-            for dy in -1..=1 {
-                for dx in -1..=1 {
-                    if dx == 0 && dy == 0 {
-                        continue;
-                    }
-                    
-                    let nx = cx as isize + dx;
-                    let ny = cy as isize + dy;
-                    
-                    if nx >= 0 && nx < self.width as isize && ny >= 0 && ny < self.height as isize {
-                        let nx_usize = nx as usize;
-                        let ny_usize = ny as usize;
-                        let nidx = ny_usize * self.width + nx_usize;
-                        
-                        if nidx >= self.cells.len() {
-                            continue;
-                        }
-                        
-                        if !visited[nidx] && !self.cells[nidx].is_revealed && !self.cells[nidx].is_mine && !self.cells[nidx].is_flagged {
-                            self.cells[nidx].is_revealed = true;
-                            self.total_revealed += 1;
-                            visited[nidx] = true;
-                            
-                            if self.cells[nidx].adjacent_mines == 0 {
-                                stack.push((nx_usize, ny_usize));
-                            }
-                        }
+        // --- WIN CONDITION CHECK ---
+        let total_cells = self.cells.len();
+        if self.total_revealed == total_cells - self.mines {
+            self.game_over = true;
+            self.game_won = true;
+            
+            // Auto-flag all mines upon winning
+            for cell in &mut self.cells {
+                if cell.is_mine {
+                    cell.is_flagged = true;
+                }
+            }
+        }
+    }
+
+    /// revealed cells recursively if they have 0 mines around them
+    fn flood_fill(&mut self, start_idx: usize) {
+        let mut stack = vec![start_idx];
+        
+        if !self.cells[start_idx].is_revealed {
+            self.cells[start_idx].is_revealed = true;
+            self.total_revealed += 1;
+        }
+
+        if self.cells[start_idx].adjacent_mines > 0 {
+            return;
+        }
+
+        while let Some(curr_idx) = stack.pop() {
+            for &neighbor_idx in &self.adjacency_map[curr_idx] {
+                let cell = &self.cells[neighbor_idx];
+                if !cell.is_revealed && !cell.is_mine && !cell.is_flagged {
+                    self.cells[neighbor_idx].is_revealed = true;
+                    self.total_revealed += 1;
+                    if self.cells[neighbor_idx].adjacent_mines == 0 {
+                        stack.push(neighbor_idx);
                     }
                 }
             }
         }
     }
-    
-    pub fn toggle_flag(&mut self, x: usize, y: usize) {
-        let idx = y * self.width + x;
+
+    pub fn toggle_flag(&mut self, idx: usize) {
         if idx < self.cells.len() && !self.cells[idx].is_revealed {
             self.cells[idx].is_flagged = !self.cells[idx].is_flagged;
         }
     }
-    
-    // Reset the board to initial state
+
     pub fn reset(&mut self) {
         for cell in &mut self.cells {
-            cell.is_mine = false;
+            cell.is_mine = false; 
             cell.is_revealed = false;
-            cell.is_flagged = false;
+            cell.is_flagged = false; 
             cell.adjacent_mines = 0;
         }
-        
-        self.game_over = false;
+        self.game_over = false; 
         self.game_won = false;
         self.total_revealed = 0;
         self.total_clicks = 0;
-        // 지뢰는 첫 클릭 시 배치됨 (Mine placement is done on first click - according to the minesweeper rules)
+        self.place_mines();
+    }
+
+    pub fn get_3d_dist(&self, a: usize, b: usize) -> f64 {
+        let c1 = &self.cells[a];
+        let c2 = &self.cells[b];
+        let dx = c1.x as f64 - c2.x as f64;
+        let dy = c1.y as f64 - c2.y as f64;
+        let df = (c1.face as f64 - c2.face as f64) * self.width as f64;
+        (dx*dx + dy*dy + df*df).sqrt()
+    }
+
+    pub fn get_hidden_neighbor_count(&self, idx: usize) -> usize {
+        self.adjacency_map[idx].iter()
+            .filter(|&&n| !self.cells[n].is_revealed && !self.cells[n].is_flagged)
+            .count()
     }
 }

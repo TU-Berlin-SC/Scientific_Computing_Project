@@ -1,24 +1,26 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import wasm from 'vite-plugin-wasm';
+import topLevelAwait from 'vite-plugin-top-level-await';
 
 export default defineConfig({
-  plugins: [react()],
-  build: {
-    target: 'es2020',
-    copyPublicDir: true,
-    // JavaScript 모듈 타입 명시
-    rollupOptions: {
-      output: {
-        entryFileNames: 'assets/[name]-[hash].js',
-        chunkFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash].[ext]'
-      }
-    }
+  plugins: [
+    react(),
+    wasm(),
+    topLevelAwait()
+  ],
+  worker: {
+    // Required if your WASM uses web workers
+    plugins: () => [wasm(), topLevelAwait()],
   },
-  // 개발 서버 설정
+  optimizeDeps: {
+    // This forces Vite to treat the WASM package as a dependency
+    exclude: ['your-wasm-package-name'] 
+  },
   server: {
-    headers: {
-      'Content-Type': 'application/javascript'
+    fs: {
+      // Allow serving files from the parent directory if wasm_pkg is outside src
+      allow: ['..']
     }
   }
-})
+});
