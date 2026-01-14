@@ -2,7 +2,6 @@
  * Minesweeper Board Module (3D Cube Version)
  * This module defines the Board and Cell structures for the 6-faced Minesweeper cube.
  */
-
 use serde::{Serialize, Deserialize};
 use rand::thread_rng;
 use rand::seq::SliceRandom;
