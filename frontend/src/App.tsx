@@ -1004,7 +1004,7 @@ function App() {
         const finalState = newSim.runFullGame();
         
         // Map 객체 처리
-        let processedState;
+        let processedState: any;
         if (finalState instanceof Map || (finalState && finalState.entries)) {
           processedState = {};
           for (const [key, value] of finalState.entries()) {
@@ -1096,7 +1096,7 @@ function App() {
           );
           
           const finalState = sim.runFullGame();
-          let processedState;
+          let processedState: any;
           if (finalState instanceof Map || (finalState && finalState.entries)) {
             processedState = {};
             for (const [key, value] of finalState.entries()) {

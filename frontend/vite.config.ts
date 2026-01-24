@@ -16,9 +16,9 @@ export default defineConfig({
     }
   },
   // 개발 서버 설정
-  server: {
-    headers: {
-      'Content-Type': 'application/javascript'
-    }
-  }
+  // server: {
+  //   headers: {
+  //     'Content-Type': 'application/javascript'
+  //   }
+  // }
 })
