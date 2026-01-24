@@ -3,6 +3,7 @@ declare module '../wasm_pkg/engine' {
     export enum WasmAlgorithmType {
       Greedy = 0,
       ExactSolver = 1,
+      SCIPSolver = 2,
     }
   
     export class Simulator {

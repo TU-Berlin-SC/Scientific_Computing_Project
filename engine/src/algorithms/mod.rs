@@ -6,6 +6,7 @@
 
 pub mod greedy;
 pub mod exact_solver;
+pub mod scip_solver;
 // [0] when adding a new algorithm, careate a new module here
 
 use crate::board::Board;
@@ -22,6 +23,7 @@ pub trait Algorithm {
 pub enum WasmAlgorithmType {
     Greedy,
     ExactSolver,
+    SCIPSolver,
 }
 
 impl WasmAlgorithmType {
@@ -30,6 +32,7 @@ impl WasmAlgorithmType {
         match self {
             WasmAlgorithmType::Greedy => "greedy",
             WasmAlgorithmType::ExactSolver => "exact_solver",
+            WasmAlgorithmType::SCIPSolver => "scip_solver",
         }
     }
     
@@ -38,6 +41,7 @@ impl WasmAlgorithmType {
         vec![
             WasmAlgorithmType::Greedy,
             WasmAlgorithmType::ExactSolver,
+            WasmAlgorithmType::SCIPSolver,
         ]
     }
 }
@@ -59,6 +63,9 @@ impl AlgorithmFactory {
             WasmAlgorithmType::ExactSolver => {
                 Box::new(exact_solver::ExactSolver::new(width, height, mines))
             }
+            WasmAlgorithmType::SCIPSolver => {
+                Box::new(scip_solver::SCIPSolver::new(width, height, mines))
+            }
             // [4] when adding a new algorithm, add it here
         }
     }
@@ -67,3 +74,4 @@ impl AlgorithmFactory {
 //[5] when adding a new algorithm, add it here
 pub use greedy::GreedyAlgorithm;
 pub use exact_solver::ExactSolver;
+pub use scip_solver::SCIPSolver;

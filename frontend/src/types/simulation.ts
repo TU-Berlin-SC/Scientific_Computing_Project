@@ -37,6 +37,7 @@ export interface SimulationResult {
 export enum AlgorithmType {
   Greedy = 0,
   ExactSolver = 1,
+  SCIPSolver = 2,
 }
 
 // 알고리즘 정보
@@ -63,5 +64,12 @@ export const AlgorithmInfo: AlgorithmInfoType[] = [
     description: 'Uses exact integer linear programming to find optimal moves',
     implemented: true,
     id: 'exact'  // App.tsx 호환성
+  },
+  { 
+    value: AlgorithmType.SCIPSolver, 
+    label: 'SCIP Solver',
+    description: 'Uses Constraint Integer Programming with russcip crate to find optimal moves',
+    implemented: true,
+    id: 'scip'
   },
 ];

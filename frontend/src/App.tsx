@@ -756,6 +756,7 @@ interface WasmModule {
   WasmAlgorithmType: {
     Greedy: number;
     ExactSolver: number;
+    SCIPSolver: number;
   };
   compare_algorithms: (width: number, height: number, mines: number, games: number) => any;
 }
