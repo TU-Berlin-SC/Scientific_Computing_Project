@@ -8,11 +8,11 @@ pub mod greedy;
 pub mod exact_solver;
 // [0] when adding a new algorithm, careate a new module here
 
-use crate::board::Board;
+use crate::board::{Board, Face};
 use wasm_bindgen::prelude::*;
 
 pub trait Algorithm {
-    fn next_move(&mut self, board: &Board) -> Option<(usize, usize)>;
+    fn next_move(&mut self, board: &Board) -> Option<(Face, usize, usize)>;
 }
 
 // Algorithm types enum
@@ -48,16 +48,15 @@ pub struct AlgorithmFactory;
 impl AlgorithmFactory {
     pub fn create_algorithm(
         algo_type: WasmAlgorithmType,
-        width: usize,
-        height: usize,
+        n: usize,
         mines: usize,
     ) -> Box<dyn Algorithm> {
         match algo_type {
             WasmAlgorithmType::Greedy => {
-                Box::new(greedy::GreedyAlgorithm::new(width, height, mines))
+                Box::new(greedy::GreedyAlgorithm::new(n, mines))
             }
             WasmAlgorithmType::ExactSolver => {
-                Box::new(exact_solver::ExactSolver::new(width, height, mines))
+                Box::new(exact_solver::ExactSolver::new(n, mines))
             }
             // [4] when adding a new algorithm, add it here
         }

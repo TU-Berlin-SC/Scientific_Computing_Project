@@ -27,11 +27,11 @@ pub struct Simulator {
 #[wasm_bindgen]
 impl Simulator {
     #[wasm_bindgen(constructor)]
-    pub fn new(width: usize, height: usize, mines: usize, algorithm_type: WasmAlgorithmType) -> Self {
-        let board = Board::new(width, height, mines);
+    pub fn new(n: usize, mines: usize, algorithm_type: WasmAlgorithmType) -> Self {
+        let board = Board::new(n, mines);
         let algorithm = AlgorithmFactory::create_algorithm(
             algorithm_type,
-            width, height, mines
+            n, mines // DEV: was width, height
         );
         
         Self { 
@@ -54,8 +54,8 @@ impl Simulator {
             return self.get_state(); 
         }
         
-        if let Some((x, y)) = self.algorithm.next_move(&self.board) {
-            self.board.reveal_cell(x, y);
+        if let Some((face, u, v)) = self.algorithm.next_move(&self.board) {
+            self.board.reveal_cell(face, u, v);
             self.steps += 1;
         }
         
@@ -66,8 +66,8 @@ impl Simulator {
     #[wasm_bindgen(js_name = runFullGame)]
     pub fn run_full_game(&mut self) -> JsValue {
         while !self.board.game_over && !self.board.game_won {
-            if let Some((x, y)) = self.algorithm.next_move(&self.board) {
-                self.board.reveal_cell(x, y);
+            if let Some((face, u, v)) = self.algorithm.next_move(&self.board) { // DEV: was x, y
+                self.board.reveal_cell(face, u, v);
                 self.steps += 1;
             } else {
                 break;
@@ -79,24 +79,23 @@ impl Simulator {
     // Run multiple games in batch and return aggregated results
     #[wasm_bindgen(js_name = runBatch)]
     pub fn run_batch(&self, games: usize) -> JsValue {
-        let width = self.board.width;
-        let height = self.board.height;
+        let n = self.board.n;
         let mines = self.board.mines;
         
         let mut results = Vec::new();
         
         for game_idx in 0..games {  // 0부터 games-1까지
-            let mut board = Board::new(width, height, mines);
+            let mut board = Board::new(n, mines);
             let mut algorithm = AlgorithmFactory::create_algorithm(
                 self.algorithm_type.into(),
-                width, height, mines
+                n, mines // DEV: was width, height
             );
             let mut steps = 0;
             let mut clicks = 0;
             // 게임 진행
             while !board.game_over && !board.game_won {
-                if let Some((x, y)) = algorithm.next_move(&board) {    // 다음 수를 얻음
-                    board.reveal_cell(x, y);                            // 셀을 공개
+                if let Some((face, u, v)) = algorithm.next_move(&board) {    // 다음 수를 얻음
+                    board.reveal_cell(face, u, v);                            // 셀을 공개
                     steps += 1;                                         // 단계 증가
                     clicks = board.total_clicks;                      // 클릭 수 갱신
                 } else {
@@ -110,10 +109,9 @@ impl Simulator {
                 "steps": steps,
                 "clicks": clicks,
                 "mines": mines,
-                "width": width,
-                "height": height,
+                "n": n, // DEV: was width, height
                 "total_revealed": board.total_revealed,
-                "total_cells": width * height,
+                "total_cells": n * n * 6,
                 "game_over": board.game_over,
                 "algorithm": self.algorithm_type.as_str(),
             }));
@@ -125,14 +123,13 @@ impl Simulator {
     // Reset the simulator to initial state
     #[wasm_bindgen(js_name = reset)]
     pub fn reset(&mut self) {
-        let width = self.board.width;
-        let height = self.board.height;
+        let n = self.board.n;
         let mines = self.board.mines;
         
-        self.board = Board::new(width, height, mines);
+        self.board = Board::new(n, mines);
         self.algorithm = AlgorithmFactory::create_algorithm(
             self.algorithm_type.into(),
-            width, height, mines
+            n, mines // DEV: was width, height
         );
         self.steps = 0;
     }
@@ -140,14 +137,13 @@ impl Simulator {
     // Set a new algorithm for the simulator
     #[wasm_bindgen(js_name = setAlgorithm)]
     pub fn set_algorithm(&mut self, algorithm_type: WasmAlgorithmType) {
-        let width = self.board.width;
-        let height = self.board.height;
+        let n = self.board.n;
         let mines = self.board.mines;
         
         self.algorithm_type = algorithm_type;
         self.algorithm = AlgorithmFactory::create_algorithm(
             algorithm_type.into(),
-            width, height, mines
+            n, mines // DEV: was width, height
         );
     }
 
@@ -173,13 +169,13 @@ pub fn test_add(a: i32, b: i32) -> i32 {
 // Create a simple board for testing. maybe i should remove this later
 #[wasm_bindgen]
 pub fn create_simple_board() -> JsValue {
-    let board = Board::new(8, 8, 10);
+    let board = Board::new(8, 10);
     to_value(&board).unwrap()
 }
 
 // Compare different algorithms over multiple games
 #[wasm_bindgen]
-pub fn compare_algorithms(width: usize, height: usize, mines: usize, games: usize) -> JsValue {
+pub fn compare_algorithms(n: usize, mines: usize, games: usize) -> JsValue { // DEV: was width, height
     let mut results = Vec::new();
     
     // 매크로에서 생성된 all() 메서드 사용
@@ -189,16 +185,16 @@ pub fn compare_algorithms(width: usize, height: usize, mines: usize, games: usiz
         let mut total_clicks = 0;
         
         for _ in 0..games {
-            let mut board = Board::new(width, height, mines);
+            let mut board = Board::new(n, mines);
             let mut algorithm = AlgorithmFactory::create_algorithm(
                 algo_type.into(),
-                width, height, mines
+                n, mines // DEV: was width, height
             );
             let mut steps = 0;
             
             while !board.game_over && !board.game_won {
-                if let Some((x, y)) = algorithm.next_move(&board) {
-                    board.reveal_cell(x, y);
+                if let Some((face, u, v)) = algorithm.next_move(&board) {
+                    board.reveal_cell(face, u, v);
                     steps += 1;
                 } else {
                     break;

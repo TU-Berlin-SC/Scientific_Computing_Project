@@ -11,12 +11,11 @@ macro_rules! register_algorithms {
         impl AlgorithmFactory {
             pub fn create_algorithm(
                 algo_type: AlgorithmType,
-                width: usize,
-                height: usize,
+                n: usize,
                 mines: usize,
             ) -> Box<dyn Algorithm> {
                 match algo_type {
-                    $(AlgorithmType::$name => Box::new($struct_name::new(width, height, mines)),)*
+                    $(AlgorithmType::$name => Box::new($struct_name::new(n, mines)),)*
                 }
             }
         }
