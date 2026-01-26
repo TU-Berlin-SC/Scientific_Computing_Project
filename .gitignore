@@ -38,3 +38,6 @@ frontend/src/wasm/wasm_pkg/*.d.ts
 *.sln
 *.sw?
 
+engine/simulation_results.csv
+.gitignore
+engine/trial_2.csv

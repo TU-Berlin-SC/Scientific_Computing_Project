@@ -1,7 +1,7 @@
 // src/algorithms/macros.rs
 #[macro_export]
 macro_rules! register_algorithms {
-    ($($name:ident => $type_name:expr, $struct_name:ident),* $(,)?) => {
+    ($($name:ident => $type_name:expr, $struct_type:path),* $(,)?) => {
         pub enum AlgorithmType {
             $($name,)*
         }
@@ -9,30 +9,29 @@ macro_rules! register_algorithms {
         pub struct AlgorithmFactory;
         
         impl AlgorithmFactory {
-            pub fn create_algorithm(
-                algo_type: AlgorithmType,
+            pub fn create_agent(
+                algo_type: WasmAlgorithmType,
+                objective: TspObjective,
                 width: usize,
                 height: usize,
                 mines: usize,
-            ) -> Box<dyn Algorithm> {
-                match algo_type {
-                    $(AlgorithmType::$name => Box::new($struct_name::new(width, height, mines)),)*
+            ) -> MinesweeperAgent {
+                let solver: Box<dyn Algorithm> = match algo_type {
+                    $(WasmAlgorithmType::$name => Box::new(<$struct_type>::new(width, height, mines)),)*
+                };
+
+                MinesweeperAgent {
+                    solver,
+                    objective,
+                    first_move: true,
                 }
             }
         }
         
         #[wasm_bindgen]
-        #[derive(Copy, Clone)]
+        #[derive(Copy, Clone, Debug, PartialEq, Eq)]
         pub enum WasmAlgorithmType {
             $($name,)*
-        }
-        
-        impl From<WasmAlgorithmType> for AlgorithmType {
-            fn from(wasm_type: WasmAlgorithmType) -> Self {
-                match wasm_type {
-                    $(WasmAlgorithmType::$name => AlgorithmType::$name,)*
-                }
-            }
         }
         
         impl WasmAlgorithmType {

@@ -1,14 +1,13 @@
 use crate::board::Board;
 use crate::algorithms::Algorithm;
 
-
-/// GreedyAlgorithm
+/// greedy algorithm
 /// uses heuristics (information about neighbors) to make locally optimal choices
 pub struct GreedyAlgorithm {
     width: usize,
     height: usize,
     mines: usize,
-    // first_move is now handled by the Agent struct so we dont need it here
+    // first_move is now handled by the agent struct so we dont need it here
 }
 
 impl GreedyAlgorithm {
@@ -48,7 +47,7 @@ impl GreedyAlgorithm {
         }
 
         if revealed_neighbors > 0 && neighbor_mine_count > 0 {
-            let hidden_neighbors = total_neighbors - revealed_neighbors - neighbor_flagged_count;
+            let hidden_neighbors = total_neighbors.saturating_sub(revealed_neighbors).saturating_sub(neighbor_flagged_count);
             if hidden_neighbors > 0 {
                 let remaining_mines = neighbor_mine_count as f64 - neighbor_flagged_count as f64;
                 return remaining_mines.max(0.0) / hidden_neighbors as f64;
@@ -58,8 +57,8 @@ impl GreedyAlgorithm {
         // global probability baseline 
         // P(mine) = (total mines in game - total flags placed)/total unrevealed cells on the cube
         let flag_count = board.cells.iter().filter(|c| c.is_flagged).count();
-        let remaining_cells = (6 * self.width * self.height) - board.total_revealed;
-        let remaining_mines = self.mines - flag_count;
+        let remaining_cells = (6 * self.width * self.height).saturating_sub(board.total_revealed);
+        let remaining_mines = self.mines.saturating_sub(flag_count);
         
         if remaining_cells > 0 {
             remaining_mines as f64 / remaining_cells as f64
@@ -137,7 +136,6 @@ impl GreedyAlgorithm {
     }
 }
 
-/// Algorithm trait implementation
 impl Algorithm for GreedyAlgorithm {
     fn find_candidates(&mut self, board: &Board) -> Vec<usize> {
         // agent handles the first move so we just call the algo to find the safe cells

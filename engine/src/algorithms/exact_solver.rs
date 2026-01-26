@@ -3,13 +3,13 @@ use crate::board::Board;
 use crate::algorithms::Algorithm;
 use std::collections::HashSet;
 
-/// Human Expert Algorithm
+/// human expert algorithm
 /// uses set difference rules to mimic how a human expert would play the game
 pub struct ExactSolver {
     width: usize,
     height: usize,
     mines: usize,
-    // first move is handled by the agent now
+    // first move is handled by the agent 
 }
 
 impl ExactSolver {
@@ -21,7 +21,7 @@ impl ExactSolver {
     fn solve_exact(&self, board: &Board) -> Vec<usize> {
         let mut constraints = Vec::new();
         
-        // collect constraints using the 3D adjacency map
+        // collect constraints using the 3d adjacency map
         for idx in 0..board.cells.len() {
             let cell = &board.cells[idx];
             
@@ -51,7 +51,7 @@ impl ExactSolver {
         let mut hidden = Vec::new();
         let mut flags = 0;
         
-        // use 3D adjacency map
+        // use 3d adjacency map
         for &n_idx in &board.adjacency_map[idx] {
             let neighbor = &board.cells[n_idx];
             if neighbor.is_flagged {
@@ -101,11 +101,11 @@ impl ExactSolver {
                         let m_diff = c1.remaining_mines() as isize - c2.remaining_mines() as isize;
                         
                         if m_diff == only_in_c1.len() as isize {
-                            // all cells only in C2 must be safe
+                            // all cells only in c2 must be safe
                             for &idx in &only_in_c2 { safe_indices.insert(idx); }
                         }
                         if -m_diff == only_in_c2.len() as isize {
-                            // all cells only in C1 must be safe
+                            // all cells only in c1 must be safe
                             for &idx in &only_in_c1 { safe_indices.insert(idx); }
                         }
                     }
@@ -120,9 +120,9 @@ impl ExactSolver {
         let mut best_indices = Vec::new();
         let mut min_prob = 1.1;
 
-        // Optimized probability baseline calculation
+        // optimized probability baseline calculation
         let flag_count = board.cells.iter().filter(|c| c.is_flagged).count();
-        let remaining_cells = (6 * self.width * self.height) - board.total_revealed;
+        let remaining_cells = (6 * self.width * self.height).saturating_sub(board.total_revealed);
         let remaining_mines = self.mines.saturating_sub(flag_count);
         
         let global_prob = if remaining_cells > 0 {
@@ -131,10 +131,10 @@ impl ExactSolver {
             1.0
         };
 
-        // Iterate through all hidden cells to find those matching the best probability
+        // iterate through all hidden cells to find those matching the best probability
         for idx in 0..board.cells.len() {
             if !board.cells[idx].is_revealed && !board.cells[idx].is_flagged {
-                let prob = global_prob; // In this version, we use global baseline
+                let prob = global_prob; // in this version, we use global baseline
 
                 if prob < min_prob - 1e-6 {
                     min_prob = prob;
@@ -164,7 +164,7 @@ impl Constraint {
     }
 }
 
-/// implementation of the shared Algorithm trait
+/// implementation of the shared algorithm trait
 impl Algorithm for ExactSolver {
     fn find_candidates(&mut self, board: &Board) -> Vec<usize> {
         // agent handles first move and tsp, solver only provides candidates

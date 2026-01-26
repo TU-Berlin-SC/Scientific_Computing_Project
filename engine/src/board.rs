@@ -5,6 +5,7 @@
 use serde::{Serialize, Deserialize};
 use rand::thread_rng;
 use rand::seq::SliceRandom;
+use std::collections::VecDeque; 
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct Cell {
@@ -56,7 +57,7 @@ impl Board {
             }
         }
 
-        let mut board = Board {
+        Board {
             width,
             height,
             mines,
@@ -67,22 +68,24 @@ impl Board {
             total_clicks: 0,
             last_click_idx: 0,
             adjacency_map
-        };
-
-        board.place_mines();
-        board
+        }
     }
 
     /// logic for placing mines randomly on the board
-    fn place_mines(&mut self) {
+    /// Modified to ensure first-click safety: excludes start_idx and its neighbors
+    pub fn place_mines_after_first_click(&mut self, first_idx: usize) {
         let mut rng = thread_rng();
         let mut indices: Vec<usize> = (0..self.cells.len()).collect();
+        
+        // Ensure the first click (and its immediate 3D neighbors) are safe
+        indices.retain(|&idx| idx != first_idx && !self.adjacency_map[first_idx].contains(&idx));
         indices.shuffle(&mut rng);
 
         for &idx in indices.iter().take(self.mines) {
             self.cells[idx].is_mine = true;
         }
 
+        // Calculate adjacent mines for the whole board
         for i in 0..self.cells.len() {
             if !self.cells[i].is_mine {
                 let count = self.adjacency_map[i].iter()
@@ -94,9 +97,14 @@ impl Board {
     }
 
     /// function for revealing a cell, handles game over and flood fill
-    pub fn reveal(&mut self, idx: usize) {
+    pub fn reveal_cell(&mut self, idx: usize) {
         if self.game_over || self.cells[idx].is_revealed || self.cells[idx].is_flagged {
             return;
+        }
+
+        // Place mines only on the very first click
+        if self.total_clicks == 0 {
+            self.place_mines_after_first_click(idx);
         }
 
         self.last_click_idx = idx;
@@ -110,13 +118,13 @@ impl Board {
 
         self.flood_fill(idx);
         
-        // --- WIN CONDITION CHECK ---
+        // check for the win condition
         let total_cells = self.cells.len();
         if self.total_revealed == total_cells - self.mines {
             self.game_over = true;
             self.game_won = true;
             
-            // Auto-flag all mines upon winning
+            // auto flag all mines upon winning
             for cell in &mut self.cells {
                 if cell.is_mine {
                     cell.is_flagged = true;
@@ -169,16 +177,30 @@ impl Board {
         self.game_won = false;
         self.total_revealed = 0;
         self.total_clicks = 0;
-        self.place_mines();
+        // 지뢰는 첫 클릭 시 배치됨 (Mine placement is done on first click)
     }
 
-    pub fn get_3d_dist(&self, a: usize, b: usize) -> f64 {
-        let c1 = &self.cells[a];
-        let c2 = &self.cells[b];
-        let dx = c1.x as f64 - c2.x as f64;
-        let dy = c1.y as f64 - c2.y as f64;
-        let df = (c1.face as f64 - c2.face as f64) * self.width as f64;
-        (dx*dx + dy*dy + df*df).sqrt()
+    /// Calculates distances to all cells from start_idx using BFS
+    pub fn get_distance_map(&self, start_idx: usize) -> Vec<usize> {
+        let mut distances = vec![usize::MAX; self.cells.len()];
+        let mut queue = VecDeque::new();
+
+        if start_idx < self.cells.len() {
+            distances[start_idx] = 0;
+            queue.push_back(start_idx);
+        }
+
+        while let Some(current) = queue.pop_front() {
+            let current_dist = distances[current];
+
+            for &neighbor in &self.adjacency_map[current] {
+                if distances[neighbor] == usize::MAX {
+                    distances[neighbor] = current_dist + 1;
+                    queue.push_back(neighbor);
+                }
+            }
+        }
+        distances
     }
 
     pub fn get_hidden_neighbor_count(&self, idx: usize) -> usize {
