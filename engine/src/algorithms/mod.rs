@@ -11,6 +11,7 @@ pub mod greedy;
 pub mod exact_solver;
 pub mod sat_solver;
 pub mod metaheuristic;
+pub mod scip_solver;
 /// [0] when adding a new algorithm, create a new module here
 
 use crate::board::Board;
@@ -101,6 +102,7 @@ register_algorithms!(
     Greedy => "greedy", crate::algorithms::greedy::GreedyAlgorithm,
     ExactSolver => "exact_solver", crate::algorithms::exact_solver::ExactSolver,
     SatSolver => "sat_solver", crate::algorithms::sat_solver::SatSolver,
+    SCIPSolver => "scip_solver", crate::algorithms::scip_solver::SCIPSolver,
 );
 
 // [5] when adding a new algorithm, add its pub use or module reference here
