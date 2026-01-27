@@ -25,7 +25,7 @@ impl MetaHeuristicRunner {
     pub fn new(iterations: usize) -> Self {
         Self {
             iterations,
-            board_sizes: vec![(3, 3), (8, 8)], // Change board size here
+            board_sizes: vec![(3, 3), (8, 8)], // change board size here
         }
     }
 
@@ -33,7 +33,7 @@ impl MetaHeuristicRunner {
     pub fn run_benchmarks(&self) -> Vec<SimulationResult> {
         let mut results = Vec::new();
         let solvers = WasmAlgorithmType::all();
-        // for testing only greedy was used
+        // for testing only greedy
         // let solvers = vec![WasmAlgorithmType::Greedy];
         let objectives = vec![
             TspObjective::MinDistance,
@@ -48,7 +48,7 @@ impl MetaHeuristicRunner {
                 for &obj in &objectives {
                     for _ in 0..self.iterations {
                         let res = self.run_single_sim(w, h, mines, solver_type, obj);
-                        println!("Completed: {} on {}x{} board", solver_type.as_str(), w, h);
+                        // println!("Completed: {} on {}x{} board", solver_type.as_str(), w, h);
                         results.push(res);
                     }
                 }
