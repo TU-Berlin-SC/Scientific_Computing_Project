@@ -48,7 +48,7 @@ impl MetaHeuristicRunner {
                 for &obj in &objectives {
                     for _ in 0..self.iterations {
                         let res = self.run_single_sim(w, h, mines, solver_type, obj);
-                        println!("Completed: {} on {}x{} board", solver_type.as_str(), w, h);
+                        println!("Completed: {} on {}x{}x{} board", solver_type.as_str(), w, h, h);
                         results.push(res);
                     }
                 }
@@ -76,7 +76,7 @@ impl MetaHeuristicRunner {
         SimulationResult {
             algorithm: algo.as_str().to_string(),
             objective: format!("{:?}", obj),
-            board_dims: format!("{}x{}", w, h),
+            board_dims: format!("{}x{}x{}", w, h, h),
             win: board.game_won,
             total_clicks: board.total_clicks,
             time_ms: start_time.elapsed().as_millis(),
