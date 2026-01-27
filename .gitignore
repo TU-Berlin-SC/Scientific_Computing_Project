@@ -41,3 +41,4 @@ frontend/src/wasm/wasm_pkg/*.d.ts
 engine/simulation_results.csv
 .gitignore
 engine/trial_2.csv
+engine/trial_2_final.csv

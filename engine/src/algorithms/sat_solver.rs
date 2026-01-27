@@ -3,6 +3,7 @@ use crate::board::Board;
 use crate::algorithms::Algorithm;
 use std::collections::HashSet;
 
+
 /// sat solver algorithm
 /// converts the minesweeper board into a boolean satisfiability problem
 /// each hidden cell is treated as a boolean variable (true = mine, false = safe)
@@ -13,6 +14,9 @@ pub struct SatSolver {
 }
 
 /// represents a logical clause in conjunctive normal form (cnf)
+/// e.g. mine count of 2 and 3 hidden neighbors A,B,C: creates a clause
+/// (A or B) and (A or C) and (B or C) -> at least two are mines and 
+// not A or not B or not C -> not all three are mines
 /// positive integers represent a mine at (index - 1), negative represent safe
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 struct Clause(Vec<isize>); 
@@ -32,8 +36,7 @@ impl SatSolver {
             return self.get_probabilistic_fallback(board);
         }
 
-        // build the base cnf from revealed numbers on the board
-        // these clauses define the rules the mines must follow
+        // build the base cnf from revealed cells
         let base_clauses = self.build_cnf_from_board(board);
 
         // proof by contradiction logic
@@ -42,11 +45,11 @@ impl SatSolver {
             let mut test_clauses = base_clauses.clone();
             
             // add a clause forcing this specific cell to be a mine
-            // literal = (index + 1) because sat variables usually start at 1
+            // index + 1 b - sat variables start at 1
             test_clauses.push(Clause(vec![(idx as isize) + 1]));
 
-            // dpll checks if this assumption is mathematically possible
-            // if it is unsatisfiable (false), then the cell cannot be a mine
+            // algo checks if this assumption is possible
+            // if it is unsatisfiable then the cell cannot be a mine
             // therefore, it is guaranteed to be safe
             if !self.dpll(test_clauses, HashSet::new()) {
                 safe_cells.push(idx);
@@ -54,6 +57,7 @@ impl SatSolver {
         }
 
         // if logic finds no guaranteed safe spots, we fall back to probability
+        // reason for our false in results
         if safe_cells.is_empty() {
             self.get_probabilistic_fallback(board)
         } else {
@@ -62,7 +66,7 @@ impl SatSolver {
     }
 
     /// dpll algorithm
-    /// for deciding the satisfiability of cnf formulas
+    /// decides satisfiability of cnf clauses
     fn dpll(&self, clauses: Vec<Clause>, mut assignments: HashSet<isize>) -> bool {
         // if all clauses are removed, the formula is satisfied
         if clauses.is_empty() { return true; }
@@ -76,7 +80,7 @@ impl SatSolver {
             return self.dpll(self.simplify(clauses, unit), assignments);
         }
 
-        // branching- pick a literal and try assigning it true, then false
+        // pick a literal and try assigning it true -> mine
         let literal = clauses[0].0[0];
         
         // try assuming the literal is true
@@ -86,7 +90,7 @@ impl SatSolver {
             return true;
         }
 
-        // if true failed, try assuming it is false (negated literal)
+        // if true failed, try assuming it is false -> safe
         let mut without_lit = assignments.clone();
         without_lit.insert(-literal);
         self.dpll(self.simplify(clauses, -literal), without_lit)
@@ -121,9 +125,7 @@ impl SatSolver {
                 let k = (cell.adjacent_mines as usize).saturating_sub(flags);
                 
                 if !neighbors.is_empty() {
-                    // "exactly k" mines among n neighbors is translated into two parts:
-                    // 1) at least k mines
-                    // 2) at most k mines
+                    // 'exactly k' mines among n neighbors -> at least k mines and at most k mines
                     self.add_exactly_k_clauses(&mut clauses, &neighbors, k);
                 }
             }
@@ -131,17 +133,17 @@ impl SatSolver {
         clauses
     }
 
-    /// converts "exactly k mines" into cnf clauses
+    /// converts 'exactly k mines' into cnf clauses
     fn add_exactly_k_clauses(&self, clauses: &mut Vec<Clause>, vars: &[usize], k: usize) {
         use itertools::Itertools;
         let n = vars.len();
 
-        // at least k: in any subset of size (n - k + 1), at least one must be a mine
+        // at least k - in any subset of size n - k + 1 at least one must be a mine
         for combo in vars.iter().combinations(n - k + 1) {
             clauses.push(Clause(combo.into_iter().map(|&v| (v as isize) + 1).collect()));
         }
 
-        // at most k: in any subset of size (k + 1), at least one must be safe
+        // at most k - in any subset of size k + 1 at least one must be safe
         for combo in vars.iter().combinations(k + 1) {
             clauses.push(Clause(combo.into_iter().map(|&v| -((v as isize) + 1)).collect()));
         }
@@ -180,7 +182,6 @@ impl SatSolver {
     }
 }
 
-/// implements the algorithm trait so the agent can use this solver
 impl Algorithm for SatSolver {
     fn find_candidates(&mut self, board: &Board) -> Vec<usize> {
         self.solve_with_sat(board)
