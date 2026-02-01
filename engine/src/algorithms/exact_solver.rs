@@ -5,6 +5,7 @@ use std::collections::HashSet;
 
 /// human expert algorithm
 /// uses set difference rules to mimic how a human expert would play the game
+#[allow(dead_code)]
 pub struct ExactSolver {
     width: usize,
     height: usize,
@@ -14,17 +15,17 @@ pub struct ExactSolver {
 
 impl ExactSolver {
     pub fn new(width: usize, height: usize, mines: usize) -> Self {
-        Self { width, height, mines}
+        Self { width, height, mines }
     }
 
     /// primary solver logic to find all safe cells using constraint analysis
     fn solve_exact(&self, board: &Board) -> Vec<usize> {
         let mut constraints = Vec::new();
-        
+
         // collect constraints using the 3d adjacency map
         for idx in 0..board.cells.len() {
             let cell = &board.cells[idx];
-            
+
             if cell.is_revealed && cell.adjacent_mines > 0 {
                 let constraint = self.build_constraint(board, idx);
                 if !constraint.hidden_cells.is_empty() {
@@ -32,17 +33,17 @@ impl ExactSolver {
                 }
             }
         }
-        
+
         // look for definitely safe cells through constraint analysis
         let safe_cells = self.find_all_definitely_safe(&constraints, board);
         if !safe_cells.is_empty() {
             return safe_cells;
         }
-        
+
         // if no definitely safe cells, return probabilistic candidates
         self.get_best_probability_candidates(&constraints, board)
     }
-    
+
     /// converts a revealed numbered cell into a mathematical constraint
     /// sum of mines in [hidden_cells] = (adjacent_mines - flagged_neighbors)
     /// solver uses this to compare constraints across neighbors to deduce stuff
@@ -50,7 +51,7 @@ impl ExactSolver {
         let cell = &board.cells[idx];
         let mut hidden = Vec::new();
         let mut flags = 0;
-        
+
         // use 3d adjacency map
         for &n_idx in &board.adjacency_map[idx] {
             let neighbor = &board.cells[n_idx];
@@ -60,14 +61,14 @@ impl ExactSolver {
                 hidden.push(n_idx);
             }
         }
-        
+
         Constraint {
             total_mines: cell.adjacent_mines as usize,
             flagged: flags,
             hidden_cells: hidden,
         }
     }
-    
+
     fn find_all_definitely_safe(&self, constraints: &[Constraint], _board: &Board) -> Vec<usize> {
         let mut safe_indices = HashSet::new();
 
@@ -82,49 +83,47 @@ impl ExactSolver {
 
         // set difference analysis - comparing pairs of constraints
         if safe_indices.is_empty() {
+            // We iterate through all pairs (i, j) to find subset relationships
             for i in 0..constraints.len() {
-                for j in i + 1..constraints.len() {
-                    // two cells c1 and c2
+                for j in 0..constraints.len() {
+                    if i == j { continue; }
+
                     let c1 = &constraints[i];
                     let c2 = &constraints[j];
-                    
+
                     let set1: HashSet<usize> = c1.hidden_cells.iter().cloned().collect();
                     let set2: HashSet<usize> = c2.hidden_cells.iter().cloned().collect();
-                    
-                    let intersection: HashSet<_> = set1.intersection(&set2).cloned().collect();
-                    
-                    if !intersection.is_empty() {
-                        let only_in_c1: Vec<usize> = set1.difference(&set2).cloned().collect();
+
+                    // subset reduction logic: if c1's cells are all inside c2's cells
+                    if set1.is_subset(&set2) {
+                        let m_diff = c2.remaining_mines() as isize - c1.remaining_mines() as isize;
                         let only_in_c2: Vec<usize> = set2.difference(&set1).cloned().collect();
-                        
-                        // subset reduction logic: if mine difference equals cell difference
-                        let m_diff = c1.remaining_mines() as isize - c2.remaining_mines() as isize;
-                        
-                        if m_diff == only_in_c1.len() as isize {
-                            // all cells only in c2 must be safe
-                            for &idx in &only_in_c2 { safe_indices.insert(idx); }
-                        }
-                        if -m_diff == only_in_c1.len() as isize {
-                            // all cells only in c1 must be safe
-                            for &idx in &only_in_c1 { safe_indices.insert(idx); }
+
+                        // If the number of mines in both constraints is the same,
+                        // then all cells that are ONLY in the larger set must be safe.
+                        if m_diff == 0 {
+                            for &idx in &only_in_c2 {
+                                safe_indices.insert(idx);
+                            }
                         }
                     }
                 }
             }
         }
-        
+
         safe_indices.into_iter().collect()
     }
-    
+
     fn get_best_probability_candidates(&self, _constraints: &[Constraint], board: &Board) -> Vec<usize> {
         let mut best_indices = Vec::new();
         let mut min_prob = 1.1;
 
         // optimized probability baseline calculation
         let flag_count = board.cells.iter().filter(|c| c.is_flagged).count();
-        let remaining_cells = (6 * self.width * self.height).saturating_sub(board.total_revealed);
+        // Fixed: Ensure we subtract flags from the hidden count for a more accurate guess
+        let remaining_cells = board.cells.len().saturating_sub(board.total_revealed).saturating_sub(flag_count);
         let remaining_mines = self.mines.saturating_sub(flag_count);
-        
+
         let global_prob = if remaining_cells > 0 {
             remaining_mines as f64 / remaining_cells as f64
         } else {
