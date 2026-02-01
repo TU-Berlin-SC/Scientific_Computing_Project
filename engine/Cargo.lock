@@ -108,6 +108,7 @@ dependencies = [
  "itertools 0.14.0",
  "rand",
  "russcip",
+ "scip-sys",
  "serde",
  "serde-wasm-bindgen",
  "serde_json",

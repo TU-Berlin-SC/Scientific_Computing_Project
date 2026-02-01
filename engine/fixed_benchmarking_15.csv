@@ -1,0 +1,3609 @@
+configurations: 4 board sizes x 5 algorithms x 3 tsp objectives
+Completed: greedy on 3x3x3 board (Seed: 0)
+Completed: greedy on 3x3x3 board (Seed: 0)
+Completed: greedy on 3x3x3 board (Seed: 0)
+Completed: exact_solver on 3x3x3 board (Seed: 0)
+Completed: exact_solver on 3x3x3 board (Seed: 0)
+Completed: exact_solver on 3x3x3 board (Seed: 0)
+Completed: global_sat on 3x3x3 board (Seed: 0)
+Completed: global_sat on 3x3x3 board (Seed: 0)
+Completed: global_sat on 3x3x3 board (Seed: 0)
+Completed: partitioned_sat on 3x3x3 board (Seed: 0)
+Completed: partitioned_sat on 3x3x3 board (Seed: 0)
+Completed: partitioned_sat on 3x3x3 board (Seed: 0)
+Completed: scip_solver on 3x3x3 board (Seed: 0)
+Completed: scip_solver on 3x3x3 board (Seed: 0)
+Completed: scip_solver on 3x3x3 board (Seed: 0)
+Completed: greedy on 3x3x3 board (Seed: 1)
+Completed: greedy on 3x3x3 board (Seed: 1)
+Completed: greedy on 3x3x3 board (Seed: 1)
+Completed: exact_solver on 3x3x3 board (Seed: 1)
+Completed: exact_solver on 3x3x3 board (Seed: 1)
+Completed: exact_solver on 3x3x3 board (Seed: 1)
+Completed: global_sat on 3x3x3 board (Seed: 1)
+Completed: global_sat on 3x3x3 board (Seed: 1)
+Completed: global_sat on 3x3x3 board (Seed: 1)
+Completed: partitioned_sat on 3x3x3 board (Seed: 1)
+Completed: partitioned_sat on 3x3x3 board (Seed: 1)
+Completed: partitioned_sat on 3x3x3 board (Seed: 1)
+Completed: scip_solver on 3x3x3 board (Seed: 1)
+Completed: scip_solver on 3x3x3 board (Seed: 1)
+Completed: scip_solver on 3x3x3 board (Seed: 1)
+Completed: greedy on 3x3x3 board (Seed: 2)
+Completed: greedy on 3x3x3 board (Seed: 2)
+Completed: greedy on 3x3x3 board (Seed: 2)
+Completed: exact_solver on 3x3x3 board (Seed: 2)
+Completed: exact_solver on 3x3x3 board (Seed: 2)
+Completed: exact_solver on 3x3x3 board (Seed: 2)
+Completed: global_sat on 3x3x3 board (Seed: 2)
+Completed: global_sat on 3x3x3 board (Seed: 2)
+Completed: global_sat on 3x3x3 board (Seed: 2)
+Completed: partitioned_sat on 3x3x3 board (Seed: 2)
+Completed: partitioned_sat on 3x3x3 board (Seed: 2)
+Completed: partitioned_sat on 3x3x3 board (Seed: 2)
+Completed: scip_solver on 3x3x3 board (Seed: 2)
+Completed: scip_solver on 3x3x3 board (Seed: 2)
+Completed: scip_solver on 3x3x3 board (Seed: 2)
+Completed: greedy on 3x3x3 board (Seed: 3)
+Completed: greedy on 3x3x3 board (Seed: 3)
+Completed: greedy on 3x3x3 board (Seed: 3)
+Completed: exact_solver on 3x3x3 board (Seed: 3)
+Completed: exact_solver on 3x3x3 board (Seed: 3)
+Completed: exact_solver on 3x3x3 board (Seed: 3)
+Completed: global_sat on 3x3x3 board (Seed: 3)
+Completed: global_sat on 3x3x3 board (Seed: 3)
+Completed: global_sat on 3x3x3 board (Seed: 3)
+Completed: partitioned_sat on 3x3x3 board (Seed: 3)
+Completed: partitioned_sat on 3x3x3 board (Seed: 3)
+Completed: partitioned_sat on 3x3x3 board (Seed: 3)
+Completed: scip_solver on 3x3x3 board (Seed: 3)
+Completed: scip_solver on 3x3x3 board (Seed: 3)
+Completed: scip_solver on 3x3x3 board (Seed: 3)
+Completed: greedy on 3x3x3 board (Seed: 4)
+Completed: greedy on 3x3x3 board (Seed: 4)
+Completed: greedy on 3x3x3 board (Seed: 4)
+Completed: exact_solver on 3x3x3 board (Seed: 4)
+Completed: exact_solver on 3x3x3 board (Seed: 4)
+Completed: exact_solver on 3x3x3 board (Seed: 4)
+Completed: global_sat on 3x3x3 board (Seed: 4)
+Completed: global_sat on 3x3x3 board (Seed: 4)
+Completed: global_sat on 3x3x3 board (Seed: 4)
+Completed: partitioned_sat on 3x3x3 board (Seed: 4)
+Completed: partitioned_sat on 3x3x3 board (Seed: 4)
+Completed: partitioned_sat on 3x3x3 board (Seed: 4)
+Completed: scip_solver on 3x3x3 board (Seed: 4)
+Completed: scip_solver on 3x3x3 board (Seed: 4)
+Completed: scip_solver on 3x3x3 board (Seed: 4)
+Completed: greedy on 3x3x3 board (Seed: 5)
+Completed: greedy on 3x3x3 board (Seed: 5)
+Completed: greedy on 3x3x3 board (Seed: 5)
+Completed: exact_solver on 3x3x3 board (Seed: 5)
+Completed: exact_solver on 3x3x3 board (Seed: 5)
+Completed: exact_solver on 3x3x3 board (Seed: 5)
+Completed: global_sat on 3x3x3 board (Seed: 5)
+Completed: global_sat on 3x3x3 board (Seed: 5)
+Completed: global_sat on 3x3x3 board (Seed: 5)
+Completed: partitioned_sat on 3x3x3 board (Seed: 5)
+Completed: partitioned_sat on 3x3x3 board (Seed: 5)
+Completed: partitioned_sat on 3x3x3 board (Seed: 5)
+Completed: scip_solver on 3x3x3 board (Seed: 5)
+Completed: scip_solver on 3x3x3 board (Seed: 5)
+Completed: scip_solver on 3x3x3 board (Seed: 5)
+Completed: greedy on 3x3x3 board (Seed: 6)
+Completed: greedy on 3x3x3 board (Seed: 6)
+Completed: greedy on 3x3x3 board (Seed: 6)
+Completed: exact_solver on 3x3x3 board (Seed: 6)
+Completed: exact_solver on 3x3x3 board (Seed: 6)
+Completed: exact_solver on 3x3x3 board (Seed: 6)
+Completed: global_sat on 3x3x3 board (Seed: 6)
+Completed: global_sat on 3x3x3 board (Seed: 6)
+Completed: global_sat on 3x3x3 board (Seed: 6)
+Completed: partitioned_sat on 3x3x3 board (Seed: 6)
+Completed: partitioned_sat on 3x3x3 board (Seed: 6)
+Completed: partitioned_sat on 3x3x3 board (Seed: 6)
+Completed: scip_solver on 3x3x3 board (Seed: 6)
+Completed: scip_solver on 3x3x3 board (Seed: 6)
+Completed: scip_solver on 3x3x3 board (Seed: 6)
+Completed: greedy on 3x3x3 board (Seed: 7)
+Completed: greedy on 3x3x3 board (Seed: 7)
+Completed: greedy on 3x3x3 board (Seed: 7)
+Completed: exact_solver on 3x3x3 board (Seed: 7)
+Completed: exact_solver on 3x3x3 board (Seed: 7)
+Completed: exact_solver on 3x3x3 board (Seed: 7)
+Completed: global_sat on 3x3x3 board (Seed: 7)
+Completed: global_sat on 3x3x3 board (Seed: 7)
+Completed: global_sat on 3x3x3 board (Seed: 7)
+Completed: partitioned_sat on 3x3x3 board (Seed: 7)
+Completed: partitioned_sat on 3x3x3 board (Seed: 7)
+Completed: partitioned_sat on 3x3x3 board (Seed: 7)
+Completed: scip_solver on 3x3x3 board (Seed: 7)
+Completed: scip_solver on 3x3x3 board (Seed: 7)
+Completed: scip_solver on 3x3x3 board (Seed: 7)
+Completed: greedy on 3x3x3 board (Seed: 8)
+Completed: greedy on 3x3x3 board (Seed: 8)
+Completed: greedy on 3x3x3 board (Seed: 8)
+Completed: exact_solver on 3x3x3 board (Seed: 8)
+Completed: exact_solver on 3x3x3 board (Seed: 8)
+Completed: exact_solver on 3x3x3 board (Seed: 8)
+Completed: global_sat on 3x3x3 board (Seed: 8)
+Completed: global_sat on 3x3x3 board (Seed: 8)
+Completed: global_sat on 3x3x3 board (Seed: 8)
+Completed: partitioned_sat on 3x3x3 board (Seed: 8)
+Completed: partitioned_sat on 3x3x3 board (Seed: 8)
+Completed: partitioned_sat on 3x3x3 board (Seed: 8)
+Completed: scip_solver on 3x3x3 board (Seed: 8)
+Completed: scip_solver on 3x3x3 board (Seed: 8)
+Completed: scip_solver on 3x3x3 board (Seed: 8)
+Completed: greedy on 3x3x3 board (Seed: 9)
+Completed: greedy on 3x3x3 board (Seed: 9)
+Completed: greedy on 3x3x3 board (Seed: 9)
+Completed: exact_solver on 3x3x3 board (Seed: 9)
+Completed: exact_solver on 3x3x3 board (Seed: 9)
+Completed: exact_solver on 3x3x3 board (Seed: 9)
+Completed: global_sat on 3x3x3 board (Seed: 9)
+Completed: global_sat on 3x3x3 board (Seed: 9)
+Completed: global_sat on 3x3x3 board (Seed: 9)
+Completed: partitioned_sat on 3x3x3 board (Seed: 9)
+Completed: partitioned_sat on 3x3x3 board (Seed: 9)
+Completed: partitioned_sat on 3x3x3 board (Seed: 9)
+Completed: scip_solver on 3x3x3 board (Seed: 9)
+Completed: scip_solver on 3x3x3 board (Seed: 9)
+Completed: scip_solver on 3x3x3 board (Seed: 9)
+Completed: greedy on 3x3x3 board (Seed: 10)
+Completed: greedy on 3x3x3 board (Seed: 10)
+Completed: greedy on 3x3x3 board (Seed: 10)
+Completed: exact_solver on 3x3x3 board (Seed: 10)
+Completed: exact_solver on 3x3x3 board (Seed: 10)
+Completed: exact_solver on 3x3x3 board (Seed: 10)
+Completed: global_sat on 3x3x3 board (Seed: 10)
+Completed: global_sat on 3x3x3 board (Seed: 10)
+Completed: global_sat on 3x3x3 board (Seed: 10)
+Completed: partitioned_sat on 3x3x3 board (Seed: 10)
+Completed: partitioned_sat on 3x3x3 board (Seed: 10)
+Completed: partitioned_sat on 3x3x3 board (Seed: 10)
+Completed: scip_solver on 3x3x3 board (Seed: 10)
+Completed: scip_solver on 3x3x3 board (Seed: 10)
+Completed: scip_solver on 3x3x3 board (Seed: 10)
+Completed: greedy on 3x3x3 board (Seed: 11)
+Completed: greedy on 3x3x3 board (Seed: 11)
+Completed: greedy on 3x3x3 board (Seed: 11)
+Completed: exact_solver on 3x3x3 board (Seed: 11)
+Completed: exact_solver on 3x3x3 board (Seed: 11)
+Completed: exact_solver on 3x3x3 board (Seed: 11)
+Completed: global_sat on 3x3x3 board (Seed: 11)
+Completed: global_sat on 3x3x3 board (Seed: 11)
+Completed: global_sat on 3x3x3 board (Seed: 11)
+Completed: partitioned_sat on 3x3x3 board (Seed: 11)
+Completed: partitioned_sat on 3x3x3 board (Seed: 11)
+Completed: partitioned_sat on 3x3x3 board (Seed: 11)
+Completed: scip_solver on 3x3x3 board (Seed: 11)
+Completed: scip_solver on 3x3x3 board (Seed: 11)
+Completed: scip_solver on 3x3x3 board (Seed: 11)
+Completed: greedy on 3x3x3 board (Seed: 12)
+Completed: greedy on 3x3x3 board (Seed: 12)
+Completed: greedy on 3x3x3 board (Seed: 12)
+Completed: exact_solver on 3x3x3 board (Seed: 12)
+Completed: exact_solver on 3x3x3 board (Seed: 12)
+Completed: exact_solver on 3x3x3 board (Seed: 12)
+Completed: global_sat on 3x3x3 board (Seed: 12)
+Completed: global_sat on 3x3x3 board (Seed: 12)
+Completed: global_sat on 3x3x3 board (Seed: 12)
+Completed: partitioned_sat on 3x3x3 board (Seed: 12)
+Completed: partitioned_sat on 3x3x3 board (Seed: 12)
+Completed: partitioned_sat on 3x3x3 board (Seed: 12)
+Completed: scip_solver on 3x3x3 board (Seed: 12)
+Completed: scip_solver on 3x3x3 board (Seed: 12)
+Completed: scip_solver on 3x3x3 board (Seed: 12)
+Completed: greedy on 3x3x3 board (Seed: 13)
+Completed: greedy on 3x3x3 board (Seed: 13)
+Completed: greedy on 3x3x3 board (Seed: 13)
+Completed: exact_solver on 3x3x3 board (Seed: 13)
+Completed: exact_solver on 3x3x3 board (Seed: 13)
+Completed: exact_solver on 3x3x3 board (Seed: 13)
+Completed: global_sat on 3x3x3 board (Seed: 13)
+Completed: global_sat on 3x3x3 board (Seed: 13)
+Completed: global_sat on 3x3x3 board (Seed: 13)
+Completed: partitioned_sat on 3x3x3 board (Seed: 13)
+Completed: partitioned_sat on 3x3x3 board (Seed: 13)
+Completed: partitioned_sat on 3x3x3 board (Seed: 13)
+Completed: scip_solver on 3x3x3 board (Seed: 13)
+Completed: scip_solver on 3x3x3 board (Seed: 13)
+Completed: scip_solver on 3x3x3 board (Seed: 13)
+Completed: greedy on 3x3x3 board (Seed: 14)
+Completed: greedy on 3x3x3 board (Seed: 14)
+Completed: greedy on 3x3x3 board (Seed: 14)
+Completed: exact_solver on 3x3x3 board (Seed: 14)
+Completed: exact_solver on 3x3x3 board (Seed: 14)
+Completed: exact_solver on 3x3x3 board (Seed: 14)
+Completed: global_sat on 3x3x3 board (Seed: 14)
+Completed: global_sat on 3x3x3 board (Seed: 14)
+Completed: global_sat on 3x3x3 board (Seed: 14)
+Completed: partitioned_sat on 3x3x3 board (Seed: 14)
+Completed: partitioned_sat on 3x3x3 board (Seed: 14)
+Completed: partitioned_sat on 3x3x3 board (Seed: 14)
+Completed: scip_solver on 3x3x3 board (Seed: 14)
+Completed: scip_solver on 3x3x3 board (Seed: 14)
+Completed: scip_solver on 3x3x3 board (Seed: 14)
+Completed: greedy on 3x3x3 board (Seed: 15)
+Completed: greedy on 3x3x3 board (Seed: 15)
+Completed: greedy on 3x3x3 board (Seed: 15)
+Completed: exact_solver on 3x3x3 board (Seed: 15)
+Completed: exact_solver on 3x3x3 board (Seed: 15)
+Completed: exact_solver on 3x3x3 board (Seed: 15)
+Completed: global_sat on 3x3x3 board (Seed: 15)
+Completed: global_sat on 3x3x3 board (Seed: 15)
+Completed: global_sat on 3x3x3 board (Seed: 15)
+Completed: partitioned_sat on 3x3x3 board (Seed: 15)
+Completed: partitioned_sat on 3x3x3 board (Seed: 15)
+Completed: partitioned_sat on 3x3x3 board (Seed: 15)
+Completed: scip_solver on 3x3x3 board (Seed: 15)
+Completed: scip_solver on 3x3x3 board (Seed: 15)
+Completed: scip_solver on 3x3x3 board (Seed: 15)
+Completed: greedy on 3x3x3 board (Seed: 16)
+Completed: greedy on 3x3x3 board (Seed: 16)
+Completed: greedy on 3x3x3 board (Seed: 16)
+Completed: exact_solver on 3x3x3 board (Seed: 16)
+Completed: exact_solver on 3x3x3 board (Seed: 16)
+Completed: exact_solver on 3x3x3 board (Seed: 16)
+Completed: global_sat on 3x3x3 board (Seed: 16)
+Completed: global_sat on 3x3x3 board (Seed: 16)
+Completed: global_sat on 3x3x3 board (Seed: 16)
+Completed: partitioned_sat on 3x3x3 board (Seed: 16)
+Completed: partitioned_sat on 3x3x3 board (Seed: 16)
+Completed: partitioned_sat on 3x3x3 board (Seed: 16)
+Completed: scip_solver on 3x3x3 board (Seed: 16)
+Completed: scip_solver on 3x3x3 board (Seed: 16)
+Completed: scip_solver on 3x3x3 board (Seed: 16)
+Completed: greedy on 3x3x3 board (Seed: 17)
+Completed: greedy on 3x3x3 board (Seed: 17)
+Completed: greedy on 3x3x3 board (Seed: 17)
+Completed: exact_solver on 3x3x3 board (Seed: 17)
+Completed: exact_solver on 3x3x3 board (Seed: 17)
+Completed: exact_solver on 3x3x3 board (Seed: 17)
+Completed: global_sat on 3x3x3 board (Seed: 17)
+Completed: global_sat on 3x3x3 board (Seed: 17)
+Completed: global_sat on 3x3x3 board (Seed: 17)
+Completed: partitioned_sat on 3x3x3 board (Seed: 17)
+Completed: partitioned_sat on 3x3x3 board (Seed: 17)
+Completed: partitioned_sat on 3x3x3 board (Seed: 17)
+Completed: scip_solver on 3x3x3 board (Seed: 17)
+Completed: scip_solver on 3x3x3 board (Seed: 17)
+Completed: scip_solver on 3x3x3 board (Seed: 17)
+Completed: greedy on 3x3x3 board (Seed: 18)
+Completed: greedy on 3x3x3 board (Seed: 18)
+Completed: greedy on 3x3x3 board (Seed: 18)
+Completed: exact_solver on 3x3x3 board (Seed: 18)
+Completed: exact_solver on 3x3x3 board (Seed: 18)
+Completed: exact_solver on 3x3x3 board (Seed: 18)
+Completed: global_sat on 3x3x3 board (Seed: 18)
+Completed: global_sat on 3x3x3 board (Seed: 18)
+Completed: global_sat on 3x3x3 board (Seed: 18)
+Completed: partitioned_sat on 3x3x3 board (Seed: 18)
+Completed: partitioned_sat on 3x3x3 board (Seed: 18)
+Completed: partitioned_sat on 3x3x3 board (Seed: 18)
+Completed: scip_solver on 3x3x3 board (Seed: 18)
+Completed: scip_solver on 3x3x3 board (Seed: 18)
+Completed: scip_solver on 3x3x3 board (Seed: 18)
+Completed: greedy on 3x3x3 board (Seed: 19)
+Completed: greedy on 3x3x3 board (Seed: 19)
+Completed: greedy on 3x3x3 board (Seed: 19)
+Completed: exact_solver on 3x3x3 board (Seed: 19)
+Completed: exact_solver on 3x3x3 board (Seed: 19)
+Completed: exact_solver on 3x3x3 board (Seed: 19)
+Completed: global_sat on 3x3x3 board (Seed: 19)
+Completed: global_sat on 3x3x3 board (Seed: 19)
+Completed: global_sat on 3x3x3 board (Seed: 19)
+Completed: partitioned_sat on 3x3x3 board (Seed: 19)
+Completed: partitioned_sat on 3x3x3 board (Seed: 19)
+Completed: partitioned_sat on 3x3x3 board (Seed: 19)
+Completed: scip_solver on 3x3x3 board (Seed: 19)
+Completed: scip_solver on 3x3x3 board (Seed: 19)
+Completed: scip_solver on 3x3x3 board (Seed: 19)
+Completed: greedy on 3x3x3 board (Seed: 20)
+Completed: greedy on 3x3x3 board (Seed: 20)
+Completed: greedy on 3x3x3 board (Seed: 20)
+Completed: exact_solver on 3x3x3 board (Seed: 20)
+Completed: exact_solver on 3x3x3 board (Seed: 20)
+Completed: exact_solver on 3x3x3 board (Seed: 20)
+Completed: global_sat on 3x3x3 board (Seed: 20)
+Completed: global_sat on 3x3x3 board (Seed: 20)
+Completed: global_sat on 3x3x3 board (Seed: 20)
+Completed: partitioned_sat on 3x3x3 board (Seed: 20)
+Completed: partitioned_sat on 3x3x3 board (Seed: 20)
+Completed: partitioned_sat on 3x3x3 board (Seed: 20)
+Completed: scip_solver on 3x3x3 board (Seed: 20)
+Completed: scip_solver on 3x3x3 board (Seed: 20)
+Completed: scip_solver on 3x3x3 board (Seed: 20)
+Completed: greedy on 3x3x3 board (Seed: 21)
+Completed: greedy on 3x3x3 board (Seed: 21)
+Completed: greedy on 3x3x3 board (Seed: 21)
+Completed: exact_solver on 3x3x3 board (Seed: 21)
+Completed: exact_solver on 3x3x3 board (Seed: 21)
+Completed: exact_solver on 3x3x3 board (Seed: 21)
+Completed: global_sat on 3x3x3 board (Seed: 21)
+Completed: global_sat on 3x3x3 board (Seed: 21)
+Completed: global_sat on 3x3x3 board (Seed: 21)
+Completed: partitioned_sat on 3x3x3 board (Seed: 21)
+Completed: partitioned_sat on 3x3x3 board (Seed: 21)
+Completed: partitioned_sat on 3x3x3 board (Seed: 21)
+Completed: scip_solver on 3x3x3 board (Seed: 21)
+Completed: scip_solver on 3x3x3 board (Seed: 21)
+Completed: scip_solver on 3x3x3 board (Seed: 21)
+Completed: greedy on 3x3x3 board (Seed: 22)
+Completed: greedy on 3x3x3 board (Seed: 22)
+Completed: greedy on 3x3x3 board (Seed: 22)
+Completed: exact_solver on 3x3x3 board (Seed: 22)
+Completed: exact_solver on 3x3x3 board (Seed: 22)
+Completed: exact_solver on 3x3x3 board (Seed: 22)
+Completed: global_sat on 3x3x3 board (Seed: 22)
+Completed: global_sat on 3x3x3 board (Seed: 22)
+Completed: global_sat on 3x3x3 board (Seed: 22)
+Completed: partitioned_sat on 3x3x3 board (Seed: 22)
+Completed: partitioned_sat on 3x3x3 board (Seed: 22)
+Completed: partitioned_sat on 3x3x3 board (Seed: 22)
+Completed: scip_solver on 3x3x3 board (Seed: 22)
+Completed: scip_solver on 3x3x3 board (Seed: 22)
+Completed: scip_solver on 3x3x3 board (Seed: 22)
+Completed: greedy on 3x3x3 board (Seed: 23)
+Completed: greedy on 3x3x3 board (Seed: 23)
+Completed: greedy on 3x3x3 board (Seed: 23)
+Completed: exact_solver on 3x3x3 board (Seed: 23)
+Completed: exact_solver on 3x3x3 board (Seed: 23)
+Completed: exact_solver on 3x3x3 board (Seed: 23)
+Completed: global_sat on 3x3x3 board (Seed: 23)
+Completed: global_sat on 3x3x3 board (Seed: 23)
+Completed: global_sat on 3x3x3 board (Seed: 23)
+Completed: partitioned_sat on 3x3x3 board (Seed: 23)
+Completed: partitioned_sat on 3x3x3 board (Seed: 23)
+Completed: partitioned_sat on 3x3x3 board (Seed: 23)
+Completed: scip_solver on 3x3x3 board (Seed: 23)
+Completed: scip_solver on 3x3x3 board (Seed: 23)
+Completed: scip_solver on 3x3x3 board (Seed: 23)
+Completed: greedy on 3x3x3 board (Seed: 24)
+Completed: greedy on 3x3x3 board (Seed: 24)
+Completed: greedy on 3x3x3 board (Seed: 24)
+Completed: exact_solver on 3x3x3 board (Seed: 24)
+Completed: exact_solver on 3x3x3 board (Seed: 24)
+Completed: exact_solver on 3x3x3 board (Seed: 24)
+Completed: global_sat on 3x3x3 board (Seed: 24)
+Completed: global_sat on 3x3x3 board (Seed: 24)
+Completed: global_sat on 3x3x3 board (Seed: 24)
+Completed: partitioned_sat on 3x3x3 board (Seed: 24)
+Completed: partitioned_sat on 3x3x3 board (Seed: 24)
+Completed: partitioned_sat on 3x3x3 board (Seed: 24)
+Completed: scip_solver on 3x3x3 board (Seed: 24)
+Completed: scip_solver on 3x3x3 board (Seed: 24)
+Completed: scip_solver on 3x3x3 board (Seed: 24)
+Completed: greedy on 3x3x3 board (Seed: 25)
+Completed: greedy on 3x3x3 board (Seed: 25)
+Completed: greedy on 3x3x3 board (Seed: 25)
+Completed: exact_solver on 3x3x3 board (Seed: 25)
+Completed: exact_solver on 3x3x3 board (Seed: 25)
+Completed: exact_solver on 3x3x3 board (Seed: 25)
+Completed: global_sat on 3x3x3 board (Seed: 25)
+Completed: global_sat on 3x3x3 board (Seed: 25)
+Completed: global_sat on 3x3x3 board (Seed: 25)
+Completed: partitioned_sat on 3x3x3 board (Seed: 25)
+Completed: partitioned_sat on 3x3x3 board (Seed: 25)
+Completed: partitioned_sat on 3x3x3 board (Seed: 25)
+Completed: scip_solver on 3x3x3 board (Seed: 25)
+Completed: scip_solver on 3x3x3 board (Seed: 25)
+Completed: scip_solver on 3x3x3 board (Seed: 25)
+Completed: greedy on 3x3x3 board (Seed: 26)
+Completed: greedy on 3x3x3 board (Seed: 26)
+Completed: greedy on 3x3x3 board (Seed: 26)
+Completed: exact_solver on 3x3x3 board (Seed: 26)
+Completed: exact_solver on 3x3x3 board (Seed: 26)
+Completed: exact_solver on 3x3x3 board (Seed: 26)
+Completed: global_sat on 3x3x3 board (Seed: 26)
+Completed: global_sat on 3x3x3 board (Seed: 26)
+Completed: global_sat on 3x3x3 board (Seed: 26)
+Completed: partitioned_sat on 3x3x3 board (Seed: 26)
+Completed: partitioned_sat on 3x3x3 board (Seed: 26)
+Completed: partitioned_sat on 3x3x3 board (Seed: 26)
+Completed: scip_solver on 3x3x3 board (Seed: 26)
+Completed: scip_solver on 3x3x3 board (Seed: 26)
+Completed: scip_solver on 3x3x3 board (Seed: 26)
+Completed: greedy on 3x3x3 board (Seed: 27)
+Completed: greedy on 3x3x3 board (Seed: 27)
+Completed: greedy on 3x3x3 board (Seed: 27)
+Completed: exact_solver on 3x3x3 board (Seed: 27)
+Completed: exact_solver on 3x3x3 board (Seed: 27)
+Completed: exact_solver on 3x3x3 board (Seed: 27)
+Completed: global_sat on 3x3x3 board (Seed: 27)
+Completed: global_sat on 3x3x3 board (Seed: 27)
+Completed: global_sat on 3x3x3 board (Seed: 27)
+Completed: partitioned_sat on 3x3x3 board (Seed: 27)
+Completed: partitioned_sat on 3x3x3 board (Seed: 27)
+Completed: partitioned_sat on 3x3x3 board (Seed: 27)
+Completed: scip_solver on 3x3x3 board (Seed: 27)
+Completed: scip_solver on 3x3x3 board (Seed: 27)
+Completed: scip_solver on 3x3x3 board (Seed: 27)
+Completed: greedy on 3x3x3 board (Seed: 28)
+Completed: greedy on 3x3x3 board (Seed: 28)
+Completed: greedy on 3x3x3 board (Seed: 28)
+Completed: exact_solver on 3x3x3 board (Seed: 28)
+Completed: exact_solver on 3x3x3 board (Seed: 28)
+Completed: exact_solver on 3x3x3 board (Seed: 28)
+Completed: global_sat on 3x3x3 board (Seed: 28)
+Completed: global_sat on 3x3x3 board (Seed: 28)
+Completed: global_sat on 3x3x3 board (Seed: 28)
+Completed: partitioned_sat on 3x3x3 board (Seed: 28)
+Completed: partitioned_sat on 3x3x3 board (Seed: 28)
+Completed: partitioned_sat on 3x3x3 board (Seed: 28)
+Completed: scip_solver on 3x3x3 board (Seed: 28)
+Completed: scip_solver on 3x3x3 board (Seed: 28)
+Completed: scip_solver on 3x3x3 board (Seed: 28)
+Completed: greedy on 3x3x3 board (Seed: 29)
+Completed: greedy on 3x3x3 board (Seed: 29)
+Completed: greedy on 3x3x3 board (Seed: 29)
+Completed: exact_solver on 3x3x3 board (Seed: 29)
+Completed: exact_solver on 3x3x3 board (Seed: 29)
+Completed: exact_solver on 3x3x3 board (Seed: 29)
+Completed: global_sat on 3x3x3 board (Seed: 29)
+Completed: global_sat on 3x3x3 board (Seed: 29)
+Completed: global_sat on 3x3x3 board (Seed: 29)
+Completed: partitioned_sat on 3x3x3 board (Seed: 29)
+Completed: partitioned_sat on 3x3x3 board (Seed: 29)
+Completed: partitioned_sat on 3x3x3 board (Seed: 29)
+Completed: scip_solver on 3x3x3 board (Seed: 29)
+Completed: scip_solver on 3x3x3 board (Seed: 29)
+Completed: scip_solver on 3x3x3 board (Seed: 29)
+Completed: greedy on 5x5x5 board (Seed: 0)
+Completed: greedy on 5x5x5 board (Seed: 0)
+Completed: greedy on 5x5x5 board (Seed: 0)
+Completed: exact_solver on 5x5x5 board (Seed: 0)
+Completed: exact_solver on 5x5x5 board (Seed: 0)
+Completed: exact_solver on 5x5x5 board (Seed: 0)
+Completed: global_sat on 5x5x5 board (Seed: 0)
+Completed: global_sat on 5x5x5 board (Seed: 0)
+Completed: global_sat on 5x5x5 board (Seed: 0)
+Completed: partitioned_sat on 5x5x5 board (Seed: 0)
+Completed: partitioned_sat on 5x5x5 board (Seed: 0)
+Completed: partitioned_sat on 5x5x5 board (Seed: 0)
+Completed: scip_solver on 5x5x5 board (Seed: 0)
+Completed: scip_solver on 5x5x5 board (Seed: 0)
+Completed: scip_solver on 5x5x5 board (Seed: 0)
+Completed: greedy on 5x5x5 board (Seed: 1)
+Completed: greedy on 5x5x5 board (Seed: 1)
+Completed: greedy on 5x5x5 board (Seed: 1)
+Completed: exact_solver on 5x5x5 board (Seed: 1)
+Completed: exact_solver on 5x5x5 board (Seed: 1)
+Completed: exact_solver on 5x5x5 board (Seed: 1)
+Completed: global_sat on 5x5x5 board (Seed: 1)
+Completed: global_sat on 5x5x5 board (Seed: 1)
+Completed: global_sat on 5x5x5 board (Seed: 1)
+Completed: partitioned_sat on 5x5x5 board (Seed: 1)
+Completed: partitioned_sat on 5x5x5 board (Seed: 1)
+Completed: partitioned_sat on 5x5x5 board (Seed: 1)
+Completed: scip_solver on 5x5x5 board (Seed: 1)
+Completed: scip_solver on 5x5x5 board (Seed: 1)
+Completed: scip_solver on 5x5x5 board (Seed: 1)
+Completed: greedy on 5x5x5 board (Seed: 2)
+Completed: greedy on 5x5x5 board (Seed: 2)
+Completed: greedy on 5x5x5 board (Seed: 2)
+Completed: exact_solver on 5x5x5 board (Seed: 2)
+Completed: exact_solver on 5x5x5 board (Seed: 2)
+Completed: exact_solver on 5x5x5 board (Seed: 2)
+Completed: global_sat on 5x5x5 board (Seed: 2)
+Completed: global_sat on 5x5x5 board (Seed: 2)
+Completed: global_sat on 5x5x5 board (Seed: 2)
+Completed: partitioned_sat on 5x5x5 board (Seed: 2)
+Completed: partitioned_sat on 5x5x5 board (Seed: 2)
+Completed: partitioned_sat on 5x5x5 board (Seed: 2)
+Completed: scip_solver on 5x5x5 board (Seed: 2)
+Completed: scip_solver on 5x5x5 board (Seed: 2)
+Completed: scip_solver on 5x5x5 board (Seed: 2)
+Completed: greedy on 5x5x5 board (Seed: 3)
+Completed: greedy on 5x5x5 board (Seed: 3)
+Completed: greedy on 5x5x5 board (Seed: 3)
+Completed: exact_solver on 5x5x5 board (Seed: 3)
+Completed: exact_solver on 5x5x5 board (Seed: 3)
+Completed: exact_solver on 5x5x5 board (Seed: 3)
+Completed: global_sat on 5x5x5 board (Seed: 3)
+Completed: global_sat on 5x5x5 board (Seed: 3)
+Completed: global_sat on 5x5x5 board (Seed: 3)
+Completed: partitioned_sat on 5x5x5 board (Seed: 3)
+Completed: partitioned_sat on 5x5x5 board (Seed: 3)
+Completed: partitioned_sat on 5x5x5 board (Seed: 3)
+Completed: scip_solver on 5x5x5 board (Seed: 3)
+Completed: scip_solver on 5x5x5 board (Seed: 3)
+Completed: scip_solver on 5x5x5 board (Seed: 3)
+Completed: greedy on 5x5x5 board (Seed: 4)
+Completed: greedy on 5x5x5 board (Seed: 4)
+Completed: greedy on 5x5x5 board (Seed: 4)
+Completed: exact_solver on 5x5x5 board (Seed: 4)
+Completed: exact_solver on 5x5x5 board (Seed: 4)
+Completed: exact_solver on 5x5x5 board (Seed: 4)
+Completed: global_sat on 5x5x5 board (Seed: 4)
+Completed: global_sat on 5x5x5 board (Seed: 4)
+Completed: global_sat on 5x5x5 board (Seed: 4)
+Completed: partitioned_sat on 5x5x5 board (Seed: 4)
+Completed: partitioned_sat on 5x5x5 board (Seed: 4)
+Completed: partitioned_sat on 5x5x5 board (Seed: 4)
+Completed: scip_solver on 5x5x5 board (Seed: 4)
+Completed: scip_solver on 5x5x5 board (Seed: 4)
+Completed: scip_solver on 5x5x5 board (Seed: 4)
+Completed: greedy on 5x5x5 board (Seed: 5)
+Completed: greedy on 5x5x5 board (Seed: 5)
+Completed: greedy on 5x5x5 board (Seed: 5)
+Completed: exact_solver on 5x5x5 board (Seed: 5)
+Completed: exact_solver on 5x5x5 board (Seed: 5)
+Completed: exact_solver on 5x5x5 board (Seed: 5)
+Completed: global_sat on 5x5x5 board (Seed: 5)
+Completed: global_sat on 5x5x5 board (Seed: 5)
+Completed: global_sat on 5x5x5 board (Seed: 5)
+Completed: partitioned_sat on 5x5x5 board (Seed: 5)
+Completed: partitioned_sat on 5x5x5 board (Seed: 5)
+Completed: partitioned_sat on 5x5x5 board (Seed: 5)
+Completed: scip_solver on 5x5x5 board (Seed: 5)
+Completed: scip_solver on 5x5x5 board (Seed: 5)
+Completed: scip_solver on 5x5x5 board (Seed: 5)
+Completed: greedy on 5x5x5 board (Seed: 6)
+Completed: greedy on 5x5x5 board (Seed: 6)
+Completed: greedy on 5x5x5 board (Seed: 6)
+Completed: exact_solver on 5x5x5 board (Seed: 6)
+Completed: exact_solver on 5x5x5 board (Seed: 6)
+Completed: exact_solver on 5x5x5 board (Seed: 6)
+Completed: global_sat on 5x5x5 board (Seed: 6)
+Completed: global_sat on 5x5x5 board (Seed: 6)
+Completed: global_sat on 5x5x5 board (Seed: 6)
+Completed: partitioned_sat on 5x5x5 board (Seed: 6)
+Completed: partitioned_sat on 5x5x5 board (Seed: 6)
+Completed: partitioned_sat on 5x5x5 board (Seed: 6)
+Completed: scip_solver on 5x5x5 board (Seed: 6)
+Completed: scip_solver on 5x5x5 board (Seed: 6)
+Completed: scip_solver on 5x5x5 board (Seed: 6)
+Completed: greedy on 5x5x5 board (Seed: 7)
+Completed: greedy on 5x5x5 board (Seed: 7)
+Completed: greedy on 5x5x5 board (Seed: 7)
+Completed: exact_solver on 5x5x5 board (Seed: 7)
+Completed: exact_solver on 5x5x5 board (Seed: 7)
+Completed: exact_solver on 5x5x5 board (Seed: 7)
+Completed: global_sat on 5x5x5 board (Seed: 7)
+Completed: global_sat on 5x5x5 board (Seed: 7)
+Completed: global_sat on 5x5x5 board (Seed: 7)
+Completed: partitioned_sat on 5x5x5 board (Seed: 7)
+Completed: partitioned_sat on 5x5x5 board (Seed: 7)
+Completed: partitioned_sat on 5x5x5 board (Seed: 7)
+Completed: scip_solver on 5x5x5 board (Seed: 7)
+Completed: scip_solver on 5x5x5 board (Seed: 7)
+Completed: scip_solver on 5x5x5 board (Seed: 7)
+Completed: greedy on 5x5x5 board (Seed: 8)
+Completed: greedy on 5x5x5 board (Seed: 8)
+Completed: greedy on 5x5x5 board (Seed: 8)
+Completed: exact_solver on 5x5x5 board (Seed: 8)
+Completed: exact_solver on 5x5x5 board (Seed: 8)
+Completed: exact_solver on 5x5x5 board (Seed: 8)
+Completed: global_sat on 5x5x5 board (Seed: 8)
+Completed: global_sat on 5x5x5 board (Seed: 8)
+Completed: global_sat on 5x5x5 board (Seed: 8)
+Completed: partitioned_sat on 5x5x5 board (Seed: 8)
+Completed: partitioned_sat on 5x5x5 board (Seed: 8)
+Completed: partitioned_sat on 5x5x5 board (Seed: 8)
+Completed: scip_solver on 5x5x5 board (Seed: 8)
+Completed: scip_solver on 5x5x5 board (Seed: 8)
+Completed: scip_solver on 5x5x5 board (Seed: 8)
+Completed: greedy on 5x5x5 board (Seed: 9)
+Completed: greedy on 5x5x5 board (Seed: 9)
+Completed: greedy on 5x5x5 board (Seed: 9)
+Completed: exact_solver on 5x5x5 board (Seed: 9)
+Completed: exact_solver on 5x5x5 board (Seed: 9)
+Completed: exact_solver on 5x5x5 board (Seed: 9)
+Completed: global_sat on 5x5x5 board (Seed: 9)
+Completed: global_sat on 5x5x5 board (Seed: 9)
+Completed: global_sat on 5x5x5 board (Seed: 9)
+Completed: partitioned_sat on 5x5x5 board (Seed: 9)
+Completed: partitioned_sat on 5x5x5 board (Seed: 9)
+Completed: partitioned_sat on 5x5x5 board (Seed: 9)
+Completed: scip_solver on 5x5x5 board (Seed: 9)
+Completed: scip_solver on 5x5x5 board (Seed: 9)
+Completed: scip_solver on 5x5x5 board (Seed: 9)
+Completed: greedy on 5x5x5 board (Seed: 10)
+Completed: greedy on 5x5x5 board (Seed: 10)
+Completed: greedy on 5x5x5 board (Seed: 10)
+Completed: exact_solver on 5x5x5 board (Seed: 10)
+Completed: exact_solver on 5x5x5 board (Seed: 10)
+Completed: exact_solver on 5x5x5 board (Seed: 10)
+Completed: global_sat on 5x5x5 board (Seed: 10)
+Completed: global_sat on 5x5x5 board (Seed: 10)
+Completed: global_sat on 5x5x5 board (Seed: 10)
+Completed: partitioned_sat on 5x5x5 board (Seed: 10)
+Completed: partitioned_sat on 5x5x5 board (Seed: 10)
+Completed: partitioned_sat on 5x5x5 board (Seed: 10)
+Completed: scip_solver on 5x5x5 board (Seed: 10)
+Completed: scip_solver on 5x5x5 board (Seed: 10)
+Completed: scip_solver on 5x5x5 board (Seed: 10)
+Completed: greedy on 5x5x5 board (Seed: 11)
+Completed: greedy on 5x5x5 board (Seed: 11)
+Completed: greedy on 5x5x5 board (Seed: 11)
+Completed: exact_solver on 5x5x5 board (Seed: 11)
+Completed: exact_solver on 5x5x5 board (Seed: 11)
+Completed: exact_solver on 5x5x5 board (Seed: 11)
+Completed: global_sat on 5x5x5 board (Seed: 11)
+Completed: global_sat on 5x5x5 board (Seed: 11)
+Completed: global_sat on 5x5x5 board (Seed: 11)
+Completed: partitioned_sat on 5x5x5 board (Seed: 11)
+Completed: partitioned_sat on 5x5x5 board (Seed: 11)
+Completed: partitioned_sat on 5x5x5 board (Seed: 11)
+Completed: scip_solver on 5x5x5 board (Seed: 11)
+Completed: scip_solver on 5x5x5 board (Seed: 11)
+Completed: scip_solver on 5x5x5 board (Seed: 11)
+Completed: greedy on 5x5x5 board (Seed: 12)
+Completed: greedy on 5x5x5 board (Seed: 12)
+Completed: greedy on 5x5x5 board (Seed: 12)
+Completed: exact_solver on 5x5x5 board (Seed: 12)
+Completed: exact_solver on 5x5x5 board (Seed: 12)
+Completed: exact_solver on 5x5x5 board (Seed: 12)
+Completed: global_sat on 5x5x5 board (Seed: 12)
+Completed: global_sat on 5x5x5 board (Seed: 12)
+Completed: global_sat on 5x5x5 board (Seed: 12)
+Completed: partitioned_sat on 5x5x5 board (Seed: 12)
+Completed: partitioned_sat on 5x5x5 board (Seed: 12)
+Completed: partitioned_sat on 5x5x5 board (Seed: 12)
+Completed: scip_solver on 5x5x5 board (Seed: 12)
+Completed: scip_solver on 5x5x5 board (Seed: 12)
+Completed: scip_solver on 5x5x5 board (Seed: 12)
+Completed: greedy on 5x5x5 board (Seed: 13)
+Completed: greedy on 5x5x5 board (Seed: 13)
+Completed: greedy on 5x5x5 board (Seed: 13)
+Completed: exact_solver on 5x5x5 board (Seed: 13)
+Completed: exact_solver on 5x5x5 board (Seed: 13)
+Completed: exact_solver on 5x5x5 board (Seed: 13)
+Completed: global_sat on 5x5x5 board (Seed: 13)
+Completed: global_sat on 5x5x5 board (Seed: 13)
+Completed: global_sat on 5x5x5 board (Seed: 13)
+Completed: partitioned_sat on 5x5x5 board (Seed: 13)
+Completed: partitioned_sat on 5x5x5 board (Seed: 13)
+Completed: partitioned_sat on 5x5x5 board (Seed: 13)
+Completed: scip_solver on 5x5x5 board (Seed: 13)
+Completed: scip_solver on 5x5x5 board (Seed: 13)
+Completed: scip_solver on 5x5x5 board (Seed: 13)
+Completed: greedy on 5x5x5 board (Seed: 14)
+Completed: greedy on 5x5x5 board (Seed: 14)
+Completed: greedy on 5x5x5 board (Seed: 14)
+Completed: exact_solver on 5x5x5 board (Seed: 14)
+Completed: exact_solver on 5x5x5 board (Seed: 14)
+Completed: exact_solver on 5x5x5 board (Seed: 14)
+Completed: global_sat on 5x5x5 board (Seed: 14)
+Completed: global_sat on 5x5x5 board (Seed: 14)
+Completed: global_sat on 5x5x5 board (Seed: 14)
+Completed: partitioned_sat on 5x5x5 board (Seed: 14)
+Completed: partitioned_sat on 5x5x5 board (Seed: 14)
+Completed: partitioned_sat on 5x5x5 board (Seed: 14)
+Completed: scip_solver on 5x5x5 board (Seed: 14)
+Completed: scip_solver on 5x5x5 board (Seed: 14)
+Completed: scip_solver on 5x5x5 board (Seed: 14)
+Completed: greedy on 5x5x5 board (Seed: 15)
+Completed: greedy on 5x5x5 board (Seed: 15)
+Completed: greedy on 5x5x5 board (Seed: 15)
+Completed: exact_solver on 5x5x5 board (Seed: 15)
+Completed: exact_solver on 5x5x5 board (Seed: 15)
+Completed: exact_solver on 5x5x5 board (Seed: 15)
+Completed: global_sat on 5x5x5 board (Seed: 15)
+Completed: global_sat on 5x5x5 board (Seed: 15)
+Completed: global_sat on 5x5x5 board (Seed: 15)
+Completed: partitioned_sat on 5x5x5 board (Seed: 15)
+Completed: partitioned_sat on 5x5x5 board (Seed: 15)
+Completed: partitioned_sat on 5x5x5 board (Seed: 15)
+Completed: scip_solver on 5x5x5 board (Seed: 15)
+Completed: scip_solver on 5x5x5 board (Seed: 15)
+Completed: scip_solver on 5x5x5 board (Seed: 15)
+Completed: greedy on 5x5x5 board (Seed: 16)
+Completed: greedy on 5x5x5 board (Seed: 16)
+Completed: greedy on 5x5x5 board (Seed: 16)
+Completed: exact_solver on 5x5x5 board (Seed: 16)
+Completed: exact_solver on 5x5x5 board (Seed: 16)
+Completed: exact_solver on 5x5x5 board (Seed: 16)
+Completed: global_sat on 5x5x5 board (Seed: 16)
+Completed: global_sat on 5x5x5 board (Seed: 16)
+Completed: global_sat on 5x5x5 board (Seed: 16)
+Completed: partitioned_sat on 5x5x5 board (Seed: 16)
+Completed: partitioned_sat on 5x5x5 board (Seed: 16)
+Completed: partitioned_sat on 5x5x5 board (Seed: 16)
+Completed: scip_solver on 5x5x5 board (Seed: 16)
+Completed: scip_solver on 5x5x5 board (Seed: 16)
+Completed: scip_solver on 5x5x5 board (Seed: 16)
+Completed: greedy on 5x5x5 board (Seed: 17)
+Completed: greedy on 5x5x5 board (Seed: 17)
+Completed: greedy on 5x5x5 board (Seed: 17)
+Completed: exact_solver on 5x5x5 board (Seed: 17)
+Completed: exact_solver on 5x5x5 board (Seed: 17)
+Completed: exact_solver on 5x5x5 board (Seed: 17)
+Completed: global_sat on 5x5x5 board (Seed: 17)
+Completed: global_sat on 5x5x5 board (Seed: 17)
+Completed: global_sat on 5x5x5 board (Seed: 17)
+Completed: partitioned_sat on 5x5x5 board (Seed: 17)
+Completed: partitioned_sat on 5x5x5 board (Seed: 17)
+Completed: partitioned_sat on 5x5x5 board (Seed: 17)
+Completed: scip_solver on 5x5x5 board (Seed: 17)
+Completed: scip_solver on 5x5x5 board (Seed: 17)
+Completed: scip_solver on 5x5x5 board (Seed: 17)
+Completed: greedy on 5x5x5 board (Seed: 18)
+Completed: greedy on 5x5x5 board (Seed: 18)
+Completed: greedy on 5x5x5 board (Seed: 18)
+Completed: exact_solver on 5x5x5 board (Seed: 18)
+Completed: exact_solver on 5x5x5 board (Seed: 18)
+Completed: exact_solver on 5x5x5 board (Seed: 18)
+Completed: global_sat on 5x5x5 board (Seed: 18)
+Completed: global_sat on 5x5x5 board (Seed: 18)
+Completed: global_sat on 5x5x5 board (Seed: 18)
+Completed: partitioned_sat on 5x5x5 board (Seed: 18)
+Completed: partitioned_sat on 5x5x5 board (Seed: 18)
+Completed: partitioned_sat on 5x5x5 board (Seed: 18)
+Completed: scip_solver on 5x5x5 board (Seed: 18)
+Completed: scip_solver on 5x5x5 board (Seed: 18)
+Completed: scip_solver on 5x5x5 board (Seed: 18)
+Completed: greedy on 5x5x5 board (Seed: 19)
+Completed: greedy on 5x5x5 board (Seed: 19)
+Completed: greedy on 5x5x5 board (Seed: 19)
+Completed: exact_solver on 5x5x5 board (Seed: 19)
+Completed: exact_solver on 5x5x5 board (Seed: 19)
+Completed: exact_solver on 5x5x5 board (Seed: 19)
+Completed: global_sat on 5x5x5 board (Seed: 19)
+Completed: global_sat on 5x5x5 board (Seed: 19)
+Completed: global_sat on 5x5x5 board (Seed: 19)
+Completed: partitioned_sat on 5x5x5 board (Seed: 19)
+Completed: partitioned_sat on 5x5x5 board (Seed: 19)
+Completed: partitioned_sat on 5x5x5 board (Seed: 19)
+Completed: scip_solver on 5x5x5 board (Seed: 19)
+Completed: scip_solver on 5x5x5 board (Seed: 19)
+Completed: scip_solver on 5x5x5 board (Seed: 19)
+Completed: greedy on 5x5x5 board (Seed: 20)
+Completed: greedy on 5x5x5 board (Seed: 20)
+Completed: greedy on 5x5x5 board (Seed: 20)
+Completed: exact_solver on 5x5x5 board (Seed: 20)
+Completed: exact_solver on 5x5x5 board (Seed: 20)
+Completed: exact_solver on 5x5x5 board (Seed: 20)
+Completed: global_sat on 5x5x5 board (Seed: 20)
+Completed: global_sat on 5x5x5 board (Seed: 20)
+Completed: global_sat on 5x5x5 board (Seed: 20)
+Completed: partitioned_sat on 5x5x5 board (Seed: 20)
+Completed: partitioned_sat on 5x5x5 board (Seed: 20)
+Completed: partitioned_sat on 5x5x5 board (Seed: 20)
+Completed: scip_solver on 5x5x5 board (Seed: 20)
+Completed: scip_solver on 5x5x5 board (Seed: 20)
+Completed: scip_solver on 5x5x5 board (Seed: 20)
+Completed: greedy on 5x5x5 board (Seed: 21)
+Completed: greedy on 5x5x5 board (Seed: 21)
+Completed: greedy on 5x5x5 board (Seed: 21)
+Completed: exact_solver on 5x5x5 board (Seed: 21)
+Completed: exact_solver on 5x5x5 board (Seed: 21)
+Completed: exact_solver on 5x5x5 board (Seed: 21)
+Completed: global_sat on 5x5x5 board (Seed: 21)
+Completed: global_sat on 5x5x5 board (Seed: 21)
+Completed: global_sat on 5x5x5 board (Seed: 21)
+Completed: partitioned_sat on 5x5x5 board (Seed: 21)
+Completed: partitioned_sat on 5x5x5 board (Seed: 21)
+Completed: partitioned_sat on 5x5x5 board (Seed: 21)
+Completed: scip_solver on 5x5x5 board (Seed: 21)
+Completed: scip_solver on 5x5x5 board (Seed: 21)
+Completed: scip_solver on 5x5x5 board (Seed: 21)
+Completed: greedy on 5x5x5 board (Seed: 22)
+Completed: greedy on 5x5x5 board (Seed: 22)
+Completed: greedy on 5x5x5 board (Seed: 22)
+Completed: exact_solver on 5x5x5 board (Seed: 22)
+Completed: exact_solver on 5x5x5 board (Seed: 22)
+Completed: exact_solver on 5x5x5 board (Seed: 22)
+Completed: global_sat on 5x5x5 board (Seed: 22)
+Completed: global_sat on 5x5x5 board (Seed: 22)
+Completed: global_sat on 5x5x5 board (Seed: 22)
+Completed: partitioned_sat on 5x5x5 board (Seed: 22)
+Completed: partitioned_sat on 5x5x5 board (Seed: 22)
+Completed: partitioned_sat on 5x5x5 board (Seed: 22)
+Completed: scip_solver on 5x5x5 board (Seed: 22)
+Completed: scip_solver on 5x5x5 board (Seed: 22)
+Completed: scip_solver on 5x5x5 board (Seed: 22)
+Completed: greedy on 5x5x5 board (Seed: 23)
+Completed: greedy on 5x5x5 board (Seed: 23)
+Completed: greedy on 5x5x5 board (Seed: 23)
+Completed: exact_solver on 5x5x5 board (Seed: 23)
+Completed: exact_solver on 5x5x5 board (Seed: 23)
+Completed: exact_solver on 5x5x5 board (Seed: 23)
+Completed: global_sat on 5x5x5 board (Seed: 23)
+Completed: global_sat on 5x5x5 board (Seed: 23)
+Completed: global_sat on 5x5x5 board (Seed: 23)
+Completed: partitioned_sat on 5x5x5 board (Seed: 23)
+Completed: partitioned_sat on 5x5x5 board (Seed: 23)
+Completed: partitioned_sat on 5x5x5 board (Seed: 23)
+Completed: scip_solver on 5x5x5 board (Seed: 23)
+Completed: scip_solver on 5x5x5 board (Seed: 23)
+Completed: scip_solver on 5x5x5 board (Seed: 23)
+Completed: greedy on 5x5x5 board (Seed: 24)
+Completed: greedy on 5x5x5 board (Seed: 24)
+Completed: greedy on 5x5x5 board (Seed: 24)
+Completed: exact_solver on 5x5x5 board (Seed: 24)
+Completed: exact_solver on 5x5x5 board (Seed: 24)
+Completed: exact_solver on 5x5x5 board (Seed: 24)
+Completed: global_sat on 5x5x5 board (Seed: 24)
+Completed: global_sat on 5x5x5 board (Seed: 24)
+Completed: global_sat on 5x5x5 board (Seed: 24)
+Completed: partitioned_sat on 5x5x5 board (Seed: 24)
+Completed: partitioned_sat on 5x5x5 board (Seed: 24)
+Completed: partitioned_sat on 5x5x5 board (Seed: 24)
+Completed: scip_solver on 5x5x5 board (Seed: 24)
+Completed: scip_solver on 5x5x5 board (Seed: 24)
+Completed: scip_solver on 5x5x5 board (Seed: 24)
+Completed: greedy on 5x5x5 board (Seed: 25)
+Completed: greedy on 5x5x5 board (Seed: 25)
+Completed: greedy on 5x5x5 board (Seed: 25)
+Completed: exact_solver on 5x5x5 board (Seed: 25)
+Completed: exact_solver on 5x5x5 board (Seed: 25)
+Completed: exact_solver on 5x5x5 board (Seed: 25)
+Completed: global_sat on 5x5x5 board (Seed: 25)
+Completed: global_sat on 5x5x5 board (Seed: 25)
+Completed: global_sat on 5x5x5 board (Seed: 25)
+Completed: partitioned_sat on 5x5x5 board (Seed: 25)
+Completed: partitioned_sat on 5x5x5 board (Seed: 25)
+Completed: partitioned_sat on 5x5x5 board (Seed: 25)
+Completed: scip_solver on 5x5x5 board (Seed: 25)
+Completed: scip_solver on 5x5x5 board (Seed: 25)
+Completed: scip_solver on 5x5x5 board (Seed: 25)
+Completed: greedy on 5x5x5 board (Seed: 26)
+Completed: greedy on 5x5x5 board (Seed: 26)
+Completed: greedy on 5x5x5 board (Seed: 26)
+Completed: exact_solver on 5x5x5 board (Seed: 26)
+Completed: exact_solver on 5x5x5 board (Seed: 26)
+Completed: exact_solver on 5x5x5 board (Seed: 26)
+Completed: global_sat on 5x5x5 board (Seed: 26)
+Completed: global_sat on 5x5x5 board (Seed: 26)
+Completed: global_sat on 5x5x5 board (Seed: 26)
+Completed: partitioned_sat on 5x5x5 board (Seed: 26)
+Completed: partitioned_sat on 5x5x5 board (Seed: 26)
+Completed: partitioned_sat on 5x5x5 board (Seed: 26)
+Completed: scip_solver on 5x5x5 board (Seed: 26)
+Completed: scip_solver on 5x5x5 board (Seed: 26)
+Completed: scip_solver on 5x5x5 board (Seed: 26)
+Completed: greedy on 5x5x5 board (Seed: 27)
+Completed: greedy on 5x5x5 board (Seed: 27)
+Completed: greedy on 5x5x5 board (Seed: 27)
+Completed: exact_solver on 5x5x5 board (Seed: 27)
+Completed: exact_solver on 5x5x5 board (Seed: 27)
+Completed: exact_solver on 5x5x5 board (Seed: 27)
+Completed: global_sat on 5x5x5 board (Seed: 27)
+Completed: global_sat on 5x5x5 board (Seed: 27)
+Completed: global_sat on 5x5x5 board (Seed: 27)
+Completed: partitioned_sat on 5x5x5 board (Seed: 27)
+Completed: partitioned_sat on 5x5x5 board (Seed: 27)
+Completed: partitioned_sat on 5x5x5 board (Seed: 27)
+Completed: scip_solver on 5x5x5 board (Seed: 27)
+Completed: scip_solver on 5x5x5 board (Seed: 27)
+Completed: scip_solver on 5x5x5 board (Seed: 27)
+Completed: greedy on 5x5x5 board (Seed: 28)
+Completed: greedy on 5x5x5 board (Seed: 28)
+Completed: greedy on 5x5x5 board (Seed: 28)
+Completed: exact_solver on 5x5x5 board (Seed: 28)
+Completed: exact_solver on 5x5x5 board (Seed: 28)
+Completed: exact_solver on 5x5x5 board (Seed: 28)
+Completed: global_sat on 5x5x5 board (Seed: 28)
+Completed: global_sat on 5x5x5 board (Seed: 28)
+Completed: global_sat on 5x5x5 board (Seed: 28)
+Completed: partitioned_sat on 5x5x5 board (Seed: 28)
+Completed: partitioned_sat on 5x5x5 board (Seed: 28)
+Completed: partitioned_sat on 5x5x5 board (Seed: 28)
+Completed: scip_solver on 5x5x5 board (Seed: 28)
+Completed: scip_solver on 5x5x5 board (Seed: 28)
+Completed: scip_solver on 5x5x5 board (Seed: 28)
+Completed: greedy on 5x5x5 board (Seed: 29)
+Completed: greedy on 5x5x5 board (Seed: 29)
+Completed: greedy on 5x5x5 board (Seed: 29)
+Completed: exact_solver on 5x5x5 board (Seed: 29)
+Completed: exact_solver on 5x5x5 board (Seed: 29)
+Completed: exact_solver on 5x5x5 board (Seed: 29)
+Completed: global_sat on 5x5x5 board (Seed: 29)
+Completed: global_sat on 5x5x5 board (Seed: 29)
+Completed: global_sat on 5x5x5 board (Seed: 29)
+Completed: partitioned_sat on 5x5x5 board (Seed: 29)
+Completed: partitioned_sat on 5x5x5 board (Seed: 29)
+Completed: partitioned_sat on 5x5x5 board (Seed: 29)
+Completed: scip_solver on 5x5x5 board (Seed: 29)
+Completed: scip_solver on 5x5x5 board (Seed: 29)
+Completed: scip_solver on 5x5x5 board (Seed: 29)
+Completed: greedy on 8x8x8 board (Seed: 0)
+Completed: greedy on 8x8x8 board (Seed: 0)
+Completed: greedy on 8x8x8 board (Seed: 0)
+Completed: exact_solver on 8x8x8 board (Seed: 0)
+Completed: exact_solver on 8x8x8 board (Seed: 0)
+Completed: exact_solver on 8x8x8 board (Seed: 0)
+Completed: global_sat on 8x8x8 board (Seed: 0)
+Completed: global_sat on 8x8x8 board (Seed: 0)
+Completed: global_sat on 8x8x8 board (Seed: 0)
+Completed: partitioned_sat on 8x8x8 board (Seed: 0)
+Completed: partitioned_sat on 8x8x8 board (Seed: 0)
+Completed: partitioned_sat on 8x8x8 board (Seed: 0)
+Completed: scip_solver on 8x8x8 board (Seed: 0)
+Completed: scip_solver on 8x8x8 board (Seed: 0)
+Completed: scip_solver on 8x8x8 board (Seed: 0)
+Completed: greedy on 8x8x8 board (Seed: 1)
+Completed: greedy on 8x8x8 board (Seed: 1)
+Completed: greedy on 8x8x8 board (Seed: 1)
+Completed: exact_solver on 8x8x8 board (Seed: 1)
+Completed: exact_solver on 8x8x8 board (Seed: 1)
+Completed: exact_solver on 8x8x8 board (Seed: 1)
+Completed: global_sat on 8x8x8 board (Seed: 1)
+Completed: global_sat on 8x8x8 board (Seed: 1)
+Completed: global_sat on 8x8x8 board (Seed: 1)
+Completed: partitioned_sat on 8x8x8 board (Seed: 1)
+Completed: partitioned_sat on 8x8x8 board (Seed: 1)
+Completed: partitioned_sat on 8x8x8 board (Seed: 1)
+Completed: scip_solver on 8x8x8 board (Seed: 1)
+Completed: scip_solver on 8x8x8 board (Seed: 1)
+Completed: scip_solver on 8x8x8 board (Seed: 1)
+Completed: greedy on 8x8x8 board (Seed: 2)
+Completed: greedy on 8x8x8 board (Seed: 2)
+Completed: greedy on 8x8x8 board (Seed: 2)
+Completed: exact_solver on 8x8x8 board (Seed: 2)
+Completed: exact_solver on 8x8x8 board (Seed: 2)
+Completed: exact_solver on 8x8x8 board (Seed: 2)
+Completed: global_sat on 8x8x8 board (Seed: 2)
+Completed: global_sat on 8x8x8 board (Seed: 2)
+Completed: global_sat on 8x8x8 board (Seed: 2)
+Completed: partitioned_sat on 8x8x8 board (Seed: 2)
+Completed: partitioned_sat on 8x8x8 board (Seed: 2)
+Completed: partitioned_sat on 8x8x8 board (Seed: 2)
+Completed: scip_solver on 8x8x8 board (Seed: 2)
+Completed: scip_solver on 8x8x8 board (Seed: 2)
+Completed: scip_solver on 8x8x8 board (Seed: 2)
+Completed: greedy on 8x8x8 board (Seed: 3)
+Completed: greedy on 8x8x8 board (Seed: 3)
+Completed: greedy on 8x8x8 board (Seed: 3)
+Completed: exact_solver on 8x8x8 board (Seed: 3)
+Completed: exact_solver on 8x8x8 board (Seed: 3)
+Completed: exact_solver on 8x8x8 board (Seed: 3)
+Completed: global_sat on 8x8x8 board (Seed: 3)
+Completed: global_sat on 8x8x8 board (Seed: 3)
+Completed: global_sat on 8x8x8 board (Seed: 3)
+Completed: partitioned_sat on 8x8x8 board (Seed: 3)
+Completed: partitioned_sat on 8x8x8 board (Seed: 3)
+Completed: partitioned_sat on 8x8x8 board (Seed: 3)
+Completed: scip_solver on 8x8x8 board (Seed: 3)
+Completed: scip_solver on 8x8x8 board (Seed: 3)
+Completed: scip_solver on 8x8x8 board (Seed: 3)
+Completed: greedy on 8x8x8 board (Seed: 4)
+Completed: greedy on 8x8x8 board (Seed: 4)
+Completed: greedy on 8x8x8 board (Seed: 4)
+Completed: exact_solver on 8x8x8 board (Seed: 4)
+Completed: exact_solver on 8x8x8 board (Seed: 4)
+Completed: exact_solver on 8x8x8 board (Seed: 4)
+Completed: global_sat on 8x8x8 board (Seed: 4)
+Completed: global_sat on 8x8x8 board (Seed: 4)
+Completed: global_sat on 8x8x8 board (Seed: 4)
+Completed: partitioned_sat on 8x8x8 board (Seed: 4)
+Completed: partitioned_sat on 8x8x8 board (Seed: 4)
+Completed: partitioned_sat on 8x8x8 board (Seed: 4)
+Completed: scip_solver on 8x8x8 board (Seed: 4)
+Completed: scip_solver on 8x8x8 board (Seed: 4)
+Completed: scip_solver on 8x8x8 board (Seed: 4)
+Completed: greedy on 8x8x8 board (Seed: 5)
+Completed: greedy on 8x8x8 board (Seed: 5)
+Completed: greedy on 8x8x8 board (Seed: 5)
+Completed: exact_solver on 8x8x8 board (Seed: 5)
+Completed: exact_solver on 8x8x8 board (Seed: 5)
+Completed: exact_solver on 8x8x8 board (Seed: 5)
+Completed: global_sat on 8x8x8 board (Seed: 5)
+Completed: global_sat on 8x8x8 board (Seed: 5)
+Completed: global_sat on 8x8x8 board (Seed: 5)
+Completed: partitioned_sat on 8x8x8 board (Seed: 5)
+Completed: partitioned_sat on 8x8x8 board (Seed: 5)
+Completed: partitioned_sat on 8x8x8 board (Seed: 5)
+Completed: scip_solver on 8x8x8 board (Seed: 5)
+Completed: scip_solver on 8x8x8 board (Seed: 5)
+Completed: scip_solver on 8x8x8 board (Seed: 5)
+Completed: greedy on 8x8x8 board (Seed: 6)
+Completed: greedy on 8x8x8 board (Seed: 6)
+Completed: greedy on 8x8x8 board (Seed: 6)
+Completed: exact_solver on 8x8x8 board (Seed: 6)
+Completed: exact_solver on 8x8x8 board (Seed: 6)
+Completed: exact_solver on 8x8x8 board (Seed: 6)
+Completed: global_sat on 8x8x8 board (Seed: 6)
+Completed: global_sat on 8x8x8 board (Seed: 6)
+Completed: global_sat on 8x8x8 board (Seed: 6)
+Completed: partitioned_sat on 8x8x8 board (Seed: 6)
+Completed: partitioned_sat on 8x8x8 board (Seed: 6)
+Completed: partitioned_sat on 8x8x8 board (Seed: 6)
+Completed: scip_solver on 8x8x8 board (Seed: 6)
+Completed: scip_solver on 8x8x8 board (Seed: 6)
+Completed: scip_solver on 8x8x8 board (Seed: 6)
+Completed: greedy on 8x8x8 board (Seed: 7)
+Completed: greedy on 8x8x8 board (Seed: 7)
+Completed: greedy on 8x8x8 board (Seed: 7)
+Completed: exact_solver on 8x8x8 board (Seed: 7)
+Completed: exact_solver on 8x8x8 board (Seed: 7)
+Completed: exact_solver on 8x8x8 board (Seed: 7)
+Completed: global_sat on 8x8x8 board (Seed: 7)
+Completed: global_sat on 8x8x8 board (Seed: 7)
+Completed: global_sat on 8x8x8 board (Seed: 7)
+Completed: partitioned_sat on 8x8x8 board (Seed: 7)
+Completed: partitioned_sat on 8x8x8 board (Seed: 7)
+Completed: partitioned_sat on 8x8x8 board (Seed: 7)
+Completed: scip_solver on 8x8x8 board (Seed: 7)
+Completed: scip_solver on 8x8x8 board (Seed: 7)
+Completed: scip_solver on 8x8x8 board (Seed: 7)
+Completed: greedy on 8x8x8 board (Seed: 8)
+Completed: greedy on 8x8x8 board (Seed: 8)
+Completed: greedy on 8x8x8 board (Seed: 8)
+Completed: exact_solver on 8x8x8 board (Seed: 8)
+Completed: exact_solver on 8x8x8 board (Seed: 8)
+Completed: exact_solver on 8x8x8 board (Seed: 8)
+Completed: global_sat on 8x8x8 board (Seed: 8)
+Completed: global_sat on 8x8x8 board (Seed: 8)
+Completed: global_sat on 8x8x8 board (Seed: 8)
+Completed: partitioned_sat on 8x8x8 board (Seed: 8)
+Completed: partitioned_sat on 8x8x8 board (Seed: 8)
+Completed: partitioned_sat on 8x8x8 board (Seed: 8)
+Completed: scip_solver on 8x8x8 board (Seed: 8)
+Completed: scip_solver on 8x8x8 board (Seed: 8)
+Completed: scip_solver on 8x8x8 board (Seed: 8)
+Completed: greedy on 8x8x8 board (Seed: 9)
+Completed: greedy on 8x8x8 board (Seed: 9)
+Completed: greedy on 8x8x8 board (Seed: 9)
+Completed: exact_solver on 8x8x8 board (Seed: 9)
+Completed: exact_solver on 8x8x8 board (Seed: 9)
+Completed: exact_solver on 8x8x8 board (Seed: 9)
+Completed: global_sat on 8x8x8 board (Seed: 9)
+Completed: global_sat on 8x8x8 board (Seed: 9)
+Completed: global_sat on 8x8x8 board (Seed: 9)
+Completed: partitioned_sat on 8x8x8 board (Seed: 9)
+Completed: partitioned_sat on 8x8x8 board (Seed: 9)
+Completed: partitioned_sat on 8x8x8 board (Seed: 9)
+Completed: scip_solver on 8x8x8 board (Seed: 9)
+Completed: scip_solver on 8x8x8 board (Seed: 9)
+Completed: scip_solver on 8x8x8 board (Seed: 9)
+Completed: greedy on 8x8x8 board (Seed: 10)
+Completed: greedy on 8x8x8 board (Seed: 10)
+Completed: greedy on 8x8x8 board (Seed: 10)
+Completed: exact_solver on 8x8x8 board (Seed: 10)
+Completed: exact_solver on 8x8x8 board (Seed: 10)
+Completed: exact_solver on 8x8x8 board (Seed: 10)
+Completed: global_sat on 8x8x8 board (Seed: 10)
+Completed: global_sat on 8x8x8 board (Seed: 10)
+Completed: global_sat on 8x8x8 board (Seed: 10)
+Completed: partitioned_sat on 8x8x8 board (Seed: 10)
+Completed: partitioned_sat on 8x8x8 board (Seed: 10)
+Completed: partitioned_sat on 8x8x8 board (Seed: 10)
+Completed: scip_solver on 8x8x8 board (Seed: 10)
+Completed: scip_solver on 8x8x8 board (Seed: 10)
+Completed: scip_solver on 8x8x8 board (Seed: 10)
+Completed: greedy on 8x8x8 board (Seed: 11)
+Completed: greedy on 8x8x8 board (Seed: 11)
+Completed: greedy on 8x8x8 board (Seed: 11)
+Completed: exact_solver on 8x8x8 board (Seed: 11)
+Completed: exact_solver on 8x8x8 board (Seed: 11)
+Completed: exact_solver on 8x8x8 board (Seed: 11)
+Completed: global_sat on 8x8x8 board (Seed: 11)
+Completed: global_sat on 8x8x8 board (Seed: 11)
+Completed: global_sat on 8x8x8 board (Seed: 11)
+Completed: partitioned_sat on 8x8x8 board (Seed: 11)
+Completed: partitioned_sat on 8x8x8 board (Seed: 11)
+Completed: partitioned_sat on 8x8x8 board (Seed: 11)
+Completed: scip_solver on 8x8x8 board (Seed: 11)
+Completed: scip_solver on 8x8x8 board (Seed: 11)
+Completed: scip_solver on 8x8x8 board (Seed: 11)
+Completed: greedy on 8x8x8 board (Seed: 12)
+Completed: greedy on 8x8x8 board (Seed: 12)
+Completed: greedy on 8x8x8 board (Seed: 12)
+Completed: exact_solver on 8x8x8 board (Seed: 12)
+Completed: exact_solver on 8x8x8 board (Seed: 12)
+Completed: exact_solver on 8x8x8 board (Seed: 12)
+Completed: global_sat on 8x8x8 board (Seed: 12)
+Completed: global_sat on 8x8x8 board (Seed: 12)
+Completed: global_sat on 8x8x8 board (Seed: 12)
+Completed: partitioned_sat on 8x8x8 board (Seed: 12)
+Completed: partitioned_sat on 8x8x8 board (Seed: 12)
+Completed: partitioned_sat on 8x8x8 board (Seed: 12)
+Completed: scip_solver on 8x8x8 board (Seed: 12)
+Completed: scip_solver on 8x8x8 board (Seed: 12)
+Completed: scip_solver on 8x8x8 board (Seed: 12)
+Completed: greedy on 8x8x8 board (Seed: 13)
+Completed: greedy on 8x8x8 board (Seed: 13)
+Completed: greedy on 8x8x8 board (Seed: 13)
+Completed: exact_solver on 8x8x8 board (Seed: 13)
+Completed: exact_solver on 8x8x8 board (Seed: 13)
+Completed: exact_solver on 8x8x8 board (Seed: 13)
+Completed: global_sat on 8x8x8 board (Seed: 13)
+Completed: global_sat on 8x8x8 board (Seed: 13)
+Completed: global_sat on 8x8x8 board (Seed: 13)
+Completed: partitioned_sat on 8x8x8 board (Seed: 13)
+Completed: partitioned_sat on 8x8x8 board (Seed: 13)
+Completed: partitioned_sat on 8x8x8 board (Seed: 13)
+Completed: scip_solver on 8x8x8 board (Seed: 13)
+Completed: scip_solver on 8x8x8 board (Seed: 13)
+Completed: scip_solver on 8x8x8 board (Seed: 13)
+Completed: greedy on 8x8x8 board (Seed: 14)
+Completed: greedy on 8x8x8 board (Seed: 14)
+Completed: greedy on 8x8x8 board (Seed: 14)
+Completed: exact_solver on 8x8x8 board (Seed: 14)
+Completed: exact_solver on 8x8x8 board (Seed: 14)
+Completed: exact_solver on 8x8x8 board (Seed: 14)
+Completed: global_sat on 8x8x8 board (Seed: 14)
+Completed: global_sat on 8x8x8 board (Seed: 14)
+Completed: global_sat on 8x8x8 board (Seed: 14)
+Completed: partitioned_sat on 8x8x8 board (Seed: 14)
+Completed: partitioned_sat on 8x8x8 board (Seed: 14)
+Completed: partitioned_sat on 8x8x8 board (Seed: 14)
+Completed: scip_solver on 8x8x8 board (Seed: 14)
+Completed: scip_solver on 8x8x8 board (Seed: 14)
+Completed: scip_solver on 8x8x8 board (Seed: 14)
+Completed: greedy on 8x8x8 board (Seed: 15)
+Completed: greedy on 8x8x8 board (Seed: 15)
+Completed: greedy on 8x8x8 board (Seed: 15)
+Completed: exact_solver on 8x8x8 board (Seed: 15)
+Completed: exact_solver on 8x8x8 board (Seed: 15)
+Completed: exact_solver on 8x8x8 board (Seed: 15)
+Completed: global_sat on 8x8x8 board (Seed: 15)
+Completed: global_sat on 8x8x8 board (Seed: 15)
+Completed: global_sat on 8x8x8 board (Seed: 15)
+Completed: partitioned_sat on 8x8x8 board (Seed: 15)
+Completed: partitioned_sat on 8x8x8 board (Seed: 15)
+Completed: partitioned_sat on 8x8x8 board (Seed: 15)
+Completed: scip_solver on 8x8x8 board (Seed: 15)
+Completed: scip_solver on 8x8x8 board (Seed: 15)
+Completed: scip_solver on 8x8x8 board (Seed: 15)
+Completed: greedy on 8x8x8 board (Seed: 16)
+Completed: greedy on 8x8x8 board (Seed: 16)
+Completed: greedy on 8x8x8 board (Seed: 16)
+Completed: exact_solver on 8x8x8 board (Seed: 16)
+Completed: exact_solver on 8x8x8 board (Seed: 16)
+Completed: exact_solver on 8x8x8 board (Seed: 16)
+Completed: global_sat on 8x8x8 board (Seed: 16)
+Completed: global_sat on 8x8x8 board (Seed: 16)
+Completed: global_sat on 8x8x8 board (Seed: 16)
+Completed: partitioned_sat on 8x8x8 board (Seed: 16)
+Completed: partitioned_sat on 8x8x8 board (Seed: 16)
+Completed: partitioned_sat on 8x8x8 board (Seed: 16)
+Completed: scip_solver on 8x8x8 board (Seed: 16)
+Completed: scip_solver on 8x8x8 board (Seed: 16)
+Completed: scip_solver on 8x8x8 board (Seed: 16)
+Completed: greedy on 8x8x8 board (Seed: 17)
+Completed: greedy on 8x8x8 board (Seed: 17)
+Completed: greedy on 8x8x8 board (Seed: 17)
+Completed: exact_solver on 8x8x8 board (Seed: 17)
+Completed: exact_solver on 8x8x8 board (Seed: 17)
+Completed: exact_solver on 8x8x8 board (Seed: 17)
+Completed: global_sat on 8x8x8 board (Seed: 17)
+Completed: global_sat on 8x8x8 board (Seed: 17)
+Completed: global_sat on 8x8x8 board (Seed: 17)
+Completed: partitioned_sat on 8x8x8 board (Seed: 17)
+Completed: partitioned_sat on 8x8x8 board (Seed: 17)
+Completed: partitioned_sat on 8x8x8 board (Seed: 17)
+Completed: scip_solver on 8x8x8 board (Seed: 17)
+Completed: scip_solver on 8x8x8 board (Seed: 17)
+Completed: scip_solver on 8x8x8 board (Seed: 17)
+Completed: greedy on 8x8x8 board (Seed: 18)
+Completed: greedy on 8x8x8 board (Seed: 18)
+Completed: greedy on 8x8x8 board (Seed: 18)
+Completed: exact_solver on 8x8x8 board (Seed: 18)
+Completed: exact_solver on 8x8x8 board (Seed: 18)
+Completed: exact_solver on 8x8x8 board (Seed: 18)
+Completed: global_sat on 8x8x8 board (Seed: 18)
+Completed: global_sat on 8x8x8 board (Seed: 18)
+Completed: global_sat on 8x8x8 board (Seed: 18)
+Completed: partitioned_sat on 8x8x8 board (Seed: 18)
+Completed: partitioned_sat on 8x8x8 board (Seed: 18)
+Completed: partitioned_sat on 8x8x8 board (Seed: 18)
+Completed: scip_solver on 8x8x8 board (Seed: 18)
+Completed: scip_solver on 8x8x8 board (Seed: 18)
+Completed: scip_solver on 8x8x8 board (Seed: 18)
+Completed: greedy on 8x8x8 board (Seed: 19)
+Completed: greedy on 8x8x8 board (Seed: 19)
+Completed: greedy on 8x8x8 board (Seed: 19)
+Completed: exact_solver on 8x8x8 board (Seed: 19)
+Completed: exact_solver on 8x8x8 board (Seed: 19)
+Completed: exact_solver on 8x8x8 board (Seed: 19)
+Completed: global_sat on 8x8x8 board (Seed: 19)
+Completed: global_sat on 8x8x8 board (Seed: 19)
+Completed: global_sat on 8x8x8 board (Seed: 19)
+Completed: partitioned_sat on 8x8x8 board (Seed: 19)
+Completed: partitioned_sat on 8x8x8 board (Seed: 19)
+Completed: partitioned_sat on 8x8x8 board (Seed: 19)
+Completed: scip_solver on 8x8x8 board (Seed: 19)
+Completed: scip_solver on 8x8x8 board (Seed: 19)
+Completed: scip_solver on 8x8x8 board (Seed: 19)
+Completed: greedy on 8x8x8 board (Seed: 20)
+Completed: greedy on 8x8x8 board (Seed: 20)
+Completed: greedy on 8x8x8 board (Seed: 20)
+Completed: exact_solver on 8x8x8 board (Seed: 20)
+Completed: exact_solver on 8x8x8 board (Seed: 20)
+Completed: exact_solver on 8x8x8 board (Seed: 20)
+Completed: global_sat on 8x8x8 board (Seed: 20)
+Completed: global_sat on 8x8x8 board (Seed: 20)
+Completed: global_sat on 8x8x8 board (Seed: 20)
+Completed: partitioned_sat on 8x8x8 board (Seed: 20)
+Completed: partitioned_sat on 8x8x8 board (Seed: 20)
+Completed: partitioned_sat on 8x8x8 board (Seed: 20)
+Completed: scip_solver on 8x8x8 board (Seed: 20)
+Completed: scip_solver on 8x8x8 board (Seed: 20)
+Completed: scip_solver on 8x8x8 board (Seed: 20)
+Completed: greedy on 8x8x8 board (Seed: 21)
+Completed: greedy on 8x8x8 board (Seed: 21)
+Completed: greedy on 8x8x8 board (Seed: 21)
+Completed: exact_solver on 8x8x8 board (Seed: 21)
+Completed: exact_solver on 8x8x8 board (Seed: 21)
+Completed: exact_solver on 8x8x8 board (Seed: 21)
+Completed: global_sat on 8x8x8 board (Seed: 21)
+Completed: global_sat on 8x8x8 board (Seed: 21)
+Completed: global_sat on 8x8x8 board (Seed: 21)
+Completed: partitioned_sat on 8x8x8 board (Seed: 21)
+Completed: partitioned_sat on 8x8x8 board (Seed: 21)
+Completed: partitioned_sat on 8x8x8 board (Seed: 21)
+Completed: scip_solver on 8x8x8 board (Seed: 21)
+Completed: scip_solver on 8x8x8 board (Seed: 21)
+Completed: scip_solver on 8x8x8 board (Seed: 21)
+Completed: greedy on 8x8x8 board (Seed: 22)
+Completed: greedy on 8x8x8 board (Seed: 22)
+Completed: greedy on 8x8x8 board (Seed: 22)
+Completed: exact_solver on 8x8x8 board (Seed: 22)
+Completed: exact_solver on 8x8x8 board (Seed: 22)
+Completed: exact_solver on 8x8x8 board (Seed: 22)
+Completed: global_sat on 8x8x8 board (Seed: 22)
+Completed: global_sat on 8x8x8 board (Seed: 22)
+Completed: global_sat on 8x8x8 board (Seed: 22)
+Completed: partitioned_sat on 8x8x8 board (Seed: 22)
+Completed: partitioned_sat on 8x8x8 board (Seed: 22)
+Completed: partitioned_sat on 8x8x8 board (Seed: 22)
+Completed: scip_solver on 8x8x8 board (Seed: 22)
+Completed: scip_solver on 8x8x8 board (Seed: 22)
+Completed: scip_solver on 8x8x8 board (Seed: 22)
+Completed: greedy on 8x8x8 board (Seed: 23)
+Completed: greedy on 8x8x8 board (Seed: 23)
+Completed: greedy on 8x8x8 board (Seed: 23)
+Completed: exact_solver on 8x8x8 board (Seed: 23)
+Completed: exact_solver on 8x8x8 board (Seed: 23)
+Completed: exact_solver on 8x8x8 board (Seed: 23)
+Completed: global_sat on 8x8x8 board (Seed: 23)
+Completed: global_sat on 8x8x8 board (Seed: 23)
+Completed: global_sat on 8x8x8 board (Seed: 23)
+Completed: partitioned_sat on 8x8x8 board (Seed: 23)
+Completed: partitioned_sat on 8x8x8 board (Seed: 23)
+Completed: partitioned_sat on 8x8x8 board (Seed: 23)
+Completed: scip_solver on 8x8x8 board (Seed: 23)
+Completed: scip_solver on 8x8x8 board (Seed: 23)
+Completed: scip_solver on 8x8x8 board (Seed: 23)
+Completed: greedy on 8x8x8 board (Seed: 24)
+Completed: greedy on 8x8x8 board (Seed: 24)
+Completed: greedy on 8x8x8 board (Seed: 24)
+Completed: exact_solver on 8x8x8 board (Seed: 24)
+Completed: exact_solver on 8x8x8 board (Seed: 24)
+Completed: exact_solver on 8x8x8 board (Seed: 24)
+Completed: global_sat on 8x8x8 board (Seed: 24)
+Completed: global_sat on 8x8x8 board (Seed: 24)
+Completed: global_sat on 8x8x8 board (Seed: 24)
+Completed: partitioned_sat on 8x8x8 board (Seed: 24)
+Completed: partitioned_sat on 8x8x8 board (Seed: 24)
+Completed: partitioned_sat on 8x8x8 board (Seed: 24)
+Completed: scip_solver on 8x8x8 board (Seed: 24)
+Completed: scip_solver on 8x8x8 board (Seed: 24)
+Completed: scip_solver on 8x8x8 board (Seed: 24)
+Completed: greedy on 8x8x8 board (Seed: 25)
+Completed: greedy on 8x8x8 board (Seed: 25)
+Completed: greedy on 8x8x8 board (Seed: 25)
+Completed: exact_solver on 8x8x8 board (Seed: 25)
+Completed: exact_solver on 8x8x8 board (Seed: 25)
+Completed: exact_solver on 8x8x8 board (Seed: 25)
+Completed: global_sat on 8x8x8 board (Seed: 25)
+Completed: global_sat on 8x8x8 board (Seed: 25)
+Completed: global_sat on 8x8x8 board (Seed: 25)
+Completed: partitioned_sat on 8x8x8 board (Seed: 25)
+Completed: partitioned_sat on 8x8x8 board (Seed: 25)
+Completed: partitioned_sat on 8x8x8 board (Seed: 25)
+Completed: scip_solver on 8x8x8 board (Seed: 25)
+Completed: scip_solver on 8x8x8 board (Seed: 25)
+Completed: scip_solver on 8x8x8 board (Seed: 25)
+Completed: greedy on 8x8x8 board (Seed: 26)
+Completed: greedy on 8x8x8 board (Seed: 26)
+Completed: greedy on 8x8x8 board (Seed: 26)
+Completed: exact_solver on 8x8x8 board (Seed: 26)
+Completed: exact_solver on 8x8x8 board (Seed: 26)
+Completed: exact_solver on 8x8x8 board (Seed: 26)
+Completed: global_sat on 8x8x8 board (Seed: 26)
+Completed: global_sat on 8x8x8 board (Seed: 26)
+Completed: global_sat on 8x8x8 board (Seed: 26)
+Completed: partitioned_sat on 8x8x8 board (Seed: 26)
+Completed: partitioned_sat on 8x8x8 board (Seed: 26)
+Completed: partitioned_sat on 8x8x8 board (Seed: 26)
+Completed: scip_solver on 8x8x8 board (Seed: 26)
+Completed: scip_solver on 8x8x8 board (Seed: 26)
+Completed: scip_solver on 8x8x8 board (Seed: 26)
+Completed: greedy on 8x8x8 board (Seed: 27)
+Completed: greedy on 8x8x8 board (Seed: 27)
+Completed: greedy on 8x8x8 board (Seed: 27)
+Completed: exact_solver on 8x8x8 board (Seed: 27)
+Completed: exact_solver on 8x8x8 board (Seed: 27)
+Completed: exact_solver on 8x8x8 board (Seed: 27)
+Completed: global_sat on 8x8x8 board (Seed: 27)
+Completed: global_sat on 8x8x8 board (Seed: 27)
+Completed: global_sat on 8x8x8 board (Seed: 27)
+Completed: partitioned_sat on 8x8x8 board (Seed: 27)
+Completed: partitioned_sat on 8x8x8 board (Seed: 27)
+Completed: partitioned_sat on 8x8x8 board (Seed: 27)
+Completed: scip_solver on 8x8x8 board (Seed: 27)
+Completed: scip_solver on 8x8x8 board (Seed: 27)
+Completed: scip_solver on 8x8x8 board (Seed: 27)
+Completed: greedy on 8x8x8 board (Seed: 28)
+Completed: greedy on 8x8x8 board (Seed: 28)
+Completed: greedy on 8x8x8 board (Seed: 28)
+Completed: exact_solver on 8x8x8 board (Seed: 28)
+Completed: exact_solver on 8x8x8 board (Seed: 28)
+Completed: exact_solver on 8x8x8 board (Seed: 28)
+Completed: global_sat on 8x8x8 board (Seed: 28)
+Completed: global_sat on 8x8x8 board (Seed: 28)
+Completed: global_sat on 8x8x8 board (Seed: 28)
+Completed: partitioned_sat on 8x8x8 board (Seed: 28)
+Completed: partitioned_sat on 8x8x8 board (Seed: 28)
+Completed: partitioned_sat on 8x8x8 board (Seed: 28)
+Completed: scip_solver on 8x8x8 board (Seed: 28)
+Completed: scip_solver on 8x8x8 board (Seed: 28)
+Completed: scip_solver on 8x8x8 board (Seed: 28)
+Completed: greedy on 8x8x8 board (Seed: 29)
+Completed: greedy on 8x8x8 board (Seed: 29)
+Completed: greedy on 8x8x8 board (Seed: 29)
+Completed: exact_solver on 8x8x8 board (Seed: 29)
+Completed: exact_solver on 8x8x8 board (Seed: 29)
+Completed: exact_solver on 8x8x8 board (Seed: 29)
+Completed: global_sat on 8x8x8 board (Seed: 29)
+Completed: global_sat on 8x8x8 board (Seed: 29)
+Completed: global_sat on 8x8x8 board (Seed: 29)
+Completed: partitioned_sat on 8x8x8 board (Seed: 29)
+Completed: partitioned_sat on 8x8x8 board (Seed: 29)
+Completed: partitioned_sat on 8x8x8 board (Seed: 29)
+Completed: scip_solver on 8x8x8 board (Seed: 29)
+Completed: scip_solver on 8x8x8 board (Seed: 29)
+Completed: scip_solver on 8x8x8 board (Seed: 29)
+Completed: greedy on 10x10x10 board (Seed: 0)
+Completed: greedy on 10x10x10 board (Seed: 0)
+Completed: greedy on 10x10x10 board (Seed: 0)
+Completed: exact_solver on 10x10x10 board (Seed: 0)
+Completed: exact_solver on 10x10x10 board (Seed: 0)
+Completed: exact_solver on 10x10x10 board (Seed: 0)
+Completed: global_sat on 10x10x10 board (Seed: 0)
+Completed: global_sat on 10x10x10 board (Seed: 0)
+Completed: global_sat on 10x10x10 board (Seed: 0)
+Completed: partitioned_sat on 10x10x10 board (Seed: 0)
+Completed: partitioned_sat on 10x10x10 board (Seed: 0)
+Completed: partitioned_sat on 10x10x10 board (Seed: 0)
+Completed: scip_solver on 10x10x10 board (Seed: 0)
+Completed: scip_solver on 10x10x10 board (Seed: 0)
+Completed: scip_solver on 10x10x10 board (Seed: 0)
+Completed: greedy on 10x10x10 board (Seed: 1)
+Completed: greedy on 10x10x10 board (Seed: 1)
+Completed: greedy on 10x10x10 board (Seed: 1)
+Completed: exact_solver on 10x10x10 board (Seed: 1)
+Completed: exact_solver on 10x10x10 board (Seed: 1)
+Completed: exact_solver on 10x10x10 board (Seed: 1)
+Completed: global_sat on 10x10x10 board (Seed: 1)
+Completed: global_sat on 10x10x10 board (Seed: 1)
+Completed: global_sat on 10x10x10 board (Seed: 1)
+Completed: partitioned_sat on 10x10x10 board (Seed: 1)
+Completed: partitioned_sat on 10x10x10 board (Seed: 1)
+Completed: partitioned_sat on 10x10x10 board (Seed: 1)
+Completed: scip_solver on 10x10x10 board (Seed: 1)
+Completed: scip_solver on 10x10x10 board (Seed: 1)
+Completed: scip_solver on 10x10x10 board (Seed: 1)
+Completed: greedy on 10x10x10 board (Seed: 2)
+Completed: greedy on 10x10x10 board (Seed: 2)
+Completed: greedy on 10x10x10 board (Seed: 2)
+Completed: exact_solver on 10x10x10 board (Seed: 2)
+Completed: exact_solver on 10x10x10 board (Seed: 2)
+Completed: exact_solver on 10x10x10 board (Seed: 2)
+Completed: global_sat on 10x10x10 board (Seed: 2)
+Completed: global_sat on 10x10x10 board (Seed: 2)
+Completed: global_sat on 10x10x10 board (Seed: 2)
+Completed: partitioned_sat on 10x10x10 board (Seed: 2)
+Completed: partitioned_sat on 10x10x10 board (Seed: 2)
+Completed: partitioned_sat on 10x10x10 board (Seed: 2)
+Completed: scip_solver on 10x10x10 board (Seed: 2)
+Completed: scip_solver on 10x10x10 board (Seed: 2)
+Completed: scip_solver on 10x10x10 board (Seed: 2)
+Completed: greedy on 10x10x10 board (Seed: 3)
+Completed: greedy on 10x10x10 board (Seed: 3)
+Completed: greedy on 10x10x10 board (Seed: 3)
+Completed: exact_solver on 10x10x10 board (Seed: 3)
+Completed: exact_solver on 10x10x10 board (Seed: 3)
+Completed: exact_solver on 10x10x10 board (Seed: 3)
+Completed: global_sat on 10x10x10 board (Seed: 3)
+Completed: global_sat on 10x10x10 board (Seed: 3)
+Completed: global_sat on 10x10x10 board (Seed: 3)
+Completed: partitioned_sat on 10x10x10 board (Seed: 3)
+Completed: partitioned_sat on 10x10x10 board (Seed: 3)
+Completed: partitioned_sat on 10x10x10 board (Seed: 3)
+Completed: scip_solver on 10x10x10 board (Seed: 3)
+Completed: scip_solver on 10x10x10 board (Seed: 3)
+Completed: scip_solver on 10x10x10 board (Seed: 3)
+Completed: greedy on 10x10x10 board (Seed: 4)
+Completed: greedy on 10x10x10 board (Seed: 4)
+Completed: greedy on 10x10x10 board (Seed: 4)
+Completed: exact_solver on 10x10x10 board (Seed: 4)
+Completed: exact_solver on 10x10x10 board (Seed: 4)
+Completed: exact_solver on 10x10x10 board (Seed: 4)
+Completed: global_sat on 10x10x10 board (Seed: 4)
+Completed: global_sat on 10x10x10 board (Seed: 4)
+Completed: global_sat on 10x10x10 board (Seed: 4)
+Completed: partitioned_sat on 10x10x10 board (Seed: 4)
+Completed: partitioned_sat on 10x10x10 board (Seed: 4)
+Completed: partitioned_sat on 10x10x10 board (Seed: 4)
+Completed: scip_solver on 10x10x10 board (Seed: 4)
+Completed: scip_solver on 10x10x10 board (Seed: 4)
+Completed: scip_solver on 10x10x10 board (Seed: 4)
+Completed: greedy on 10x10x10 board (Seed: 5)
+Completed: greedy on 10x10x10 board (Seed: 5)
+Completed: greedy on 10x10x10 board (Seed: 5)
+Completed: exact_solver on 10x10x10 board (Seed: 5)
+Completed: exact_solver on 10x10x10 board (Seed: 5)
+Completed: exact_solver on 10x10x10 board (Seed: 5)
+Completed: global_sat on 10x10x10 board (Seed: 5)
+Completed: global_sat on 10x10x10 board (Seed: 5)
+Completed: global_sat on 10x10x10 board (Seed: 5)
+Completed: partitioned_sat on 10x10x10 board (Seed: 5)
+Completed: partitioned_sat on 10x10x10 board (Seed: 5)
+Completed: partitioned_sat on 10x10x10 board (Seed: 5)
+Completed: scip_solver on 10x10x10 board (Seed: 5)
+Completed: scip_solver on 10x10x10 board (Seed: 5)
+Completed: scip_solver on 10x10x10 board (Seed: 5)
+Completed: greedy on 10x10x10 board (Seed: 6)
+Completed: greedy on 10x10x10 board (Seed: 6)
+Completed: greedy on 10x10x10 board (Seed: 6)
+Completed: exact_solver on 10x10x10 board (Seed: 6)
+Completed: exact_solver on 10x10x10 board (Seed: 6)
+Completed: exact_solver on 10x10x10 board (Seed: 6)
+Completed: global_sat on 10x10x10 board (Seed: 6)
+Completed: global_sat on 10x10x10 board (Seed: 6)
+Completed: global_sat on 10x10x10 board (Seed: 6)
+Completed: partitioned_sat on 10x10x10 board (Seed: 6)
+Completed: partitioned_sat on 10x10x10 board (Seed: 6)
+Completed: partitioned_sat on 10x10x10 board (Seed: 6)
+Completed: scip_solver on 10x10x10 board (Seed: 6)
+Completed: scip_solver on 10x10x10 board (Seed: 6)
+Completed: scip_solver on 10x10x10 board (Seed: 6)
+Completed: greedy on 10x10x10 board (Seed: 7)
+Completed: greedy on 10x10x10 board (Seed: 7)
+Completed: greedy on 10x10x10 board (Seed: 7)
+Completed: exact_solver on 10x10x10 board (Seed: 7)
+Completed: exact_solver on 10x10x10 board (Seed: 7)
+Completed: exact_solver on 10x10x10 board (Seed: 7)
+Completed: global_sat on 10x10x10 board (Seed: 7)
+Completed: global_sat on 10x10x10 board (Seed: 7)
+Completed: global_sat on 10x10x10 board (Seed: 7)
+Completed: partitioned_sat on 10x10x10 board (Seed: 7)
+Completed: partitioned_sat on 10x10x10 board (Seed: 7)
+Completed: partitioned_sat on 10x10x10 board (Seed: 7)
+Completed: scip_solver on 10x10x10 board (Seed: 7)
+Completed: scip_solver on 10x10x10 board (Seed: 7)
+Completed: scip_solver on 10x10x10 board (Seed: 7)
+Completed: greedy on 10x10x10 board (Seed: 8)
+Completed: greedy on 10x10x10 board (Seed: 8)
+Completed: greedy on 10x10x10 board (Seed: 8)
+Completed: exact_solver on 10x10x10 board (Seed: 8)
+Completed: exact_solver on 10x10x10 board (Seed: 8)
+Completed: exact_solver on 10x10x10 board (Seed: 8)
+Completed: global_sat on 10x10x10 board (Seed: 8)
+Completed: global_sat on 10x10x10 board (Seed: 8)
+Completed: global_sat on 10x10x10 board (Seed: 8)
+Completed: partitioned_sat on 10x10x10 board (Seed: 8)
+Completed: partitioned_sat on 10x10x10 board (Seed: 8)
+Completed: partitioned_sat on 10x10x10 board (Seed: 8)
+Completed: scip_solver on 10x10x10 board (Seed: 8)
+Completed: scip_solver on 10x10x10 board (Seed: 8)
+Completed: scip_solver on 10x10x10 board (Seed: 8)
+Completed: greedy on 10x10x10 board (Seed: 9)
+Completed: greedy on 10x10x10 board (Seed: 9)
+Completed: greedy on 10x10x10 board (Seed: 9)
+Completed: exact_solver on 10x10x10 board (Seed: 9)
+Completed: exact_solver on 10x10x10 board (Seed: 9)
+Completed: exact_solver on 10x10x10 board (Seed: 9)
+Completed: global_sat on 10x10x10 board (Seed: 9)
+Completed: global_sat on 10x10x10 board (Seed: 9)
+Completed: global_sat on 10x10x10 board (Seed: 9)
+Completed: partitioned_sat on 10x10x10 board (Seed: 9)
+Completed: partitioned_sat on 10x10x10 board (Seed: 9)
+Completed: partitioned_sat on 10x10x10 board (Seed: 9)
+Completed: scip_solver on 10x10x10 board (Seed: 9)
+Completed: scip_solver on 10x10x10 board (Seed: 9)
+Completed: scip_solver on 10x10x10 board (Seed: 9)
+Completed: greedy on 10x10x10 board (Seed: 10)
+Completed: greedy on 10x10x10 board (Seed: 10)
+Completed: greedy on 10x10x10 board (Seed: 10)
+Completed: exact_solver on 10x10x10 board (Seed: 10)
+Completed: exact_solver on 10x10x10 board (Seed: 10)
+Completed: exact_solver on 10x10x10 board (Seed: 10)
+Completed: global_sat on 10x10x10 board (Seed: 10)
+Completed: global_sat on 10x10x10 board (Seed: 10)
+Completed: global_sat on 10x10x10 board (Seed: 10)
+Completed: partitioned_sat on 10x10x10 board (Seed: 10)
+Completed: partitioned_sat on 10x10x10 board (Seed: 10)
+Completed: partitioned_sat on 10x10x10 board (Seed: 10)
+Completed: scip_solver on 10x10x10 board (Seed: 10)
+Completed: scip_solver on 10x10x10 board (Seed: 10)
+Completed: scip_solver on 10x10x10 board (Seed: 10)
+Completed: greedy on 10x10x10 board (Seed: 11)
+Completed: greedy on 10x10x10 board (Seed: 11)
+Completed: greedy on 10x10x10 board (Seed: 11)
+Completed: exact_solver on 10x10x10 board (Seed: 11)
+Completed: exact_solver on 10x10x10 board (Seed: 11)
+Completed: exact_solver on 10x10x10 board (Seed: 11)
+Completed: global_sat on 10x10x10 board (Seed: 11)
+Completed: global_sat on 10x10x10 board (Seed: 11)
+Completed: global_sat on 10x10x10 board (Seed: 11)
+Completed: partitioned_sat on 10x10x10 board (Seed: 11)
+Completed: partitioned_sat on 10x10x10 board (Seed: 11)
+Completed: partitioned_sat on 10x10x10 board (Seed: 11)
+Completed: scip_solver on 10x10x10 board (Seed: 11)
+Completed: scip_solver on 10x10x10 board (Seed: 11)
+Completed: scip_solver on 10x10x10 board (Seed: 11)
+Completed: greedy on 10x10x10 board (Seed: 12)
+Completed: greedy on 10x10x10 board (Seed: 12)
+Completed: greedy on 10x10x10 board (Seed: 12)
+Completed: exact_solver on 10x10x10 board (Seed: 12)
+Completed: exact_solver on 10x10x10 board (Seed: 12)
+Completed: exact_solver on 10x10x10 board (Seed: 12)
+Completed: global_sat on 10x10x10 board (Seed: 12)
+Completed: global_sat on 10x10x10 board (Seed: 12)
+Completed: global_sat on 10x10x10 board (Seed: 12)
+Completed: partitioned_sat on 10x10x10 board (Seed: 12)
+Completed: partitioned_sat on 10x10x10 board (Seed: 12)
+Completed: partitioned_sat on 10x10x10 board (Seed: 12)
+Completed: scip_solver on 10x10x10 board (Seed: 12)
+Completed: scip_solver on 10x10x10 board (Seed: 12)
+Completed: scip_solver on 10x10x10 board (Seed: 12)
+Completed: greedy on 10x10x10 board (Seed: 13)
+Completed: greedy on 10x10x10 board (Seed: 13)
+Completed: greedy on 10x10x10 board (Seed: 13)
+Completed: exact_solver on 10x10x10 board (Seed: 13)
+Completed: exact_solver on 10x10x10 board (Seed: 13)
+Completed: exact_solver on 10x10x10 board (Seed: 13)
+Completed: global_sat on 10x10x10 board (Seed: 13)
+Completed: global_sat on 10x10x10 board (Seed: 13)
+Completed: global_sat on 10x10x10 board (Seed: 13)
+Completed: partitioned_sat on 10x10x10 board (Seed: 13)
+Completed: partitioned_sat on 10x10x10 board (Seed: 13)
+Completed: partitioned_sat on 10x10x10 board (Seed: 13)
+Completed: scip_solver on 10x10x10 board (Seed: 13)
+Completed: scip_solver on 10x10x10 board (Seed: 13)
+Completed: scip_solver on 10x10x10 board (Seed: 13)
+Completed: greedy on 10x10x10 board (Seed: 14)
+Completed: greedy on 10x10x10 board (Seed: 14)
+Completed: greedy on 10x10x10 board (Seed: 14)
+Completed: exact_solver on 10x10x10 board (Seed: 14)
+Completed: exact_solver on 10x10x10 board (Seed: 14)
+Completed: exact_solver on 10x10x10 board (Seed: 14)
+Completed: global_sat on 10x10x10 board (Seed: 14)
+Completed: global_sat on 10x10x10 board (Seed: 14)
+Completed: global_sat on 10x10x10 board (Seed: 14)
+Completed: partitioned_sat on 10x10x10 board (Seed: 14)
+Completed: partitioned_sat on 10x10x10 board (Seed: 14)
+Completed: partitioned_sat on 10x10x10 board (Seed: 14)
+Completed: scip_solver on 10x10x10 board (Seed: 14)
+Completed: scip_solver on 10x10x10 board (Seed: 14)
+Completed: scip_solver on 10x10x10 board (Seed: 14)
+Completed: greedy on 10x10x10 board (Seed: 15)
+Completed: greedy on 10x10x10 board (Seed: 15)
+Completed: greedy on 10x10x10 board (Seed: 15)
+Completed: exact_solver on 10x10x10 board (Seed: 15)
+Completed: exact_solver on 10x10x10 board (Seed: 15)
+Completed: exact_solver on 10x10x10 board (Seed: 15)
+Completed: global_sat on 10x10x10 board (Seed: 15)
+Completed: global_sat on 10x10x10 board (Seed: 15)
+Completed: global_sat on 10x10x10 board (Seed: 15)
+Completed: partitioned_sat on 10x10x10 board (Seed: 15)
+Completed: partitioned_sat on 10x10x10 board (Seed: 15)
+Completed: partitioned_sat on 10x10x10 board (Seed: 15)
+Completed: scip_solver on 10x10x10 board (Seed: 15)
+Completed: scip_solver on 10x10x10 board (Seed: 15)
+Completed: scip_solver on 10x10x10 board (Seed: 15)
+Completed: greedy on 10x10x10 board (Seed: 16)
+Completed: greedy on 10x10x10 board (Seed: 16)
+Completed: greedy on 10x10x10 board (Seed: 16)
+Completed: exact_solver on 10x10x10 board (Seed: 16)
+Completed: exact_solver on 10x10x10 board (Seed: 16)
+Completed: exact_solver on 10x10x10 board (Seed: 16)
+Completed: global_sat on 10x10x10 board (Seed: 16)
+Completed: global_sat on 10x10x10 board (Seed: 16)
+Completed: global_sat on 10x10x10 board (Seed: 16)
+Completed: partitioned_sat on 10x10x10 board (Seed: 16)
+Completed: partitioned_sat on 10x10x10 board (Seed: 16)
+Completed: partitioned_sat on 10x10x10 board (Seed: 16)
+Completed: scip_solver on 10x10x10 board (Seed: 16)
+Completed: scip_solver on 10x10x10 board (Seed: 16)
+Completed: scip_solver on 10x10x10 board (Seed: 16)
+Completed: greedy on 10x10x10 board (Seed: 17)
+Completed: greedy on 10x10x10 board (Seed: 17)
+Completed: greedy on 10x10x10 board (Seed: 17)
+Completed: exact_solver on 10x10x10 board (Seed: 17)
+Completed: exact_solver on 10x10x10 board (Seed: 17)
+Completed: exact_solver on 10x10x10 board (Seed: 17)
+Completed: global_sat on 10x10x10 board (Seed: 17)
+Completed: global_sat on 10x10x10 board (Seed: 17)
+Completed: global_sat on 10x10x10 board (Seed: 17)
+Completed: partitioned_sat on 10x10x10 board (Seed: 17)
+Completed: partitioned_sat on 10x10x10 board (Seed: 17)
+Completed: partitioned_sat on 10x10x10 board (Seed: 17)
+Completed: scip_solver on 10x10x10 board (Seed: 17)
+Completed: scip_solver on 10x10x10 board (Seed: 17)
+Completed: scip_solver on 10x10x10 board (Seed: 17)
+Completed: greedy on 10x10x10 board (Seed: 18)
+Completed: greedy on 10x10x10 board (Seed: 18)
+Completed: greedy on 10x10x10 board (Seed: 18)
+Completed: exact_solver on 10x10x10 board (Seed: 18)
+Completed: exact_solver on 10x10x10 board (Seed: 18)
+Completed: exact_solver on 10x10x10 board (Seed: 18)
+Completed: global_sat on 10x10x10 board (Seed: 18)
+Completed: global_sat on 10x10x10 board (Seed: 18)
+Completed: global_sat on 10x10x10 board (Seed: 18)
+Completed: partitioned_sat on 10x10x10 board (Seed: 18)
+Completed: partitioned_sat on 10x10x10 board (Seed: 18)
+Completed: partitioned_sat on 10x10x10 board (Seed: 18)
+Completed: scip_solver on 10x10x10 board (Seed: 18)
+Completed: scip_solver on 10x10x10 board (Seed: 18)
+Completed: scip_solver on 10x10x10 board (Seed: 18)
+Completed: greedy on 10x10x10 board (Seed: 19)
+Completed: greedy on 10x10x10 board (Seed: 19)
+Completed: greedy on 10x10x10 board (Seed: 19)
+Completed: exact_solver on 10x10x10 board (Seed: 19)
+Completed: exact_solver on 10x10x10 board (Seed: 19)
+Completed: exact_solver on 10x10x10 board (Seed: 19)
+Completed: global_sat on 10x10x10 board (Seed: 19)
+Completed: global_sat on 10x10x10 board (Seed: 19)
+Completed: global_sat on 10x10x10 board (Seed: 19)
+Completed: partitioned_sat on 10x10x10 board (Seed: 19)
+Completed: partitioned_sat on 10x10x10 board (Seed: 19)
+Completed: partitioned_sat on 10x10x10 board (Seed: 19)
+Completed: scip_solver on 10x10x10 board (Seed: 19)
+Completed: scip_solver on 10x10x10 board (Seed: 19)
+Completed: scip_solver on 10x10x10 board (Seed: 19)
+Completed: greedy on 10x10x10 board (Seed: 20)
+Completed: greedy on 10x10x10 board (Seed: 20)
+Completed: greedy on 10x10x10 board (Seed: 20)
+Completed: exact_solver on 10x10x10 board (Seed: 20)
+Completed: exact_solver on 10x10x10 board (Seed: 20)
+Completed: exact_solver on 10x10x10 board (Seed: 20)
+Completed: global_sat on 10x10x10 board (Seed: 20)
+Completed: global_sat on 10x10x10 board (Seed: 20)
+Completed: global_sat on 10x10x10 board (Seed: 20)
+Completed: partitioned_sat on 10x10x10 board (Seed: 20)
+Completed: partitioned_sat on 10x10x10 board (Seed: 20)
+Completed: partitioned_sat on 10x10x10 board (Seed: 20)
+Completed: scip_solver on 10x10x10 board (Seed: 20)
+Completed: scip_solver on 10x10x10 board (Seed: 20)
+Completed: scip_solver on 10x10x10 board (Seed: 20)
+Completed: greedy on 10x10x10 board (Seed: 21)
+Completed: greedy on 10x10x10 board (Seed: 21)
+Completed: greedy on 10x10x10 board (Seed: 21)
+Completed: exact_solver on 10x10x10 board (Seed: 21)
+Completed: exact_solver on 10x10x10 board (Seed: 21)
+Completed: exact_solver on 10x10x10 board (Seed: 21)
+Completed: global_sat on 10x10x10 board (Seed: 21)
+Completed: global_sat on 10x10x10 board (Seed: 21)
+Completed: global_sat on 10x10x10 board (Seed: 21)
+Completed: partitioned_sat on 10x10x10 board (Seed: 21)
+Completed: partitioned_sat on 10x10x10 board (Seed: 21)
+Completed: partitioned_sat on 10x10x10 board (Seed: 21)
+Completed: scip_solver on 10x10x10 board (Seed: 21)
+Completed: scip_solver on 10x10x10 board (Seed: 21)
+Completed: scip_solver on 10x10x10 board (Seed: 21)
+Completed: greedy on 10x10x10 board (Seed: 22)
+Completed: greedy on 10x10x10 board (Seed: 22)
+Completed: greedy on 10x10x10 board (Seed: 22)
+Completed: exact_solver on 10x10x10 board (Seed: 22)
+Completed: exact_solver on 10x10x10 board (Seed: 22)
+Completed: exact_solver on 10x10x10 board (Seed: 22)
+Completed: global_sat on 10x10x10 board (Seed: 22)
+Completed: global_sat on 10x10x10 board (Seed: 22)
+Completed: global_sat on 10x10x10 board (Seed: 22)
+Completed: partitioned_sat on 10x10x10 board (Seed: 22)
+Completed: partitioned_sat on 10x10x10 board (Seed: 22)
+Completed: partitioned_sat on 10x10x10 board (Seed: 22)
+Completed: scip_solver on 10x10x10 board (Seed: 22)
+Completed: scip_solver on 10x10x10 board (Seed: 22)
+Completed: scip_solver on 10x10x10 board (Seed: 22)
+Completed: greedy on 10x10x10 board (Seed: 23)
+Completed: greedy on 10x10x10 board (Seed: 23)
+Completed: greedy on 10x10x10 board (Seed: 23)
+Completed: exact_solver on 10x10x10 board (Seed: 23)
+Completed: exact_solver on 10x10x10 board (Seed: 23)
+Completed: exact_solver on 10x10x10 board (Seed: 23)
+Completed: global_sat on 10x10x10 board (Seed: 23)
+Completed: global_sat on 10x10x10 board (Seed: 23)
+Completed: global_sat on 10x10x10 board (Seed: 23)
+Completed: partitioned_sat on 10x10x10 board (Seed: 23)
+Completed: partitioned_sat on 10x10x10 board (Seed: 23)
+Completed: partitioned_sat on 10x10x10 board (Seed: 23)
+Completed: scip_solver on 10x10x10 board (Seed: 23)
+Completed: scip_solver on 10x10x10 board (Seed: 23)
+Completed: scip_solver on 10x10x10 board (Seed: 23)
+Completed: greedy on 10x10x10 board (Seed: 24)
+Completed: greedy on 10x10x10 board (Seed: 24)
+Completed: greedy on 10x10x10 board (Seed: 24)
+Completed: exact_solver on 10x10x10 board (Seed: 24)
+Completed: exact_solver on 10x10x10 board (Seed: 24)
+Completed: exact_solver on 10x10x10 board (Seed: 24)
+Completed: global_sat on 10x10x10 board (Seed: 24)
+Completed: global_sat on 10x10x10 board (Seed: 24)
+Completed: global_sat on 10x10x10 board (Seed: 24)
+Completed: partitioned_sat on 10x10x10 board (Seed: 24)
+Completed: partitioned_sat on 10x10x10 board (Seed: 24)
+Completed: partitioned_sat on 10x10x10 board (Seed: 24)
+Completed: scip_solver on 10x10x10 board (Seed: 24)
+Completed: scip_solver on 10x10x10 board (Seed: 24)
+Completed: scip_solver on 10x10x10 board (Seed: 24)
+Completed: greedy on 10x10x10 board (Seed: 25)
+Completed: greedy on 10x10x10 board (Seed: 25)
+Completed: greedy on 10x10x10 board (Seed: 25)
+Completed: exact_solver on 10x10x10 board (Seed: 25)
+Completed: exact_solver on 10x10x10 board (Seed: 25)
+Completed: exact_solver on 10x10x10 board (Seed: 25)
+Completed: global_sat on 10x10x10 board (Seed: 25)
+Completed: global_sat on 10x10x10 board (Seed: 25)
+Completed: global_sat on 10x10x10 board (Seed: 25)
+Completed: partitioned_sat on 10x10x10 board (Seed: 25)
+Completed: partitioned_sat on 10x10x10 board (Seed: 25)
+Completed: partitioned_sat on 10x10x10 board (Seed: 25)
+Completed: scip_solver on 10x10x10 board (Seed: 25)
+Completed: scip_solver on 10x10x10 board (Seed: 25)
+Completed: scip_solver on 10x10x10 board (Seed: 25)
+Completed: greedy on 10x10x10 board (Seed: 26)
+Completed: greedy on 10x10x10 board (Seed: 26)
+Completed: greedy on 10x10x10 board (Seed: 26)
+Completed: exact_solver on 10x10x10 board (Seed: 26)
+Completed: exact_solver on 10x10x10 board (Seed: 26)
+Completed: exact_solver on 10x10x10 board (Seed: 26)
+Completed: global_sat on 10x10x10 board (Seed: 26)
+Completed: global_sat on 10x10x10 board (Seed: 26)
+Completed: global_sat on 10x10x10 board (Seed: 26)
+Completed: partitioned_sat on 10x10x10 board (Seed: 26)
+Completed: partitioned_sat on 10x10x10 board (Seed: 26)
+Completed: partitioned_sat on 10x10x10 board (Seed: 26)
+Completed: scip_solver on 10x10x10 board (Seed: 26)
+Completed: scip_solver on 10x10x10 board (Seed: 26)
+Completed: scip_solver on 10x10x10 board (Seed: 26)
+Completed: greedy on 10x10x10 board (Seed: 27)
+Completed: greedy on 10x10x10 board (Seed: 27)
+Completed: greedy on 10x10x10 board (Seed: 27)
+Completed: exact_solver on 10x10x10 board (Seed: 27)
+Completed: exact_solver on 10x10x10 board (Seed: 27)
+Completed: exact_solver on 10x10x10 board (Seed: 27)
+Completed: global_sat on 10x10x10 board (Seed: 27)
+Completed: global_sat on 10x10x10 board (Seed: 27)
+Completed: global_sat on 10x10x10 board (Seed: 27)
+Completed: partitioned_sat on 10x10x10 board (Seed: 27)
+Completed: partitioned_sat on 10x10x10 board (Seed: 27)
+Completed: partitioned_sat on 10x10x10 board (Seed: 27)
+Completed: scip_solver on 10x10x10 board (Seed: 27)
+Completed: scip_solver on 10x10x10 board (Seed: 27)
+Completed: scip_solver on 10x10x10 board (Seed: 27)
+Completed: greedy on 10x10x10 board (Seed: 28)
+Completed: greedy on 10x10x10 board (Seed: 28)
+Completed: greedy on 10x10x10 board (Seed: 28)
+Completed: exact_solver on 10x10x10 board (Seed: 28)
+Completed: exact_solver on 10x10x10 board (Seed: 28)
+Completed: exact_solver on 10x10x10 board (Seed: 28)
+Completed: global_sat on 10x10x10 board (Seed: 28)
+Completed: global_sat on 10x10x10 board (Seed: 28)
+Completed: global_sat on 10x10x10 board (Seed: 28)
+Completed: partitioned_sat on 10x10x10 board (Seed: 28)
+Completed: partitioned_sat on 10x10x10 board (Seed: 28)
+Completed: partitioned_sat on 10x10x10 board (Seed: 28)
+Completed: scip_solver on 10x10x10 board (Seed: 28)
+Completed: scip_solver on 10x10x10 board (Seed: 28)
+Completed: scip_solver on 10x10x10 board (Seed: 28)
+Completed: greedy on 10x10x10 board (Seed: 29)
+Completed: greedy on 10x10x10 board (Seed: 29)
+Completed: greedy on 10x10x10 board (Seed: 29)
+Completed: exact_solver on 10x10x10 board (Seed: 29)
+Completed: exact_solver on 10x10x10 board (Seed: 29)
+Completed: exact_solver on 10x10x10 board (Seed: 29)
+Completed: global_sat on 10x10x10 board (Seed: 29)
+Completed: global_sat on 10x10x10 board (Seed: 29)
+Completed: global_sat on 10x10x10 board (Seed: 29)
+Completed: partitioned_sat on 10x10x10 board (Seed: 29)
+Completed: partitioned_sat on 10x10x10 board (Seed: 29)
+Completed: partitioned_sat on 10x10x10 board (Seed: 29)
+Completed: scip_solver on 10x10x10 board (Seed: 29)
+Completed: scip_solver on 10x10x10 board (Seed: 29)
+Completed: scip_solver on 10x10x10 board (Seed: 29)
+
+--- benchmark results ---
+
+algorithm,objective,dims,seed,win,clicks,time_ms,guesses,completion
+greedy,MinDistance,3x3x3,0,false,10,0,0,84.78
+greedy,MinRotation,3x3x3,0,false,10,0,0,84.78
+greedy,MaxInformation,3x3x3,0,false,10,0,0,84.78
+exact_solver,MinDistance,3x3x3,0,false,12,0,0,93.48
+exact_solver,MinRotation,3x3x3,0,false,15,1,0,97.83
+exact_solver,MaxInformation,3x3x3,0,false,16,1,0,97.83
+global_sat,MinDistance,3x3x3,0,true,11,1,0,100.00
+global_sat,MinRotation,3x3x3,0,true,11,1,0,100.00
+global_sat,MaxInformation,3x3x3,0,true,11,1,0,100.00
+partitioned_sat,MinDistance,3x3x3,0,true,11,1,0,100.00
+partitioned_sat,MinRotation,3x3x3,0,true,11,1,0,100.00
+partitioned_sat,MaxInformation,3x3x3,0,true,16,3,0,100.00
+scip_solver,MinDistance,3x3x3,0,true,11,769,0,100.00
+scip_solver,MinRotation,3x3x3,0,true,12,664,0,100.00
+scip_solver,MaxInformation,3x3x3,0,true,11,719,0,100.00
+greedy,MinDistance,3x3x3,1,false,4,0,0,89.13
+greedy,MinRotation,3x3x3,1,false,4,0,0,89.13
+greedy,MaxInformation,3x3x3,1,false,4,0,0,89.13
+exact_solver,MinDistance,3x3x3,1,true,6,0,0,100.00
+exact_solver,MinRotation,3x3x3,1,true,6,0,0,100.00
+exact_solver,MaxInformation,3x3x3,1,false,6,0,0,93.48
+global_sat,MinDistance,3x3x3,1,true,7,1,0,100.00
+global_sat,MinRotation,3x3x3,1,true,5,1,0,100.00
+global_sat,MaxInformation,3x3x3,1,true,8,1,0,100.00
+partitioned_sat,MinDistance,3x3x3,1,true,6,1,0,100.00
+partitioned_sat,MinRotation,3x3x3,1,true,6,1,0,100.00
+partitioned_sat,MaxInformation,3x3x3,1,true,8,1,0,100.00
+scip_solver,MinDistance,3x3x3,1,true,6,295,0,100.00
+scip_solver,MinRotation,3x3x3,1,true,6,306,0,100.00
+scip_solver,MaxInformation,3x3x3,1,true,8,431,0,100.00
+greedy,MinDistance,3x3x3,2,false,5,0,0,97.83
+greedy,MinRotation,3x3x3,2,false,5,0,0,97.83
+greedy,MaxInformation,3x3x3,2,false,5,0,0,97.83
+exact_solver,MinDistance,3x3x3,2,true,4,0,0,100.00
+exact_solver,MinRotation,3x3x3,2,true,4,0,0,100.00
+exact_solver,MaxInformation,3x3x3,2,true,4,0,0,100.00
+global_sat,MinDistance,3x3x3,2,true,4,0,0,100.00
+global_sat,MinRotation,3x3x3,2,true,7,1,0,100.00
+global_sat,MaxInformation,3x3x3,2,true,4,0,0,100.00
+partitioned_sat,MinDistance,3x3x3,2,true,4,0,0,100.00
+partitioned_sat,MinRotation,3x3x3,2,true,4,0,0,100.00
+partitioned_sat,MaxInformation,3x3x3,2,true,4,0,0,100.00
+scip_solver,MinDistance,3x3x3,2,true,4,229,0,100.00
+scip_solver,MinRotation,3x3x3,2,true,4,224,0,100.00
+scip_solver,MaxInformation,3x3x3,2,true,4,239,0,100.00
+greedy,MinDistance,3x3x3,3,false,5,0,0,71.74
+greedy,MinRotation,3x3x3,3,false,5,0,0,71.74
+greedy,MaxInformation,3x3x3,3,false,5,0,0,71.74
+exact_solver,MinDistance,3x3x3,3,false,12,1,0,97.83
+exact_solver,MinRotation,3x3x3,3,false,12,1,0,97.83
+exact_solver,MaxInformation,3x3x3,3,true,12,1,0,100.00
+global_sat,MinDistance,3x3x3,3,true,13,2,0,100.00
+global_sat,MinRotation,3x3x3,3,true,13,2,0,100.00
+global_sat,MaxInformation,3x3x3,3,true,17,4,0,100.00
+partitioned_sat,MinDistance,3x3x3,3,true,15,2,0,100.00
+partitioned_sat,MinRotation,3x3x3,3,true,15,3,0,100.00
+partitioned_sat,MaxInformation,3x3x3,3,true,17,5,0,100.00
+scip_solver,MinDistance,3x3x3,3,true,10,610,0,100.00
+scip_solver,MinRotation,3x3x3,3,true,13,911,0,100.00
+scip_solver,MaxInformation,3x3x3,3,true,17,1129,0,100.00
+greedy,MinDistance,3x3x3,4,true,2,0,0,100.00
+greedy,MinRotation,3x3x3,4,true,2,0,0,100.00
+greedy,MaxInformation,3x3x3,4,true,2,0,0,100.00
+exact_solver,MinDistance,3x3x3,4,false,3,0,0,84.78
+exact_solver,MinRotation,3x3x3,4,true,3,0,0,100.00
+exact_solver,MaxInformation,3x3x3,4,true,3,0,0,100.00
+global_sat,MinDistance,3x3x3,4,true,4,1,0,100.00
+global_sat,MinRotation,3x3x3,4,true,3,0,0,100.00
+global_sat,MaxInformation,3x3x3,4,true,5,1,0,100.00
+partitioned_sat,MinDistance,3x3x3,4,true,3,0,0,100.00
+partitioned_sat,MinRotation,3x3x3,4,true,3,0,0,100.00
+partitioned_sat,MaxInformation,3x3x3,4,true,5,1,0,100.00
+scip_solver,MinDistance,3x3x3,4,true,3,142,0,100.00
+scip_solver,MinRotation,3x3x3,4,true,4,197,0,100.00
+scip_solver,MaxInformation,3x3x3,4,true,5,269,0,100.00
+greedy,MinDistance,3x3x3,5,false,2,0,0,36.96
+greedy,MinRotation,3x3x3,5,false,2,0,0,36.96
+greedy,MaxInformation,3x3x3,5,false,2,0,0,36.96
+exact_solver,MinDistance,3x3x3,5,false,9,0,0,52.17
+exact_solver,MinRotation,3x3x3,5,false,9,0,0,52.17
+exact_solver,MaxInformation,3x3x3,5,false,9,0,0,52.17
+global_sat,MinDistance,3x3x3,5,true,11,2,0,100.00
+global_sat,MinRotation,3x3x3,5,true,11,2,0,100.00
+global_sat,MaxInformation,3x3x3,5,true,10,1,0,100.00
+partitioned_sat,MinDistance,3x3x3,5,true,11,1,0,100.00
+partitioned_sat,MinRotation,3x3x3,5,true,11,1,0,100.00
+partitioned_sat,MaxInformation,3x3x3,5,true,10,1,0,100.00
+scip_solver,MinDistance,3x3x3,5,true,11,616,0,100.00
+scip_solver,MinRotation,3x3x3,5,true,10,544,0,100.00
+scip_solver,MaxInformation,3x3x3,5,true,10,558,0,100.00
+greedy,MinDistance,3x3x3,6,false,4,0,0,86.96
+greedy,MinRotation,3x3x3,6,false,4,0,0,86.96
+greedy,MaxInformation,3x3x3,6,false,4,0,0,86.96
+exact_solver,MinDistance,3x3x3,6,false,2,0,0,82.61
+exact_solver,MinRotation,3x3x3,6,false,7,0,0,95.65
+exact_solver,MaxInformation,3x3x3,6,false,7,0,0,93.48
+global_sat,MinDistance,3x3x3,6,false,7,1,0,95.65
+global_sat,MinRotation,3x3x3,6,false,7,1,0,95.65
+global_sat,MaxInformation,3x3x3,6,false,8,1,0,95.65
+partitioned_sat,MinDistance,3x3x3,6,false,7,1,0,95.65
+partitioned_sat,MinRotation,3x3x3,6,false,8,1,0,95.65
+partitioned_sat,MaxInformation,3x3x3,6,false,8,1,0,95.65
+scip_solver,MinDistance,3x3x3,6,true,9,475,0,100.00
+scip_solver,MinRotation,3x3x3,6,true,9,629,0,100.00
+scip_solver,MaxInformation,3x3x3,6,false,8,661,0,95.65
+greedy,MinDistance,3x3x3,7,true,5,0,0,100.00
+greedy,MinRotation,3x3x3,7,true,5,0,0,100.00
+greedy,MaxInformation,3x3x3,7,true,5,0,0,100.00
+exact_solver,MinDistance,3x3x3,7,false,2,0,0,69.57
+exact_solver,MinRotation,3x3x3,7,false,2,0,0,69.57
+exact_solver,MaxInformation,3x3x3,7,false,2,0,0,69.57
+global_sat,MinDistance,3x3x3,7,true,5,1,0,100.00
+global_sat,MinRotation,3x3x3,7,true,4,0,0,100.00
+global_sat,MaxInformation,3x3x3,7,true,5,1,0,100.00
+partitioned_sat,MinDistance,3x3x3,7,true,4,0,0,100.00
+partitioned_sat,MinRotation,3x3x3,7,true,4,1,0,100.00
+partitioned_sat,MaxInformation,3x3x3,7,true,5,1,0,100.00
+scip_solver,MinDistance,3x3x3,7,true,6,495,0,100.00
+scip_solver,MinRotation,3x3x3,7,true,5,345,0,100.00
+scip_solver,MaxInformation,3x3x3,7,true,5,312,0,100.00
+greedy,MinDistance,3x3x3,8,false,1,0,1,97.83
+greedy,MinRotation,3x3x3,8,false,1,0,1,97.83
+greedy,MaxInformation,3x3x3,8,false,1,0,1,97.83
+exact_solver,MinDistance,3x3x3,8,true,2,0,0,100.00
+exact_solver,MinRotation,3x3x3,8,false,2,0,0,97.83
+exact_solver,MaxInformation,3x3x3,8,false,2,0,0,97.83
+global_sat,MinDistance,3x3x3,8,true,2,0,0,100.00
+global_sat,MinRotation,3x3x3,8,true,2,0,0,100.00
+global_sat,MaxInformation,3x3x3,8,true,2,0,0,100.00
+partitioned_sat,MinDistance,3x3x3,8,true,2,0,0,100.00
+partitioned_sat,MinRotation,3x3x3,8,true,2,0,0,100.00
+partitioned_sat,MaxInformation,3x3x3,8,true,2,0,0,100.00
+scip_solver,MinDistance,3x3x3,8,true,2,47,0,100.00
+scip_solver,MinRotation,3x3x3,8,true,2,52,0,100.00
+scip_solver,MaxInformation,3x3x3,8,true,2,46,0,100.00
+greedy,MinDistance,3x3x3,9,false,2,0,0,76.09
+greedy,MinRotation,3x3x3,9,false,2,0,0,76.09
+greedy,MaxInformation,3x3x3,9,false,2,0,0,76.09
+exact_solver,MinDistance,3x3x3,9,true,9,0,0,100.00
+exact_solver,MinRotation,3x3x3,9,true,7,0,0,100.00
+exact_solver,MaxInformation,3x3x3,9,true,9,0,0,100.00
+global_sat,MinDistance,3x3x3,9,true,9,1,0,100.00
+global_sat,MinRotation,3x3x3,9,true,7,1,0,100.00
+global_sat,MaxInformation,3x3x3,9,true,10,2,0,100.00
+partitioned_sat,MinDistance,3x3x3,9,true,9,1,0,100.00
+partitioned_sat,MinRotation,3x3x3,9,true,8,1,0,100.00
+partitioned_sat,MaxInformation,3x3x3,9,true,10,2,0,100.00
+scip_solver,MinDistance,3x3x3,9,true,6,329,0,100.00
+scip_solver,MinRotation,3x3x3,9,true,8,456,0,100.00
+scip_solver,MaxInformation,3x3x3,9,true,10,747,0,100.00
+greedy,MinDistance,3x3x3,10,false,6,0,0,89.13
+greedy,MinRotation,3x3x3,10,false,6,0,0,89.13
+greedy,MaxInformation,3x3x3,10,false,5,0,1,89.13
+exact_solver,MinDistance,3x3x3,10,false,9,1,0,95.65
+exact_solver,MinRotation,3x3x3,10,false,10,1,0,97.83
+exact_solver,MaxInformation,3x3x3,10,false,10,1,0,97.83
+global_sat,MinDistance,3x3x3,10,true,10,1,0,100.00
+global_sat,MinRotation,3x3x3,10,true,10,1,0,100.00
+global_sat,MaxInformation,3x3x3,10,true,10,2,0,100.00
+partitioned_sat,MinDistance,3x3x3,10,true,10,2,0,100.00
+partitioned_sat,MinRotation,3x3x3,10,true,10,2,0,100.00
+partitioned_sat,MaxInformation,3x3x3,10,true,10,3,0,100.00
+scip_solver,MinDistance,3x3x3,10,true,10,765,0,100.00
+scip_solver,MinRotation,3x3x3,10,true,10,985,0,100.00
+scip_solver,MaxInformation,3x3x3,10,true,10,816,0,100.00
+greedy,MinDistance,3x3x3,11,false,7,0,0,89.13
+greedy,MinRotation,3x3x3,11,false,7,0,0,89.13
+greedy,MaxInformation,3x3x3,11,false,7,0,0,89.13
+exact_solver,MinDistance,3x3x3,11,true,11,1,0,100.00
+exact_solver,MinRotation,3x3x3,11,false,8,0,0,91.30
+exact_solver,MaxInformation,3x3x3,11,false,7,0,0,91.30
+global_sat,MinDistance,3x3x3,11,true,10,2,0,100.00
+global_sat,MinRotation,3x3x3,11,true,12,3,0,100.00
+global_sat,MaxInformation,3x3x3,11,true,11,4,0,100.00
+partitioned_sat,MinDistance,3x3x3,11,true,15,4,0,100.00
+partitioned_sat,MinRotation,3x3x3,11,true,11,3,0,100.00
+partitioned_sat,MaxInformation,3x3x3,11,true,11,4,0,100.00
+scip_solver,MinDistance,3x3x3,11,true,10,865,0,100.00
+scip_solver,MinRotation,3x3x3,11,true,12,1044,0,100.00
+scip_solver,MaxInformation,3x3x3,11,true,11,785,0,100.00
+greedy,MinDistance,3x3x3,12,false,3,0,0,47.83
+greedy,MinRotation,3x3x3,12,false,3,0,0,47.83
+greedy,MaxInformation,3x3x3,12,false,5,0,0,89.13
+exact_solver,MinDistance,3x3x3,12,false,5,0,0,52.17
+exact_solver,MinRotation,3x3x3,12,false,2,0,0,45.65
+exact_solver,MaxInformation,3x3x3,12,false,5,0,0,52.17
+global_sat,MinDistance,3x3x3,12,true,10,3,0,100.00
+global_sat,MinRotation,3x3x3,12,true,10,2,0,100.00
+global_sat,MaxInformation,3x3x3,12,true,10,2,0,100.00
+partitioned_sat,MinDistance,3x3x3,12,true,11,4,0,100.00
+partitioned_sat,MinRotation,3x3x3,12,true,11,4,0,100.00
+partitioned_sat,MaxInformation,3x3x3,12,true,10,2,0,100.00
+scip_solver,MinDistance,3x3x3,12,true,10,603,0,100.00
+scip_solver,MinRotation,3x3x3,12,true,11,824,0,100.00
+scip_solver,MaxInformation,3x3x3,12,true,10,578,0,100.00
+greedy,MinDistance,3x3x3,13,false,2,0,0,93.48
+greedy,MinRotation,3x3x3,13,false,2,0,0,93.48
+greedy,MaxInformation,3x3x3,13,false,2,0,0,93.48
+exact_solver,MinDistance,3x3x3,13,false,3,0,0,95.65
+exact_solver,MinRotation,3x3x3,13,false,3,0,0,95.65
+exact_solver,MaxInformation,3x3x3,13,true,4,0,0,100.00
+global_sat,MinDistance,3x3x3,13,true,4,0,0,100.00
+global_sat,MinRotation,3x3x3,13,true,4,0,0,100.00
+global_sat,MaxInformation,3x3x3,13,true,4,0,0,100.00
+partitioned_sat,MinDistance,3x3x3,13,true,4,0,0,100.00
+partitioned_sat,MinRotation,3x3x3,13,true,4,0,0,100.00
+partitioned_sat,MaxInformation,3x3x3,13,true,4,0,0,100.00
+scip_solver,MinDistance,3x3x3,13,true,4,134,0,100.00
+scip_solver,MinRotation,3x3x3,13,true,4,134,0,100.00
+scip_solver,MaxInformation,3x3x3,13,true,4,132,0,100.00
+greedy,MinDistance,3x3x3,14,false,3,0,1,91.30
+greedy,MinRotation,3x3x3,14,false,3,0,1,91.30
+greedy,MaxInformation,3x3x3,14,false,3,0,1,91.30
+exact_solver,MinDistance,3x3x3,14,false,7,0,0,97.83
+exact_solver,MinRotation,3x3x3,14,false,7,0,0,97.83
+exact_solver,MaxInformation,3x3x3,14,false,3,0,0,89.13
+global_sat,MinDistance,3x3x3,14,true,7,0,0,100.00
+global_sat,MinRotation,3x3x3,14,true,7,0,0,100.00
+global_sat,MaxInformation,3x3x3,14,true,7,0,0,100.00
+partitioned_sat,MinDistance,3x3x3,14,true,7,1,0,100.00
+partitioned_sat,MinRotation,3x3x3,14,true,7,1,0,100.00
+partitioned_sat,MaxInformation,3x3x3,14,true,7,1,0,100.00
+scip_solver,MinDistance,3x3x3,14,true,7,299,0,100.00
+scip_solver,MinRotation,3x3x3,14,true,7,331,0,100.00
+scip_solver,MaxInformation,3x3x3,14,true,7,319,0,100.00
+greedy,MinDistance,3x3x3,15,false,2,0,0,95.65
+greedy,MinRotation,3x3x3,15,false,2,0,0,95.65
+greedy,MaxInformation,3x3x3,15,false,2,0,0,95.65
+exact_solver,MinDistance,3x3x3,15,false,3,0,0,97.83
+exact_solver,MinRotation,3x3x3,15,false,3,0,0,97.83
+exact_solver,MaxInformation,3x3x3,15,true,3,0,0,100.00
+global_sat,MinDistance,3x3x3,15,true,3,0,0,100.00
+global_sat,MinRotation,3x3x3,15,true,3,0,0,100.00
+global_sat,MaxInformation,3x3x3,15,true,3,0,0,100.00
+partitioned_sat,MinDistance,3x3x3,15,true,3,0,0,100.00
+partitioned_sat,MinRotation,3x3x3,15,true,3,0,0,100.00
+partitioned_sat,MaxInformation,3x3x3,15,true,3,0,0,100.00
+scip_solver,MinDistance,3x3x3,15,true,3,83,0,100.00
+scip_solver,MinRotation,3x3x3,15,true,3,85,0,100.00
+scip_solver,MaxInformation,3x3x3,15,true,3,86,0,100.00
+greedy,MinDistance,3x3x3,16,false,8,0,0,76.09
+greedy,MinRotation,3x3x3,16,false,8,0,0,76.09
+greedy,MaxInformation,3x3x3,16,false,8,0,0,76.09
+exact_solver,MinDistance,3x3x3,16,false,10,0,0,89.13
+exact_solver,MinRotation,3x3x3,16,false,11,1,0,86.96
+exact_solver,MaxInformation,3x3x3,16,false,11,1,0,95.65
+global_sat,MinDistance,3x3x3,16,true,12,2,0,100.00
+global_sat,MinRotation,3x3x3,16,true,11,1,0,100.00
+global_sat,MaxInformation,3x3x3,16,true,12,2,0,100.00
+partitioned_sat,MinDistance,3x3x3,16,true,14,1,0,100.00
+partitioned_sat,MinRotation,3x3x3,16,true,15,2,0,100.00
+partitioned_sat,MaxInformation,3x3x3,16,true,12,2,0,100.00
+scip_solver,MinDistance,3x3x3,16,true,12,683,0,100.00
+scip_solver,MinRotation,3x3x3,16,true,15,935,0,100.00
+scip_solver,MaxInformation,3x3x3,16,true,12,678,0,100.00
+greedy,MinDistance,3x3x3,17,false,2,0,1,93.48
+greedy,MinRotation,3x3x3,17,false,2,0,1,93.48
+greedy,MaxInformation,3x3x3,17,false,2,0,1,93.48
+exact_solver,MinDistance,3x3x3,17,true,6,0,0,100.00
+exact_solver,MinRotation,3x3x3,17,true,6,0,0,100.00
+exact_solver,MaxInformation,3x3x3,17,true,5,0,0,100.00
+global_sat,MinDistance,3x3x3,17,true,7,0,0,100.00
+global_sat,MinRotation,3x3x3,17,true,10,1,0,100.00
+global_sat,MaxInformation,3x3x3,17,true,5,0,0,100.00
+partitioned_sat,MinDistance,3x3x3,17,true,10,1,0,100.00
+partitioned_sat,MinRotation,3x3x3,17,true,6,0,0,100.00
+partitioned_sat,MaxInformation,3x3x3,17,true,5,0,0,100.00
+scip_solver,MinDistance,3x3x3,17,true,8,385,0,100.00
+scip_solver,MinRotation,3x3x3,17,true,7,332,0,100.00
+scip_solver,MaxInformation,3x3x3,17,true,5,206,0,100.00
+greedy,MinDistance,3x3x3,18,false,5,0,0,86.96
+greedy,MinRotation,3x3x3,18,false,5,0,0,86.96
+greedy,MaxInformation,3x3x3,18,false,5,0,0,86.96
+exact_solver,MinDistance,3x3x3,18,false,12,1,0,95.65
+exact_solver,MinRotation,3x3x3,18,false,9,0,0,93.48
+exact_solver,MaxInformation,3x3x3,18,true,11,1,0,100.00
+global_sat,MinDistance,3x3x3,18,true,11,1,0,100.00
+global_sat,MinRotation,3x3x3,18,true,11,1,0,100.00
+global_sat,MaxInformation,3x3x3,18,true,10,1,0,100.00
+partitioned_sat,MinDistance,3x3x3,18,true,11,1,0,100.00
+partitioned_sat,MinRotation,3x3x3,18,true,10,1,0,100.00
+partitioned_sat,MaxInformation,3x3x3,18,true,10,1,0,100.00
+scip_solver,MinDistance,3x3x3,18,true,10,495,0,100.00
+scip_solver,MinRotation,3x3x3,18,true,11,554,0,100.00
+scip_solver,MaxInformation,3x3x3,18,true,10,493,0,100.00
+greedy,MinDistance,3x3x3,19,false,5,0,0,78.26
+greedy,MinRotation,3x3x3,19,false,5,0,0,78.26
+greedy,MaxInformation,3x3x3,19,false,5,0,0,78.26
+exact_solver,MinDistance,3x3x3,19,false,5,0,0,78.26
+exact_solver,MinRotation,3x3x3,19,false,5,0,0,78.26
+exact_solver,MaxInformation,3x3x3,19,false,7,0,0,82.61
+global_sat,MinDistance,3x3x3,19,true,14,3,0,100.00
+global_sat,MinRotation,3x3x3,19,true,14,3,0,100.00
+global_sat,MaxInformation,3x3x3,19,true,14,4,0,100.00
+partitioned_sat,MinDistance,3x3x3,19,true,14,2,0,100.00
+partitioned_sat,MinRotation,3x3x3,19,true,14,2,0,100.00
+partitioned_sat,MaxInformation,3x3x3,19,true,14,4,0,100.00
+scip_solver,MinDistance,3x3x3,19,true,14,822,0,100.00
+scip_solver,MinRotation,3x3x3,19,true,14,832,0,100.00
+scip_solver,MaxInformation,3x3x3,19,true,14,877,0,100.00
+greedy,MinDistance,3x3x3,20,false,4,0,0,93.48
+greedy,MinRotation,3x3x3,20,false,4,0,0,93.48
+greedy,MaxInformation,3x3x3,20,false,4,0,0,93.48
+exact_solver,MinDistance,3x3x3,20,true,6,0,0,100.00
+exact_solver,MinRotation,3x3x3,20,true,6,0,0,100.00
+exact_solver,MaxInformation,3x3x3,20,false,6,0,0,97.83
+global_sat,MinDistance,3x3x3,20,true,6,0,0,100.00
+global_sat,MinRotation,3x3x3,20,true,6,0,0,100.00
+global_sat,MaxInformation,3x3x3,20,true,6,0,0,100.00
+partitioned_sat,MinDistance,3x3x3,20,true,6,0,0,100.00
+partitioned_sat,MinRotation,3x3x3,20,true,6,0,0,100.00
+partitioned_sat,MaxInformation,3x3x3,20,true,6,0,0,100.00
+scip_solver,MinDistance,3x3x3,20,true,6,246,0,100.00
+scip_solver,MinRotation,3x3x3,20,true,6,247,0,100.00
+scip_solver,MaxInformation,3x3x3,20,true,6,250,0,100.00
+greedy,MinDistance,3x3x3,21,false,3,0,0,67.39
+greedy,MinRotation,3x3x3,21,false,3,0,0,67.39
+greedy,MaxInformation,3x3x3,21,false,3,0,0,67.39
+exact_solver,MinDistance,3x3x3,21,false,8,1,0,97.83
+exact_solver,MinRotation,3x3x3,21,false,8,1,0,95.65
+exact_solver,MaxInformation,3x3x3,21,false,7,0,0,95.65
+global_sat,MinDistance,3x3x3,21,true,10,1,0,100.00
+global_sat,MinRotation,3x3x3,21,true,8,0,0,100.00
+global_sat,MaxInformation,3x3x3,21,true,9,1,0,100.00
+partitioned_sat,MinDistance,3x3x3,21,true,8,0,0,100.00
+partitioned_sat,MinRotation,3x3x3,21,true,9,1,0,100.00
+partitioned_sat,MaxInformation,3x3x3,21,true,9,1,0,100.00
+scip_solver,MinDistance,3x3x3,21,true,8,387,0,100.00
+scip_solver,MinRotation,3x3x3,21,true,10,531,0,100.00
+scip_solver,MaxInformation,3x3x3,21,true,9,460,0,100.00
+greedy,MinDistance,3x3x3,22,false,2,0,1,89.13
+greedy,MinRotation,3x3x3,22,false,2,0,1,89.13
+greedy,MaxInformation,3x3x3,22,false,2,0,1,89.13
+exact_solver,MinDistance,3x3x3,22,false,6,0,0,95.65
+exact_solver,MinRotation,3x3x3,22,false,7,0,0,97.83
+exact_solver,MaxInformation,3x3x3,22,false,4,0,0,91.30
+global_sat,MinDistance,3x3x3,22,true,7,0,0,100.00
+global_sat,MinRotation,3x3x3,22,true,7,1,0,100.00
+global_sat,MaxInformation,3x3x3,22,true,7,1,0,100.00
+partitioned_sat,MinDistance,3x3x3,22,true,7,1,0,100.00
+partitioned_sat,MinRotation,3x3x3,22,true,7,1,0,100.00
+partitioned_sat,MaxInformation,3x3x3,22,true,7,1,0,100.00
+scip_solver,MinDistance,3x3x3,22,true,7,318,0,100.00
+scip_solver,MinRotation,3x3x3,22,true,7,347,0,100.00
+scip_solver,MaxInformation,3x3x3,22,true,7,335,0,100.00
+greedy,MinDistance,3x3x3,23,false,2,0,0,97.83
+greedy,MinRotation,3x3x3,23,false,2,0,0,97.83
+greedy,MaxInformation,3x3x3,23,false,2,0,0,97.83
+exact_solver,MinDistance,3x3x3,23,true,2,0,0,100.00
+exact_solver,MinRotation,3x3x3,23,true,2,0,0,100.00
+exact_solver,MaxInformation,3x3x3,23,true,2,0,0,100.00
+global_sat,MinDistance,3x3x3,23,true,2,0,0,100.00
+global_sat,MinRotation,3x3x3,23,true,2,0,0,100.00
+global_sat,MaxInformation,3x3x3,23,true,2,0,0,100.00
+partitioned_sat,MinDistance,3x3x3,23,true,2,0,0,100.00
+partitioned_sat,MinRotation,3x3x3,23,true,2,0,0,100.00
+partitioned_sat,MaxInformation,3x3x3,23,true,2,0,0,100.00
+scip_solver,MinDistance,3x3x3,23,true,2,40,0,100.00
+scip_solver,MinRotation,3x3x3,23,true,2,41,0,100.00
+scip_solver,MaxInformation,3x3x3,23,true,2,40,0,100.00
+greedy,MinDistance,3x3x3,24,false,3,0,0,82.61
+greedy,MinRotation,3x3x3,24,false,3,0,0,82.61
+greedy,MaxInformation,3x3x3,24,false,3,0,0,82.61
+exact_solver,MinDistance,3x3x3,24,false,2,0,0,80.43
+exact_solver,MinRotation,3x3x3,24,false,2,0,0,80.43
+exact_solver,MaxInformation,3x3x3,24,true,9,0,0,100.00
+global_sat,MinDistance,3x3x3,24,true,8,1,0,100.00
+global_sat,MinRotation,3x3x3,24,true,8,1,0,100.00
+global_sat,MaxInformation,3x3x3,24,true,10,1,0,100.00
+partitioned_sat,MinDistance,3x3x3,24,true,8,1,0,100.00
+partitioned_sat,MinRotation,3x3x3,24,true,8,1,0,100.00
+partitioned_sat,MaxInformation,3x3x3,24,true,10,2,0,100.00
+scip_solver,MinDistance,3x3x3,24,true,9,467,0,100.00
+scip_solver,MinRotation,3x3x3,24,true,9,470,0,100.00
+scip_solver,MaxInformation,3x3x3,24,true,10,542,0,100.00
+greedy,MinDistance,3x3x3,25,false,3,0,0,93.48
+greedy,MinRotation,3x3x3,25,false,3,0,0,93.48
+greedy,MaxInformation,3x3x3,25,false,3,0,0,93.48
+exact_solver,MinDistance,3x3x3,25,false,3,0,0,93.48
+exact_solver,MinRotation,3x3x3,25,false,3,0,0,93.48
+exact_solver,MaxInformation,3x3x3,25,true,5,0,0,100.00
+global_sat,MinDistance,3x3x3,25,true,5,0,0,100.00
+global_sat,MinRotation,3x3x3,25,true,5,0,0,100.00
+global_sat,MaxInformation,3x3x3,25,true,5,0,0,100.00
+partitioned_sat,MinDistance,3x3x3,25,true,5,0,0,100.00
+partitioned_sat,MinRotation,3x3x3,25,true,5,0,0,100.00
+partitioned_sat,MaxInformation,3x3x3,25,true,5,0,0,100.00
+scip_solver,MinDistance,3x3x3,25,true,5,199,0,100.00
+scip_solver,MinRotation,3x3x3,25,true,5,194,0,100.00
+scip_solver,MaxInformation,3x3x3,25,true,5,202,0,100.00
+greedy,MinDistance,3x3x3,26,false,4,0,1,93.48
+greedy,MinRotation,3x3x3,26,false,4,0,1,93.48
+greedy,MaxInformation,3x3x3,26,false,4,0,1,93.48
+exact_solver,MinDistance,3x3x3,26,false,4,0,0,91.30
+exact_solver,MinRotation,3x3x3,26,false,6,0,0,95.65
+exact_solver,MaxInformation,3x3x3,26,false,5,0,0,93.48
+global_sat,MinDistance,3x3x3,26,true,7,0,0,100.00
+global_sat,MinRotation,3x3x3,26,true,7,0,0,100.00
+global_sat,MaxInformation,3x3x3,26,true,7,0,0,100.00
+partitioned_sat,MinDistance,3x3x3,26,true,7,0,0,100.00
+partitioned_sat,MinRotation,3x3x3,26,true,7,0,0,100.00
+partitioned_sat,MaxInformation,3x3x3,26,true,7,1,0,100.00
+scip_solver,MinDistance,3x3x3,26,true,7,317,0,100.00
+scip_solver,MinRotation,3x3x3,26,true,7,314,0,100.00
+scip_solver,MaxInformation,3x3x3,26,true,7,321,0,100.00
+greedy,MinDistance,3x3x3,27,false,7,0,0,82.61
+greedy,MinRotation,3x3x3,27,false,7,0,0,82.61
+greedy,MaxInformation,3x3x3,27,false,6,0,0,82.61
+exact_solver,MinDistance,3x3x3,27,false,5,0,0,50.00
+exact_solver,MinRotation,3x3x3,27,false,6,0,0,52.17
+exact_solver,MaxInformation,3x3x3,27,false,9,1,0,89.13
+global_sat,MinDistance,3x3x3,27,true,13,1,0,100.00
+global_sat,MinRotation,3x3x3,27,true,15,2,0,100.00
+global_sat,MaxInformation,3x3x3,27,true,13,2,0,100.00
+partitioned_sat,MinDistance,3x3x3,27,true,16,1,0,100.00
+partitioned_sat,MinRotation,3x3x3,27,true,15,1,0,100.00
+partitioned_sat,MaxInformation,3x3x3,27,true,13,1,0,100.00
+scip_solver,MinDistance,3x3x3,27,true,13,760,0,100.00
+scip_solver,MinRotation,3x3x3,27,true,14,867,0,100.00
+scip_solver,MaxInformation,3x3x3,27,true,13,785,0,100.00
+greedy,MinDistance,3x3x3,28,false,2,0,0,82.61
+greedy,MinRotation,3x3x3,28,false,2,0,0,82.61
+greedy,MaxInformation,3x3x3,28,false,2,0,0,82.61
+exact_solver,MinDistance,3x3x3,28,false,8,1,0,97.83
+exact_solver,MinRotation,3x3x3,28,false,7,0,0,97.83
+exact_solver,MaxInformation,3x3x3,28,false,8,1,0,95.65
+global_sat,MinDistance,3x3x3,28,true,7,1,0,100.00
+global_sat,MinRotation,3x3x3,28,true,7,1,0,100.00
+global_sat,MaxInformation,3x3x3,28,true,9,1,0,100.00
+partitioned_sat,MinDistance,3x3x3,28,true,7,1,0,100.00
+partitioned_sat,MinRotation,3x3x3,28,true,7,1,0,100.00
+partitioned_sat,MaxInformation,3x3x3,28,true,9,2,0,100.00
+scip_solver,MinDistance,3x3x3,28,true,9,469,0,100.00
+scip_solver,MinRotation,3x3x3,28,true,9,496,0,100.00
+scip_solver,MaxInformation,3x3x3,28,true,9,473,0,100.00
+greedy,MinDistance,3x3x3,29,false,5,0,0,93.48
+greedy,MinRotation,3x3x3,29,false,5,0,0,93.48
+greedy,MaxInformation,3x3x3,29,false,5,0,0,93.48
+exact_solver,MinDistance,3x3x3,29,false,6,0,0,95.65
+exact_solver,MinRotation,3x3x3,29,false,6,0,0,95.65
+exact_solver,MaxInformation,3x3x3,29,true,9,0,0,100.00
+global_sat,MinDistance,3x3x3,29,true,6,1,0,100.00
+global_sat,MinRotation,3x3x3,29,true,6,0,0,100.00
+global_sat,MaxInformation,3x3x3,29,true,7,2,0,100.00
+partitioned_sat,MinDistance,3x3x3,29,true,8,1,0,100.00
+partitioned_sat,MinRotation,3x3x3,29,true,9,1,0,100.00
+partitioned_sat,MaxInformation,3x3x3,29,true,7,1,0,100.00
+scip_solver,MinDistance,3x3x3,29,true,6,296,0,100.00
+scip_solver,MinRotation,3x3x3,29,true,7,381,0,100.00
+scip_solver,MaxInformation,3x3x3,29,true,7,426,0,100.00
+greedy,MinDistance,5x5x5,0,false,17,0,0,79.69
+greedy,MinRotation,5x5x5,0,false,13,0,0,76.56
+greedy,MaxInformation,5x5x5,0,false,17,0,0,79.69
+exact_solver,MinDistance,5x5x5,0,false,14,4,0,63.28
+exact_solver,MinRotation,5x5x5,0,false,39,31,0,98.44
+exact_solver,MaxInformation,5x5x5,0,false,27,20,0,90.62
+global_sat,MinDistance,5x5x5,0,true,41,87,0,100.00
+global_sat,MinRotation,5x5x5,0,true,40,75,0,100.00
+global_sat,MaxInformation,5x5x5,0,true,52,211,0,100.00
+partitioned_sat,MinDistance,5x5x5,0,true,39,23,0,100.00
+partitioned_sat,MinRotation,5x5x5,0,true,39,31,0,100.00
+partitioned_sat,MaxInformation,5x5x5,0,true,41,118,0,100.00
+scip_solver,MinDistance,5x5x5,0,true,44,8756,0,100.00
+scip_solver,MinRotation,5x5x5,0,true,41,8372,0,100.00
+scip_solver,MaxInformation,5x5x5,0,true,42,9853,0,100.00
+greedy,MinDistance,5x5x5,1,false,6,0,0,79.69
+greedy,MinRotation,5x5x5,1,false,6,0,0,79.69
+greedy,MaxInformation,5x5x5,1,false,11,0,0,92.19
+exact_solver,MinDistance,5x5x5,1,false,5,3,0,78.91
+exact_solver,MinRotation,5x5x5,1,false,4,2,0,78.12
+exact_solver,MaxInformation,5x5x5,1,false,12,12,0,92.19
+global_sat,MinDistance,5x5x5,1,true,17,27,0,100.00
+global_sat,MinRotation,5x5x5,1,true,20,31,0,100.00
+global_sat,MaxInformation,5x5x5,1,true,24,59,0,100.00
+partitioned_sat,MinDistance,5x5x5,1,true,19,15,0,100.00
+partitioned_sat,MinRotation,5x5x5,1,true,24,19,0,100.00
+partitioned_sat,MaxInformation,5x5x5,1,true,20,23,0,100.00
+scip_solver,MinDistance,5x5x5,1,true,19,3557,0,100.00
+scip_solver,MinRotation,5x5x5,1,true,21,3707,0,100.00
+scip_solver,MaxInformation,5x5x5,1,true,25,4816,0,100.00
+greedy,MinDistance,5x5x5,2,false,4,0,0,75.78
+greedy,MinRotation,5x5x5,2,false,4,0,0,75.78
+greedy,MaxInformation,5x5x5,2,false,4,0,0,75.78
+exact_solver,MinDistance,5x5x5,2,false,4,2,0,75.78
+exact_solver,MinRotation,5x5x5,2,false,4,1,0,75.78
+exact_solver,MaxInformation,5x5x5,2,false,12,7,0,82.03
+global_sat,MinDistance,5x5x5,2,true,29,53,0,100.00
+global_sat,MinRotation,5x5x5,2,true,28,48,0,100.00
+global_sat,MaxInformation,5x5x5,2,true,27,62,0,100.00
+partitioned_sat,MinDistance,5x5x5,2,true,30,53,0,100.00
+partitioned_sat,MinRotation,5x5x5,2,true,28,50,0,100.00
+partitioned_sat,MaxInformation,5x5x5,2,true,27,65,0,100.00
+scip_solver,MinDistance,5x5x5,2,true,27,4917,0,100.00
+scip_solver,MinRotation,5x5x5,2,true,29,5248,0,100.00
+scip_solver,MaxInformation,5x5x5,2,true,26,4658,0,100.00
+greedy,MinDistance,5x5x5,3,false,17,0,0,75.78
+greedy,MinRotation,5x5x5,3,false,17,0,0,75.78
+greedy,MaxInformation,5x5x5,3,false,15,0,0,74.22
+exact_solver,MinDistance,5x5x5,3,false,26,12,0,81.25
+exact_solver,MinRotation,5x5x5,3,false,3,0,0,42.19
+exact_solver,MaxInformation,5x5x5,3,false,30,25,0,85.94
+global_sat,MinDistance,5x5x5,3,true,42,92,0,100.00
+global_sat,MinRotation,5x5x5,3,true,40,117,0,100.00
+global_sat,MaxInformation,5x5x5,3,true,42,172,0,100.00
+partitioned_sat,MinDistance,5x5x5,3,true,41,49,0,100.00
+partitioned_sat,MinRotation,5x5x5,3,true,43,79,0,100.00
+partitioned_sat,MaxInformation,5x5x5,3,true,41,139,0,100.00
+scip_solver,MinDistance,5x5x5,3,true,40,10442,0,100.00
+scip_solver,MinRotation,5x5x5,3,true,46,10259,0,100.00
+scip_solver,MaxInformation,5x5x5,3,true,40,11803,0,100.00
+greedy,MinDistance,5x5x5,4,false,9,0,0,80.47
+greedy,MinRotation,5x5x5,4,false,9,0,0,80.47
+greedy,MaxInformation,5x5x5,4,false,9,0,0,80.47
+exact_solver,MinDistance,5x5x5,4,false,3,1,0,75.78
+exact_solver,MinRotation,5x5x5,4,false,3,1,0,75.78
+exact_solver,MaxInformation,5x5x5,4,false,5,3,0,77.34
+global_sat,MinDistance,5x5x5,4,false,17,38,0,98.44
+global_sat,MinRotation,5x5x5,4,false,18,47,0,98.44
+global_sat,MaxInformation,5x5x5,4,false,27,141,0,98.44
+partitioned_sat,MinDistance,5x5x5,4,false,16,12,0,98.44
+partitioned_sat,MinRotation,5x5x5,4,false,16,12,0,98.44
+partitioned_sat,MaxInformation,5x5x5,4,false,27,99,0,98.44
+scip_solver,MinDistance,5x5x5,4,false,16,3852,0,98.44
+scip_solver,MinRotation,5x5x5,4,false,17,4439,0,98.44
+scip_solver,MaxInformation,5x5x5,4,false,27,6054,0,98.44
+greedy,MinDistance,5x5x5,5,false,6,0,0,64.84
+greedy,MinRotation,5x5x5,5,false,6,0,0,64.84
+greedy,MaxInformation,5x5x5,5,false,6,0,0,64.84
+exact_solver,MinDistance,5x5x5,5,false,2,0,0,36.72
+exact_solver,MinRotation,5x5x5,5,false,2,0,0,36.72
+exact_solver,MaxInformation,5x5x5,5,false,5,1,0,39.06
+global_sat,MinDistance,5x5x5,5,true,33,63,0,100.00
+global_sat,MinRotation,5x5x5,5,true,30,64,0,100.00
+global_sat,MaxInformation,5x5x5,5,true,30,95,0,100.00
+partitioned_sat,MinDistance,5x5x5,5,true,32,21,0,100.00
+partitioned_sat,MinRotation,5x5x5,5,true,29,56,0,100.00
+partitioned_sat,MaxInformation,5x5x5,5,true,32,108,0,100.00
+scip_solver,MinDistance,5x5x5,5,true,29,4546,0,100.00
+scip_solver,MinRotation,5x5x5,5,true,28,4874,0,100.00
+scip_solver,MaxInformation,5x5x5,5,true,30,7919,0,100.00
+greedy,MinDistance,5x5x5,6,false,12,0,0,87.50
+greedy,MinRotation,5x5x5,6,false,12,0,0,87.50
+greedy,MaxInformation,5x5x5,6,false,12,0,0,87.50
+exact_solver,MinDistance,5x5x5,6,false,11,2,0,46.09
+exact_solver,MinRotation,5x5x5,6,false,10,2,0,60.16
+exact_solver,MaxInformation,5x5x5,6,false,21,16,0,92.97
+global_sat,MinDistance,5x5x5,6,true,25,40,0,100.00
+global_sat,MinRotation,5x5x5,6,true,30,59,0,100.00
+global_sat,MaxInformation,5x5x5,6,true,29,95,0,100.00
+partitioned_sat,MinDistance,5x5x5,6,true,24,27,0,100.00
+partitioned_sat,MinRotation,5x5x5,6,true,28,34,0,100.00
+partitioned_sat,MaxInformation,5x5x5,6,true,29,78,0,100.00
+scip_solver,MinDistance,5x5x5,6,true,22,3618,0,100.00
+scip_solver,MinRotation,5x5x5,6,true,26,4219,0,100.00
+scip_solver,MaxInformation,5x5x5,6,true,31,5857,0,100.00
+greedy,MinDistance,5x5x5,7,false,7,0,0,89.06
+greedy,MinRotation,5x5x5,7,false,7,0,0,89.06
+greedy,MaxInformation,5x5x5,7,false,7,0,0,89.06
+exact_solver,MinDistance,5x5x5,7,false,3,0,0,57.03
+exact_solver,MinRotation,5x5x5,7,false,3,0,0,57.03
+exact_solver,MaxInformation,5x5x5,7,false,13,9,0,93.75
+global_sat,MinDistance,5x5x5,7,true,18,26,0,100.00
+global_sat,MinRotation,5x5x5,7,true,19,27,0,100.00
+global_sat,MaxInformation,5x5x5,7,true,20,32,0,100.00
+partitioned_sat,MinDistance,5x5x5,7,true,17,18,0,100.00
+partitioned_sat,MinRotation,5x5x5,7,true,18,20,0,100.00
+partitioned_sat,MaxInformation,5x5x5,7,true,28,84,0,100.00
+scip_solver,MinDistance,5x5x5,7,true,20,2912,0,100.00
+scip_solver,MinRotation,5x5x5,7,true,18,2717,0,100.00
+scip_solver,MaxInformation,5x5x5,7,true,20,3183,0,100.00
+greedy,MinDistance,5x5x5,8,false,5,0,0,64.84
+greedy,MinRotation,5x5x5,8,false,5,0,0,64.84
+greedy,MaxInformation,5x5x5,8,false,5,0,0,64.84
+exact_solver,MinDistance,5x5x5,8,false,4,1,0,64.06
+exact_solver,MinRotation,5x5x5,8,false,9,2,0,52.34
+exact_solver,MaxInformation,5x5x5,8,false,24,18,0,82.81
+global_sat,MinDistance,5x5x5,8,true,40,91,0,100.00
+global_sat,MinRotation,5x5x5,8,true,43,97,0,100.00
+global_sat,MaxInformation,5x5x5,8,true,43,169,0,100.00
+partitioned_sat,MinDistance,5x5x5,8,true,40,50,0,100.00
+partitioned_sat,MinRotation,5x5x5,8,true,42,83,0,100.00
+partitioned_sat,MaxInformation,5x5x5,8,true,43,211,0,100.00
+scip_solver,MinDistance,5x5x5,8,true,42,12069,0,100.00
+scip_solver,MinRotation,5x5x5,8,true,44,9274,0,100.00
+scip_solver,MaxInformation,5x5x5,8,true,44,10914,0,100.00
+greedy,MinDistance,5x5x5,9,false,7,0,0,42.97
+greedy,MinRotation,5x5x5,9,false,7,0,0,42.97
+greedy,MaxInformation,5x5x5,9,false,7,0,0,42.97
+exact_solver,MinDistance,5x5x5,9,false,10,1,0,30.47
+exact_solver,MinRotation,5x5x5,9,false,17,6,0,87.50
+exact_solver,MaxInformation,5x5x5,9,false,8,1,0,42.97
+global_sat,MinDistance,5x5x5,9,true,29,43,0,100.00
+global_sat,MinRotation,5x5x5,9,true,34,59,0,100.00
+global_sat,MaxInformation,5x5x5,9,true,30,78,0,100.00
+partitioned_sat,MinDistance,5x5x5,9,true,31,51,0,100.00
+partitioned_sat,MinRotation,5x5x5,9,true,34,54,0,100.00
+partitioned_sat,MaxInformation,5x5x5,9,true,31,74,0,100.00
+scip_solver,MinDistance,5x5x5,9,true,31,4878,0,100.00
+scip_solver,MinRotation,5x5x5,9,true,29,4246,0,100.00
+scip_solver,MaxInformation,5x5x5,9,true,30,5864,0,100.00
+greedy,MinDistance,5x5x5,10,false,5,0,0,74.22
+greedy,MinRotation,5x5x5,10,false,5,0,0,74.22
+greedy,MaxInformation,5x5x5,10,false,5,0,0,74.22
+exact_solver,MinDistance,5x5x5,10,false,16,9,0,85.94
+exact_solver,MinRotation,5x5x5,10,false,20,13,0,89.06
+exact_solver,MaxInformation,5x5x5,10,false,7,3,0,75.78
+global_sat,MinDistance,5x5x5,10,true,29,56,0,100.00
+global_sat,MinRotation,5x5x5,10,true,30,46,0,100.00
+global_sat,MaxInformation,5x5x5,10,true,37,111,0,100.00
+partitioned_sat,MinDistance,5x5x5,10,true,31,43,0,100.00
+partitioned_sat,MinRotation,5x5x5,10,true,29,56,0,100.00
+partitioned_sat,MaxInformation,5x5x5,10,true,34,403,0,100.00
+scip_solver,MinDistance,5x5x5,10,true,30,5374,0,100.00
+scip_solver,MinRotation,5x5x5,10,true,27,5077,0,100.00
+scip_solver,MaxInformation,5x5x5,10,true,34,9582,0,100.00
+greedy,MinDistance,5x5x5,11,false,10,0,0,71.09
+greedy,MinRotation,5x5x5,11,false,10,0,0,71.09
+greedy,MaxInformation,5x5x5,11,false,10,0,0,71.09
+exact_solver,MinDistance,5x5x5,11,false,16,11,0,79.69
+exact_solver,MinRotation,5x5x5,11,false,10,5,0,75.00
+exact_solver,MaxInformation,5x5x5,11,false,21,16,0,83.59
+global_sat,MinDistance,5x5x5,11,true,41,73,0,100.00
+global_sat,MinRotation,5x5x5,11,true,43,71,0,100.00
+global_sat,MaxInformation,5x5x5,11,true,42,128,0,100.00
+partitioned_sat,MinDistance,5x5x5,11,true,41,24,0,100.00
+partitioned_sat,MinRotation,5x5x5,11,true,43,37,0,100.00
+partitioned_sat,MaxInformation,5x5x5,11,true,42,98,0,100.00
+scip_solver,MinDistance,5x5x5,11,true,44,7873,0,100.00
+scip_solver,MinRotation,5x5x5,11,true,41,9155,0,100.00
+scip_solver,MaxInformation,5x5x5,11,true,46,9811,0,100.00
+greedy,MinDistance,5x5x5,12,false,5,0,0,72.66
+greedy,MinRotation,5x5x5,12,false,5,0,0,72.66
+greedy,MaxInformation,5x5x5,12,false,5,0,0,72.66
+exact_solver,MinDistance,5x5x5,12,false,13,6,0,78.91
+exact_solver,MinRotation,5x5x5,12,false,12,5,0,78.12
+exact_solver,MaxInformation,5x5x5,12,false,12,7,0,86.72
+global_sat,MinDistance,5x5x5,12,true,30,59,0,100.00
+global_sat,MinRotation,5x5x5,12,true,29,66,0,100.00
+global_sat,MaxInformation,5x5x5,12,true,30,98,0,100.00
+partitioned_sat,MinDistance,5x5x5,12,true,30,55,0,100.00
+partitioned_sat,MinRotation,5x5x5,12,true,33,79,0,100.00
+partitioned_sat,MaxInformation,5x5x5,12,true,31,120,0,100.00
+scip_solver,MinDistance,5x5x5,12,true,31,8748,0,100.00
+scip_solver,MinRotation,5x5x5,12,true,28,4705,0,100.00
+scip_solver,MaxInformation,5x5x5,12,true,32,8020,0,100.00
+greedy,MinDistance,5x5x5,13,false,4,0,0,84.38
+greedy,MinRotation,5x5x5,13,false,4,0,0,84.38
+greedy,MaxInformation,5x5x5,13,false,4,0,0,84.38
+exact_solver,MinDistance,5x5x5,13,false,5,4,0,91.41
+exact_solver,MinRotation,5x5x5,13,false,4,2,0,84.38
+exact_solver,MaxInformation,5x5x5,13,false,8,7,0,92.97
+global_sat,MinDistance,5x5x5,13,true,15,35,0,100.00
+global_sat,MinRotation,5x5x5,13,true,17,44,0,100.00
+global_sat,MaxInformation,5x5x5,13,true,21,93,0,100.00
+partitioned_sat,MinDistance,5x5x5,13,true,15,28,0,100.00
+partitioned_sat,MinRotation,5x5x5,13,true,15,29,0,100.00
+partitioned_sat,MaxInformation,5x5x5,13,true,20,75,0,100.00
+scip_solver,MinDistance,5x5x5,13,true,17,3318,0,100.00
+scip_solver,MinRotation,5x5x5,13,true,15,2702,0,100.00
+scip_solver,MaxInformation,5x5x5,13,true,21,3566,0,100.00
+greedy,MinDistance,5x5x5,14,false,3,0,0,50.00
+greedy,MinRotation,5x5x5,14,false,3,0,0,50.00
+greedy,MaxInformation,5x5x5,14,false,3,0,0,50.00
+exact_solver,MinDistance,5x5x5,14,false,8,4,0,80.47
+exact_solver,MinRotation,5x5x5,14,false,6,3,0,82.03
+exact_solver,MaxInformation,5x5x5,14,false,6,3,0,80.47
+global_sat,MinDistance,5x5x5,14,true,25,54,0,100.00
+global_sat,MinRotation,5x5x5,14,true,22,45,0,100.00
+global_sat,MaxInformation,5x5x5,14,true,26,73,0,100.00
+partitioned_sat,MinDistance,5x5x5,14,true,20,37,0,100.00
+partitioned_sat,MinRotation,5x5x5,14,true,23,46,0,100.00
+partitioned_sat,MaxInformation,5x5x5,14,true,26,63,0,100.00
+scip_solver,MinDistance,5x5x5,14,true,24,4248,0,100.00
+scip_solver,MinRotation,5x5x5,14,true,24,4488,0,100.00
+scip_solver,MaxInformation,5x5x5,14,true,26,5019,0,100.00
+greedy,MinDistance,5x5x5,15,false,9,0,0,90.62
+greedy,MinRotation,5x5x5,15,false,9,0,0,90.62
+greedy,MaxInformation,5x5x5,15,false,9,0,0,90.62
+exact_solver,MinDistance,5x5x5,15,false,2,0,0,85.16
+exact_solver,MinRotation,5x5x5,15,false,2,0,0,85.16
+exact_solver,MaxInformation,5x5x5,15,false,2,0,0,85.16
+global_sat,MinDistance,5x5x5,15,false,16,20,0,96.09
+global_sat,MinRotation,5x5x5,15,false,16,24,0,96.09
+global_sat,MaxInformation,5x5x5,15,false,16,30,0,96.09
+partitioned_sat,MinDistance,5x5x5,15,false,16,21,0,96.09
+partitioned_sat,MinRotation,5x5x5,15,false,16,22,0,96.09
+partitioned_sat,MaxInformation,5x5x5,15,false,16,22,0,96.09
+scip_solver,MinDistance,5x5x5,15,false,19,2925,0,98.44
+scip_solver,MinRotation,5x5x5,15,false,16,2370,0,96.09
+scip_solver,MaxInformation,5x5x5,15,false,16,3065,0,96.09
+greedy,MinDistance,5x5x5,16,false,9,0,0,37.50
+greedy,MinRotation,5x5x5,16,false,22,0,0,77.34
+greedy,MaxInformation,5x5x5,16,false,24,0,0,77.34
+exact_solver,MinDistance,5x5x5,16,false,16,7,0,64.84
+exact_solver,MinRotation,5x5x5,16,false,4,0,0,24.22
+exact_solver,MaxInformation,5x5x5,16,false,19,9,0,73.44
+global_sat,MinDistance,5x5x5,16,true,35,79,0,100.00
+global_sat,MinRotation,5x5x5,16,true,38,120,0,100.00
+global_sat,MaxInformation,5x5x5,16,true,40,191,0,100.00
+partitioned_sat,MinDistance,5x5x5,16,true,35,66,0,100.00
+partitioned_sat,MinRotation,5x5x5,16,true,44,92,0,100.00
+partitioned_sat,MaxInformation,5x5x5,16,true,44,314,0,100.00
+scip_solver,MinDistance,5x5x5,16,true,35,6669,0,100.00
+scip_solver,MinRotation,5x5x5,16,true,36,6821,0,100.00
+scip_solver,MaxInformation,5x5x5,16,true,44,8504,0,100.00
+greedy,MinDistance,5x5x5,17,false,12,0,0,86.72
+greedy,MinRotation,5x5x5,17,false,12,0,0,86.72
+greedy,MaxInformation,5x5x5,17,false,12,0,0,86.72
+exact_solver,MinDistance,5x5x5,17,false,10,2,0,63.28
+exact_solver,MinRotation,5x5x5,17,false,15,6,0,85.16
+exact_solver,MaxInformation,5x5x5,17,false,17,11,0,87.50
+global_sat,MinDistance,5x5x5,17,true,31,78,0,100.00
+global_sat,MinRotation,5x5x5,17,true,34,67,0,100.00
+global_sat,MaxInformation,5x5x5,17,true,31,65,0,100.00
+partitioned_sat,MinDistance,5x5x5,17,true,34,31,0,100.00
+partitioned_sat,MinRotation,5x5x5,17,true,33,23,0,100.00
+partitioned_sat,MaxInformation,5x5x5,17,true,32,75,0,100.00
+scip_solver,MinDistance,5x5x5,17,true,29,11186,0,100.00
+scip_solver,MinRotation,5x5x5,17,true,34,6699,0,100.00
+scip_solver,MaxInformation,5x5x5,17,true,32,8636,0,100.00
+greedy,MinDistance,5x5x5,18,false,9,0,0,87.50
+greedy,MinRotation,5x5x5,18,false,9,0,0,87.50
+greedy,MaxInformation,5x5x5,18,false,9,0,0,87.50
+exact_solver,MinDistance,5x5x5,18,false,4,3,0,78.12
+exact_solver,MinRotation,5x5x5,18,false,4,2,0,78.12
+exact_solver,MaxInformation,5x5x5,18,false,5,3,0,78.91
+global_sat,MinDistance,5x5x5,18,true,23,50,0,100.00
+global_sat,MinRotation,5x5x5,18,true,23,47,0,100.00
+global_sat,MaxInformation,5x5x5,18,true,29,145,0,100.00
+partitioned_sat,MinDistance,5x5x5,18,true,23,37,0,100.00
+partitioned_sat,MinRotation,5x5x5,18,true,26,50,0,100.00
+partitioned_sat,MaxInformation,5x5x5,18,true,27,114,0,100.00
+scip_solver,MinDistance,5x5x5,18,true,22,5888,0,100.00
+scip_solver,MinRotation,5x5x5,18,true,24,6917,0,100.00
+scip_solver,MaxInformation,5x5x5,18,true,27,6291,0,100.00
+greedy,MinDistance,5x5x5,19,false,3,0,0,32.03
+greedy,MinRotation,5x5x5,19,false,3,0,0,32.03
+greedy,MaxInformation,5x5x5,19,false,3,0,0,32.03
+exact_solver,MinDistance,5x5x5,19,false,20,14,0,82.03
+exact_solver,MinRotation,5x5x5,19,false,20,10,0,64.06
+exact_solver,MaxInformation,5x5x5,19,false,30,20,0,92.19
+global_sat,MinDistance,5x5x5,19,true,29,66,0,100.00
+global_sat,MinRotation,5x5x5,19,true,34,54,0,100.00
+global_sat,MaxInformation,5x5x5,19,true,37,147,0,100.00
+partitioned_sat,MinDistance,5x5x5,19,true,33,36,0,100.00
+partitioned_sat,MinRotation,5x5x5,19,true,35,38,0,100.00
+partitioned_sat,MaxInformation,5x5x5,19,true,37,166,0,100.00
+scip_solver,MinDistance,5x5x5,19,true,33,5650,0,100.00
+scip_solver,MinRotation,5x5x5,19,true,37,6024,0,100.00
+scip_solver,MaxInformation,5x5x5,19,true,37,10249,0,100.00
+greedy,MinDistance,5x5x5,20,false,2,0,0,14.06
+greedy,MinRotation,5x5x5,20,false,2,0,0,14.06
+greedy,MaxInformation,5x5x5,20,false,6,0,0,17.19
+exact_solver,MinDistance,5x5x5,20,false,4,0,0,21.09
+exact_solver,MinRotation,5x5x5,20,false,6,0,0,17.19
+exact_solver,MaxInformation,5x5x5,20,false,38,29,0,89.84
+global_sat,MinDistance,5x5x5,20,true,47,136,0,100.00
+global_sat,MinRotation,5x5x5,20,true,56,134,0,100.00
+global_sat,MaxInformation,5x5x5,20,true,56,210,0,100.00
+partitioned_sat,MinDistance,5x5x5,20,true,51,56,0,100.00
+partitioned_sat,MinRotation,5x5x5,20,true,51,40,0,100.00
+partitioned_sat,MaxInformation,5x5x5,20,true,57,254,0,100.00
+scip_solver,MinDistance,5x5x5,20,true,53,11320,0,100.00
+scip_solver,MinRotation,5x5x5,20,true,52,9893,0,100.00
+scip_solver,MaxInformation,5x5x5,20,true,57,14084,0,100.00
+greedy,MinDistance,5x5x5,21,false,15,0,0,87.50
+greedy,MinRotation,5x5x5,21,false,15,0,0,87.50
+greedy,MaxInformation,5x5x5,21,false,15,0,0,87.50
+exact_solver,MinDistance,5x5x5,21,false,2,0,0,57.81
+exact_solver,MinRotation,5x5x5,21,false,2,0,0,57.81
+exact_solver,MaxInformation,5x5x5,21,false,8,3,0,62.50
+global_sat,MinDistance,5x5x5,21,true,27,66,0,100.00
+global_sat,MinRotation,5x5x5,21,true,28,67,0,100.00
+global_sat,MaxInformation,5x5x5,21,true,29,113,0,100.00
+partitioned_sat,MinDistance,5x5x5,21,true,26,29,0,100.00
+partitioned_sat,MinRotation,5x5x5,21,true,27,31,0,100.00
+partitioned_sat,MaxInformation,5x5x5,21,true,38,149,0,100.00
+scip_solver,MinDistance,5x5x5,21,true,26,6675,0,100.00
+scip_solver,MinRotation,5x5x5,21,true,27,5137,0,100.00
+scip_solver,MaxInformation,5x5x5,21,true,30,6654,0,100.00
+greedy,MinDistance,5x5x5,22,false,4,0,0,72.66
+greedy,MinRotation,5x5x5,22,false,4,0,0,72.66
+greedy,MaxInformation,5x5x5,22,false,4,0,0,72.66
+exact_solver,MinDistance,5x5x5,22,false,19,15,0,91.41
+exact_solver,MinRotation,5x5x5,22,false,19,17,0,84.38
+exact_solver,MaxInformation,5x5x5,22,false,31,29,0,99.22
+global_sat,MinDistance,5x5x5,22,true,27,55,0,100.00
+global_sat,MinRotation,5x5x5,22,true,23,50,0,100.00
+global_sat,MaxInformation,5x5x5,22,true,28,126,0,100.00
+partitioned_sat,MinDistance,5x5x5,22,true,24,31,0,100.00
+partitioned_sat,MinRotation,5x5x5,22,true,23,22,0,100.00
+partitioned_sat,MaxInformation,5x5x5,22,true,27,61,0,100.00
+scip_solver,MinDistance,5x5x5,22,true,23,4044,0,100.00
+scip_solver,MinRotation,5x5x5,22,true,29,4625,0,100.00
+scip_solver,MaxInformation,5x5x5,22,true,24,4202,0,100.00
+greedy,MinDistance,5x5x5,23,false,2,0,0,77.34
+greedy,MinRotation,5x5x5,23,false,2,0,0,77.34
+greedy,MaxInformation,5x5x5,23,false,2,0,0,77.34
+exact_solver,MinDistance,5x5x5,23,false,5,1,0,84.38
+exact_solver,MinRotation,5x5x5,23,false,12,5,0,89.84
+exact_solver,MaxInformation,5x5x5,23,false,13,6,0,89.84
+global_sat,MinDistance,5x5x5,23,false,24,31,0,99.22
+global_sat,MinRotation,5x5x5,23,false,24,29,0,99.22
+global_sat,MaxInformation,5x5x5,23,false,27,67,0,99.22
+partitioned_sat,MinDistance,5x5x5,23,false,24,23,0,99.22
+partitioned_sat,MinRotation,5x5x5,23,false,24,20,0,99.22
+partitioned_sat,MaxInformation,5x5x5,23,false,25,48,0,99.22
+scip_solver,MinDistance,5x5x5,23,false,23,3039,0,99.22
+scip_solver,MinRotation,5x5x5,23,false,24,3594,0,99.22
+scip_solver,MaxInformation,5x5x5,23,false,25,7589,0,99.22
+greedy,MinDistance,5x5x5,24,false,10,0,0,79.69
+greedy,MinRotation,5x5x5,24,false,10,0,0,79.69
+greedy,MaxInformation,5x5x5,24,false,10,0,0,79.69
+exact_solver,MinDistance,5x5x5,24,false,12,4,0,49.22
+exact_solver,MinRotation,5x5x5,24,false,13,5,0,50.00
+exact_solver,MaxInformation,5x5x5,24,false,10,3,0,47.66
+global_sat,MinDistance,5x5x5,24,true,38,90,0,100.00
+global_sat,MinRotation,5x5x5,24,true,40,78,0,100.00
+global_sat,MaxInformation,5x5x5,24,true,36,184,0,100.00
+partitioned_sat,MinDistance,5x5x5,24,true,38,37,0,100.00
+partitioned_sat,MinRotation,5x5x5,24,true,39,39,0,100.00
+partitioned_sat,MaxInformation,5x5x5,24,true,36,172,0,100.00
+scip_solver,MinDistance,5x5x5,24,true,37,7543,0,100.00
+scip_solver,MinRotation,5x5x5,24,true,40,7210,0,100.00
+scip_solver,MaxInformation,5x5x5,24,true,36,12926,0,100.00
+greedy,MinDistance,5x5x5,25,false,18,0,0,83.59
+greedy,MinRotation,5x5x5,25,false,18,0,0,83.59
+greedy,MaxInformation,5x5x5,25,false,10,0,0,71.88
+exact_solver,MinDistance,5x5x5,25,false,10,6,0,75.00
+exact_solver,MinRotation,5x5x5,25,false,11,6,0,75.78
+exact_solver,MaxInformation,5x5x5,25,false,25,23,0,93.75
+global_sat,MinDistance,5x5x5,25,true,33,93,0,100.00
+global_sat,MinRotation,5x5x5,25,true,36,90,0,100.00
+global_sat,MaxInformation,5x5x5,25,true,34,156,0,100.00
+partitioned_sat,MinDistance,5x5x5,25,true,35,54,0,100.00
+partitioned_sat,MinRotation,5x5x5,25,true,33,70,0,100.00
+partitioned_sat,MaxInformation,5x5x5,25,true,34,126,0,100.00
+scip_solver,MinDistance,5x5x5,25,true,33,6745,0,100.00
+scip_solver,MinRotation,5x5x5,25,true,32,8303,0,100.00
+scip_solver,MaxInformation,5x5x5,25,true,34,7685,0,100.00
+greedy,MinDistance,5x5x5,26,false,5,0,0,44.53
+greedy,MinRotation,5x5x5,26,false,16,0,0,87.50
+greedy,MaxInformation,5x5x5,26,false,5,0,0,44.53
+exact_solver,MinDistance,5x5x5,26,false,5,0,0,32.81
+exact_solver,MinRotation,5x5x5,26,false,10,1,0,53.91
+exact_solver,MaxInformation,5x5x5,26,false,10,2,0,62.50
+global_sat,MinDistance,5x5x5,26,true,36,72,0,100.00
+global_sat,MinRotation,5x5x5,26,true,32,52,0,100.00
+global_sat,MaxInformation,5x5x5,26,true,33,88,0,100.00
+partitioned_sat,MinDistance,5x5x5,26,true,34,49,0,100.00
+partitioned_sat,MinRotation,5x5x5,26,true,34,50,0,100.00
+partitioned_sat,MaxInformation,5x5x5,26,true,36,112,0,100.00
+scip_solver,MinDistance,5x5x5,26,true,33,6647,0,100.00
+scip_solver,MinRotation,5x5x5,26,true,37,9103,0,100.00
+scip_solver,MaxInformation,5x5x5,26,true,31,5336,0,100.00
+greedy,MinDistance,5x5x5,27,false,9,0,0,91.41
+greedy,MinRotation,5x5x5,27,false,9,0,0,91.41
+greedy,MaxInformation,5x5x5,27,false,9,0,0,91.41
+exact_solver,MinDistance,5x5x5,27,false,8,2,0,75.00
+exact_solver,MinRotation,5x5x5,27,false,7,2,0,74.22
+exact_solver,MaxInformation,5x5x5,27,false,11,7,0,93.75
+global_sat,MinDistance,5x5x5,27,true,19,25,0,100.00
+global_sat,MinRotation,5x5x5,27,true,20,26,0,100.00
+global_sat,MaxInformation,5x5x5,27,true,20,36,0,100.00
+partitioned_sat,MinDistance,5x5x5,27,true,18,9,0,100.00
+partitioned_sat,MinRotation,5x5x5,27,true,18,10,0,100.00
+partitioned_sat,MaxInformation,5x5x5,27,true,18,24,0,100.00
+scip_solver,MinDistance,5x5x5,27,true,19,3321,0,100.00
+scip_solver,MinRotation,5x5x5,27,true,21,4000,0,100.00
+scip_solver,MaxInformation,5x5x5,27,true,19,4090,0,100.00
+greedy,MinDistance,5x5x5,28,false,9,0,0,42.97
+greedy,MinRotation,5x5x5,28,false,12,0,0,53.12
+greedy,MaxInformation,5x5x5,28,false,8,0,0,42.19
+exact_solver,MinDistance,5x5x5,28,false,12,2,0,41.41
+exact_solver,MinRotation,5x5x5,28,false,10,2,0,40.62
+exact_solver,MaxInformation,5x5x5,28,false,39,32,0,94.53
+global_sat,MinDistance,5x5x5,28,true,42,73,0,100.00
+global_sat,MinRotation,5x5x5,28,true,42,73,0,100.00
+global_sat,MaxInformation,5x5x5,28,true,49,233,0,100.00
+partitioned_sat,MinDistance,5x5x5,28,true,45,70,0,100.00
+partitioned_sat,MinRotation,5x5x5,28,true,46,67,0,100.00
+partitioned_sat,MaxInformation,5x5x5,28,true,48,228,0,100.00
+scip_solver,MinDistance,5x5x5,28,true,41,7022,0,100.00
+scip_solver,MinRotation,5x5x5,28,true,42,9288,0,100.00
+scip_solver,MaxInformation,5x5x5,28,true,48,14034,0,100.00
+greedy,MinDistance,5x5x5,29,false,15,0,0,85.94
+greedy,MinRotation,5x5x5,29,false,15,0,0,85.94
+greedy,MaxInformation,5x5x5,29,false,15,0,0,85.94
+exact_solver,MinDistance,5x5x5,29,false,2,0,0,40.62
+exact_solver,MinRotation,5x5x5,29,false,2,0,0,40.62
+exact_solver,MaxInformation,5x5x5,29,false,16,13,0,86.72
+global_sat,MinDistance,5x5x5,29,true,31,65,0,100.00
+global_sat,MinRotation,5x5x5,29,true,30,66,0,100.00
+global_sat,MaxInformation,5x5x5,29,true,32,116,0,100.00
+partitioned_sat,MinDistance,5x5x5,29,true,32,42,0,100.00
+partitioned_sat,MinRotation,5x5x5,29,true,31,44,0,100.00
+partitioned_sat,MaxInformation,5x5x5,29,true,32,123,0,100.00
+scip_solver,MinDistance,5x5x5,29,true,34,8033,0,100.00
+scip_solver,MinRotation,5x5x5,29,true,31,5280,0,100.00
+scip_solver,MaxInformation,5x5x5,29,true,32,5479,0,100.00
+greedy,MinDistance,8x8x8,0,false,7,0,0,54.13
+greedy,MinRotation,8x8x8,0,false,7,0,0,54.13
+greedy,MaxInformation,8x8x8,0,false,27,1,0,86.24
+exact_solver,MinDistance,8x8x8,0,false,13,22,0,55.66
+exact_solver,MinRotation,8x8x8,0,false,7,10,0,52.29
+exact_solver,MaxInformation,8x8x8,0,false,6,8,0,48.93
+global_sat,MinDistance,8x8x8,0,true,69,1410,0,100.00
+global_sat,MinRotation,8x8x8,0,true,71,1124,0,100.00
+global_sat,MaxInformation,8x8x8,0,true,76,2747,0,100.00
+partitioned_sat,MinDistance,8x8x8,0,true,71,998,0,100.00
+partitioned_sat,MinRotation,8x8x8,0,true,71,830,0,100.00
+partitioned_sat,MaxInformation,8x8x8,0,true,78,2385,0,100.00
+scip_solver,MinDistance,8x8x8,0,true,68,42651,0,100.00
+scip_solver,MinRotation,8x8x8,0,true,70,35711,0,100.00
+scip_solver,MaxInformation,8x8x8,0,true,80,52751,0,100.00
+greedy,MinDistance,8x8x8,1,false,13,0,0,84.71
+greedy,MinRotation,8x8x8,1,false,13,0,0,84.71
+greedy,MaxInformation,8x8x8,1,false,13,0,0,84.71
+exact_solver,MinDistance,8x8x8,1,false,7,32,0,83.49
+exact_solver,MinRotation,8x8x8,1,false,7,29,0,76.45
+exact_solver,MaxInformation,8x8x8,1,false,15,80,0,85.63
+global_sat,MinDistance,8x8x8,1,true,57,1221,0,100.00
+global_sat,MinRotation,8x8x8,1,true,61,1168,0,100.00
+global_sat,MaxInformation,8x8x8,1,true,61,2256,0,100.00
+partitioned_sat,MinDistance,8x8x8,1,true,57,347,0,100.00
+partitioned_sat,MinRotation,8x8x8,1,true,67,831,0,100.00
+partitioned_sat,MaxInformation,8x8x8,1,true,61,1771,0,100.00
+scip_solver,MinDistance,8x8x8,1,true,58,27926,0,100.00
+scip_solver,MinRotation,8x8x8,1,true,67,44760,0,100.00
+scip_solver,MaxInformation,8x8x8,1,true,61,34179,0,100.00
+greedy,MinDistance,8x8x8,2,false,16,1,0,81.04
+greedy,MinRotation,8x8x8,2,false,16,1,0,81.04
+greedy,MaxInformation,8x8x8,2,false,16,1,0,81.04
+exact_solver,MinDistance,8x8x8,2,false,11,14,0,45.26
+exact_solver,MinRotation,8x8x8,2,false,8,9,0,44.34
+exact_solver,MaxInformation,8x8x8,2,false,29,91,0,84.10
+global_sat,MinDistance,8x8x8,2,false,4,2,0,2.75
+global_sat,MinRotation,8x8x8,2,false,4,2,0,2.75
+global_sat,MaxInformation,8x8x8,2,false,4,2,0,2.75
+partitioned_sat,MinDistance,8x8x8,2,false,4,1,0,2.75
+partitioned_sat,MinRotation,8x8x8,2,false,4,1,0,2.75
+partitioned_sat,MaxInformation,8x8x8,2,false,4,1,0,2.75
+scip_solver,MinDistance,8x8x8,2,false,4,264,0,2.75
+scip_solver,MinRotation,8x8x8,2,false,4,267,0,2.75
+scip_solver,MaxInformation,8x8x8,2,false,2,70,0,2.14
+greedy,MinDistance,8x8x8,3,false,9,1,0,21.41
+greedy,MinRotation,8x8x8,3,false,9,1,0,21.41
+greedy,MaxInformation,8x8x8,3,false,9,1,0,21.41
+exact_solver,MinDistance,8x8x8,3,false,29,50,0,64.22
+exact_solver,MinRotation,8x8x8,3,false,11,7,0,39.14
+exact_solver,MaxInformation,8x8x8,3,false,27,36,0,50.76
+global_sat,MinDistance,8x8x8,3,true,87,1118,0,100.00
+global_sat,MinRotation,8x8x8,3,true,95,1291,0,100.00
+global_sat,MaxInformation,8x8x8,3,true,109,5153,0,100.00
+partitioned_sat,MinDistance,8x8x8,3,true,85,687,0,100.00
+partitioned_sat,MinRotation,8x8x8,3,true,92,687,0,100.00
+partitioned_sat,MaxInformation,8x8x8,3,true,103,3241,0,100.00
+scip_solver,MinDistance,8x8x8,3,true,82,38218,0,100.00
+scip_solver,MinRotation,8x8x8,3,true,99,55253,0,100.00
+scip_solver,MaxInformation,8x8x8,3,true,104,66752,0,100.00
+greedy,MinDistance,8x8x8,4,false,4,0,0,21.10
+greedy,MinRotation,8x8x8,4,false,4,0,0,21.10
+greedy,MaxInformation,8x8x8,4,false,5,0,0,21.41
+exact_solver,MinDistance,8x8x8,4,false,15,40,0,70.34
+exact_solver,MinRotation,8x8x8,4,false,16,56,0,70.95
+exact_solver,MaxInformation,8x8x8,4,false,10,32,0,69.11
+global_sat,MinDistance,8x8x8,4,true,82,2157,0,100.00
+global_sat,MinRotation,8x8x8,4,true,82,2821,0,100.00
+global_sat,MaxInformation,8x8x8,4,true,85,8580,0,100.00
+partitioned_sat,MinDistance,8x8x8,4,true,86,2162,0,100.00
+partitioned_sat,MinRotation,8x8x8,4,true,83,1210,0,100.00
+partitioned_sat,MaxInformation,8x8x8,4,true,82,3571,0,100.00
+scip_solver,MinDistance,8x8x8,4,true,85,58297,0,100.00
+scip_solver,MinRotation,8x8x8,4,true,81,51631,0,100.00
+scip_solver,MaxInformation,8x8x8,4,true,82,60055,0,100.00
+greedy,MinDistance,8x8x8,5,false,10,0,0,77.98
+greedy,MinRotation,8x8x8,5,false,8,0,0,84.40
+greedy,MaxInformation,8x8x8,5,false,10,0,0,77.98
+exact_solver,MinDistance,8x8x8,5,false,2,2,0,59.33
+exact_solver,MinRotation,8x8x8,5,false,2,2,0,59.33
+exact_solver,MaxInformation,8x8x8,5,false,27,101,0,77.98
+global_sat,MinDistance,8x8x8,5,true,64,1175,0,100.00
+global_sat,MinRotation,8x8x8,5,true,64,1210,0,100.00
+global_sat,MaxInformation,8x8x8,5,true,60,1825,0,100.00
+partitioned_sat,MinDistance,8x8x8,5,true,68,780,0,100.00
+partitioned_sat,MinRotation,8x8x8,5,true,67,1108,0,100.00
+partitioned_sat,MaxInformation,8x8x8,5,true,59,1706,0,100.00
+scip_solver,MinDistance,8x8x8,5,true,66,40404,0,100.00
+scip_solver,MinRotation,8x8x8,5,true,61,30116,0,100.00
+scip_solver,MaxInformation,8x8x8,5,true,59,36284,0,100.00
+greedy,MinDistance,8x8x8,6,false,5,0,0,13.15
+greedy,MinRotation,8x8x8,6,false,15,2,0,16.21
+greedy,MaxInformation,8x8x8,6,false,21,3,0,75.54
+exact_solver,MinDistance,8x8x8,6,false,7,1,0,11.62
+exact_solver,MinRotation,8x8x8,6,false,9,1,0,12.23
+exact_solver,MaxInformation,8x8x8,6,false,12,3,0,15.29
+global_sat,MinDistance,8x8x8,6,true,84,1632,0,100.00
+global_sat,MinRotation,8x8x8,6,true,92,1851,0,100.00
+global_sat,MaxInformation,8x8x8,6,true,88,4253,0,100.00
+partitioned_sat,MinDistance,8x8x8,6,true,94,1136,0,100.00
+partitioned_sat,MinRotation,8x8x8,6,true,91,1845,0,100.00
+partitioned_sat,MaxInformation,8x8x8,6,true,103,4887,0,100.00
+scip_solver,MinDistance,8x8x8,6,true,89,35367,0,100.00
+scip_solver,MinRotation,8x8x8,6,true,95,43115,0,100.00
+scip_solver,MaxInformation,8x8x8,6,true,92,41525,0,100.00
+greedy,MinDistance,8x8x8,7,false,33,3,0,66.06
+greedy,MinRotation,8x8x8,7,false,33,3,0,66.06
+greedy,MaxInformation,8x8x8,7,false,33,3,0,66.06
+exact_solver,MinDistance,8x8x8,7,false,19,27,0,56.88
+exact_solver,MinRotation,8x8x8,7,false,8,2,0,18.96
+exact_solver,MaxInformation,8x8x8,7,false,18,10,0,40.67
+global_sat,MinDistance,8x8x8,7,false,78,1215,0,99.69
+global_sat,MinRotation,8x8x8,7,false,86,1071,0,99.69
+global_sat,MaxInformation,8x8x8,7,false,105,3310,0,99.69
+partitioned_sat,MinDistance,8x8x8,7,false,81,853,0,99.69
+partitioned_sat,MinRotation,8x8x8,7,false,90,744,0,99.69
+partitioned_sat,MaxInformation,8x8x8,7,false,89,2558,0,99.69
+scip_solver,MinDistance,8x8x8,7,false,72,31747,0,99.69
+scip_solver,MinRotation,8x8x8,7,false,88,35320,0,99.69
+scip_solver,MaxInformation,8x8x8,7,false,92,40085,0,99.69
+greedy,MinDistance,8x8x8,8,false,10,1,0,47.71
+greedy,MinRotation,8x8x8,8,false,10,1,0,47.71
+greedy,MaxInformation,8x8x8,8,false,10,1,0,47.71
+exact_solver,MinDistance,8x8x8,8,false,2,0,0,22.02
+exact_solver,MinRotation,8x8x8,8,false,16,8,0,26.30
+exact_solver,MaxInformation,8x8x8,8,false,13,7,0,25.38
+global_sat,MinDistance,8x8x8,8,true,94,1395,0,100.00
+global_sat,MinRotation,8x8x8,8,true,96,1305,0,100.00
+global_sat,MaxInformation,8x8x8,8,true,92,3257,0,100.00
+partitioned_sat,MinDistance,8x8x8,8,true,96,405,0,100.00
+partitioned_sat,MinRotation,8x8x8,8,true,90,668,0,100.00
+partitioned_sat,MaxInformation,8x8x8,8,true,86,2996,0,100.00
+scip_solver,MinDistance,8x8x8,8,true,94,41894,0,100.00
+scip_solver,MinRotation,8x8x8,8,true,97,40916,0,100.00
+scip_solver,MaxInformation,8x8x8,8,true,89,46265,0,100.00
+greedy,MinDistance,8x8x8,9,false,8,0,0,32.72
+greedy,MinRotation,8x8x8,9,false,8,0,0,32.72
+greedy,MaxInformation,8x8x8,9,false,8,0,0,32.72
+exact_solver,MinDistance,8x8x8,9,false,18,20,0,63.30
+exact_solver,MinRotation,8x8x8,9,false,17,17,0,53.82
+exact_solver,MaxInformation,8x8x8,9,false,16,16,0,55.35
+global_sat,MinDistance,8x8x8,9,true,74,1170,0,100.00
+global_sat,MinRotation,8x8x8,9,true,70,1165,0,100.00
+global_sat,MaxInformation,8x8x8,9,true,78,3036,0,100.00
+partitioned_sat,MinDistance,8x8x8,9,true,82,706,0,100.00
+partitioned_sat,MinRotation,8x8x8,9,true,79,827,0,100.00
+partitioned_sat,MaxInformation,8x8x8,9,true,71,1714,0,100.00
+scip_solver,MinDistance,8x8x8,9,true,77,29635,0,100.00
+scip_solver,MinRotation,8x8x8,9,true,71,29289,0,100.00
+scip_solver,MaxInformation,8x8x8,9,true,70,33802,0,100.00
+greedy,MinDistance,8x8x8,10,false,5,0,0,30.28
+greedy,MinRotation,8x8x8,10,false,5,0,0,30.28
+greedy,MaxInformation,8x8x8,10,false,5,0,0,30.28
+exact_solver,MinDistance,8x8x8,10,false,11,9,0,32.11
+exact_solver,MinRotation,8x8x8,10,false,13,12,0,44.65
+exact_solver,MaxInformation,8x8x8,10,false,22,25,0,41.28
+global_sat,MinDistance,8x8x8,10,true,100,1614,0,100.00
+global_sat,MinRotation,8x8x8,10,true,106,1807,0,100.00
+global_sat,MaxInformation,8x8x8,10,true,112,6081,0,100.00
+partitioned_sat,MinDistance,8x8x8,10,true,104,885,0,100.00
+partitioned_sat,MinRotation,8x8x8,10,true,118,655,0,100.00
+partitioned_sat,MaxInformation,8x8x8,10,true,106,2052,0,100.00
+scip_solver,MinDistance,8x8x8,10,true,100,47006,0,100.00
+scip_solver,MinRotation,8x8x8,10,true,106,76950,0,100.00
+scip_solver,MaxInformation,8x8x8,10,true,106,80502,0,100.00
+greedy,MinDistance,8x8x8,11,false,9,0,0,72.78
+greedy,MinRotation,8x8x8,11,false,9,1,0,72.78
+greedy,MaxInformation,8x8x8,11,false,9,1,0,72.78
+exact_solver,MinDistance,8x8x8,11,false,15,54,0,69.72
+exact_solver,MinRotation,8x8x8,11,false,23,99,0,74.31
+exact_solver,MaxInformation,8x8x8,11,false,14,74,0,69.72
+global_sat,MinDistance,8x8x8,11,true,81,2156,0,100.00
+global_sat,MinRotation,8x8x8,11,true,84,1733,0,100.00
+global_sat,MaxInformation,8x8x8,11,true,83,4917,0,100.00
+partitioned_sat,MinDistance,8x8x8,11,true,79,1146,0,100.00
+partitioned_sat,MinRotation,8x8x8,11,true,81,545,0,100.00
+partitioned_sat,MaxInformation,8x8x8,11,true,83,2907,0,100.00
+scip_solver,MinDistance,8x8x8,11,true,81,48882,0,100.00
+scip_solver,MinRotation,8x8x8,11,true,80,39931,0,100.00
+scip_solver,MaxInformation,8x8x8,11,true,80,54444,0,100.00
+greedy,MinDistance,8x8x8,12,false,23,2,0,69.42
+greedy,MinRotation,8x8x8,12,false,23,2,0,69.42
+greedy,MaxInformation,8x8x8,12,false,23,2,0,69.42
+exact_solver,MinDistance,8x8x8,12,false,9,7,0,40.67
+exact_solver,MinRotation,8x8x8,12,false,4,2,0,24.16
+exact_solver,MaxInformation,8x8x8,12,false,35,110,0,75.84
+global_sat,MinDistance,8x8x8,12,true,80,1600,0,100.00
+global_sat,MinRotation,8x8x8,12,true,81,1266,0,100.00
+global_sat,MaxInformation,8x8x8,12,true,91,3437,0,100.00
+partitioned_sat,MinDistance,8x8x8,12,true,79,932,0,100.00
+partitioned_sat,MinRotation,8x8x8,12,true,82,1028,0,100.00
+partitioned_sat,MaxInformation,8x8x8,12,true,99,4816,0,100.00
+scip_solver,MinDistance,8x8x8,12,true,81,43137,0,100.00
+scip_solver,MinRotation,8x8x8,12,true,84,45874,0,100.00
+scip_solver,MaxInformation,8x8x8,12,true,100,67520,0,100.00
+greedy,MinDistance,8x8x8,13,false,23,2,0,80.43
+greedy,MinRotation,8x8x8,13,false,23,2,0,80.43
+greedy,MaxInformation,8x8x8,13,false,23,2,0,80.43
+exact_solver,MinDistance,8x8x8,13,false,3,0,0,16.51
+exact_solver,MinRotation,8x8x8,13,false,3,0,0,16.51
+exact_solver,MaxInformation,8x8x8,13,false,24,49,0,64.22
+global_sat,MinDistance,8x8x8,13,true,86,1338,0,100.00
+global_sat,MinRotation,8x8x8,13,true,102,1435,0,100.00
+global_sat,MaxInformation,8x8x8,13,true,82,3513,0,100.00
+partitioned_sat,MinDistance,8x8x8,13,true,88,529,0,100.00
+partitioned_sat,MinRotation,8x8x8,13,true,87,738,0,100.00
+partitioned_sat,MaxInformation,8x8x8,13,true,83,4247,0,100.00
+scip_solver,MinDistance,8x8x8,13,true,85,42200,0,100.00
+scip_solver,MinRotation,8x8x8,13,true,81,47717,0,100.00
+scip_solver,MaxInformation,8x8x8,13,true,88,67707,0,100.00
+greedy,MinDistance,8x8x8,14,false,17,3,0,62.08
+greedy,MinRotation,8x8x8,14,false,16,4,0,11.31
+greedy,MaxInformation,8x8x8,14,false,17,3,0,62.08
+exact_solver,MinDistance,8x8x8,14,false,5,0,0,7.95
+exact_solver,MinRotation,8x8x8,14,false,4,0,0,7.65
+exact_solver,MaxInformation,8x8x8,14,false,34,106,0,49.85
+global_sat,MinDistance,8x8x8,14,true,107,2831,0,100.00
+global_sat,MinRotation,8x8x8,14,true,113,1583,0,100.00
+global_sat,MaxInformation,8x8x8,14,true,118,5752,0,100.00
+partitioned_sat,MinDistance,8x8x8,14,true,117,1665,0,100.00
+partitioned_sat,MinRotation,8x8x8,14,true,114,1376,0,100.00
+partitioned_sat,MaxInformation,8x8x8,14,true,115,5246,0,100.00
+scip_solver,MinDistance,8x8x8,14,true,115,80444,0,100.00
+scip_solver,MinRotation,8x8x8,14,true,116,54872,0,100.00
+scip_solver,MaxInformation,8x8x8,14,true,119,85552,0,100.00
+greedy,MinDistance,8x8x8,15,false,18,1,0,80.43
+greedy,MinRotation,8x8x8,15,false,18,1,0,80.43
+greedy,MaxInformation,8x8x8,15,false,18,1,0,80.43
+exact_solver,MinDistance,8x8x8,15,false,12,14,0,43.12
+exact_solver,MinRotation,8x8x8,15,false,6,5,0,34.25
+exact_solver,MaxInformation,8x8x8,15,false,10,33,0,75.84
+global_sat,MinDistance,8x8x8,15,true,73,1344,0,100.00
+global_sat,MinRotation,8x8x8,15,true,77,1280,0,100.00
+global_sat,MaxInformation,8x8x8,15,true,78,3786,0,100.00
+partitioned_sat,MinDistance,8x8x8,15,true,70,941,0,100.00
+partitioned_sat,MinRotation,8x8x8,15,true,76,836,0,100.00
+partitioned_sat,MaxInformation,8x8x8,15,true,77,3506,0,100.00
+scip_solver,MinDistance,8x8x8,15,true,74,41022,0,100.00
+scip_solver,MinRotation,8x8x8,15,true,75,34840,0,100.00
+scip_solver,MaxInformation,8x8x8,15,true,84,62869,0,100.00
+greedy,MinDistance,8x8x8,16,false,14,0,0,76.76
+greedy,MinRotation,8x8x8,16,false,14,0,0,76.76
+greedy,MaxInformation,8x8x8,16,false,14,0,0,76.76
+exact_solver,MinDistance,8x8x8,16,false,5,12,0,58.72
+exact_solver,MinRotation,8x8x8,16,false,7,19,0,59.33
+exact_solver,MaxInformation,8x8x8,16,false,9,31,0,75.23
+global_sat,MinDistance,8x8x8,16,true,69,1588,0,100.00
+global_sat,MinRotation,8x8x8,16,true,71,1623,0,100.00
+global_sat,MaxInformation,8x8x8,16,true,76,3569,0,100.00
+partitioned_sat,MinDistance,8x8x8,16,true,62,442,0,100.00
+partitioned_sat,MinRotation,8x8x8,16,true,74,831,0,100.00
+partitioned_sat,MaxInformation,8x8x8,16,true,76,2862,0,100.00
+scip_solver,MinDistance,8x8x8,16,true,66,45129,0,100.00
+scip_solver,MinRotation,8x8x8,16,true,71,45690,0,100.00
+scip_solver,MaxInformation,8x8x8,16,true,76,57013,0,100.00
+greedy,MinDistance,8x8x8,17,false,6,1,0,15.29
+greedy,MinRotation,8x8x8,17,false,6,1,0,15.29
+greedy,MaxInformation,8x8x8,17,false,7,1,0,13.46
+exact_solver,MinDistance,8x8x8,17,false,11,4,0,18.96
+exact_solver,MinRotation,8x8x8,17,false,4,0,0,12.54
+exact_solver,MaxInformation,8x8x8,17,false,3,0,0,12.23
+global_sat,MinDistance,8x8x8,17,true,107,2686,0,100.00
+global_sat,MinRotation,8x8x8,17,true,111,1908,0,100.00
+global_sat,MaxInformation,8x8x8,17,true,115,4465,0,100.00
+partitioned_sat,MinDistance,8x8x8,17,true,107,1406,0,100.00
+partitioned_sat,MinRotation,8x8x8,17,true,106,1232,0,100.00
+partitioned_sat,MaxInformation,8x8x8,17,true,114,3917,0,100.00
+scip_solver,MinDistance,8x8x8,17,true,105,63423,0,100.00
+scip_solver,MinRotation,8x8x8,17,true,108,53266,0,100.00
+scip_solver,MaxInformation,8x8x8,17,true,112,62560,0,100.00
+greedy,MinDistance,8x8x8,18,false,12,3,0,16.82
+greedy,MinRotation,8x8x8,18,false,27,3,0,72.78
+greedy,MaxInformation,8x8x8,18,false,12,2,0,16.82
+exact_solver,MinDistance,8x8x8,18,false,9,5,0,35.17
+exact_solver,MinRotation,8x8x8,18,false,26,33,0,57.80
+exact_solver,MaxInformation,8x8x8,18,false,12,6,0,16.82
+global_sat,MinDistance,8x8x8,18,true,88,2853,0,100.00
+global_sat,MinRotation,8x8x8,18,true,94,1866,0,100.00
+global_sat,MaxInformation,8x8x8,18,true,101,5499,0,100.00
+partitioned_sat,MinDistance,8x8x8,18,true,85,739,0,100.00
+partitioned_sat,MinRotation,8x8x8,18,true,94,580,0,100.00
+partitioned_sat,MaxInformation,8x8x8,18,true,93,4158,0,100.00
+scip_solver,MinDistance,8x8x8,18,true,89,72977,0,100.00
+scip_solver,MinRotation,8x8x8,18,true,94,104796,0,100.00
+scip_solver,MaxInformation,8x8x8,18,true,102,62356,0,100.00
+greedy,MinDistance,8x8x8,19,false,5,1,0,48.93
+greedy,MinRotation,8x8x8,19,false,5,0,0,48.93
+greedy,MaxInformation,8x8x8,19,false,5,0,0,48.93
+exact_solver,MinDistance,8x8x8,19,false,20,47,0,47.09
+exact_solver,MinRotation,8x8x8,19,false,9,13,0,43.12
+exact_solver,MaxInformation,8x8x8,19,false,19,70,0,75.84
+global_sat,MinDistance,8x8x8,19,true,92,3063,0,100.00
+global_sat,MinRotation,8x8x8,19,true,104,1970,0,100.00
+global_sat,MaxInformation,8x8x8,19,true,97,5257,0,100.00
+partitioned_sat,MinDistance,8x8x8,19,true,95,1101,0,100.00
+partitioned_sat,MinRotation,8x8x8,19,true,90,874,0,100.00
+partitioned_sat,MaxInformation,8x8x8,19,true,98,4479,0,100.00
+scip_solver,MinDistance,8x8x8,19,true,90,56080,0,100.00
+scip_solver,MinRotation,8x8x8,19,true,95,108432,0,100.00
+scip_solver,MaxInformation,8x8x8,19,true,98,98893,0,100.00
+greedy,MinDistance,8x8x8,20,false,18,2,0,78.90
+greedy,MinRotation,8x8x8,20,false,18,2,0,78.90
+greedy,MaxInformation,8x8x8,20,false,18,2,0,78.90
+exact_solver,MinDistance,8x8x8,20,false,14,26,0,44.34
+exact_solver,MinRotation,8x8x8,20,false,20,35,0,46.18
+exact_solver,MaxInformation,8x8x8,20,false,5,5,0,41.90
+global_sat,MinDistance,8x8x8,20,true,82,2554,0,100.00
+global_sat,MinRotation,8x8x8,20,true,83,1555,0,100.00
+global_sat,MaxInformation,8x8x8,20,true,88,3851,0,100.00
+partitioned_sat,MinDistance,8x8x8,20,true,82,1689,0,100.00
+partitioned_sat,MinRotation,8x8x8,20,true,82,539,0,100.00
+partitioned_sat,MaxInformation,8x8x8,20,true,89,2733,0,100.00
+scip_solver,MinDistance,8x8x8,20,true,81,41712,0,100.00
+scip_solver,MinRotation,8x8x8,20,true,84,42680,0,100.00
+scip_solver,MaxInformation,8x8x8,20,true,95,61461,0,100.00
+greedy,MinDistance,8x8x8,21,false,4,0,0,31.80
+greedy,MinRotation,8x8x8,21,false,4,0,0,31.80
+greedy,MaxInformation,8x8x8,21,false,4,0,0,31.80
+exact_solver,MinDistance,8x8x8,21,false,48,80,0,48.32
+exact_solver,MinRotation,8x8x8,21,false,29,38,0,43.43
+exact_solver,MaxInformation,8x8x8,21,false,61,239,0,83.49
+global_sat,MinDistance,8x8x8,21,true,113,2504,0,100.00
+global_sat,MinRotation,8x8x8,21,true,112,1669,0,100.00
+global_sat,MaxInformation,8x8x8,21,true,127,7159,0,100.00
+partitioned_sat,MinDistance,8x8x8,21,true,116,1403,0,100.00
+partitioned_sat,MinRotation,8x8x8,21,true,113,1983,0,100.00
+partitioned_sat,MaxInformation,8x8x8,21,true,119,6308,0,100.00
+scip_solver,MinDistance,8x8x8,21,true,115,64894,0,100.00
+scip_solver,MinRotation,8x8x8,21,true,114,58060,0,100.00
+scip_solver,MaxInformation,8x8x8,21,true,119,77437,0,100.00
+greedy,MinDistance,8x8x8,22,false,18,1,0,85.32
+greedy,MinRotation,8x8x8,22,false,18,1,0,85.32
+greedy,MaxInformation,8x8x8,22,false,18,1,0,85.32
+exact_solver,MinDistance,8x8x8,22,false,13,24,0,55.35
+exact_solver,MinRotation,8x8x8,22,false,8,10,0,39.14
+exact_solver,MaxInformation,8x8x8,22,false,17,54,0,69.42
+global_sat,MinDistance,8x8x8,22,true,68,1825,0,100.00
+global_sat,MinRotation,8x8x8,22,true,75,2817,0,100.00
+global_sat,MaxInformation,8x8x8,22,true,63,5186,0,100.00
+partitioned_sat,MinDistance,8x8x8,22,true,69,1410,0,100.00
+partitioned_sat,MinRotation,8x8x8,22,true,76,2708,0,100.00
+partitioned_sat,MaxInformation,8x8x8,22,true,66,3132,0,100.00
+scip_solver,MinDistance,8x8x8,22,true,68,54944,0,100.00
+scip_solver,MinRotation,8x8x8,22,true,74,50223,0,100.00
+scip_solver,MaxInformation,8x8x8,22,true,67,62055,0,100.00
+greedy,MinDistance,8x8x8,23,false,9,1,0,56.88
+greedy,MinRotation,8x8x8,23,false,9,1,0,56.88
+greedy,MaxInformation,8x8x8,23,false,9,1,0,56.88
+exact_solver,MinDistance,8x8x8,23,false,15,47,0,59.63
+exact_solver,MinRotation,8x8x8,23,false,25,93,0,54.74
+exact_solver,MaxInformation,8x8x8,23,false,14,51,0,58.41
+global_sat,MinDistance,8x8x8,23,true,123,6177,0,100.00
+global_sat,MinRotation,8x8x8,23,true,124,3167,0,100.00
+global_sat,MaxInformation,8x8x8,23,true,123,10602,0,100.00
+partitioned_sat,MinDistance,8x8x8,23,true,120,1547,0,100.00
+partitioned_sat,MinRotation,8x8x8,23,true,128,912,0,100.00
+partitioned_sat,MaxInformation,8x8x8,23,true,129,10968,0,100.00
+scip_solver,MinDistance,8x8x8,23,true,116,75345,0,100.00
+scip_solver,MinRotation,8x8x8,23,true,118,78960,0,100.00
+scip_solver,MaxInformation,8x8x8,23,true,123,94255,0,100.00
+greedy,MinDistance,8x8x8,24,false,33,3,0,81.65
+greedy,MinRotation,8x8x8,24,false,4,0,0,5.50
+greedy,MaxInformation,8x8x8,24,false,5,1,0,5.81
+exact_solver,MinDistance,8x8x8,24,false,3,0,0,5.20
+exact_solver,MinRotation,8x8x8,24,false,6,0,0,6.12
+exact_solver,MaxInformation,8x8x8,24,false,2,0,0,4.89
+global_sat,MinDistance,8x8x8,24,true,84,2068,0,100.00
+global_sat,MinRotation,8x8x8,24,true,94,3081,0,100.00
+global_sat,MaxInformation,8x8x8,24,true,102,5163,0,100.00
+partitioned_sat,MinDistance,8x8x8,24,true,86,1072,0,100.00
+partitioned_sat,MinRotation,8x8x8,24,true,94,1282,0,100.00
+partitioned_sat,MaxInformation,8x8x8,24,true,101,2793,0,100.00
+scip_solver,MinDistance,8x8x8,24,true,88,46095,0,100.00
+scip_solver,MinRotation,8x8x8,24,true,87,52295,0,100.00
+scip_solver,MaxInformation,8x8x8,24,true,94,57809,0,100.00
+greedy,MinDistance,8x8x8,25,false,10,1,0,41.90
+greedy,MinRotation,8x8x8,25,false,10,1,0,41.90
+greedy,MaxInformation,8x8x8,25,false,10,1,0,41.90
+exact_solver,MinDistance,8x8x8,25,false,3,0,0,14.37
+exact_solver,MinRotation,8x8x8,25,false,3,0,0,14.37
+exact_solver,MaxInformation,8x8x8,25,false,5,1,0,14.98
+global_sat,MinDistance,8x8x8,25,true,97,1831,0,100.00
+global_sat,MinRotation,8x8x8,25,true,100,1925,0,100.00
+global_sat,MaxInformation,8x8x8,25,true,108,5337,0,100.00
+partitioned_sat,MinDistance,8x8x8,25,true,104,784,0,100.00
+partitioned_sat,MinRotation,8x8x8,25,true,100,2336,0,100.00
+partitioned_sat,MaxInformation,8x8x8,25,true,106,4063,0,100.00
+scip_solver,MinDistance,8x8x8,25,true,98,51614,0,100.00
+scip_solver,MinRotation,8x8x8,25,true,100,53961,0,100.00
+scip_solver,MaxInformation,8x8x8,25,true,103,74746,0,100.00
+greedy,MinDistance,8x8x8,26,false,16,2,0,66.97
+greedy,MinRotation,8x8x8,26,false,16,2,0,66.97
+greedy,MaxInformation,8x8x8,26,false,16,2,0,66.97
+exact_solver,MinDistance,8x8x8,26,false,10,5,0,22.94
+exact_solver,MinRotation,8x8x8,26,false,14,6,0,22.02
+exact_solver,MaxInformation,8x8x8,26,false,32,78,0,61.77
+global_sat,MinDistance,8x8x8,26,false,77,1420,0,98.78
+global_sat,MinRotation,8x8x8,26,false,69,1407,0,98.78
+global_sat,MaxInformation,8x8x8,26,false,73,2937,0,98.78
+partitioned_sat,MinDistance,8x8x8,26,false,76,852,0,98.78
+partitioned_sat,MinRotation,8x8x8,26,false,77,566,0,98.78
+partitioned_sat,MaxInformation,8x8x8,26,false,80,2239,0,98.78
+scip_solver,MinDistance,8x8x8,26,false,75,39921,0,98.78
+scip_solver,MinRotation,8x8x8,26,false,73,39870,0,98.78
+scip_solver,MaxInformation,8x8x8,26,true,75,43396,0,100.00
+greedy,MinDistance,8x8x8,27,false,8,1,0,43.43
+greedy,MinRotation,8x8x8,27,false,8,1,0,43.43
+greedy,MaxInformation,8x8x8,27,false,8,1,0,43.43
+exact_solver,MinDistance,8x8x8,27,false,13,21,0,42.81
+exact_solver,MinRotation,8x8x8,27,false,25,54,0,63.00
+exact_solver,MaxInformation,8x8x8,27,false,42,165,0,88.69
+global_sat,MinDistance,8x8x8,27,true,75,1552,0,100.00
+global_sat,MinRotation,8x8x8,27,true,79,1459,0,100.00
+global_sat,MaxInformation,8x8x8,27,true,87,4908,0,100.00
+partitioned_sat,MinDistance,8x8x8,27,true,79,1823,0,100.00
+partitioned_sat,MinRotation,8x8x8,27,true,80,1478,0,100.00
+partitioned_sat,MaxInformation,8x8x8,27,true,86,4554,0,100.00
+scip_solver,MinDistance,8x8x8,27,true,78,45629,0,100.00
+scip_solver,MinRotation,8x8x8,27,true,83,41932,0,100.00
+scip_solver,MaxInformation,8x8x8,27,true,91,66506,0,100.00
+greedy,MinDistance,8x8x8,28,false,8,0,0,52.91
+greedy,MinRotation,8x8x8,28,false,8,1,0,52.91
+greedy,MaxInformation,8x8x8,28,false,8,0,0,52.91
+exact_solver,MinDistance,8x8x8,28,false,3,2,0,34.25
+exact_solver,MinRotation,8x8x8,28,false,3,2,0,34.25
+exact_solver,MaxInformation,8x8x8,28,false,18,42,0,58.10
+global_sat,MinDistance,8x8x8,28,true,73,1500,0,100.00
+global_sat,MinRotation,8x8x8,28,true,77,1745,0,100.00
+global_sat,MaxInformation,8x8x8,28,true,85,5095,0,100.00
+partitioned_sat,MinDistance,8x8x8,28,true,81,860,0,100.00
+partitioned_sat,MinRotation,8x8x8,28,true,73,561,0,100.00
+partitioned_sat,MaxInformation,8x8x8,28,true,85,4971,0,100.00
+scip_solver,MinDistance,8x8x8,28,true,71,54330,0,100.00
+scip_solver,MinRotation,8x8x8,28,true,75,40006,0,100.00
+scip_solver,MaxInformation,8x8x8,28,true,79,48179,0,100.00
+greedy,MinDistance,8x8x8,29,false,11,1,0,36.39
+greedy,MinRotation,8x8x8,29,false,11,1,0,36.39
+greedy,MaxInformation,8x8x8,29,false,36,2,0,84.10
+exact_solver,MinDistance,8x8x8,29,false,3,1,0,33.94
+exact_solver,MinRotation,8x8x8,29,false,2,0,0,33.64
+exact_solver,MaxInformation,8x8x8,29,false,9,9,0,67.89
+global_sat,MinDistance,8x8x8,29,true,80,1715,0,100.00
+global_sat,MinRotation,8x8x8,29,true,82,1112,0,100.00
+global_sat,MaxInformation,8x8x8,29,true,94,3931,0,100.00
+partitioned_sat,MinDistance,8x8x8,29,true,86,1387,0,100.00
+partitioned_sat,MinRotation,8x8x8,29,true,79,1167,0,100.00
+partitioned_sat,MaxInformation,8x8x8,29,true,88,3562,0,100.00
+scip_solver,MinDistance,8x8x8,29,true,77,29384,0,100.00
+scip_solver,MinRotation,8x8x8,29,true,80,30317,0,100.00
+scip_solver,MaxInformation,8x8x8,29,true,86,48608,0,100.00
+greedy,MinDistance,10x10x10,0,false,20,4,0,75.10
+greedy,MinRotation,10x10x10,0,false,22,8,0,74.90
+greedy,MaxInformation,10x10x10,0,false,21,5,0,42.94
+exact_solver,MinDistance,10x10x10,0,false,16,10,0,24.71
+exact_solver,MinRotation,10x10x10,0,false,15,14,0,26.47
+exact_solver,MaxInformation,10x10x10,0,false,25,69,0,44.90
+global_sat,MinDistance,10x10x10,0,true,123,6989,0,100.00
+global_sat,MinRotation,10x10x10,0,true,120,4691,0,100.00
+global_sat,MaxInformation,10x10x10,0,true,118,12467,0,100.00
+partitioned_sat,MinDistance,10x10x10,0,true,118,2669,0,100.00
+partitioned_sat,MinRotation,10x10x10,0,true,120,1955,0,100.00
+partitioned_sat,MaxInformation,10x10x10,0,true,129,6242,0,100.00
+scip_solver,MinDistance,10x10x10,0,true,118,69314,0,100.00
+scip_solver,MinRotation,10x10x10,0,true,120,78479,0,100.00
+scip_solver,MaxInformation,10x10x10,0,true,127,113437,0,100.00
+greedy,MinDistance,10x10x10,1,false,18,6,0,68.43
+greedy,MinRotation,10x10x10,1,false,18,5,0,68.43
+greedy,MaxInformation,10x10x10,1,false,18,5,0,68.43
+exact_solver,MinDistance,10x10x10,1,false,15,2,0,6.86
+exact_solver,MinRotation,10x10x10,1,false,21,3,0,7.84
+exact_solver,MaxInformation,10x10x10,1,false,15,2,0,6.67
+global_sat,MinDistance,10x10x10,1,true,154,8292,0,100.00
+global_sat,MinRotation,10x10x10,1,true,151,6964,0,100.00
+global_sat,MaxInformation,10x10x10,1,true,163,26658,0,100.00
+partitioned_sat,MinDistance,10x10x10,1,true,155,3268,0,100.00
+partitioned_sat,MinRotation,10x10x10,1,true,160,6200,0,100.00
+partitioned_sat,MaxInformation,10x10x10,1,true,169,22936,0,100.00
+scip_solver,MinDistance,10x10x10,1,true,155,107976,0,100.00
+scip_solver,MinRotation,10x10x10,1,true,165,111978,0,100.00
+scip_solver,MaxInformation,10x10x10,1,true,156,137180,0,100.00
+greedy,MinDistance,10x10x10,2,false,4,1,0,31.37
+greedy,MinRotation,10x10x10,2,false,4,1,0,31.37
+greedy,MaxInformation,10x10x10,2,false,4,1,0,31.37
+exact_solver,MinDistance,10x10x10,2,false,15,16,0,33.14
+exact_solver,MinRotation,10x10x10,2,false,18,28,0,36.08
+exact_solver,MaxInformation,10x10x10,2,false,24,43,0,34.51
+global_sat,MinDistance,10x10x10,2,true,160,6837,0,100.00
+global_sat,MinRotation,10x10x10,2,true,153,7353,0,100.00
+global_sat,MaxInformation,10x10x10,2,true,161,36761,0,100.00
+partitioned_sat,MinDistance,10x10x10,2,true,162,5277,0,100.00
+partitioned_sat,MinRotation,10x10x10,2,true,151,6413,0,100.00
+partitioned_sat,MaxInformation,10x10x10,2,true,168,31061,0,100.00
+scip_solver,MinDistance,10x10x10,2,true,155,107741,0,100.00
+scip_solver,MinRotation,10x10x10,2,true,163,103134,0,100.00
+scip_solver,MaxInformation,10x10x10,2,true,155,166229,0,100.00
+greedy,MinDistance,10x10x10,3,false,2,0,0,28.43
+greedy,MinRotation,10x10x10,3,false,2,0,0,28.43
+greedy,MaxInformation,10x10x10,3,false,2,0,0,28.43
+exact_solver,MinDistance,10x10x10,3,false,2,1,0,28.43
+exact_solver,MinRotation,10x10x10,3,false,13,28,0,58.04
+exact_solver,MaxInformation,10x10x10,3,false,56,247,0,53.14
+global_sat,MinDistance,10x10x10,3,true,129,9159,0,100.00
+global_sat,MinRotation,10x10x10,3,true,133,9368,0,100.00
+global_sat,MaxInformation,10x10x10,3,true,149,234372,0,100.00
+partitioned_sat,MinDistance,10x10x10,3,true,138,1847,0,100.00
+partitioned_sat,MinRotation,10x10x10,3,true,137,6892,0,100.00
+partitioned_sat,MaxInformation,10x10x10,3,true,149,30785,0,100.00
+scip_solver,MinDistance,10x10x10,3,true,131,97990,0,100.00
+scip_solver,MinRotation,10x10x10,3,true,132,100757,0,100.00
+scip_solver,MaxInformation,10x10x10,3,true,147,147974,0,100.00
+greedy,MinDistance,10x10x10,4,false,4,0,0,52.75
+greedy,MinRotation,10x10x10,4,false,4,0,0,52.75
+greedy,MaxInformation,10x10x10,4,false,4,0,0,52.75
+exact_solver,MinDistance,10x10x10,4,false,35,159,0,59.80
+exact_solver,MinRotation,10x10x10,4,false,16,59,0,53.53
+exact_solver,MaxInformation,10x10x10,4,false,15,62,0,55.88
+global_sat,MinDistance,10x10x10,4,true,113,5647,0,100.00
+global_sat,MinRotation,10x10x10,4,true,129,5286,0,100.00
+global_sat,MaxInformation,10x10x10,4,true,140,19805,0,100.00
+partitioned_sat,MinDistance,10x10x10,4,true,125,4102,0,100.00
+partitioned_sat,MinRotation,10x10x10,4,true,127,3350,0,100.00
+partitioned_sat,MaxInformation,10x10x10,4,true,137,20363,0,100.00
+scip_solver,MinDistance,10x10x10,4,true,122,85004,0,100.00
+scip_solver,MinRotation,10x10x10,4,true,122,82687,0,100.00
+scip_solver,MaxInformation,10x10x10,4,true,126,100506,0,100.00
+greedy,MinDistance,10x10x10,5,false,3,0,0,43.92
+greedy,MinRotation,10x10x10,5,false,3,0,0,43.92
+greedy,MaxInformation,10x10x10,5,false,34,4,0,70.98
+exact_solver,MinDistance,10x10x10,5,false,7,26,0,44.71
+exact_solver,MinRotation,10x10x10,5,false,3,8,0,43.92
+exact_solver,MaxInformation,10x10x10,5,false,20,151,0,65.69
+global_sat,MinDistance,10x10x10,5,true,150,11949,0,100.00
+global_sat,MinRotation,10x10x10,5,true,152,9091,0,100.00
+global_sat,MaxInformation,10x10x10,5,true,146,36278,0,100.00
+partitioned_sat,MinDistance,10x10x10,5,true,150,2992,0,100.00
+partitioned_sat,MinRotation,10x10x10,5,true,150,6165,0,100.00
+partitioned_sat,MaxInformation,10x10x10,5,true,147,25861,0,100.00
+scip_solver,MinDistance,10x10x10,5,true,148,115809,0,100.00
+scip_solver,MinRotation,10x10x10,5,true,143,104708,0,100.00
+scip_solver,MaxInformation,10x10x10,5,true,143,134501,0,100.00
+greedy,MinDistance,10x10x10,6,false,2,0,0,1.37
+greedy,MinRotation,10x10x10,6,false,2,0,0,1.37
+greedy,MaxInformation,10x10x10,6,false,2,0,0,1.37
+exact_solver,MinDistance,10x10x10,6,false,6,0,0,2.94
+exact_solver,MinRotation,10x10x10,6,false,5,0,0,1.96
+exact_solver,MaxInformation,10x10x10,6,false,5,0,0,1.96
+global_sat,MinDistance,10x10x10,6,true,137,9296,0,100.00
+global_sat,MinRotation,10x10x10,6,true,138,6393,0,100.00
+global_sat,MaxInformation,10x10x10,6,true,159,25223,0,100.00
+partitioned_sat,MinDistance,10x10x10,6,true,136,6493,0,100.00
+partitioned_sat,MinRotation,10x10x10,6,true,149,5839,0,100.00
+partitioned_sat,MaxInformation,10x10x10,6,true,155,22905,0,100.00
+scip_solver,MinDistance,10x10x10,6,false,3,134,0,1.57
+scip_solver,MinRotation,10x10x10,6,false,3,137,0,1.57
+scip_solver,MaxInformation,10x10x10,6,false,7,1184,0,2.35
+greedy,MinDistance,10x10x10,7,false,14,1,0,71.76
+greedy,MinRotation,10x10x10,7,false,14,1,0,71.76
+greedy,MaxInformation,10x10x10,7,false,14,1,0,71.76
+exact_solver,MinDistance,10x10x10,7,false,9,34,0,50.20
+exact_solver,MinRotation,10x10x10,7,false,15,65,0,54.90
+exact_solver,MaxInformation,10x10x10,7,false,23,200,0,76.08
+global_sat,MinDistance,10x10x10,7,true,106,6682,0,100.00
+global_sat,MinRotation,10x10x10,7,true,104,6204,0,100.00
+global_sat,MaxInformation,10x10x10,7,true,129,22630,0,100.00
+partitioned_sat,MinDistance,10x10x10,7,true,109,2810,0,100.00
+partitioned_sat,MinRotation,10x10x10,7,true,107,3066,0,100.00
+partitioned_sat,MaxInformation,10x10x10,7,true,123,14783,0,100.00
+scip_solver,MinDistance,10x10x10,7,true,111,89454,0,100.00
+scip_solver,MinRotation,10x10x10,7,true,110,81969,0,100.00
+scip_solver,MaxInformation,10x10x10,7,true,128,125339,0,100.00
+greedy,MinDistance,10x10x10,8,false,8,2,0,15.69
+greedy,MinRotation,10x10x10,8,false,5,1,0,19.80
+greedy,MaxInformation,10x10x10,8,false,8,2,0,15.69
+exact_solver,MinDistance,10x10x10,8,false,5,4,0,31.57
+exact_solver,MinRotation,10x10x10,8,false,8,3,0,20.20
+exact_solver,MaxInformation,10x10x10,8,false,27,24,0,24.12
+global_sat,MinDistance,10x10x10,8,true,138,8488,0,100.00
+global_sat,MinRotation,10x10x10,8,true,137,4817,0,100.00
+global_sat,MaxInformation,10x10x10,8,true,139,21906,0,100.00
+partitioned_sat,MinDistance,10x10x10,8,true,139,4421,0,100.00
+partitioned_sat,MinRotation,10x10x10,8,true,143,3363,0,100.00
+partitioned_sat,MaxInformation,10x10x10,8,true,134,17526,0,100.00
+scip_solver,MinDistance,10x10x10,8,true,134,81394,0,100.00
+scip_solver,MinRotation,10x10x10,8,true,135,79159,0,100.00
+scip_solver,MaxInformation,10x10x10,8,true,138,116772,0,100.00
+greedy,MinDistance,10x10x10,9,false,22,7,0,27.65
+greedy,MinRotation,10x10x10,9,false,22,6,0,27.65
+greedy,MaxInformation,10x10x10,9,false,22,6,0,27.65
+exact_solver,MinDistance,10x10x10,9,false,11,1,0,10.78
+exact_solver,MinRotation,10x10x10,9,false,13,1,0,3.53
+exact_solver,MaxInformation,10x10x10,9,false,6,0,0,2.16
+global_sat,MinDistance,10x10x10,9,true,138,9917,0,100.00
+global_sat,MinRotation,10x10x10,9,true,142,5492,0,100.00
+global_sat,MaxInformation,10x10x10,9,true,156,17644,0,100.00
+partitioned_sat,MinDistance,10x10x10,9,true,151,4294,0,100.00
+partitioned_sat,MinRotation,10x10x10,9,true,151,3559,0,100.00
+partitioned_sat,MaxInformation,10x10x10,9,true,164,20612,0,100.00
+scip_solver,MinDistance,10x10x10,9,true,139,99141,0,100.00
+scip_solver,MinRotation,10x10x10,9,true,143,88109,0,100.00
+scip_solver,MaxInformation,10x10x10,9,true,155,135195,0,100.00
+greedy,MinDistance,10x10x10,10,false,9,3,0,2.75
+greedy,MinRotation,10x10x10,10,false,9,3,0,2.75
+greedy,MaxInformation,10x10x10,10,false,9,3,0,2.75
+exact_solver,MinDistance,10x10x10,10,false,8,0,0,9.80
+exact_solver,MinRotation,10x10x10,10,false,10,1,0,10.59
+exact_solver,MaxInformation,10x10x10,10,false,40,134,0,57.65
+global_sat,MinDistance,10x10x10,10,true,141,7629,0,100.00
+global_sat,MinRotation,10x10x10,10,true,149,8003,0,100.00
+global_sat,MaxInformation,10x10x10,10,true,157,23091,0,100.00
+partitioned_sat,MinDistance,10x10x10,10,true,149,9531,0,100.00
+partitioned_sat,MinRotation,10x10x10,10,true,149,5224,0,100.00
+partitioned_sat,MaxInformation,10x10x10,10,true,145,17779,0,100.00
+scip_solver,MinDistance,10x10x10,10,false,2,57,0,1.37
+scip_solver,MinRotation,10x10x10,10,false,2,58,0,1.37
+scip_solver,MaxInformation,10x10x10,10,true,166,137355,0,100.00
+greedy,MinDistance,10x10x10,11,false,17,5,0,16.27
+greedy,MinRotation,10x10x10,11,false,17,5,0,16.27
+greedy,MaxInformation,10x10x10,11,false,16,5,0,16.08
+exact_solver,MinDistance,10x10x10,11,false,3,0,0,12.16
+exact_solver,MinRotation,10x10x10,11,false,3,0,0,12.16
+exact_solver,MaxInformation,10x10x10,11,false,8,2,0,13.14
+global_sat,MinDistance,10x10x10,11,true,174,8085,0,100.00
+global_sat,MinRotation,10x10x10,11,true,175,8040,0,100.00
+global_sat,MaxInformation,10x10x10,11,true,184,31132,0,100.00
+partitioned_sat,MinDistance,10x10x10,11,true,176,2462,0,100.00
+partitioned_sat,MinRotation,10x10x10,11,true,170,3564,0,100.00
+partitioned_sat,MaxInformation,10x10x10,11,true,190,29435,0,100.00
+scip_solver,MinDistance,10x10x10,11,true,169,114350,0,100.00
+scip_solver,MinRotation,10x10x10,11,true,173,107021,0,100.00
+scip_solver,MaxInformation,10x10x10,11,true,193,184260,0,100.00
+greedy,MinDistance,10x10x10,12,false,29,9,0,60.98
+greedy,MinRotation,10x10x10,12,false,6,2,0,8.63
+greedy,MaxInformation,10x10x10,12,false,24,9,0,42.75
+exact_solver,MinDistance,10x10x10,12,false,35,64,0,44.71
+exact_solver,MinRotation,10x10x10,12,false,11,4,0,15.49
+exact_solver,MaxInformation,10x10x10,12,false,8,2,0,9.02
+global_sat,MinDistance,10x10x10,12,true,153,9631,0,100.00
+global_sat,MinRotation,10x10x10,12,true,168,5207,0,100.00
+global_sat,MaxInformation,10x10x10,12,true,153,19585,0,100.00
+partitioned_sat,MinDistance,10x10x10,12,true,158,2674,0,100.00
+partitioned_sat,MinRotation,10x10x10,12,true,162,1364,0,100.00
+partitioned_sat,MaxInformation,10x10x10,12,true,157,19111,0,100.00
+scip_solver,MinDistance,10x10x10,12,true,149,95241,0,100.00
+scip_solver,MinRotation,10x10x10,12,true,167,99354,0,100.00
+scip_solver,MaxInformation,10x10x10,12,true,161,139131,0,100.00
+greedy,MinDistance,10x10x10,13,false,4,1,0,17.84
+greedy,MinRotation,10x10x10,13,false,5,1,0,21.18
+greedy,MaxInformation,10x10x10,13,false,4,1,0,17.84
+exact_solver,MinDistance,10x10x10,13,false,7,4,0,21.37
+exact_solver,MinRotation,10x10x10,13,false,15,20,0,40.98
+exact_solver,MaxInformation,10x10x10,13,false,17,32,0,37.84
+global_sat,MinDistance,10x10x10,13,true,151,8110,0,100.00
+global_sat,MinRotation,10x10x10,13,true,159,6914,0,100.00
+global_sat,MaxInformation,10x10x10,13,true,162,29041,0,100.00
+partitioned_sat,MinDistance,10x10x10,13,true,160,7826,0,100.00
+partitioned_sat,MinRotation,10x10x10,13,true,166,5593,0,100.00
+partitioned_sat,MaxInformation,10x10x10,13,true,157,27285,0,100.00
+scip_solver,MinDistance,10x10x10,13,true,165,103995,0,100.00
+scip_solver,MinRotation,10x10x10,13,true,160,100331,0,100.00
+scip_solver,MaxInformation,10x10x10,13,true,158,159752,0,100.00
+greedy,MinDistance,10x10x10,14,false,17,2,0,74.31
+greedy,MinRotation,10x10x10,14,false,17,8,0,74.31
+greedy,MaxInformation,10x10x10,14,false,17,4,0,74.31
+exact_solver,MinDistance,10x10x10,14,false,4,23,0,47.84
+exact_solver,MinRotation,10x10x10,14,false,3,16,0,62.75
+exact_solver,MaxInformation,10x10x10,14,false,15,95,0,55.69
+global_sat,MinDistance,10x10x10,14,true,115,7947,0,100.00
+global_sat,MinRotation,10x10x10,14,true,121,8497,0,100.00
+global_sat,MaxInformation,10x10x10,14,true,126,16468,0,100.00
+partitioned_sat,MinDistance,10x10x10,14,true,115,4246,0,100.00
+partitioned_sat,MinRotation,10x10x10,14,true,116,5180,0,100.00
+partitioned_sat,MaxInformation,10x10x10,14,true,116,11366,0,100.00
+scip_solver,MinDistance,10x10x10,14,true,120,95051,0,100.00
+scip_solver,MinRotation,10x10x10,14,true,111,90252,0,100.00
+scip_solver,MaxInformation,10x10x10,14,true,119,116166,0,100.00
+greedy,MinDistance,10x10x10,15,false,6,4,0,23.14
+greedy,MinRotation,10x10x10,15,false,6,3,0,23.14
+greedy,MaxInformation,10x10x10,15,false,6,2,0,23.14
+exact_solver,MinDistance,10x10x10,15,false,4,3,0,22.75
+exact_solver,MinRotation,10x10x10,15,false,7,11,0,23.33
+exact_solver,MaxInformation,10x10x10,15,false,11,15,0,24.12
+global_sat,MinDistance,10x10x10,15,true,144,9683,0,100.00
+global_sat,MinRotation,10x10x10,15,true,141,8472,0,100.00
+global_sat,MaxInformation,10x10x10,15,true,147,21515,0,100.00
+partitioned_sat,MinDistance,10x10x10,15,true,140,6835,0,100.00
+partitioned_sat,MinRotation,10x10x10,15,true,144,4845,0,100.00
+partitioned_sat,MaxInformation,10x10x10,15,true,153,27018,0,100.00
+scip_solver,MinDistance,10x10x10,15,true,142,112605,0,100.00
+scip_solver,MinRotation,10x10x10,15,true,150,119549,0,100.00
+scip_solver,MaxInformation,10x10x10,15,true,142,139647,0,100.00
+greedy,MinDistance,10x10x10,16,false,3,1,0,9.41
+greedy,MinRotation,10x10x10,16,false,3,1,0,9.41
+greedy,MaxInformation,10x10x10,16,false,3,1,0,9.41
+exact_solver,MinDistance,10x10x10,16,false,13,6,0,16.08
+exact_solver,MinRotation,10x10x10,16,false,19,11,0,19.22
+exact_solver,MaxInformation,10x10x10,16,false,16,5,0,11.96
+global_sat,MinDistance,10x10x10,16,true,152,8681,0,100.00
+global_sat,MinRotation,10x10x10,16,true,165,6504,0,100.00
+global_sat,MaxInformation,10x10x10,16,true,167,61445,0,100.00
+partitioned_sat,MinDistance,10x10x10,16,true,160,7375,0,100.00
+partitioned_sat,MinRotation,10x10x10,16,true,160,3915,0,100.00
+partitioned_sat,MaxInformation,10x10x10,16,true,170,31261,0,100.00
+scip_solver,MinDistance,10x10x10,16,true,158,136915,0,100.00
+scip_solver,MinRotation,10x10x10,16,true,153,92476,0,100.00
+scip_solver,MaxInformation,10x10x10,16,true,161,144792,0,100.00
+greedy,MinDistance,10x10x10,17,false,18,4,0,58.82
+greedy,MinRotation,10x10x10,17,false,18,3,0,58.82
+greedy,MaxInformation,10x10x10,17,false,18,3,0,58.82
+exact_solver,MinDistance,10x10x10,17,false,8,10,0,33.92
+exact_solver,MinRotation,10x10x10,17,false,12,8,0,20.00
+exact_solver,MaxInformation,10x10x10,17,false,36,104,0,51.18
+global_sat,MinDistance,10x10x10,17,true,163,9911,0,100.00
+global_sat,MinRotation,10x10x10,17,true,155,5878,0,100.00
+global_sat,MaxInformation,10x10x10,17,true,159,23934,0,100.00
+partitioned_sat,MinDistance,10x10x10,17,true,154,6314,0,100.00
+partitioned_sat,MinRotation,10x10x10,17,true,162,2303,0,100.00
+partitioned_sat,MaxInformation,10x10x10,17,true,159,22213,0,100.00
+scip_solver,MinDistance,10x10x10,17,true,159,111604,0,100.00
+scip_solver,MinRotation,10x10x10,17,true,156,92083,0,100.00
+scip_solver,MaxInformation,10x10x10,17,true,162,153744,0,100.00
+greedy,MinDistance,10x10x10,18,false,11,2,0,63.53
+greedy,MinRotation,10x10x10,18,false,11,1,0,63.53
+greedy,MaxInformation,10x10x10,18,false,11,1,0,63.53
+exact_solver,MinDistance,10x10x10,18,false,2,0,0,14.90
+exact_solver,MinRotation,10x10x10,18,false,5,4,0,46.47
+exact_solver,MaxInformation,10x10x10,18,false,17,49,0,51.96
+global_sat,MinDistance,10x10x10,18,true,146,9283,0,100.00
+global_sat,MinRotation,10x10x10,18,true,142,6706,0,100.00
+global_sat,MaxInformation,10x10x10,18,true,159,251462,0,100.00
+partitioned_sat,MinDistance,10x10x10,18,true,140,3034,0,100.00
+partitioned_sat,MinRotation,10x10x10,18,true,146,2107,0,100.00
+partitioned_sat,MaxInformation,10x10x10,18,true,153,24755,0,100.00
+scip_solver,MinDistance,10x10x10,18,true,146,111925,0,100.00
+scip_solver,MinRotation,10x10x10,18,true,146,104524,0,100.00
+scip_solver,MaxInformation,10x10x10,18,true,156,161245,0,100.00
+greedy,MinDistance,10x10x10,19,false,2,0,0,33.14
+greedy,MinRotation,10x10x10,19,false,2,0,0,33.14
+greedy,MaxInformation,10x10x10,19,false,2,0,0,33.14
+exact_solver,MinDistance,10x10x10,19,false,2,1,0,33.14
+exact_solver,MinRotation,10x10x10,19,false,2,1,0,33.14
+exact_solver,MaxInformation,10x10x10,19,false,28,98,0,47.84
+global_sat,MinDistance,10x10x10,19,true,139,8968,0,100.00
+global_sat,MinRotation,10x10x10,19,true,146,10405,0,100.00
+global_sat,MaxInformation,10x10x10,19,true,154,364448,0,100.00
+partitioned_sat,MinDistance,10x10x10,19,true,133,3001,0,100.00
+partitioned_sat,MinRotation,10x10x10,19,true,131,2172,0,100.00
+partitioned_sat,MaxInformation,10x10x10,19,true,152,67451,0,100.00
+scip_solver,MinDistance,10x10x10,19,true,132,107214,0,100.00
+scip_solver,MinRotation,10x10x10,19,true,144,114146,0,100.00
+scip_solver,MaxInformation,10x10x10,19,true,148,135261,0,100.00
+greedy,MinDistance,10x10x10,20,false,14,2,0,56.86
+greedy,MinRotation,10x10x10,20,false,14,2,0,56.86
+greedy,MaxInformation,10x10x10,20,false,14,2,0,56.86
+exact_solver,MinDistance,10x10x10,20,false,5,20,0,54.12
+exact_solver,MinRotation,10x10x10,20,false,9,40,0,54.71
+exact_solver,MaxInformation,10x10x10,20,false,7,30,0,55.49
+global_sat,MinDistance,10x10x10,20,true,146,10931,0,100.00
+global_sat,MinRotation,10x10x10,20,true,144,10442,0,100.00
+global_sat,MaxInformation,10x10x10,20,true,149,20086,0,100.00
+partitioned_sat,MinDistance,10x10x10,20,true,145,4754,0,100.00
+partitioned_sat,MinRotation,10x10x10,20,true,150,5470,0,100.00
+partitioned_sat,MaxInformation,10x10x10,20,true,153,22052,0,100.00
+scip_solver,MinDistance,10x10x10,20,true,143,116835,0,100.00
+scip_solver,MinRotation,10x10x10,20,true,143,103718,0,100.00
+scip_solver,MaxInformation,10x10x10,20,true,149,132188,0,100.00
+greedy,MinDistance,10x10x10,21,false,5,1,0,40.00
+greedy,MinRotation,10x10x10,21,false,5,1,0,40.00
+greedy,MaxInformation,10x10x10,21,false,5,1,0,40.00
+exact_solver,MinDistance,10x10x10,21,false,3,9,0,39.61
+exact_solver,MinRotation,10x10x10,21,false,16,47,0,42.16
+exact_solver,MaxInformation,10x10x10,21,false,23,77,0,43.53
+global_sat,MinDistance,10x10x10,21,true,146,7234,0,100.00
+global_sat,MinRotation,10x10x10,21,true,148,7715,0,100.00
+global_sat,MaxInformation,10x10x10,21,true,156,29694,0,100.00
+partitioned_sat,MinDistance,10x10x10,21,true,144,3184,0,100.00
+partitioned_sat,MinRotation,10x10x10,21,true,141,4340,0,100.00
+partitioned_sat,MaxInformation,10x10x10,21,true,155,26137,0,100.00
+scip_solver,MinDistance,10x10x10,21,true,137,94640,0,100.00
+scip_solver,MinRotation,10x10x10,21,true,140,105782,0,100.00
+scip_solver,MaxInformation,10x10x10,21,true,150,149056,0,100.00
+greedy,MinDistance,10x10x10,22,false,14,3,0,48.63
+greedy,MinRotation,10x10x10,22,false,14,3,0,48.63
+greedy,MaxInformation,10x10x10,22,false,14,3,0,48.63
+exact_solver,MinDistance,10x10x10,22,false,6,6,0,29.02
+exact_solver,MinRotation,10x10x10,22,false,3,2,0,28.63
+exact_solver,MaxInformation,10x10x10,22,false,42,189,0,55.88
+global_sat,MinDistance,10x10x10,22,true,115,6826,0,100.00
+global_sat,MinRotation,10x10x10,22,true,111,5083,0,100.00
+global_sat,MaxInformation,10x10x10,22,true,119,35639,0,100.00
+partitioned_sat,MinDistance,10x10x10,22,true,115,2405,0,100.00
+partitioned_sat,MinRotation,10x10x10,22,true,119,1898,0,100.00
+partitioned_sat,MaxInformation,10x10x10,22,true,113,10175,0,100.00
+scip_solver,MinDistance,10x10x10,22,true,116,75427,0,100.00
+scip_solver,MinRotation,10x10x10,22,true,108,76844,0,100.00
+scip_solver,MaxInformation,10x10x10,22,true,119,102557,0,100.00
+greedy,MinDistance,10x10x10,23,false,8,2,0,45.29
+greedy,MinRotation,10x10x10,23,false,8,2,0,45.29
+greedy,MaxInformation,10x10x10,23,false,8,2,0,45.29
+exact_solver,MinDistance,10x10x10,23,false,5,1,0,23.33
+exact_solver,MinRotation,10x10x10,23,false,6,1,0,23.33
+exact_solver,MaxInformation,10x10x10,23,false,9,7,0,24.31
+global_sat,MinDistance,10x10x10,23,true,144,7162,0,100.00
+global_sat,MinRotation,10x10x10,23,true,147,10435,0,100.00
+global_sat,MaxInformation,10x10x10,23,true,153,21127,0,100.00
+partitioned_sat,MinDistance,10x10x10,23,true,147,1798,0,100.00
+partitioned_sat,MinRotation,10x10x10,23,true,150,5668,0,100.00
+partitioned_sat,MaxInformation,10x10x10,23,true,157,22823,0,100.00
+scip_solver,MinDistance,10x10x10,23,true,138,105519,0,100.00
+scip_solver,MinRotation,10x10x10,23,true,142,105678,0,100.00
+scip_solver,MaxInformation,10x10x10,23,true,145,132579,0,100.00
+greedy,MinDistance,10x10x10,24,false,11,3,0,26.86
+greedy,MinRotation,10x10x10,24,false,11,3,0,26.86
+greedy,MaxInformation,10x10x10,24,false,11,6,0,26.86
+exact_solver,MinDistance,10x10x10,24,false,36,120,0,54.12
+exact_solver,MinRotation,10x10x10,24,false,14,8,0,49.41
+exact_solver,MaxInformation,10x10x10,24,false,30,106,0,60.00
+global_sat,MinDistance,10x10x10,24,true,132,7168,0,100.00
+global_sat,MinRotation,10x10x10,24,true,140,4086,0,100.00
+global_sat,MaxInformation,10x10x10,24,true,143,19489,0,100.00
+partitioned_sat,MinDistance,10x10x10,24,true,135,4958,0,100.00
+partitioned_sat,MinRotation,10x10x10,24,true,140,1529,0,100.00
+partitioned_sat,MaxInformation,10x10x10,24,true,147,21610,0,100.00
+scip_solver,MinDistance,10x10x10,24,true,130,84767,0,100.00
+scip_solver,MinRotation,10x10x10,24,true,140,84734,0,100.00
+scip_solver,MaxInformation,10x10x10,24,true,140,132321,0,100.00
+greedy,MinDistance,10x10x10,25,false,15,3,0,48.24
+greedy,MinRotation,10x10x10,25,false,15,3,0,48.24
+greedy,MaxInformation,10x10x10,25,false,15,4,0,48.24
+exact_solver,MinDistance,10x10x10,25,false,5,0,0,1.96
+exact_solver,MinRotation,10x10x10,25,false,3,0,0,1.57
+exact_solver,MaxInformation,10x10x10,25,false,17,12,0,27.45
+global_sat,MinDistance,10x10x10,25,true,150,7923,0,100.00
+global_sat,MinRotation,10x10x10,25,true,156,7072,0,100.00
+global_sat,MaxInformation,10x10x10,25,true,164,141069,0,100.00
+partitioned_sat,MinDistance,10x10x10,25,true,149,1177,0,100.00
+partitioned_sat,MinRotation,10x10x10,25,true,160,1968,0,100.00
+partitioned_sat,MaxInformation,10x10x10,25,true,163,7790,0,100.00
+scip_solver,MinDistance,10x10x10,25,false,2,62,0,1.37
+scip_solver,MinRotation,10x10x10,25,false,2,66,0,1.37
+scip_solver,MaxInformation,10x10x10,25,false,9,1781,0,2.75
+greedy,MinDistance,10x10x10,26,false,20,2,0,80.59
+greedy,MinRotation,10x10x10,26,false,20,2,0,80.59
+greedy,MaxInformation,10x10x10,26,false,20,1,0,80.59
+exact_solver,MinDistance,10x10x10,26,false,3,5,0,40.78
+exact_solver,MinRotation,10x10x10,26,false,2,2,0,40.59
+exact_solver,MaxInformation,10x10x10,26,false,13,96,0,79.80
+global_sat,MinDistance,10x10x10,26,true,114,7106,0,100.00
+global_sat,MinRotation,10x10x10,26,true,113,4801,0,100.00
+global_sat,MaxInformation,10x10x10,26,true,114,14154,0,100.00
+partitioned_sat,MinDistance,10x10x10,26,true,109,1126,0,100.00
+partitioned_sat,MinRotation,10x10x10,26,true,113,1124,0,100.00
+partitioned_sat,MaxInformation,10x10x10,26,true,119,9896,0,100.00
+scip_solver,MinDistance,10x10x10,26,true,114,83676,0,100.00
+scip_solver,MinRotation,10x10x10,26,true,115,76747,0,100.00
+scip_solver,MaxInformation,10x10x10,26,true,106,95253,0,100.00
+greedy,MinDistance,10x10x10,27,false,12,2,0,49.61
+greedy,MinRotation,10x10x10,27,false,10,2,0,49.22
+greedy,MaxInformation,10x10x10,27,false,12,2,0,49.61
+exact_solver,MinDistance,10x10x10,27,false,2,1,0,26.86
+exact_solver,MinRotation,10x10x10,27,false,3,3,0,27.06
+exact_solver,MaxInformation,10x10x10,27,false,5,6,0,27.45
+global_sat,MinDistance,10x10x10,27,true,174,11723,0,100.00
+global_sat,MinRotation,10x10x10,27,true,170,6104,0,100.00
+global_sat,MaxInformation,10x10x10,27,true,156,26459,0,100.00
+partitioned_sat,MinDistance,10x10x10,27,true,163,4454,0,100.00
+partitioned_sat,MinRotation,10x10x10,27,true,165,3269,0,100.00
+partitioned_sat,MaxInformation,10x10x10,27,true,163,32660,0,100.00
+scip_solver,MinDistance,10x10x10,27,true,153,114415,0,100.00
+scip_solver,MinRotation,10x10x10,27,true,168,105324,0,100.00
+scip_solver,MaxInformation,10x10x10,27,true,160,177081,0,100.00
+greedy,MinDistance,10x10x10,28,false,14,3,0,32.94
+greedy,MinRotation,10x10x10,28,false,8,2,0,26.27
+greedy,MaxInformation,10x10x10,28,false,13,4,0,32.75
+exact_solver,MinDistance,10x10x10,28,false,12,8,0,19.02
+exact_solver,MinRotation,10x10x10,28,false,9,7,0,31.57
+exact_solver,MaxInformation,10x10x10,28,false,15,12,0,20.00
+global_sat,MinDistance,10x10x10,28,true,152,10457,0,100.00
+global_sat,MinRotation,10x10x10,28,true,158,6334,0,100.00
+global_sat,MaxInformation,10x10x10,28,true,158,39698,0,100.00
+partitioned_sat,MinDistance,10x10x10,28,true,147,4422,0,100.00
+partitioned_sat,MinRotation,10x10x10,28,true,157,4080,0,100.00
+partitioned_sat,MaxInformation,10x10x10,28,true,169,45338,0,100.00
+scip_solver,MinDistance,10x10x10,28,true,148,101670,0,100.00
+scip_solver,MinRotation,10x10x10,28,true,155,99866,0,100.00
+scip_solver,MaxInformation,10x10x10,28,true,158,186176,0,100.00
+greedy,MinDistance,10x10x10,29,false,5,1,0,5.88
+greedy,MinRotation,10x10x10,29,false,5,1,0,5.88
+greedy,MaxInformation,10x10x10,29,false,5,1,0,5.88
+exact_solver,MinDistance,10x10x10,29,false,20,5,0,8.82
+exact_solver,MinRotation,10x10x10,29,false,16,3,0,8.04
+exact_solver,MaxInformation,10x10x10,29,false,15,3,0,7.84
+global_sat,MinDistance,10x10x10,29,true,136,7834,0,100.00
+global_sat,MinRotation,10x10x10,29,true,142,6447,0,100.00
+global_sat,MaxInformation,10x10x10,29,true,132,16471,0,100.00
+partitioned_sat,MinDistance,10x10x10,29,true,140,3111,0,100.00
+partitioned_sat,MinRotation,10x10x10,29,true,137,3459,0,100.00
+partitioned_sat,MaxInformation,10x10x10,29,true,134,13156,0,100.00
+scip_solver,MinDistance,10x10x10,29,true,135,100843,0,100.00
+scip_solver,MinRotation,10x10x10,29,true,137,82639,0,100.00
+scip_solver,MaxInformation,10x10x10,29,true,141,106837,0,100.00
+
+--- summary ---
+total games played: 1800
+overall win rate: 58.06%

@@ -49,6 +49,12 @@ impl Simulator {
         }
     }
 
+    /// Set a seed for deterministic mine placement
+    #[wasm_bindgen(js_name = setSeed)]
+    pub fn set_seed(&mut self, seed: u64) {
+        self.board.seed = Some(seed);
+    }
+
     /// generates a adjacency map for a 6-faced cube manifold
     /// faces are indexed 0-5. logic handles "stitching" edges across 3d space.
     fn generate_cube_adjacency(w: usize, h: usize) -> Vec<Vec<usize>> {

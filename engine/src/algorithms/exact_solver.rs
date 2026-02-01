@@ -104,7 +104,7 @@ impl ExactSolver {
                             // all cells only in c2 must be safe
                             for &idx in &only_in_c2 { safe_indices.insert(idx); }
                         }
-                        if -m_diff == only_in_c2.len() as isize {
+                        if -m_diff == only_in_c1.len() as isize {
                             // all cells only in c1 must be safe
                             for &idx in &only_in_c1 { safe_indices.insert(idx); }
                         }

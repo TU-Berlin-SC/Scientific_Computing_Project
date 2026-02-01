@@ -14,6 +14,7 @@ pub struct SimulationResult {
     pub time_ms: u128,
     pub guesses_made: usize,
     pub completion_rate: f64,
+    pub seed: u64, // added for benchmark consistency
 }
 
 pub struct MetaHeuristicRunner {
@@ -25,11 +26,10 @@ impl MetaHeuristicRunner {
     pub fn new(iterations: usize) -> Self {
         Self {
             iterations,
-            board_sizes: vec![(3, 3), (8, 8)], // change board size here
+            board_sizes: vec![(3, 3), (5,5), (8, 8), (10,10)], // change board size here
         }
     }
 
-    /// runs the massive test suite and returns results
     pub fn run_benchmarks(&self) -> Vec<SimulationResult> {
         let mut results = Vec::new();
         let solvers = WasmAlgorithmType::all();
@@ -42,13 +42,17 @@ impl MetaHeuristicRunner {
         ];
 
         for &(w, h) in &self.board_sizes {
-            let mines = ((w * h * 6) as f64 * 0.20) as usize; // 20% density
+            let mines = ((w * h * 6) as f64 * 0.18) as usize; // 10% mine density
 
-            for &solver_type in &solvers {
-                for &obj in &objectives {
-                    for _ in 0..self.iterations {
-                        let res = self.run_single_sim(w, h, mines, solver_type, obj);
-                        println!("Completed: {} on {}x{}x{} board", solver_type.as_str(), w, h, h);
+            // iterate by seed first to ensure solver parity
+            // ensures that every solver plays the exact same board layout
+            for i in 0..self.iterations {
+                let current_seed = i as u64;
+
+                for &solver_type in &solvers {
+                    for &obj in &objectives {
+                        let res = self.run_single_sim(w, h, mines, solver_type, obj, current_seed);
+                        println!("Completed: {} on {}x{}x{} board (Seed: {})", solver_type.as_str(), w, h, h, current_seed);
                         results.push(res);
                     }
                 }
@@ -57,9 +61,10 @@ impl MetaHeuristicRunner {
         results
     }
 
-    fn run_single_sim(&self, w: usize, h: usize, m: usize, algo: WasmAlgorithmType, obj: TspObjective) -> SimulationResult {
+    fn run_single_sim(&self, w: usize, h: usize, m: usize, algo: WasmAlgorithmType, obj: TspObjective, seed: u64) -> SimulationResult {
         let mut sim = Simulator::new(w, h, m, algo);
         sim.set_tsp_objective(obj);
+        sim.set_seed(seed); // force deterministic mine placement for this iteration
         
         let start_time = Instant::now();
         let mut guesses = 0;
@@ -82,15 +87,16 @@ impl MetaHeuristicRunner {
             time_ms: start_time.elapsed().as_millis(),
             guesses_made: guesses,
             completion_rate: (board.total_revealed as f64 / (board.cells.len() - m) as f64) * 100.0,
+            seed,
         }
     }
 
     /// converts the results into a csv string for excel/data analysis
     pub fn to_csv(results: &[SimulationResult]) -> String {
-        let mut csv = String::from("algorithm,objective,dims,win,clicks,time_ms,guesses,completion\n");
+        let mut csv = String::from("algorithm,objective,dims,seed,win,clicks,time_ms,guesses,completion\n");
         for r in results {
-            csv.push_str(&format!("{},{},{},{},{},{},{},{:.2}\n", 
-                r.algorithm, r.objective, r.board_dims, r.win, r.total_clicks, r.time_ms, r.guesses_made, r.completion_rate));
+            csv.push_str(&format!("{},{},{},{},{},{},{},{},{:.2}\n", 
+                r.algorithm, r.objective, r.board_dims, r.seed, r.win, r.total_clicks, r.time_ms, r.guesses_made, r.completion_rate));
         }
         csv
     }

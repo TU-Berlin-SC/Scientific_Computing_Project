@@ -9,7 +9,9 @@ pub mod macros;
 
 pub mod greedy;
 pub mod exact_solver;
-pub mod sat_solver;
+pub mod sat_utils;
+pub mod sat_global;
+pub mod sat_partitioned;
 pub mod metaheuristic;
 pub mod scip_solver;
 /// [0] when adding a new algorithm, create a new module here
@@ -101,7 +103,8 @@ impl MinesweeperAgent {
 register_algorithms!(
     Greedy => "greedy", crate::algorithms::greedy::GreedyAlgorithm,
     ExactSolver => "exact_solver", crate::algorithms::exact_solver::ExactSolver,
-    SatSolver => "sat_solver", crate::algorithms::sat_solver::SatSolver,
+    GlobalSat => "global_sat", crate::algorithms::sat_global::GlobalSatSolver,
+    PartitionedSat => "partitioned_sat", crate::algorithms::sat_partitioned::PartitionedSatSolver,
     SCIPSolver => "scip_solver", crate::algorithms::scip_solver::SCIPSolver,
 );
 

@@ -42,3 +42,9 @@ engine/simulation_results.csv
 .gitignore
 engine/trial_2.csv
 engine/trial_2_final.csv
+engine/final.csv
+engine/test.csv
+engine/trial_4.csv
+engine/trial_3.csv
+engine/trial_all.csv
+

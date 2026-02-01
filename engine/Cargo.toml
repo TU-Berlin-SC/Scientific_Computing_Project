@@ -15,7 +15,7 @@ wasm-bindgen = "0.2"
 getrandom = { version = "0.2", features = ["js"] }
 itertools = "0.14.0"
 russcip = "0.9.1"
-
+scip-sys = { version = "0.1.26", optional = true }
 
 [profile.release]
 lto = true

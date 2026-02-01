@@ -3,7 +3,8 @@
  * This module defines the Board and Cell structures for the 6-faced Minesweeper cube.
  */
 use serde::{Serialize, Deserialize};
-use rand::thread_rng;
+use rand::{thread_rng, SeedableRng}; 
+use rand::rngs::StdRng; 
 use rand::seq::SliceRandom;
 use std::collections::VecDeque; 
 
@@ -15,7 +16,7 @@ pub struct Cell {
     pub adjacent_mines: u8,
     pub x: usize,     // local face coordinate
     pub y: usize,     // local face coordinate
-    pub face: usize   // the face of the cube - numbered 0 to 5
+    pub face: usize,   // the face of the cube - numbered 0 to 5
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
@@ -29,7 +30,8 @@ pub struct Board {
     pub total_revealed: usize,
     pub total_clicks: usize,
     pub last_click_idx: usize,         
-    pub adjacency_map: Vec<Vec<usize>> 
+    pub adjacency_map: Vec<Vec<usize>>,
+    pub seed: Option<u64>, // added for benchmark consistency 
 }
 
 impl Board {
@@ -67,19 +69,27 @@ impl Board {
             total_revealed: 0,
             total_clicks: 0,
             last_click_idx: 0,
-            adjacency_map
+            adjacency_map,
+            seed: None, // Initialized as None
         }
     }
 
     /// logic for placing mines randomly on the board
     /// Modified to ensure first-click safety: excludes start_idx and its neighbors
     pub fn place_mines_after_first_click(&mut self, first_idx: usize) {
-        let mut rng = thread_rng();
         let mut indices: Vec<usize> = (0..self.cells.len()).collect();
         
         // Ensure the first click (and its immediate 3D neighbors) are safe
         indices.retain(|&idx| idx != first_idx && !self.adjacency_map[first_idx].contains(&idx));
-        indices.shuffle(&mut rng);
+        
+        // Use seed if available for reproducibility across solvers, otherwise use thread_rng
+        if let Some(s) = self.seed {
+            let mut rng = StdRng::seed_from_u64(s);
+            indices.shuffle(&mut rng);
+        } else {
+            let mut rng = thread_rng();
+            indices.shuffle(&mut rng);
+        }
 
         for &idx in indices.iter().take(self.mines) {
             self.cells[idx].is_mine = true;
@@ -177,10 +187,10 @@ impl Board {
         self.game_won = false;
         self.total_revealed = 0;
         self.total_clicks = 0;
-        // 지뢰는 첫 클릭 시 배치됨 (Mine placement is done on first click)
+        // mine placement is done on first click
     }
 
-    /// Calculates distances to all cells from start_idx using BFS
+    /// Clculates distances to all cells from start_idx using BFS
     pub fn get_distance_map(&self, start_idx: usize) -> Vec<usize> {
         let mut distances = vec![usize::MAX; self.cells.len()];
         let mut queue = VecDeque::new();
