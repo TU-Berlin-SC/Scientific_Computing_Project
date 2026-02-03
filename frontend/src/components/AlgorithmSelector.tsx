@@ -31,7 +31,7 @@ const AlgorithmSelector: React.FC<AlgorithmSelectorProps> = ({
           >
             <h4>{algo.label}</h4>
             <p>{algo.description}</p>
-            {!algo.implemented && <span className="coming-soon">준비 중</span>}
+            {!algo.implemented && <span className="coming-soon">TBD</span>}
           </div>
         ))}
       </div>
