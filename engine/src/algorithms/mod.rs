@@ -4,15 +4,16 @@
 * I have added 0 ~ 5 comments to guide you when adding a new algorithm! (~ ˘∇˘ )~
 */
 
+// [0] when adding a new algorithm, create a new module here
 pub mod greedy;
 pub mod exact_solver;
-// [0] when adding a new algorithm, careate a new module here
+pub mod sat_solver;
 
 use crate::board::Board;
 use wasm_bindgen::prelude::*;
 
 pub trait Algorithm {
-    fn next_move(&mut self, board: &Board) -> Option<Vec<usize>>; // 좌표를 Vec<usize>로 변경
+    fn next_move(&mut self, board: &Board) -> Option<Vec<usize>>;
 }
 
 // Algorithm types enum
@@ -22,6 +23,7 @@ pub trait Algorithm {
 pub enum WasmAlgorithmType {
     Greedy,
     ExactSolver,
+    SATSolver
 }
 
 impl WasmAlgorithmType {
@@ -30,6 +32,7 @@ impl WasmAlgorithmType {
         match self {
             WasmAlgorithmType::Greedy => "greedy",
             WasmAlgorithmType::ExactSolver => "exact_solver",
+            WasmAlgorithmType::SATSolver => "sat_solver",
         }
     }
     
@@ -38,6 +41,7 @@ impl WasmAlgorithmType {
         vec![
             WasmAlgorithmType::Greedy,
             WasmAlgorithmType::ExactSolver,
+            WasmAlgorithmType::SATSolver,
         ]
     }
 }
@@ -53,15 +57,19 @@ impl AlgorithmFactory {
     ) -> Box<dyn Algorithm> {
         match algo_type {
             WasmAlgorithmType::Greedy => {
-                Box::new(greedy::GreedyAlgorithm::new(dimensions, mines))
+                Box::new(greedy::GreedySolver::new(dimensions, mines))
             }
             WasmAlgorithmType::ExactSolver => {
                 Box::new(exact_solver::ExactSolver::new(dimensions, mines))
+            }
+            WasmAlgorithmType::SATSolver => {
+                Box::new(sat_solver::SATSolver::new(dimensions, mines))
             }
         }
     }
 }
 
 //[5] when adding a new algorithm, add it here
-pub use greedy::GreedyAlgorithm;
-pub use exact_solver::ExactSolver;
+// pub use greedy::GreedySolver;
+// pub use exact_solver::ExactSolver;
+// pub use sat_solver::SATSolver;

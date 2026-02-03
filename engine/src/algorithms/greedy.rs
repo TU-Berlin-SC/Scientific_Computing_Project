@@ -1,199 +1,34 @@
+// src/algorithms/greedy.rs
 use crate::board::Board;
 use crate::algorithms::Algorithm;
 
-/// GreedyAlgorithm 구조체
-pub struct GreedyAlgorithm {
-    width: usize,
-    height: usize,
+pub struct GreedySolver {
+    dimensions: Vec<usize>,
     mines: usize,
     first_move: bool,
 }
 
-impl GreedyAlgorithm {
-    /// 생성자
-    pub fn new(width: usize, height: usize, mines: usize) -> Self {
-        Self {
-            width,
-            height,
-            mines,
-            first_move: true,
+impl GreedySolver {
+    pub fn new(dimensions: Vec<usize>, mines: usize) -> Self {
+        Self { 
+            dimensions,
+            mines, 
+            first_move: true 
         }
     }
 
-    /// 주변 지뢰 확률 계산
-    fn calculate_mine_probability(&self, board: &Board, x: usize, y: usize) -> f64 {
-        let idx = y * self.width + x;
-        let cell = &board.cells[idx];
-        
-        // 이미 열렸거나 깃발이 꽂힌 셀은 선택하지 않음
-        if cell.is_revealed || cell.is_flagged {
-            return 1.0; // 무조건 피해야 할 셀
-        }
-        
-        // 주변 셀 정보 수집
-        let mut total_neighbors = 0;
-        let mut revealed_neighbors = 0;
-        let mut neighbor_mine_count = 0;
-        let mut neighbor_flagged_count = 0;
-        
-        for dy in -1..=1 {
-            for dx in -1..=1 {
-                if dx == 0 && dy == 0 {
-                    continue;
-                }
-                
-                let nx = x as isize + dx;
-                let ny = y as isize + dy;
-                
-                if nx >= 0 && nx < self.width as isize && ny >= 0 && ny < self.height as isize {
-                    total_neighbors += 1;
-                    let nidx = ny as usize * self.width + nx as usize;
-                    let neighbor = &board.cells[nidx];
-                    
-                    if neighbor.is_revealed {
-                        revealed_neighbors += 1;
-                        if neighbor.adjacent_mines > 0 {
-                            neighbor_mine_count += neighbor.adjacent_mines as usize;
-                        }
-                    }
-                    
-                    if neighbor.is_flagged {
-                        neighbor_flagged_count += 1;
-                    }
-                }
-            }
-        }
-        
-        // 1. 주변에 열린 셀이 있고 숫자가 있는 경우
-        if revealed_neighbors > 0 && neighbor_mine_count > 0 {
-            let hidden_neighbors = total_neighbors - revealed_neighbors - neighbor_flagged_count;
-            if hidden_neighbors > 0 {
-                let remaining_mines = neighbor_mine_count as f64 - neighbor_flagged_count as f64;
-                return remaining_mines.max(0.0) / hidden_neighbors as f64;
-            }
-        }
-        
-        // 2. 보드 전체의 기본 확률 (초기 상황용)
-        let mut flag_count = 0;
-        for cell in &board.cells {
-            if cell.is_flagged {
-                flag_count += 1;
-            }
-        }
-        
-        let remaining_cells = (self.width * self.height) - board.total_revealed;
-        let remaining_mines = self.mines - flag_count;
-        
-        if remaining_cells > 0 {
-            remaining_mines as f64 / remaining_cells as f64
-        } else {
-            1.0
-        }
+    fn first_click_position(&self) -> Vec<usize> {
+        self.dimensions.iter().map(|&dim| dim / 2).collect()
     }
 
-    /// 안전한 셀 찾기 (그리디 방식)
-    fn find_safe_cell(&self, board: &Board) -> Option<(usize, usize)> {
-        // 전략 1: 확실히 안전한 셀 찾기 (패턴 매칭)
-        for y in 0..self.height {
-            for x in 0..self.width {
-                let idx = y * self.width + x;
-                let cell = &board.cells[idx];
-                
-                if cell.is_revealed && !cell.is_flagged && cell.adjacent_mines > 0 {
-                    if let Some(safe_cell) = self.find_definitely_safe(board, x, y) {
-                        return Some(safe_cell);
-                    }
-                }
-            }
-        }
+    fn find_safe_cell(&self, board: &Board) -> Option<Vec<usize>> {
+        let total_cells = board.dimensions.iter().product();
         
-        // 전략 2: 지뢰 확률이 가장 낮은 셀 찾기
-        let mut best_cell = None;
-        let mut best_probability = 1.0; // 낮을수록 좋음
-        
-        for y in 0..self.height {
-            for x in 0..self.width {
-                let idx = y * self.width + x;
-                let cell = &board.cells[idx];
-                
-                if !cell.is_revealed && !cell.is_flagged {
-                    let probability = self.calculate_mine_probability(board, x, y);
-                    
-                    if probability < best_probability {
-                        best_probability = probability;
-                        best_cell = Some((x, y));
-                    }
-                }
-            }
-        }
-        
-        best_cell
-    }
-    
-    /// 확실히 안전한 셀 찾기 (숫자 패턴 분석)
-    fn find_definitely_safe(&self, board: &Board, x: usize, y: usize) -> Option<(usize, usize)> {
-        let idx = y * self.width + x;
-        let cell = &board.cells[idx];
-        if !cell.is_revealed || cell.adjacent_mines == 0 {
-            return None;
-        }
-        
-        let mine_count = cell.adjacent_mines as usize;
-        let mut hidden_neighbors = Vec::new();
-        let mut flagged_neighbors = 0;
-        
-        // 주변 셀 수집
-        for dy in -1..=1 {
-            for dx in -1..=1 {
-                if dx == 0 && dy == 0 {
-                    continue;
-                }
-                
-                let nx = x as isize + dx;
-                let ny = y as isize + dy;
-                
-                if nx >= 0 && nx < self.width as isize && ny >= 0 && ny < self.height as isize {
-                    let nidx = ny as usize * self.width + nx as usize;
-                    let neighbor = &board.cells[nidx];
-                    
-                    if neighbor.is_flagged {
-                        flagged_neighbors += 1;
-                    } else if !neighbor.is_revealed {
-                        hidden_neighbors.push((nx as usize, ny as usize));
-                    }
-                }
-            }
-        }
-        
-        // 이미 모든 지뢰가 깃발로 표시되었다면 나머지는 안전함
-        if flagged_neighbors == mine_count && !hidden_neighbors.is_empty() {
-            return Some(hidden_neighbors[0]);
-        }
-        
-        // 고급 전략: 1-1 패턴 체크
-        if mine_count == 1 && hidden_neighbors.len() == 1 {
-            let (hx, hy) = hidden_neighbors[0];
-            
-            // 이 숨겨진 셀 주변에 다른 숫자 1이 있는지 확인
-            for dy in -1..=1 {
-                for dx in -1..=1 {
-                    if dx == 0 && dy == 0 {
-                        continue;
-                    }
-                    
-                    let nx = hx as isize + dx;
-                    let ny = hy as isize + dy;
-                    
-                    if nx >= 0 && nx < self.width as isize && ny >= 0 && ny < self.height as isize {
-                        let nidx = ny as usize * self.width + nx as usize;
-                        let neighbor = &board.cells[nidx];
-                        
-                        if neighbor.is_revealed && neighbor.adjacent_mines == 1 && 
-                           !(neighbor.x == x && neighbor.y == y) {
-                            // 1-1 패턴 발견: 두 숫자 1 사이의 셀은 안전함
-                            return Some((hx, hy));
-                        }
-                    }
+        for idx in 0..total_cells {
+            if board.cells[idx].is_revealed && board.cells[idx].adjacent_mines > 0 {
+                let coords = board.index_to_coords(idx);
+                if let Some(safe) = self.find_safe_from_constraint(board, &coords) {
+                    return Some(safe);
                 }
             }
         }
@@ -201,36 +36,195 @@ impl GreedyAlgorithm {
         None
     }
     
-    /// 첫 번째 클릭 위치 결정
-    fn first_click_position(&self) -> (usize, usize) {
-        // 중앙에 가까운 위치를 선택 (안전 확률이 높음)
-        let center_x = self.width / 2;
-        let center_y = self.height / 2;
+    fn find_safe_from_constraint(&self, board: &Board, coords: &[usize]) -> Option<Vec<usize>> {
+        let idx = board.coords_to_index(coords);
+        if idx >= board.cells.len() {
+            return None;
+        }
         
-        // 5x5 영역 내에서 랜덤하게 선택
-        use rand::Rng;
-        let mut rng = rand::thread_rng();
+        let cell = &board.cells[idx];
+        if !cell.is_revealed || cell.adjacent_mines == 0 {
+            return None;
+        }
         
-        let offset_x = rng.gen_range(-2..=2) as isize;
-        let offset_y = rng.gen_range(-2..=2) as isize;
+        let mut hidden = Vec::new();
+        let mut flags = 0;
         
-        let x = (center_x as isize + offset_x).max(0).min(self.width as isize - 1) as usize;
-        let y = (center_y as isize + offset_y).max(0).min(self.height as isize - 1) as usize;
+        let neighbors = board.generate_neighbors(coords);
         
-        (x, y)
+        for neighbor_coords in &neighbors {
+            let nidx = board.coords_to_index(neighbor_coords);
+            if nidx >= board.cells.len() {
+                continue;
+            }
+            
+            let neighbor = &board.cells[nidx];
+            
+            if neighbor.is_flagged {
+                flags += 1;
+            } else if !neighbor.is_revealed {
+                hidden.push(neighbor_coords.clone());
+            }
+        }
+        
+        let remaining_mines = cell.adjacent_mines as usize - flags;
+        if remaining_mines == 0 && !hidden.is_empty() {
+            let mut best_cell = None;
+            let mut max_hidden_neighbors = 0;
+            
+            for cell_coords in &hidden {
+                let info_value = self.calculate_information_value(cell_coords, board);
+                if info_value > max_hidden_neighbors {
+                    max_hidden_neighbors = info_value;
+                    best_cell = Some(cell_coords.clone());
+                }
+            }
+            
+            return best_cell;
+        }
+        
+        None
+    }
+    
+    fn calculate_information_value(&self, coords: &[usize], board: &Board) -> usize {
+        let neighbors = board.generate_neighbors(coords);
+        let mut value = 0;
+        
+        for neighbor_coords in &neighbors {
+            let nidx = board.coords_to_index(neighbor_coords);
+            if nidx < board.cells.len() {
+                let neighbor = &board.cells[nidx];
+                
+                if neighbor.is_revealed && neighbor.adjacent_mines > 0 {
+                    value += 1;
+                }
+            }
+        }
+        
+        value
+    }
+    
+    fn make_educated_guess(&self, board: &Board) -> Option<Vec<usize>> {
+        let total_cells: usize = board.dimensions.iter().product();
+        let mut best_cell = None;
+        let mut best_score = f64::MAX;
+        
+        for idx in 0..total_cells {
+            if !board.cells[idx].is_revealed && !board.cells[idx].is_flagged {
+                let coords = board.index_to_coords(idx);
+                let score = self.calculate_cell_score(&coords, board);
+                
+                if score < best_score {
+                    best_score = score;
+                    best_cell = Some(coords);
+                }
+            }
+        }
+        
+        best_cell
+    }
+    
+    fn calculate_cell_score(&self, coords: &[usize], board: &Board) -> f64 {
+        let mine_probability = self.calculate_mine_probability(coords, board);
+        let information_value = self.calculate_information_value(coords, board) as f64;
+        
+        mine_probability - (information_value * 0.1)
+    }
+    
+    fn calculate_mine_probability(&self, coords: &[usize], board: &Board) -> f64 {
+        let neighbors = board.generate_neighbors(coords);
+        let mut total_constraints = 0;
+        let mut total_possible_mines = 0;
+        
+        for neighbor_coords in &neighbors {
+            let nidx = board.coords_to_index(neighbor_coords);
+            if nidx >= board.cells.len() {
+                continue;
+            }
+            
+            let neighbor = &board.cells[nidx];
+            
+            if neighbor.is_revealed && neighbor.adjacent_mines > 0 {
+                // 에러 수정: &를 추가하여 참조 전달
+                let (hidden_count, flags_count) = self.analyze_constraint(&neighbor_coords, board);
+                if hidden_count > 0 {
+                    total_constraints += 1;
+                    total_possible_mines += neighbor.adjacent_mines as usize - flags_count;
+                }
+            }
+        }
+        
+        if total_constraints > 0 {
+            total_possible_mines as f64 / (total_constraints * 8) as f64
+        } else {
+            self.calculate_global_mine_probability(board)
+        }
+    }
+    
+    fn analyze_constraint(&self, coords: &[usize], board: &Board) -> (usize, usize) {
+        let idx = board.coords_to_index(coords);
+        if idx >= board.cells.len() {
+            return (0, 0);
+        }
+        
+        let cell = &board.cells[idx];
+        if !cell.is_revealed {
+            return (0, 0);
+        }
+        
+        let mut hidden_count = 0;
+        let mut flags_count = 0;
+        
+        let neighbors = board.generate_neighbors(coords);
+        
+        for neighbor_coords in &neighbors {
+            let nidx = board.coords_to_index(neighbor_coords);
+            if nidx >= board.cells.len() {
+                continue;
+            }
+            
+            let neighbor = &board.cells[nidx];
+            
+            if neighbor.is_flagged {
+                flags_count += 1;
+            } else if !neighbor.is_revealed {
+                hidden_count += 1;
+            }
+        }
+        
+        (hidden_count, flags_count)
+    }
+    
+    fn calculate_global_mine_probability(&self, board: &Board) -> f64 {
+        let total_hidden: usize = board.cells.iter()
+            .filter(|c| !c.is_revealed && !c.is_flagged)
+            .count();
+        
+        let flagged: usize = board.cells.iter()
+            .filter(|c| c.is_flagged)
+            .count();
+        
+        let remaining_mines = self.mines.saturating_sub(flagged);
+        
+        if total_hidden == 0 {
+            return 0.0;
+        }
+        
+        remaining_mines as f64 / total_hidden as f64
     }
 }
 
-/// Algorithm 트레잇 구현
-impl Algorithm for GreedyAlgorithm {
-    fn next_move(&mut self, board: &Board) -> Option<(usize, usize)> {
-        // 첫 번째 클릭인 경우 특별 처리
+impl Algorithm for GreedySolver {
+    fn next_move(&mut self, board: &Board) -> Option<Vec<usize>> {
         if self.first_move {
             self.first_move = false;
             return Some(self.first_click_position());
         }
         
-        // 그 외의 경우 일반 그리디 알고리즘 적용
-        self.find_safe_cell(board)
+        if let Some(safe_cell) = self.find_safe_cell(board) {
+            return Some(safe_cell);
+        }
+        
+        self.make_educated_guess(board)
     }
 }
