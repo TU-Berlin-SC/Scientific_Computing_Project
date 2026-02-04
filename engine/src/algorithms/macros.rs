@@ -16,6 +16,8 @@ macro_rules! register_algorithms {
                 height: usize,
                 mines: usize,
             ) -> MinesweeperAgent {
+                // this Box handles the dynamic dispatch for algorithms 
+                // returning the new SolverResult struct
                 let solver: Box<dyn Algorithm> = match algo_type {
                     $(WasmAlgorithmType::$name => Box::new(<$struct_type>::new(width, height, mines)),)*
                 };

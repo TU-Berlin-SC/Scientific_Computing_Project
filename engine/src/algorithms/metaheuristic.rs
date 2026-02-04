@@ -70,11 +70,16 @@ impl MetaHeuristicRunner {
         let mut guesses = 0;
         
         while !sim.get_state_internal().game_over {
-            // if logic engine finds nothing, it counts as a guess
-            if !sim.can_deduce_safely() {
-                guesses += 1;
+            // we check the move metadata before executing to see if it's a guess
+            // this aligns with the updated solver_result logic
+            if let Some(res) = sim.get_next_move_metadata() {
+                if res.is_guess {
+                    guesses += 1;
+                }
+                if !sim.run_step() { break; }
+            } else {
+                break;
             }
-            if !sim.run_step() { break; }
         }
 
         let board = sim.get_state_internal();

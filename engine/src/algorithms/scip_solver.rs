@@ -1,6 +1,6 @@
 // src/algorithms/scip_solver.rs
 use crate::board::Board;
-use crate::algorithms::Algorithm;
+use crate::algorithms::{Algorithm, SolverResult};
 use std::collections::{HashMap, HashSet};
 
 use russcip::model::{ProblemCreated, Model};
@@ -18,7 +18,7 @@ impl SCIPSolver {
         Self { width, height, mines }
     }
 
-    fn solve_exact(&self, board: &Board) -> Vec<usize> {
+    fn solve_exact(&self, board: &Board) -> SolverResult {
         let mut constraints: Vec<Constraint> = Vec::new();
         let mut frontier: HashSet<usize> = HashSet::new();
 
@@ -35,22 +35,31 @@ impl SCIPSolver {
             }
         }
 
-        // If nothing constrained, fall back to global-best candidates
+        // if nothing constrained, fall back to global-best candidates (flagged as guess)
         if constraints.is_empty() {
-            return self.get_best_probability_candidates(board);
+            return SolverResult {
+                candidates: self.get_best_probability_candidates(board),
+                is_guess: true,
+            };
         }
 
-        // 2) ILP-based "definitely safe"
+        // 2) ilp-based "definitely safe"
         let safe = self.find_all_definitely_safe_via_scip(&constraints, board);
         if !safe.is_empty() {
-            return safe;
+            return SolverResult {
+                candidates: safe,
+                is_guess: false,
+            };
         }
 
-        // 3) fallback
-        self.get_best_probability_candidates(board)
+        // 3) fallback to probabilistic if no logic applies
+        SolverResult {
+            candidates: self.get_best_probability_candidates(board),
+            is_guess: true,
+        }
     }
 
-    /// Build a constraint from a revealed numbered cell:
+    /// build a constraint from a revealed numbered cell:
     /// sum_{hidden neighbors} x_j == (adjacent_mines - flagged_neighbors)
     fn build_constraint(&self, board: &Board, idx: usize) -> Constraint {
         let cell = &board.cells[idx];
@@ -73,7 +82,7 @@ impl SCIPSolver {
         }
     }
 
-    /// Base ILP model for current frontier:
+    /// base ilp model for current frontier:
     /// - binary var x_i for each hidden frontier cell i
     /// - for each constraint: sum x_i == remaining_mines
     fn build_base_model(
@@ -112,25 +121,25 @@ impl SCIPSolver {
         (model, xvars)
     }
 
-    /// Check feasibility when x_cell is fixed to value (0 or 1).
+    /// check feasibility when x_cell is fixed to value (0 or 1)
     fn feasible_with_fix(&self, constraints: &[Constraint], cell_idx: usize, value: i32) -> bool {
         let (mut model, xvars) = self.build_base_model(constraints);
 
-        // If not in frontier, it's unconstrained by current knowledge → feasible.
+        // if not in frontier, it's unconstrained by current knowledge → feasible
         let Some(v) = xvars.get(&cell_idx) else {
             return true;
         };
 
         model.add(cons().name("fix").coef(v, 1.0).eq(value as f64));
 
-        // quiet
+        // quiet output
         model = model.set_param("display/verblevel", 0);
 
         let solved = model.solve();
         !matches!(solved.status(), Status::Infeasible)
     }
 
-    /// Return all indices that are guaranteed safe (x=1 infeasible).
+    /// return all indices that are guaranteed safe (x=1 infeasible)
     fn find_all_definitely_safe_via_scip(
         &self,
         constraints: &[Constraint],
@@ -149,7 +158,7 @@ impl SCIPSolver {
                 continue;
             }
 
-            // If "idx is a mine" is impossible → idx is definitely safe
+            // if "idx is a mine" is impossible → idx is definitely safe
             let feasible_if_mine = self.feasible_with_fix(constraints, idx, 1);
             if !feasible_if_mine {
                 safe.push(idx);
@@ -159,7 +168,7 @@ impl SCIPSolver {
         safe
     }
 
-    /// Same fallback you already use in 3D: global baseline probability.
+    /// same fallback you already use in 3d: global baseline probability
     fn get_best_probability_candidates(&self, board: &Board) -> Vec<usize> {
         let flag_count = board.cells.iter().filter(|c| c.is_flagged).count();
         let remaining_cells =
@@ -205,7 +214,7 @@ impl Constraint {
 }
 
 impl Algorithm for SCIPSolver {
-    fn find_candidates(&mut self, board: &Board) -> Vec<usize> {
+    fn find_candidates(&mut self, board: &Board) -> SolverResult {
         self.solve_exact(board)
     }
 }

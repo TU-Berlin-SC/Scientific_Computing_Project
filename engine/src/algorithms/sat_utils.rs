@@ -3,9 +3,9 @@ use std::collections::{HashSet};
 use itertools::Itertools;
 
 /// represents a logical clause in conjunctive normal form (cnf)
-/// e.g. mine count of 2 and 3 hidden neighbors A,B,C: creates a clause
-/// (A or B) and (A or C) and (B or C) -> at least two are mines and 
-// not A or not B or not C -> not all three are mines
+/// e.g. mine count of 2 and 3 hidden neighbors a,b,c: creates a clause
+/// (a or b) and (a or c) and (b or c) -> at least two are mines and 
+// not a or not b or not c -> not all three are mines
 /// positive integers represent a mine at (index - 1), negative represent safe
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub struct Clause(pub Vec<isize>); 

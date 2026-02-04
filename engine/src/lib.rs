@@ -11,7 +11,7 @@ pub mod board;
 pub mod algorithms;
 
 use board::Board;
-use crate::algorithms::{MinesweeperAgent, AlgorithmFactory, WasmAlgorithmType, TspObjective};
+use crate::algorithms::{MinesweeperAgent, AlgorithmFactory, WasmAlgorithmType, TspObjective, SolverResult};
 
 /// simulator struct: manages the lifecycle of a 3d minesweeper session
 #[wasm_bindgen]
@@ -49,7 +49,7 @@ impl Simulator {
         }
     }
 
-    /// Set a seed for deterministic mine placement
+    /// set a seed for deterministic mine placement
     #[wasm_bindgen(js_name = setSeed)]
     pub fn set_seed(&mut self, seed: u64) {
         self.board.seed = Some(seed);
@@ -95,6 +95,7 @@ impl Simulator {
     }
 
     /// helper to map coordinates that fall off one face onto the adjacent face
+    /// this defines the topology of the 3d cube manifold
     fn map_edge_neighbor(f: usize, x: usize, y: usize, dx: isize, dy: isize, w: usize, h: usize) -> usize {
         let face_size = w * h;
         let (nx, ny) = (x as isize + dx, y as isize + dy);
@@ -149,9 +150,10 @@ impl Simulator {
     pub fn run_step(&mut self) -> bool {
         if self.board.game_over { return false; }
         
-        // ask agent for the next logical move
-        if let Some(idx) = self.agent.next_move(&self.board) {
-            self.board.reveal_cell(idx);
+        // ask agent for the next move result (includes candidates and guess flag)
+        if let Some(result) = self.agent.next_move(&self.board) {
+            let choice = self.agent.pick_best_from_candidates(&self.board, result);
+            self.board.reveal_cell(choice);
             self.steps += 1;
             true
         } else {
@@ -213,10 +215,14 @@ impl Simulator {
         &self.board
     }
 
+    /// returns metadata about the move without performing it
+    pub fn get_next_move_metadata(&mut self) -> Option<SolverResult> {
+        self.agent.next_move(&self.board)
+    }
+
     /// checks if the current solver is able to find a safe move without guessing
-    /// this allows the metaheuristic to track how many times the agent relied on luck
     pub fn can_deduce_safely(&mut self) -> bool {
-        let candidates = self.agent.solver.find_candidates(&self.board);
-        !candidates.is_empty()
+        let result = self.agent.solver.find_candidates(&self.board);
+        !result.is_guess && !result.candidates.is_empty()
     }
 }

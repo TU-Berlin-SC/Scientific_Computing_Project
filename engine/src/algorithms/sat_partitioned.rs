@@ -1,5 +1,5 @@
 use crate::board::Board;
-use crate::algorithms::Algorithm;
+use crate::algorithms::{Algorithm, SolverResult};
 use crate::algorithms::sat_utils::*;
 use std::collections::{HashSet, VecDeque};
 
@@ -17,12 +17,15 @@ impl PartitionedSatSolver {
 }
 
 impl Algorithm for PartitionedSatSolver {
-    fn find_candidates(&mut self, board: &Board) -> Vec<usize> {
+    fn find_candidates(&mut self, board: &Board) -> SolverResult {
         let mut safe_cells = Vec::new();
         let frontier = get_frontier(board);
 
         if frontier.is_empty() {
-            return get_probabilistic_fallback(board, self._width, self._height, self.mines);
+            return SolverResult {
+                candidates: get_probabilistic_fallback(board, self._width, self._height, self.mines),
+                is_guess: true,
+            };
         }
 
         // identify independent clusters via connected components
@@ -57,9 +60,15 @@ impl Algorithm for PartitionedSatSolver {
         }
 
         if safe_cells.is_empty() {
-            get_probabilistic_fallback(board, self._width, self._height, self.mines)
+            SolverResult {
+                candidates: get_probabilistic_fallback(board, self._width, self._height, self.mines),
+                is_guess: true,
+            }
         } else {
-            safe_cells
+            SolverResult {
+                candidates: safe_cells,
+                is_guess: false,
+            }
         }
     }
 }

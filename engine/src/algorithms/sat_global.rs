@@ -1,5 +1,5 @@
 use crate::board::Board;
-use crate::algorithms::Algorithm;
+use crate::algorithms::{Algorithm, SolverResult};
 use crate::algorithms::sat_utils::*;
 use std::collections::HashSet;
 
@@ -17,13 +17,16 @@ impl GlobalSatSolver {
 }
 
 impl Algorithm for GlobalSatSolver {
-    fn find_candidates(&mut self, board: &Board) -> Vec<usize> {
+    fn find_candidates(&mut self, board: &Board) -> SolverResult {
         let mut safe_cells = Vec::new();
         let frontier = get_frontier(board);
 
         // if no cells are currently revealed, we must use probability to guess
         if frontier.is_empty() {
-            return get_probabilistic_fallback(board, self._width, self._height, self.mines);
+            return SolverResult {
+                candidates: get_probabilistic_fallback(board, self._width, self._height, self.mines),
+                is_guess: true,
+            };
         }
 
         // build the base cnf from revealed cells
@@ -58,9 +61,16 @@ impl Algorithm for GlobalSatSolver {
 
         // if logic finds no guaranteed safe spots, we fall back to probability
         if safe_cells.is_empty() {
-            get_probabilistic_fallback(board, self._width, self._height, self.mines)
+            SolverResult {
+                candidates: get_probabilistic_fallback(board, self._width, self._height, self.mines),
+                is_guess: true,
+            }
         } else {
-            safe_cells
+            // logical certainty found
+            SolverResult {
+                candidates: safe_cells,
+                is_guess: false,
+            }
         }
     }
 }

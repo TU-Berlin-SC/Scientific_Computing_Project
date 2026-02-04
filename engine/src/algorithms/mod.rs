@@ -1,7 +1,7 @@
 /**
-* Module for different algorithms to solve the Minesweeper game.
-* Each algorithm should implement the Algorithm trait.
-* I have added 0 ~ 5 comments to guide you when adding a new algorithm! (~ ˘∇˘ )~
+* module for different algorithms to solve the minesweeper game.
+* each algorithm should implement the algorithm trait.
+* i have added 0 ~ 5 comments to guide you when adding a new algorithm! (~ ˘∇˘ )~
 */
 
 #[macro_use] // add this so the macro is visible in this module
@@ -19,9 +19,15 @@ pub mod scip_solver;
 use crate::board::Board;
 use wasm_bindgen::prelude::*;
 
-/// returns a list of candidate indices that are logically safe to click.
+/// result structure to track if a move is a logical deduction or a guess
+pub struct SolverResult {
+    pub candidates: Vec<usize>,
+    pub is_guess: bool,
+}
+
+/// returns a solver result containing safe indices or probabilistic guesses
 pub trait Algorithm {
-    fn find_candidates(&mut self, board: &Board) -> Vec<usize>;
+    fn find_candidates(&mut self, board: &Board) -> SolverResult;
 }
 
 #[wasm_bindgen]
@@ -39,7 +45,7 @@ pub struct MinesweeperAgent {
 }
 
 impl MinesweeperAgent {
-    pub fn next_move(&mut self, board: &Board) -> Option<usize> {
+    pub fn next_move(&mut self, board: &Board) -> Option<SolverResult> {
         let total_cells = board.cells.len();
         if total_cells == 0 { return None; }
 
@@ -47,32 +53,47 @@ impl MinesweeperAgent {
         // will trigger place_mines_after_first_click inside the board
         if self.first_move {
             self.first_move = false;
-            let face_offset = (board.width * board.height) * 2;
-            let center_in_face = (board.width * board.height) / 2;
-            return Some((face_offset + center_in_face) % total_cells);
+            let face_size = board.width * board.height;
+            let center_idx = (board.width / 2) + (board.height / 2) * board.width + (0 * face_size);
+            
+            return Some(SolverResult {
+                candidates: vec![center_idx],
+                is_guess: true, // first click is always a guess
+            });
         }
 
-        let mut candidates = self.solver.find_candidates(board);
-        if candidates.is_empty() { return None; }
-
-        let current_idx = board.last_click_idx % total_cells;
+        let result = self.solver.find_candidates(board);
+        if result.candidates.is_empty() { return None; }
         
-        // one bfs call for all distance lookups
+        Some(result)
+    }
+
+    /// chooses the specific cell from candidates based on tsp
+    pub fn pick_best_from_candidates(&self, board: &Board, mut result: SolverResult) -> usize {
+        let current_idx = board.last_click_idx;
         let distance_map = board.get_distance_map(current_idx);
+        let candidates = &mut result.candidates;
 
         match self.objective {
-            TspObjective::MinDistance => {
-                candidates.sort_by_key(|&idx| distance_map[idx]);
-            }
             TspObjective::MaxInformation => {
                 candidates.sort_by(|&a, &b| {
-                    let info_a = board.get_hidden_neighbor_count(a);
-                    let info_b = board.get_hidden_neighbor_count(b);
-
-                    if info_a != info_b {
-                        info_b.cmp(&info_a) // descending
+                    let hidden_a = board.get_hidden_neighbor_count(a);
+                    let hidden_b = board.get_hidden_neighbor_count(b);
+                    if hidden_a != hidden_b {
+                        hidden_b.cmp(&hidden_a) // more neighbors first
                     } else {
-                        distance_map[a].cmp(&distance_map[b]) // closest tie breaker
+                        distance_map[a].cmp(&distance_map[b])
+                    }
+                });
+            }
+            TspObjective::MinDistance => {
+                candidates.sort_by(|&a, &b| {
+                    let dist_a = distance_map[a];
+                    let dist_b = distance_map[b];
+                    if dist_a != dist_b {
+                        dist_a.cmp(&dist_b)
+                    } else {
+                        board.get_hidden_neighbor_count(b).cmp(&board.get_hidden_neighbor_count(a))
                     }
                 });
             }
@@ -81,10 +102,8 @@ impl MinesweeperAgent {
                 candidates.sort_by(|&a, &b| {
                     let face_a = board.cells[a].face;
                     let face_b = board.cells[b].face;
-
                     let cost_a = if face_a == current_face { 0 } else { 1 };
                     let cost_b = if face_b == current_face { 0 } else { 1 };
-
                     if cost_a != cost_b {
                         cost_a.cmp(&cost_b) 
                     } else {
@@ -93,13 +112,10 @@ impl MinesweeperAgent {
                 });
             }
         }
-        
-        Some(candidates[0])
+        candidates[0]
     }
 }
 
-// [1] [2] [3] [4] handled by the macro registration below
-// to add a new algorithm, just add a line to this macro call
 register_algorithms!(
     Greedy => "greedy", crate::algorithms::greedy::GreedyAlgorithm,
     ExactSolver => "exact_solver", crate::algorithms::exact_solver::ExactSolver,
@@ -107,5 +123,3 @@ register_algorithms!(
     PartitionedSat => "partitioned_sat", crate::algorithms::sat_partitioned::PartitionedSatSolver,
     SCIPSolver => "scip_solver", crate::algorithms::scip_solver::SCIPSolver,
 );
-
-// [5] when adding a new algorithm, add its pub use or module reference here

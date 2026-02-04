@@ -1,5 +1,5 @@
 use crate::board::Board;
-use crate::algorithms::Algorithm;
+use crate::algorithms::{Algorithm, SolverResult};
 
 /// greedy algorithm
 /// uses heuristics (information about neighbors) to make locally optimal choices
@@ -26,12 +26,12 @@ impl GreedyAlgorithm {
         if cell.is_revealed || cell.is_flagged {
             return 1.0; 
         }
-        // formula: P(mine) = (adjacent mines-flagged neighbors)/hidden neighbors
+        // formula: p(mine) = (adjacent mines-flagged neighbors)/hidden neighbors
         let mut revealed_neighbors = 0;
         let mut neighbor_mine_count = 0;
         let mut neighbor_flagged_count = 0;
         
-        // we use the pre-calculated 3D neighbors
+        // we use the pre-calculated 3d neighbors
         let neighbors = &board.adjacency_map[idx];
         let total_neighbors = neighbors.len();
 
@@ -55,7 +55,7 @@ impl GreedyAlgorithm {
         }
         
         // global probability baseline 
-        // P(mine) = (total mines in game - total flags placed)/total unrevealed cells on the cube
+        // p(mine) = (total mines in game - total flags placed)/total unrevealed cells on the cube
         let flag_count = board.cells.iter().filter(|c| c.is_flagged).count();
         let remaining_cells = (6 * self.width * self.height).saturating_sub(board.total_revealed);
         let remaining_mines = self.mines.saturating_sub(flag_count);
@@ -68,8 +68,8 @@ impl GreedyAlgorithm {
     }
 
     /// finding all the safe cells on the board
-    /// so that we can use this as input for TSP
-    pub fn find_safe_cells(&self, board: &Board) -> Vec<usize> {
+    /// so that we can use this as input for tsp
+    pub fn find_safe_cells(&self, board: &Board) -> SolverResult {
         let mut candidates = std::collections::HashSet::new();
         
         // look for definitely safe cells
@@ -84,32 +84,41 @@ impl GreedyAlgorithm {
             }
         }
         
-        let mut final_candidates: Vec<usize> = candidates.into_iter().collect();
+        let final_candidates: Vec<usize> = candidates.into_iter().collect();
 
-        // if no safe cells then findest the cells with lowest mine probability
-        if final_candidates.is_empty() {
-            let mut best_prob = 1.0;
-            let mut best_indices = Vec::new();
-
-            for idx in 0..board.cells.len() {
-                let cell = &board.cells[idx];
-                if !cell.is_revealed && !cell.is_flagged {
-                    // uses the function from above to calculate probabilities
-                    let prob = self.calculate_mine_probability(board, idx);
-                    
-                    // precision handling for floating point comparison
-                    if prob < best_prob - 1e-6 { 
-                        best_prob = prob;
-                        best_indices = vec![idx];
-                    } else if (prob - best_prob).abs() < 1e-6 {
-                        best_indices.push(idx);
-                    }
-                }
-            }
-            final_candidates = best_indices;
+        // if logic found safe cells, it is not a guess
+        if !final_candidates.is_empty() {
+            return SolverResult {
+                candidates: final_candidates,
+                is_guess: false,
+            };
         }
 
-        final_candidates
+        // if no safe cells then findest the cells with lowest mine probability
+        let mut best_prob = 1.0;
+        let mut best_indices = Vec::new();
+
+        for idx in 0..board.cells.len() {
+            let cell = &board.cells[idx];
+            if !cell.is_revealed && !cell.is_flagged {
+                // uses the function from above to calculate probabilities
+                let prob = self.calculate_mine_probability(board, idx);
+                
+                // precision handling for floating point comparison
+                if prob < best_prob - 1e-6 { 
+                    best_prob = prob;
+                    best_indices = vec![idx];
+                } else if (prob - best_prob).abs() < 1e-6 {
+                    best_indices.push(idx);
+                }
+            }
+        }
+        
+        // if we are here, we are using probability, so it is a guess
+        SolverResult {
+            candidates: best_indices,
+            is_guess: true,
+        }
     }
     
     /// function to find the safe cells used in the global call find_safe_cells
@@ -137,7 +146,7 @@ impl GreedyAlgorithm {
 }
 
 impl Algorithm for GreedyAlgorithm {
-    fn find_candidates(&mut self, board: &Board) -> Vec<usize> {
+    fn find_candidates(&mut self, board: &Board) -> SolverResult {
         // agent handles the first move so we just call the algo to find the safe cells
         self.find_safe_cells(board)
     }

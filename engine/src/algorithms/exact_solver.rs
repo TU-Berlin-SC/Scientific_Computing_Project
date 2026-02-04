@@ -1,6 +1,6 @@
 // src/algorithms/exact_solver.rs
 use crate::board::Board;
-use crate::algorithms::Algorithm;
+use crate::algorithms::{Algorithm, SolverResult};
 use std::collections::HashSet;
 
 /// human expert algorithm
@@ -19,7 +19,7 @@ impl ExactSolver {
     }
 
     /// primary solver logic to find all safe cells using constraint analysis
-    fn solve_exact(&self, board: &Board) -> Vec<usize> {
+    fn solve_exact(&self, board: &Board) -> SolverResult {
         let mut constraints = Vec::new();
 
         // collect constraints using the 3d adjacency map
@@ -36,12 +36,20 @@ impl ExactSolver {
 
         // look for definitely safe cells through constraint analysis
         let safe_cells = self.find_all_definitely_safe(&constraints, board);
+        
+        // if logic finds safe cells, it is not a guess
         if !safe_cells.is_empty() {
-            return safe_cells;
+            return SolverResult {
+                candidates: safe_cells,
+                is_guess: false,
+            };
         }
 
-        // if no definitely safe cells, return probabilistic candidates
-        self.get_best_probability_candidates(&constraints, board)
+        // if no definitely safe cells, return probabilistic candidates and mark as guess
+        SolverResult {
+            candidates: self.get_best_probability_candidates(&constraints, board),
+            is_guess: true,
+        }
     }
 
     /// converts a revealed numbered cell into a mathematical constraint
@@ -83,7 +91,7 @@ impl ExactSolver {
 
         // set difference analysis - comparing pairs of constraints
         if safe_indices.is_empty() {
-            // We iterate through all pairs (i, j) to find subset relationships
+            // we iterate through all pairs (i, j) to find subset relationships
             for i in 0..constraints.len() {
                 for j in 0..constraints.len() {
                     if i == j { continue; }
@@ -99,8 +107,8 @@ impl ExactSolver {
                         let m_diff = c2.remaining_mines() as isize - c1.remaining_mines() as isize;
                         let only_in_c2: Vec<usize> = set2.difference(&set1).cloned().collect();
 
-                        // If the number of mines in both constraints is the same,
-                        // then all cells that are ONLY in the larger set must be safe.
+                        // if the number of mines in both constraints is the same,
+                        // then all cells that are only in the larger set must be safe.
                         if m_diff == 0 {
                             for &idx in &only_in_c2 {
                                 safe_indices.insert(idx);
@@ -120,7 +128,7 @@ impl ExactSolver {
 
         // optimized probability baseline calculation
         let flag_count = board.cells.iter().filter(|c| c.is_flagged).count();
-        // Fixed: Ensure we subtract flags from the hidden count for a more accurate guess
+        // ensure we subtract flags from the hidden count for a more accurate guess
         let remaining_cells = board.cells.len().saturating_sub(board.total_revealed).saturating_sub(flag_count);
         let remaining_mines = self.mines.saturating_sub(flag_count);
 
@@ -165,7 +173,7 @@ impl Constraint {
 
 /// implementation of the shared algorithm trait
 impl Algorithm for ExactSolver {
-    fn find_candidates(&mut self, board: &Board) -> Vec<usize> {
+    fn find_candidates(&mut self, board: &Board) -> SolverResult {
         // agent handles first move and tsp, solver only provides candidates
         self.solve_exact(board)
     }
