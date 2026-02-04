@@ -377,6 +377,40 @@ function App() {
     }
   };
 
+  const downloadCSV = (data, filename) => {
+    if (!data || data.length === 0) return;
+  
+    // 1. 헤더 추출 (결과 객체의 키값들)
+    const headers = Object.keys(data[0]);
+    
+    // 2. CSV 내용 생성
+    const csvContent = [
+      headers.join(','), // 헤더 행
+      ...data.map(row => 
+        headers.map(header => {
+          let value = row[header];
+          // 배열(dimensions)의 경우 CSV에서 깨지지 않게 문자열 처리
+          if (Array.isArray(value)) {
+            return `"${value.join('x')}"`;
+          }
+          return value;
+        }).join(',')
+      )
+    ].join('\n');
+  
+    // 3. Blob 생성 및 다운로드 링크 트리거
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', `${filename}_${new Date().getTime()}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   // 전체 게임 실행
   const handleRunGame = async () => {
     if (!simulator) {
@@ -512,92 +546,6 @@ function App() {
     setBatchResults(results);
   };
 
-  // 알고리즘 비교
-  // const handleCompareAlgorithms = async () => {
-  //   if (!wasm) {
-  //     addLog('WASM not ready');
-  //     return;
-  //   }
-    
-  //   addLog(`Comparing algorithms...`);
-  //   setIsRunning(true);
-    
-  //   try {
-  //     const allResults = [];
-  //     const testGames = 100; //compare algorithms
-      
-  //     for (const algo of AlgorithmInfo) {
-  //       if (!algo.implemented) continue;
-        
-  //       addLog(`Testing ${algo.label}...`);
-  //       let wins = 0;
-  //       let totalSteps = 0;
-  //       let totalClicks = 0;
-        
-  //       for (let i = 0; i < testGames; i++) {
-  //         let sim;
-          
-  //         if (gameConfig.useNDimensions && gameConfig.dimensions) {
-  //           sim = new wasm.Simulator(
-  //             gameConfig.dimensions,
-  //             gameConfig.mines,
-  //             algo.value
-  //           );
-  //         } else {
-  //           if (wasm.Simulator.new2D) {
-  //             sim = wasm.Simulator.new2D(
-  //               gameConfig.width,
-  //               gameConfig.height,
-  //               gameConfig.mines,
-  //               algo.value
-  //             );
-  //           } else {
-  //             sim = new wasm.Simulator(
-  //               [gameConfig.width, gameConfig.height],
-  //               gameConfig.mines,
-  //               algo.value
-  //             );
-  //           }
-  //         }
-          
-  //         const finalState = sim.runFullGame();
-  //         const processedState = finalState instanceof Map ? 
-  //           Object.fromEntries(finalState.entries()) : 
-  //           finalState;
-          
-  //         if (processedState.game_won) {
-  //           wins++;
-  //           totalSteps += processedState.total_clicks || 0;
-  //           totalClicks += processedState.total_clicks || 0;
-  //         }
-  //       }
-        
-  //       allResults.push({
-  //         algorithm: algo.label,
-  //         total_games: testGames,
-  //         wins: wins,
-  //         win_rate: (wins / testGames * 100),
-  //         avg_steps_wins: wins > 0 ? totalSteps / wins : 0,
-  //         avg_clicks_wins: wins > 0 ? totalClicks / wins : 0,
-  //       });
-        
-  //       addLog(`${algo.label}: ${wins}/${testGames} wins (${(wins / testGames * 100).toFixed(1)}%)`);
-  //     }
-      
-  //     setComparisonResults(allResults);
-      
-  //     const best = allResults.reduce((prev, current) => 
-  //       prev.win_rate > current.win_rate ? prev : current
-  //     );
-      
-  //     addLog(`🏆 Best algorithm: ${best.algorithm} (${best.win_rate.toFixed(1)}% win rate)`);
-  //   } catch (err) {
-  //     addLog(`Comparison error: ${err}`);
-  //     console.error('Comparison error:', err);
-  //   } finally {
-  //     setIsRunning(false);
-  //   }
-  // };
   // check all algorithm in one click
   const handleCompareAlgorithms = async () => {
     if (!wasm) {
@@ -1027,6 +975,7 @@ const handleCellRightClick = (coordinates: number[]) => {
       {/* N dimensional */}
       {renderBoard()}
       
+      {/* 여기에 csv */}
       {comparisonResults.length > 0 && (
         <div className="comparison-results">
           <h3>Algorithm Comparison Results</h3>
