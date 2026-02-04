@@ -22,6 +22,7 @@ interface WasmModule {
   WasmAlgorithmType: {
     Greedy: number;
     ExactSolver: number;
+    SATSolver: number;
   };
   compare_algorithms: (dimensions: any, mines: number, games: number) => any;
 }
@@ -512,86 +513,180 @@ function App() {
   };
 
   // 알고리즘 비교
+  // const handleCompareAlgorithms = async () => {
+  //   if (!wasm) {
+  //     addLog('WASM not ready');
+  //     return;
+  //   }
+    
+  //   addLog(`Comparing algorithms...`);
+  //   setIsRunning(true);
+    
+  //   try {
+  //     const allResults = [];
+  //     const testGames = 100; //compare algorithms
+      
+  //     for (const algo of AlgorithmInfo) {
+  //       if (!algo.implemented) continue;
+        
+  //       addLog(`Testing ${algo.label}...`);
+  //       let wins = 0;
+  //       let totalSteps = 0;
+  //       let totalClicks = 0;
+        
+  //       for (let i = 0; i < testGames; i++) {
+  //         let sim;
+          
+  //         if (gameConfig.useNDimensions && gameConfig.dimensions) {
+  //           sim = new wasm.Simulator(
+  //             gameConfig.dimensions,
+  //             gameConfig.mines,
+  //             algo.value
+  //           );
+  //         } else {
+  //           if (wasm.Simulator.new2D) {
+  //             sim = wasm.Simulator.new2D(
+  //               gameConfig.width,
+  //               gameConfig.height,
+  //               gameConfig.mines,
+  //               algo.value
+  //             );
+  //           } else {
+  //             sim = new wasm.Simulator(
+  //               [gameConfig.width, gameConfig.height],
+  //               gameConfig.mines,
+  //               algo.value
+  //             );
+  //           }
+  //         }
+          
+  //         const finalState = sim.runFullGame();
+  //         const processedState = finalState instanceof Map ? 
+  //           Object.fromEntries(finalState.entries()) : 
+  //           finalState;
+          
+  //         if (processedState.game_won) {
+  //           wins++;
+  //           totalSteps += processedState.total_clicks || 0;
+  //           totalClicks += processedState.total_clicks || 0;
+  //         }
+  //       }
+        
+  //       allResults.push({
+  //         algorithm: algo.label,
+  //         total_games: testGames,
+  //         wins: wins,
+  //         win_rate: (wins / testGames * 100),
+  //         avg_steps_wins: wins > 0 ? totalSteps / wins : 0,
+  //         avg_clicks_wins: wins > 0 ? totalClicks / wins : 0,
+  //       });
+        
+  //       addLog(`${algo.label}: ${wins}/${testGames} wins (${(wins / testGames * 100).toFixed(1)}%)`);
+  //     }
+      
+  //     setComparisonResults(allResults);
+      
+  //     const best = allResults.reduce((prev, current) => 
+  //       prev.win_rate > current.win_rate ? prev : current
+  //     );
+      
+  //     addLog(`🏆 Best algorithm: ${best.algorithm} (${best.win_rate.toFixed(1)}% win rate)`);
+  //   } catch (err) {
+  //     addLog(`Comparison error: ${err}`);
+  //     console.error('Comparison error:', err);
+  //   } finally {
+  //     setIsRunning(false);
+  //   }
+  // };
+  // check all algorithm in one click
   const handleCompareAlgorithms = async () => {
     if (!wasm) {
       addLog('WASM not ready');
       return;
     }
     
-    addLog(`Comparing algorithms...`);
+    addLog(`🚀 Starting Global Algorithm Comparison...`);
     setIsRunning(true);
+    setComparisonResults([]); // 이전 결과 초기화
     
     try {
       const allResults = [];
-      const testGames = 50;
+      const testGames = 100; // 각 알고리즘당 100회 실행
       
+      // 1. 등록된 모든 알고리즘 루프
       for (const algo of AlgorithmInfo) {
-        if (!algo.implemented) continue;
+        // implemented 체크가 되어있어야 함 (simulation.ts 확인 필요)
+        if (!algo.implemented) {
+          addLog(`Skipping ${algo.label} (Not implemented)`);
+          continue;
+        }
         
-        addLog(`Testing ${algo.label}...`);
+        addLog(`🧪 Testing ${algo.label} for ${testGames} games...`);
         let wins = 0;
-        let totalSteps = 0;
         let totalClicks = 0;
         
         for (let i = 0; i < testGames; i++) {
           let sim;
           
+          // 시뮬레이터 생성 (N차원/2D 구분)
           if (gameConfig.useNDimensions && gameConfig.dimensions) {
             sim = new wasm.Simulator(
               gameConfig.dimensions,
               gameConfig.mines,
-              algo.value
+              algo.value // 루프 중인 알고리즘 값 주입
             );
           } else {
-            if (wasm.Simulator.new2D) {
-              sim = wasm.Simulator.new2D(
-                gameConfig.width,
-                gameConfig.height,
-                gameConfig.mines,
-                algo.value
-              );
-            } else {
-              sim = new wasm.Simulator(
-                [gameConfig.width, gameConfig.height],
-                gameConfig.mines,
-                algo.value
-              );
-            }
+            sim = wasm.Simulator.new2D ? 
+              wasm.Simulator.new2D(gameConfig.width, gameConfig.height, gameConfig.mines, algo.value) :
+              new wasm.Simulator([gameConfig.width, gameConfig.height], gameConfig.mines, algo.value);
           }
           
           const finalState = sim.runFullGame();
+         // add log for debugging
+          console.log("Game Stats:", {
+              total_clicks: finalState.total_clicks,
+              revealed: finalState.total_revealed,
+              is_won: finalState.game_won,
+          });
+
           const processedState = finalState instanceof Map ? 
             Object.fromEntries(finalState.entries()) : 
             finalState;
           
           if (processedState.game_won) {
             wins++;
-            totalSteps += processedState.total_clicks || 0;
             totalClicks += processedState.total_clicks || 0;
           }
         }
         
+        const winRate = (wins / testGames) * 100;
+        const avgClicks = wins > 0 ? totalClicks / wins : 0;
+
         allResults.push({
           algorithm: algo.label,
           total_games: testGames,
           wins: wins,
-          win_rate: (wins / testGames * 100),
-          avg_steps_wins: wins > 0 ? totalSteps / wins : 0,
-          avg_clicks_wins: wins > 0 ? totalClicks / wins : 0,
+          win_rate: winRate,
+          avg_steps_wins: avgClicks, // steps와 clicks를 동일하게 처리
+          avg_clicks_wins: avgClicks,
         });
         
-        addLog(`${algo.label}: ${wins}/${testGames} wins (${(wins / testGames * 100).toFixed(1)}%)`);
+        addLog(`✅ ${algo.label} Done: ${wins}/${testGames} wins (${winRate.toFixed(1)}%)`);
       }
       
+      // 모든 결과 한 번에 업데이트
       setComparisonResults(allResults);
       
-      const best = allResults.reduce((prev, current) => 
-        prev.win_rate > current.win_rate ? prev : current
-      );
-      
-      addLog(`🏆 Best algorithm: ${best.algorithm} (${best.win_rate.toFixed(1)}% win rate)`);
+      // 결과 중 최고 알고리즘 찾기
+      if (allResults.length > 0) {
+        const best = allResults.reduce((prev, current) => 
+          prev.win_rate > current.win_rate ? prev : current
+        );
+        addLog(`🏆 Winner: ${best.algorithm} with ${best.win_rate.toFixed(1)}% win rate!`);
+      }
+
     } catch (err) {
-      addLog(`Comparison error: ${err}`);
+      addLog(`❌ Comparison error: ${err}`);
       console.error('Comparison error:', err);
     } finally {
       setIsRunning(false);
