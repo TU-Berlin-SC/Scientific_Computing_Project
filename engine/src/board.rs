@@ -1,19 +1,16 @@
-// src/board.rs
 use serde::{Serialize, Deserialize};
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 
-// Cell struct for N-dimensions
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct Cell {
     pub is_mine: bool,
     pub is_revealed: bool,
     pub is_flagged: bool,
     pub adjacent_mines: u8,
-    pub coordinates: Vec<usize>, // N Dimensions
+    pub coordinates: Vec<usize>,
 }
 
-// N-dimensional Board struct
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Board {
     pub dimensions: Vec<usize>,
@@ -33,9 +30,8 @@ impl Board {
         }
         
         let mut cells = Vec::with_capacity(total_cells);
-        let indices = Self::generate_all_indices(&dimensions);
-        
-        for coords in indices {
+        let all_coords = Self::generate_all_indices(&dimensions);
+        for coords in all_coords {
             cells.push(Cell {
                 is_mine: false,
                 is_revealed: false,
@@ -44,7 +40,7 @@ impl Board {
                 coordinates: coords,
             });
         }
-        
+
         Board {
             dimensions: dimensions.clone(),
             mines,
@@ -55,247 +51,203 @@ impl Board {
             total_clicks: 0,
         }
     }
-    
+
     fn generate_all_indices(dimensions: &[usize]) -> Vec<Vec<usize>> {
         let total_cells = dimensions.iter().product();
-        let mut indices = Vec::with_capacity(total_cells);
+        let mut result = Vec::with_capacity(total_cells);
         let mut current = vec![0; dimensions.len()];
-        
-        fn generate_recursive(
-            dimensions: &[usize],
-            current: &mut Vec<usize>,
-            index: usize,
-            result: &mut Vec<Vec<usize>>
-        ) {
-            if index == dimensions.len() {
-                result.push(current.clone());
+
+        fn recurse(dim_idx: usize, dims: &[usize], curr: &mut Vec<usize>, res: &mut Vec<Vec<usize>>) {
+            if dim_idx == dims.len() {
+                res.push(curr.clone());
                 return;
             }
-            
-            for i in 0..dimensions[index] {
-                current[index] = i;
-                generate_recursive(dimensions, current, index + 1, result);
+            for i in 0..dims[dim_idx] {
+                curr[dim_idx] = i;
+                recurse(dim_idx + 1, dims, curr, res);
             }
         }
-        
-        generate_recursive(dimensions, &mut current, 0, &mut indices);
-        indices
+
+        recurse(0, dimensions, &mut current, &mut result);
+        result
     }
-    
+
+    // [수정] 정방향 인덱싱: x0 + x1*D0 + x2*D0*D1 ...
     pub fn coords_to_index(&self, coords: &[usize]) -> usize {
         let mut index = 0;
         let mut multiplier = 1;
-        
-        for (i, &coord) in coords.iter().enumerate() {
-            if i > 0 {
-                multiplier *= self.dimensions[i - 1];
-            }
-            index += coord * multiplier;
+        for i in 0..coords.len() {
+            index += coords[i] * multiplier;
+            multiplier *= self.dimensions[i];
         }
-        
         index
     }
-    
+
+    // [수정] coords_to_index와 완벽히 대칭되는 정방향 계산
     pub fn index_to_coords(&self, index: usize) -> Vec<usize> {
         let mut coords = vec![0; self.dimensions.len()];
         let mut remaining = index;
-        
-        for i in (0..self.dimensions.len()).rev() {
-            let mut multiplier = 1;
-            for j in 0..i {
-                multiplier *= self.dimensions[j];
-            }
-            coords[i] = remaining / multiplier;
-            remaining %= multiplier;
+        for i in 0..self.dimensions.len() {
+            coords[i] = remaining % self.dimensions[i];
+            remaining /= self.dimensions[i];
         }
-        
         coords
     }
-    
+
     pub fn place_mines_after_first_click(&mut self, first_coords: &[usize]) {
-        let total_cells = self.dimensions.iter().product();
-        let mut indices: Vec<usize> = (0..total_cells).collect();
-        
+        let total_cells = self.cells.len();
+        let mut candidate_indices: Vec<usize> = (0..total_cells).collect();
+
+        // [수정] 3x3x3x3에서 지뢰가 1개인 경우, 주변 1칸을 모두 비우면 설치할 곳이 없습니다.
+        // 이 경우 "안전 지대"의 크기를 최소화하여 에러를 방지합니다.
         let first_idx = self.coords_to_index(first_coords);
-        indices.retain(|&idx| idx != first_idx);
         
-        // Exclude cells within Chebyshev distance of 1 (N차원 인접 셀)
-        indices.retain(|&idx| {
-            let coords = self.index_to_coords(idx);
-            !self.are_neighbors(&coords, first_coords)
-        });
-        
+        // 1순위: 첫 클릭 칸과 그 주변 칸들을 제외 시도
+        let mut filtered_indices: Vec<usize> = candidate_indices.iter()
+            .cloned()
+            .filter(|&idx| {
+                let coords = self.index_to_coords(idx);
+                !self.are_neighbors(&coords, first_coords) && idx != first_idx
+            })
+            .collect();
+
+        // 2순위: 만약 1순위 결과가 지뢰 개수보다 적다면, 첫 클릭 칸만 제외
+        if filtered_indices.len() < self.mines {
+            filtered_indices = candidate_indices.iter()
+                .cloned()
+                .filter(|&idx| idx != first_idx)
+                .collect();
+        }
+
         let mut rng = thread_rng();
-        indices.shuffle(&mut rng);
-        
-        for &idx in indices.iter().take(self.mines) {
+        filtered_indices.shuffle(&mut rng);
+
+        for &idx in filtered_indices.iter().take(self.mines) {
             self.cells[idx].is_mine = true;
         }
-        
         self.calculate_adjacent_mines();
     }
-    
+
     fn are_neighbors(&self, coords1: &[usize], coords2: &[usize]) -> bool {
-        if coords1.len() != coords2.len() {
-            return false;
-        }
-        
         let mut max_diff = 0;
-        for (&c1, &c2) in coords1.iter().zip(coords2.iter()) {
-            let diff = c1.abs_diff(c2);
-            if diff > max_diff {
-                max_diff = diff;
-            }
+        for i in 0..coords1.len() {
+            let diff = (coords1[i] as isize - coords2[i] as isize).abs();
+            if diff > max_diff { max_diff = diff; }
         }
-        
-        max_diff <= 1 && coords1 != coords2
+        max_diff == 1 // Chebyshev distance 1
     }
-    
+
     pub fn calculate_adjacent_mines(&mut self) {
-        let total_cells: usize = self.dimensions.iter().product();
-        
-        for idx in 0..total_cells {
-            if !self.cells[idx].is_mine {
-                let coords = self.index_to_coords(idx);
-                let mut count = 0;
-                
+        for i in 0..self.cells.len() {
+            if !self.cells[i].is_mine {
+                let coords = self.index_to_coords(i);
                 let neighbors = self.generate_neighbors(&coords);
-                
-                for neighbor_coords in neighbors {
-                    let neighbor_idx = self.coords_to_index(&neighbor_coords);
-                    if neighbor_idx < self.cells.len() && self.cells[neighbor_idx].is_mine {
-                        count += 1;
-                    }
-                }
-                
-                self.cells[idx].adjacent_mines = count as u8;
+                let count = neighbors.iter()
+                    .filter(|n_coords| self.cells[self.coords_to_index(n_coords)].is_mine)
+                    .count();
+                self.cells[i].adjacent_mines = count as u8;
             }
         }
     }
-    
+
     pub fn generate_neighbors(&self, coords: &[usize]) -> Vec<Vec<usize>> {
         let mut neighbors = Vec::new();
-        let offsets = self.generate_offsets();
-        
-        for offset in offsets {
-            let mut neighbor = Vec::with_capacity(coords.len());
-            let mut valid = true;
-            
-            for (i, &coord) in coords.iter().enumerate() {
-                let new_coord = coord as isize + offset[i];
-                if new_coord < 0 || new_coord >= self.dimensions[i] as isize {
-                    valid = false;
-                    break;
-                }
-                neighbor.push(new_coord as usize);
-            }
-            
-            if valid {
-                neighbors.push(neighbor);
-            }
-        }
-        
-        neighbors
-    }
-    
-    fn generate_offsets(&self) -> Vec<Vec<isize>> {
-        let dimension_count = self.dimensions.len();
-        let mut offsets = Vec::new();
-        let mut current = vec![0; dimension_count];
-        
-        fn generate_offsets_recursive(
-            dim: usize,
-            current: &mut Vec<isize>,
-            result: &mut Vec<Vec<isize>>
+        let mut current_offset = vec![0isize; coords.len()];
+
+        fn generate_recursive(
+            dim: usize, 
+            coords: &[usize], 
+            dims: &[usize], 
+            offset: &mut Vec<isize>, 
+            res: &mut Vec<Vec<usize>>
         ) {
-            if dim == current.len() {
-                if !current.iter().all(|&x| x == 0) {
-                    result.push(current.clone());
+            if dim == coords.len() {
+                if offset.iter().all(|&x| x == 0) { return; }
+                let mut neighbor = Vec::with_capacity(dim);
+                for i in 0..dim {
+                    let val = coords[i] as isize + offset[i];
+                    if val < 0 || val >= dims[i] as isize { return; }
+                    neighbor.push(val as usize);
                 }
+                res.push(neighbor);
                 return;
             }
-            
-            for offset in -1..=1 {
-                current[dim] = offset;
-                generate_offsets_recursive(dim + 1, current, result);
+            for d in -1..=1 {
+                offset[dim] = d;
+                generate_recursive(dim + 1, coords, dims, offset, res);
             }
         }
-        
-        generate_offsets_recursive(0, &mut current, &mut offsets);
-        offsets
+
+        generate_recursive(0, coords, &self.dimensions, &mut current_offset, &mut neighbors);
+        neighbors
     }
-    
+
     pub fn reveal_cell(&mut self, coords: &[usize]) -> bool {
         let idx = self.coords_to_index(coords);
-        
-        if idx >= self.cells.len() {
-            return false;
-        }
-        
-        if self.cells[idx].is_revealed || self.cells[idx].is_flagged {
-            return false;
-        }
-        
+        if self.cells[idx].is_revealed || self.cells[idx].is_flagged { return false; }
+
         if self.total_clicks == 0 {
             self.place_mines_after_first_click(coords);
         }
-        
+
         self.total_clicks += 1;
         self.cells[idx].is_revealed = true;
-        
+
         if self.cells[idx].is_mine {
             self.game_over = true;
             return true;
         }
-        
+
         self.total_revealed += 1;
-        
         if self.cells[idx].adjacent_mines == 0 {
             self.reveal_adjacent_zero_cells(coords);
         }
-        
-        let total_safe_cells = self.dimensions.iter().product::<usize>() - self.mines;
-        if self.total_revealed == total_safe_cells {
+
+        let total_safe = self.cells.len() - self.mines;
+        if self.total_revealed == total_safe {
             self.game_won = true;
         }
-        
         true
     }
-    
+
     fn reveal_adjacent_zero_cells(&mut self, coords: &[usize]) {
-        let mut stack = vec![coords.to_vec()];
-        let mut visited = vec![false; self.dimensions.iter().product()];
-        visited[self.coords_to_index(coords)] = true;
-        
-        while let Some(current_coords) = stack.pop() {
-            let neighbors = self.generate_neighbors(&current_coords);
-            
-            for neighbor_coords in neighbors {
-                let nidx = self.coords_to_index(&neighbor_coords);
-                
-                if nidx >= self.cells.len() {
-                    continue;
-                }
-                
-                if !visited[nidx] && !self.cells[nidx].is_revealed && 
-                   !self.cells[nidx].is_mine && !self.cells[nidx].is_flagged {
-                    self.cells[nidx].is_revealed = true;
+        let mut queue = std::collections::VecDeque::new();
+        queue.push_back(coords.to_vec());
+
+        while let Some(curr) = queue.pop_front() {
+            for neighbor in self.generate_neighbors(&curr) {
+                let n_idx = self.coords_to_index(&neighbor);
+                let cell = &mut self.cells[n_idx];
+                if !cell.is_revealed && !cell.is_mine && !cell.is_flagged {
+                    cell.is_revealed = true;
                     self.total_revealed += 1;
-                    visited[nidx] = true;
-                    
-                    if self.cells[nidx].adjacent_mines == 0 {
-                        stack.push(neighbor_coords);
+                    if cell.adjacent_mines == 0 {
+                        queue.push_back(neighbor);
                     }
                 }
             }
         }
     }
-    
+
     pub fn toggle_flag(&mut self, coords: &[usize]) {
         let idx = self.coords_to_index(coords);
-        if idx < self.cells.len() && !self.cells[idx].is_revealed {
+        if !self.cells[idx].is_revealed {
             self.cells[idx].is_flagged = !self.cells[idx].is_flagged;
         }
+    }
+
+    // [추가] lib.rs에서 참조하는 헬퍼 메서드
+    pub fn get_dimensions(&self) -> &Vec<usize> {
+        &self.dimensions
+    }
+
+    // [추가] 2D 호환성을 위한 헬퍼 (필요한 경우)
+    pub fn width(&self) -> usize {
+        self.dimensions.get(0).copied().unwrap_or(0)
+    }
+
+    pub fn height(&self) -> usize {
+        self.dimensions.get(1).copied().unwrap_or(0)
     }
     
     pub fn reset(&mut self) {
@@ -305,43 +257,9 @@ impl Board {
             cell.is_flagged = false;
             cell.adjacent_mines = 0;
         }
-        
         self.game_over = false;
         self.game_won = false;
         self.total_revealed = 0;
         self.total_clicks = 0;
-    }
-    
-    // Helper methods for 2D compatibility
-    pub fn new_2d(width: usize, height: usize, mines: usize) -> Self {
-        Self::new(vec![width, height], mines)
-    }
-    
-    pub fn width(&self) -> usize {
-        self.dimensions.get(0).copied().unwrap_or(0)
-    }
-    
-    pub fn height(&self) -> usize {
-        self.dimensions.get(1).copied().unwrap_or(0)
-    }
-    
-    pub fn get_cell_at_coords(&self, coords: &[usize]) -> Option<&Cell> {
-        if coords.len() != self.dimensions.len() {
-            return None;
-        }
-        
-        for (i, &coord) in coords.iter().enumerate() {
-            if coord >= self.dimensions[i] {
-                return None;
-            }
-        }
-        
-        let idx = self.coords_to_index(coords);
-        self.cells.get(idx)
-    }
-    
-    // 디버깅용
-    pub fn get_dimensions(&self) -> &Vec<usize> {
-        &self.dimensions
     }
 }
