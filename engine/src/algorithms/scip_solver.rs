@@ -7,6 +7,7 @@ use russcip::model::{ProblemCreated, Model};
 use russcip::prelude::*;
 use russcip::variable::Variable;
 
+#[allow(dead_code)]
 pub struct SCIPSolver {
     width: usize,
     height: usize,
@@ -20,7 +21,6 @@ impl SCIPSolver {
 
     fn solve_exact(&self, board: &Board) -> SolverResult {
         let mut constraints: Vec<Constraint> = Vec::new();
-        let mut frontier: HashSet<usize> = HashSet::new();
 
         // 1) collect constraints from revealed numbered cells
         for idx in 0..board.cells.len() {
@@ -29,7 +29,6 @@ impl SCIPSolver {
             if cell.is_revealed && cell.adjacent_mines > 0 {
                 let c = self.build_constraint(board, idx);
                 if !c.hidden_cells.is_empty() {
-                    frontier.extend(c.hidden_cells.iter().copied());
                     constraints.push(c);
                 }
             }
@@ -171,8 +170,10 @@ impl SCIPSolver {
     /// same fallback you already use in 3d: global baseline probability
     fn get_best_probability_candidates(&self, board: &Board) -> Vec<usize> {
         let flag_count = board.cells.iter().filter(|c| c.is_flagged).count();
-        let remaining_cells =
-            (6 * self.width * self.height).saturating_sub(board.total_revealed);
+        // subtracting flags from total unrevealed cells for accurate density
+        let remaining_cells = board.cells.len()
+            .saturating_sub(board.total_revealed)
+            .saturating_sub(flag_count);
         let remaining_mines = self.mines.saturating_sub(flag_count);
 
         let global_prob = if remaining_cells > 0 {
@@ -215,6 +216,7 @@ impl Constraint {
 
 impl Algorithm for SCIPSolver {
     fn find_candidates(&mut self, board: &Board) -> SolverResult {
+        // agent handles first move, solver provides next logical steps
         self.solve_exact(board)
     }
 }

@@ -1,5 +1,6 @@
 use crate::board::Board;
 use crate::algorithms::{Algorithm, SolverResult};
+use std::collections::HashSet;
 
 /// greedy algorithm
 /// uses heuristics (information about neighbors) to make locally optimal choices
@@ -70,21 +71,61 @@ impl GreedyAlgorithm {
     /// finding all the safe cells on the board
     /// so that we can use this as input for tsp
     pub fn find_safe_cells(&self, board: &Board) -> SolverResult {
-        let mut candidates = std::collections::HashSet::new();
-        
-        // look for definitely safe cells
+        let mut safe_candidates = HashSet::new();
+        let mut virtual_mines = HashSet::new();
+
+        // first pass: find hidden cells that must be mines (virtual flagging)
+        // this is necessary because the board might not have physical flags yet
         for idx in 0..board.cells.len() {
             let cell = &board.cells[idx];
             if cell.is_revealed && cell.adjacent_mines > 0 {
-                // uses the function from below to find safe cells
-                let safe_neighbors = self.find_definitely_safe(board, idx);
-                for safe_idx in safe_neighbors {
-                    candidates.insert(safe_idx);
+                let neighbors = &board.adjacency_map[idx];
+                
+                let hidden_unflagged: Vec<usize> = neighbors.iter()
+                    .filter(|&&n| !board.cells[n].is_revealed && !board.cells[n].is_flagged)
+                    .cloned().collect();
+
+                let flagged_count = neighbors.iter()
+                    .filter(|&&n| board.cells[n].is_flagged)
+                    .count();
+                
+                let needed_mines = (cell.adjacent_mines as usize).saturating_sub(flagged_count);
+                
+                // if total hidden neighbors == clue value, they are all mines
+                if !hidden_unflagged.is_empty() && hidden_unflagged.len() == needed_mines {
+                    for m_idx in hidden_unflagged {
+                        virtual_mines.insert(m_idx);
+                    }
                 }
             }
         }
         
-        let final_candidates: Vec<usize> = candidates.into_iter().collect();
+        // second pass: look for definitely safe cells using virtual mines
+        for idx in 0..board.cells.len() {
+            let cell = &board.cells[idx];
+            if cell.is_revealed && cell.adjacent_mines > 0 {
+                let mut hidden_unflagged = Vec::new();
+                let mut flagged_count = 0;
+
+                for &n_idx in &board.adjacency_map[idx] {
+                    let neighbor = &board.cells[n_idx];
+                    if neighbor.is_flagged || virtual_mines.contains(&n_idx) {
+                        flagged_count += 1;
+                    } else if !neighbor.is_revealed {
+                        hidden_unflagged.push(n_idx);
+                    }
+                }
+
+                // if flags match the number, all other hidden neighbors are safe
+                if flagged_count == cell.adjacent_mines as usize && !hidden_unflagged.is_empty() {
+                    for s_idx in hidden_unflagged {
+                        safe_candidates.insert(s_idx);
+                    }
+                }
+            }
+        }
+        
+        let final_candidates: Vec<usize> = safe_candidates.into_iter().collect();
 
         // if logic found safe cells, it is not a guess
         if !final_candidates.is_empty() {
@@ -119,29 +160,6 @@ impl GreedyAlgorithm {
             candidates: best_indices,
             is_guess: true,
         }
-    }
-    
-    /// function to find the safe cells used in the global call find_safe_cells
-    fn find_definitely_safe(&self, board: &Board, idx: usize) -> Vec<usize> {
-        let cell = &board.cells[idx];
-        let mine_count = cell.adjacent_mines as usize;
-        let mut hidden_neighbors = Vec::new();
-        let mut flagged_neighbors = 0;
-
-        for &n_idx in &board.adjacency_map[idx] {
-            let neighbor = &board.cells[n_idx];
-            if neighbor.is_flagged {
-                flagged_neighbors += 1;
-            } else if !neighbor.is_revealed {
-                hidden_neighbors.push(n_idx);
-            }
-        }
-
-        // if flags match the number, all other hidden neighbors are safe
-        if flagged_neighbors == mine_count && !hidden_neighbors.is_empty() {
-            return hidden_neighbors;
-        }
-        Vec::new()
     }
 }
 
