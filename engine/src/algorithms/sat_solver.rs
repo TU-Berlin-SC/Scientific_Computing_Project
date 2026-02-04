@@ -1,331 +1,194 @@
-// src/algorithms/sat_solver.rs
 use crate::board::Board;
 use crate::algorithms::Algorithm;
-use std::collections::{HashSet, HashMap};
+use std::collections::{HashSet, HashMap, BTreeSet};
 
 pub struct SATSolver {
-    dimensions: Vec<usize>,
-    mines: usize,
-    first_move: bool,
+    pub dimensions: Vec<usize>,
+    pub mines: usize,
+    pub first_move: bool,
+    known_mines: HashSet<Vec<usize>>, 
+}
+
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
+struct Constraint {
+    hidden_cells: BTreeSet<Vec<usize>>,
+    num_mines: usize,
 }
 
 impl SATSolver {
     pub fn new(dimensions: Vec<usize>, mines: usize) -> Self {
         Self { 
-            dimensions,
+            dimensions, 
             mines, 
-            first_move: true 
+            first_move: true,
+            known_mines: HashSet::new(),
         }
     }
 
-    fn first_click_position(&self) -> Vec<usize> {
-        self.dimensions.iter().map(|&dim| dim / 2).collect()
-    }
-    
-    fn apply_simple_rules(&self, board: &Board) -> Option<Vec<usize>> {
-        let total_cells = board.dimensions.iter().product();
-        
-        for idx in 0..total_cells {
-            if board.cells[idx].is_revealed && board.cells[idx].adjacent_mines > 0 {
-                let coords = board.index_to_coords(idx);
-                if let Some(safe) = self.check_single_constraint(board, &coords) {
-                    return Some(safe);
-                }
-            }
-        }
-        
-        None
-    }
-    
-    fn check_single_constraint(&self, board: &Board, coords: &[usize]) -> Option<Vec<usize>> {
-        let idx = board.coords_to_index(coords);
-        if idx >= board.cells.len() {
-            return None;
-        }
-        
-        let cell = &board.cells[idx];
-        if !cell.is_revealed {
-            return None;
-        }
-        
-        let mut hidden = Vec::new();
-        let mut flags = 0;
-        
-        let neighbors = board.generate_neighbors(coords);
-        
-        for neighbor_coords in &neighbors {
-            let nidx = board.coords_to_index(neighbor_coords);
-            if nidx >= board.cells.len() {
-                continue;
-            }
-            
-            let neighbor = &board.cells[nidx];
-            
-            if neighbor.is_flagged {
-                flags += 1;
-            } else if !neighbor.is_revealed {
-                hidden.push(neighbor_coords.clone());
-            }
-        }
-        
-        let remaining_mines = cell.adjacent_mines as usize - flags;
-        
-        // 규칙 1: 남은 지뢰 수가 0이면 모든 숨겨진 셀 안전
-        if remaining_mines == 0 && !hidden.is_empty() {
-            return Some(hidden[0].clone());
-        }
-        
-        None
-    }
-    
-    fn analyze_with_sat(&self, board: &Board) -> Option<Vec<usize>> {
-        let constraints = self.collect_constraints(board);
-        
-        if constraints.len() < 2 {
-            return None;
-        }
-        
-        // 공통으로 나타나는 셀 찾기
-        let mut cell_count = HashMap::new();
-        
-        for constraint in &constraints {
-            for cell in &constraint.hidden_cells {
-                *cell_count.entry(cell.clone()).or_insert(0) += 1;
-            }
-        }
-        
-        // 여러 제약조건에 공통으로 속하는 셀 분석
-        for (cell, count) in cell_count {
-            if count >= 2 {
-                if self.is_cell_always_safe(&cell, &constraints, board) {
-                    return Some(cell);
-                }
-            }
-        }
-        
-        None
-    }
-    
-    fn is_cell_always_safe(
-        &self, 
-        cell: &Vec<usize>, 
-        constraints: &[Constraint],
-        board: &Board
-    ) -> bool {
-        for constraint in constraints {
-            if constraint.hidden_cells.contains(cell) {
-                let other_cells: Vec<_> = constraint.hidden_cells
-                    .iter()
-                    .filter(|c| *c != cell)
-                    .cloned()
-                    .collect();
-                
-                if other_cells.len() < constraint.remaining_mines() {
-                    return false;
-                }
-            }
-        }
-        
-        true
-    }
-    
-    fn collect_constraints(&self, board: &Board) -> Vec<Constraint> {
-        let total_cells = board.dimensions.iter().product();
+    fn get_frontier_constraints(&self, board: &Board) -> Vec<Constraint> {
         let mut constraints = Vec::new();
-        
-        for idx in 0..total_cells {
-            if board.cells[idx].is_revealed && board.cells[idx].adjacent_mines > 0 {
-                let coords = board.index_to_coords(idx);
-                if let Some(constraint) = self.build_constraint(board, &coords) {
-                    constraints.push(constraint);
+        for i in 0..board.cells.len() {
+            let cell = &board.cells[i];
+            if cell.is_revealed && cell.adjacent_mines > 0 {
+                let coords = board.index_to_coords(i);
+                let mut hidden = BTreeSet::new();
+                let mut known_flags_around = 0;
+
+                for neighbor in board.generate_neighbors(&coords) {
+                    let n_idx = board.coords_to_index(&neighbor);
+                    let n_cell = &board.cells[n_idx];
+                    
+                    if n_cell.is_flagged || self.known_mines.contains(&neighbor) {
+                        known_flags_around += 1;
+                    } else if !n_cell.is_revealed {
+                        hidden.insert(neighbor);
+                    }
+                }
+
+                if !hidden.is_empty() {
+                    constraints.push(Constraint {
+                        hidden_cells: hidden,
+                        num_mines: (cell.adjacent_mines as usize).saturating_sub(known_flags_around),
+                    });
                 }
             }
         }
-        
         constraints
     }
-    
-    fn build_constraint(&self, board: &Board, coords: &[usize]) -> Option<Constraint> {
-        let idx = board.coords_to_index(coords);
-        if idx >= board.cells.len() {
-            return None;
-        }
+
+    // [최적화] 차원에 따라 연산 강도를 조절하는 적응형 로직
+    fn reduce_constraints_adaptive(&self, constraints: &mut Vec<Constraint>) {
+        let mut changed = true;
+        let mut iterations = 0;
         
-        let cell = &board.cells[idx];
-        if !cell.is_revealed || cell.adjacent_mines == 0 {
-            return None;
-        }
-        
-        let mut hidden = Vec::new();
-        let mut flags = 0;
-        
-        let neighbors = board.generate_neighbors(coords);
-        
-        for neighbor_coords in &neighbors {
-            let nidx = board.coords_to_index(neighbor_coords);
-            if nidx >= board.cells.len() {
-                continue;
+        // 2D 이하면 15회, 고차원이면 5회로 반복 제한
+        let max_iter = if self.dimensions.len() <= 2 { 15 } else { 5 };
+        let max_new_per_iter = if self.dimensions.len() <= 2 { 200 } else { 50 };
+
+        while changed && iterations < max_iter {
+            changed = false;
+            let mut new_constraints = Vec::new();
+            
+            // 작은 제약조건부터 검사하여 부분집합 발견 확률 극대화
+            constraints.sort_by_key(|c| c.hidden_cells.len());
+
+            for i in 0..constraints.len() {
+                for j in (i + 1)..constraints.len() {
+                    let a = &constraints[i];
+                    let b = &constraints[j];
+
+                    // Subset Reduction: A ⊂ B 이면 (B - A) 제약조건 생성
+                    if a.hidden_cells.is_subset(&b.hidden_cells) {
+                        let diff_cells: BTreeSet<_> = b.hidden_cells.difference(&a.hidden_cells).cloned().collect();
+                        let diff_mines = b.num_mines.saturating_sub(a.num_mines);
+                        let new_c = Constraint { hidden_cells: diff_cells, num_mines: diff_mines };
+                        
+                        if !new_c.hidden_cells.is_empty() && !constraints.contains(&new_c) {
+                            new_constraints.push(new_c);
+                            changed = true;
+                        }
+                    }
+                }
+                if new_constraints.len() > max_new_per_iter { break; }
             }
             
-            let neighbor = &board.cells[nidx];
-            
-            if neighbor.is_flagged {
-                flags += 1;
-            } else if !neighbor.is_revealed {
-                hidden.push(neighbor_coords.clone());
+            constraints.extend(new_constraints);
+            constraints.dedup();
+            iterations += 1;
+        }
+    }
+
+    fn make_educated_guess(&self, board: &Board, constraints: &[Constraint]) -> Option<Vec<usize>> {
+        let mut cell_probs: HashMap<Vec<usize>, f64> = HashMap::new();
+        for c in constraints {
+            let prob = c.num_mines as f64 / c.hidden_cells.len() as f64;
+            for cell in &c.hidden_cells {
+                let entry = cell_probs.entry(cell.clone()).or_insert(0.0);
+                if prob > *entry { *entry = prob; }
             }
         }
-        
-        if hidden.is_empty() {
-            return None;
+
+        let mut best_cell = None;
+        let mut min_prob = 1.1;
+
+        for (cell, prob) in cell_probs {
+            if prob < min_prob {
+                min_prob = prob;
+                best_cell = Some(cell);
+            }
         }
-        
-        Some(Constraint {
-            center: coords.to_vec(),
-            total_mines: cell.adjacent_mines as usize,
-            flagged: flags,
-            hidden_cells: hidden,
+
+        best_cell.or_else(|| {
+            // 정보가 없는 영역에서 아무 곳이나 선택 (Global fallback)
+            for i in 0..board.cells.len() {
+                let coords = board.index_to_coords(i);
+                if !board.cells[i].is_revealed && !board.cells[i].is_flagged && !self.known_mines.contains(&coords) {
+                    return Some(coords);
+                }
+            }
+            None
         })
     }
-    
-    fn make_educated_guess(&self, board: &Board) -> Option<Vec<usize>> {
-        let total_cells: usize = board.dimensions.iter().product();
-        let mut best_cell = None;
-        let mut best_probability = 1.0;
-        
-        for idx in 0..total_cells {
-            if !board.cells[idx].is_revealed && !board.cells[idx].is_flagged {
-                let coords = board.index_to_coords(idx);
-                let probability = self.calculate_cell_probability(&coords, board);
-                
-                if probability < best_probability {
-                    best_probability = probability;
-                    best_cell = Some(coords);
+
+    fn check_global_victory(&self, board: &Board) -> Option<Vec<usize>> {
+        let current_flags = board.cells.iter().filter(|c| c.is_flagged).count() + self.known_mines.len();
+        if current_flags >= self.mines {
+            for i in 0..board.cells.len() {
+                if !board.cells[i].is_revealed && !board.cells[i].is_flagged {
+                    let coords = board.index_to_coords(i);
+                    if !self.known_mines.contains(&coords) {
+                        return Some(coords);
+                    }
                 }
             }
         }
-        
-        best_cell
-    }
-    
-    fn calculate_cell_probability(&self, coords: &[usize], board: &Board) -> f64 {
-        let mut total_weight = 0.0;
-        let mut total_probability = 0.0;
-        
-        let neighbors = board.generate_neighbors(coords);
-        
-        for neighbor_coords in &neighbors {
-            let nidx = board.coords_to_index(neighbor_coords);
-            if nidx >= board.cells.len() {
-                continue;
-            }
-            
-            let neighbor = &board.cells[nidx];
-            
-            if neighbor.is_revealed && neighbor.adjacent_mines > 0 {
-                let constraint_prob = self.analyze_constraint_probability(neighbor_coords, board);
-                total_probability += constraint_prob;
-                total_weight += 1.0;
-            }
-        }
-        
-        if total_weight > 0.0 {
-            total_probability / total_weight
-        } else {
-            self.calculate_global_probability(board)
-        }
-    }
-    
-    fn analyze_constraint_probability(&self, coords: &[usize], board: &Board) -> f64 {
-        let idx = board.coords_to_index(coords);
-        if idx >= board.cells.len() {
-            return 0.5;
-        }
-        
-        let cell = &board.cells[idx];
-        if !cell.is_revealed {
-            return 0.5;
-        }
-        
-        let mut hidden_count = 0;
-        let mut flags_count = 0;
-        
-        let neighbors = board.generate_neighbors(coords);
-        
-        for neighbor_coords in &neighbors {
-            let nidx = board.coords_to_index(neighbor_coords);
-            if nidx >= board.cells.len() {
-                continue;
-            }
-            
-            let neighbor = &board.cells[nidx];
-            
-            if neighbor.is_flagged {
-                flags_count += 1;
-            } else if !neighbor.is_revealed {
-                hidden_count += 1;
-            }
-        }
-        
-        if hidden_count == 0 {
-            return 0.0;
-        }
-        
-        let remaining_mines = cell.adjacent_mines as usize - flags_count;
-        remaining_mines as f64 / hidden_count as f64
-    }
-    
-    fn calculate_global_probability(&self, board: &Board) -> f64 {
-        let total_hidden: usize = board.cells.iter()
-            .filter(|c| !c.is_revealed && !c.is_flagged)
-            .count();
-        
-        let flagged: usize = board.cells.iter()
-            .filter(|c| c.is_flagged)
-            .count();
-        
-        let remaining_mines = self.mines.saturating_sub(flagged);
-        
-        if total_hidden == 0 {
-            return 0.0;
-        }
-        
-        remaining_mines as f64 / total_hidden as f64
-    }
-}
-
-#[derive(Clone, Debug)]
-struct Constraint {
-    center: Vec<usize>,
-    total_mines: usize,
-    flagged: usize,
-    hidden_cells: Vec<Vec<usize>>,
-}
-
-impl Constraint {
-    fn remaining_mines(&self) -> usize {
-        self.total_mines.saturating_sub(self.flagged)
+        None
     }
 }
 
 impl Algorithm for SATSolver {
     fn next_move(&mut self, board: &Board) -> Option<Vec<usize>> {
-        if self.first_move {
-            self.first_move = false;
-            return Some(self.first_click_position());
+        if board.total_clicks == 0 {
+            return Some(self.dimensions.iter().map(|&d| d / 2).collect());
         }
-        
-        // 1. 단순 규칙 적용
-        if let Some(safe) = self.apply_simple_rules(board) {
-            return Some(safe);
+
+        if let Some(safe_move) = self.check_global_victory(board) {
+            return Some(safe_move);
         }
+
+        let mut constraints = self.get_frontier_constraints(board);
         
-        // 2. SAT 기반 분석
-        if let Some(safe) = self.analyze_with_sat(board) {
-            return Some(safe);
+        // 차원에 따른 제약 조건 개수 제한 (2D: 1000개, 4D: 100개)
+        let limit = if self.dimensions.len() <= 2 { 1000 } else { 100 };
+        if constraints.len() > limit {
+            constraints.sort_by_key(|c| c.hidden_cells.len());
+            constraints.truncate(limit);
         }
-        
-        // 3. 추측
-        self.make_educated_guess(board)
+
+        self.reduce_constraints_adaptive(&mut constraints);
+
+        // 1. 확정 안전 셀 (Mines == 0)
+        for c in &constraints {
+            if c.num_mines == 0 {
+                for safe_cell in &c.hidden_cells {
+                    let idx = board.coords_to_index(safe_cell);
+                    if !board.cells[idx].is_revealed && !board.cells[idx].is_flagged {
+                        return Some(safe_cell.clone());
+                    }
+                }
+            }
+        }
+
+        // 2. 확정 지뢰 암기 (Mines == Cells)
+        for c in &constraints {
+            if c.num_mines == c.hidden_cells.len() {
+                for mine_cell in &c.hidden_cells {
+                    self.known_mines.insert(mine_cell.clone());
+                }
+            }
+        }
+
+        // 3. 최선의 찍기
+        self.make_educated_guess(board, &constraints)
     }
 }
