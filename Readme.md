@@ -70,20 +70,25 @@ This normalises board difficulty and allows solver behaviour to be compared unde
 
 1. Dimensional Complexity:
 
-- As expected, higher dimensions significantly reduce solver win rates. The jump from 3D to 4D shows a dramatic drop, highlighting the exponential increase in combinatorial complexity.
+- As dimensions increase, solver win rates generally decrease due to the exponential growth of the search space.
+- 4D shows a dramatic drop compared to 3D: e.g., Greedy drops from 48% → 18%, Exact from 69% → 12%, SAT from 100% → 40%.
 
 2. Solver Performance:
 
-- In 2D and 3D, Greedy and SAT perform similarly well, while Exact Solver is slightly lower due to forced guesses in edge cases.
-- In 4D, SAT outperforms both Greedy and Exact, likely due to its ability to reason globally across the hyperplane, whereas Greedy often gets trapped by local uncertainty.
+- SAT dominates (40% win rate), while Greedy slightly outperforms Exact (18% vs 12%).
+- In 4D, combinatorial explosion limits Exact’s effectiveness, causing more forced guesses, whereas Greedy occasionally succeeds with local heuristics.
 
 3. Efficiency Trends:
 
-- Avg Steps and Avg Clicks increase with dimension, reflecting the growing difficulty in deducing safe moves.
-- Exact Solver tends to make more steps than Greedy in 4D, as it evaluates more possible combinations before acting.
+- Avg Clicks/Wins: Increase with dimension. 2D: ~16–19 clicks, 3D: ~17–20 clicks, 4D: 55–58 clicks.
+- Avg Time (ms): Greedy is fastest, Exact moderate, SAT slower due to global reasoning.
+- Avg Guesses: Exact and Greedy require more guesses in higher dimensions (up to 50.89 in 4D), whereas SAT remains relatively low, showing its advantage in constraint-based deduction.
 
 4. Overall Insight:
-   SAT-based strategies show strong scalability across dimensions, while simpler heuristics like Greedy are highly sensitive to dimensionality.
+
+- SAT-based strategies scale best across dimensions, handling 4D complexity more robustly.
+- Greedy is very fast and effective in smaller boards but sensitive to dimensionality.
+- Exact Solver performs reliably in 2D and 3D, but struggles in 4D due to combinatorial explosion, explaining occasional lower win rates compared to Greedy.
 
 ### Evaluation Metrics
 
