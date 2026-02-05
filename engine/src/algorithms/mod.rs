@@ -13,7 +13,7 @@ use crate::board::Board;
 use wasm_bindgen::prelude::*;
 
 pub trait Algorithm {
-    fn next_move(&mut self, board: &Board) -> Option<Vec<usize>>;
+    fn next_move(&mut self, board: &mut Board) -> Option<Vec<usize>>;
 }
 
 // Algorithm types enum
