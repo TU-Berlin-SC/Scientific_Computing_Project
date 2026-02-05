@@ -15,6 +15,7 @@ export interface Board {
   game_won: boolean;
   total_revealed: number;
   total_clicks: number;
+  total_guesses: number;
 }
 
 // Result of a single simulation run
@@ -29,6 +30,9 @@ export interface SimulationResult {
   total_cells: number;
   game_over: boolean;
   algorithm: string;
+  time_ms: number;       // [추가] 소요 시간
+  guesses: number;       // [추가] 추측 횟수
+  completion: number;    // [추가] 완료도 (%)
 }
 
 // Algorithm type (kept in sync with WASM)
@@ -210,6 +214,8 @@ export interface ComparisonResult {
   win_rate: number;
   avg_steps_wins: number;
   avg_clicks_wins: number;
+  avg_time_ms: number;   // [추가] 평균 시간
+  avg_guesses?: number;  // [추가] 선택사항
 }
 
 // Board calculation utility functions
