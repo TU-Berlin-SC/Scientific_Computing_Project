@@ -41,14 +41,6 @@ Sample benchmark CSV:
 
 ---
 
-## Board Visualisation
-
-### UI examples
-
-![](./assets/d-boards.png)
-
----
-
 ## Architecture
 
 ![](./assets/d-architecture.png)
@@ -59,6 +51,14 @@ Sample benchmark CSV:
 - WebAssembly build
 - React frontend
 - Fully client-side execution (no backend)
+
+---
+
+## Board Visualisation
+
+### UI examples
+
+![](./assets/d-boards.png)
 
 ---
 
