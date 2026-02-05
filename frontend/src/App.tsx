@@ -140,6 +140,7 @@ function App() {
 
   // 새 보드 생성
   const handleCreateNewBoard = () => {
+    console.log("Raw Wasm State:", boardState)
     if (!wasm) {
       addLog('WASM not ready');
       return;
@@ -699,19 +700,22 @@ const runSingleGame = (algoValue: any): any => {
 const renderBoard = () => {
   if (!boardState) return null;
   
-  // 보드 데이터 구조 확인
-  const hasDimensions = boardState.dimensions && Array.isArray(boardState.dimensions);
-  const dimensionCount = hasDimensions ? boardState.dimensions.length : 2;
+  // 1. 실제 차원 배열을 먼저 안전하게 가져옵니다. (dims 혹은 dimensions)
+  const actualDimensions = boardState.dims || boardState.dimensions || [8, 8];
   
-  // 보드 데이터 변환
+  // 2. 이 실제 배열의 길이를 기준으로 삼아야 합니다!
+  const dimensionCount = actualDimensions.length;
+  
+  // 3. 보드 데이터 변환
   const boardData: Board = {
-    dimensions: hasDimensions ? boardState.dimensions : [boardState.width || 9, boardState.height || 9],
+    dimensions: actualDimensions,
     mines: boardState.mines || 10,
     cells: boardState.cells || [],
     game_over: boardState.game_over || false,
     game_won: boardState.game_won || false,
     total_revealed: boardState.total_revealed || 0,
     total_clicks: boardState.total_clicks || 0,
+    total_guesses: boardState.total_guesses || 0,
   };
 
   // 셀 데이터가 없는 경우 처리
@@ -724,7 +728,6 @@ const renderBoard = () => {
       </div>
     );
   }
-
   // 차원 수에 따라 다른 컴포넌트 사용
   return (
     <div className="board-preview">
