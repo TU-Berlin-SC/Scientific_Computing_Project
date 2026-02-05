@@ -130,7 +130,7 @@ impl ExactSolver {
 
 impl Algorithm for ExactSolver {
     // src/algorithms/exact_solver.rs 의 next_move 수정
-fn next_move(&mut self, board: &Board) -> Option<Vec<usize>> {
+    fn next_move(&mut self, board: &mut Board) -> Option<Vec<usize>> { // &mut 추가
     if board.total_clicks == 0 {
         return Some(self.first_click_position());
     }
@@ -152,7 +152,7 @@ fn next_move(&mut self, board: &Board) -> Option<Vec<usize>> {
             }
         }
     }
-
+    board.record_guess(); // [add data]
     // 3. 그래도 없으면 추측
     self.make_educated_guess(board)
 }

@@ -147,7 +147,7 @@ impl SATSolver {
 }
 
 impl Algorithm for SATSolver {
-    fn next_move(&mut self, board: &Board) -> Option<Vec<usize>> {
+    fn next_move(&mut self, board: &mut Board) -> Option<Vec<usize>> { // &mut 추가
         if board.total_clicks == 0 {
             return Some(self.dimensions.iter().map(|&d| d / 2).collect());
         }
@@ -189,6 +189,7 @@ impl Algorithm for SATSolver {
         }
 
         // 3. 최선의 찍기
+        board.record_guess(); // [add data]
         self.make_educated_guess(board, &constraints)
     }
 }

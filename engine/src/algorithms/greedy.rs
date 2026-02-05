@@ -54,7 +54,7 @@ impl GreedySolver {
 }
 
 impl Algorithm for GreedySolver {
-    fn next_move(&mut self, board: &Board) -> Option<Vec<usize>> {
+    fn next_move(&mut self, board: &mut Board) -> Option<Vec<usize>> { // &mut 추가
         // 1. 첫 수: 정중앙 클릭 (4D에서도 중앙이 정보를 가장 많이 얻음)
         if board.total_clicks == 0 {
             return Some(self.dimensions.iter().map(|&d| d / 2).collect());
@@ -86,6 +86,7 @@ impl Algorithm for GreedySolver {
         // 여기서 직접 보드에 플래그를 꼽을 수 없다면 가장 안전한 칸을 계산하러 가야 합니다.
         // (참고: 플래그가 없으면 확률 계산이 정확해지지 않으므로, 
         // 사실상 이 그리디는 '확실한 안전 칸'이 없을 때만 아래 확률 계산을 수행합니다.)
+        board.record_guess(); // [add data]
 
         let mut best_move = None;
         let mut min_risk = 1.1;
@@ -102,7 +103,6 @@ impl Algorithm for GreedySolver {
                 }
             }
         }
-        
         best_move
     }
 }
