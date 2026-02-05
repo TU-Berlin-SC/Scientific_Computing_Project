@@ -20,15 +20,13 @@ pub struct Board {
     pub game_won: bool,
     pub total_revealed: usize,
     pub total_clicks: usize,
+    pub total_guesses: usize,
 }
 
 impl Board {
     pub fn new(dimensions: Vec<usize>, mines: usize) -> Self {
         let total_cells = dimensions.iter().product();
-        if mines >= total_cells {
-            panic!("Too many mines for board size!");
-        }
-        
+
         let mut cells = Vec::with_capacity(total_cells);
         let all_coords = Self::generate_all_indices(&dimensions);
         for coords in all_coords {
@@ -49,7 +47,13 @@ impl Board {
             game_won: false,
             total_revealed: 0,
             total_clicks: 0,
+            total_guesses: 0,
         }
+    }
+
+    // count guesses
+    pub fn record_guess(&mut self) {
+        self.total_guesses += 1;
     }
 
     fn generate_all_indices(dimensions: &[usize]) -> Vec<Vec<usize>> {
@@ -96,7 +100,7 @@ impl Board {
 
     pub fn place_mines_after_first_click(&mut self, first_coords: &[usize]) {
         let total_cells = self.cells.len();
-        let mut candidate_indices: Vec<usize> = (0..total_cells).collect();
+        let candidate_indices: Vec<usize> = (0..total_cells).collect(); // removed mutable because it needs to be reused
 
         // [수정] 3x3x3x3에서 지뢰가 1개인 경우, 주변 1칸을 모두 비우면 설치할 곳이 없습니다.
         // 이 경우 "안전 지대"의 크기를 최소화하여 에러를 방지합니다.
@@ -249,7 +253,7 @@ impl Board {
     pub fn height(&self) -> usize {
         self.dimensions.get(1).copied().unwrap_or(0)
     }
-    
+
     pub fn reset(&mut self) {
         for cell in &mut self.cells {
             cell.is_mine = false;
