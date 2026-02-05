@@ -56,7 +56,7 @@ This normalises board difficulty and allows solver behaviour to be compared unde
 
 ### 2D (9x9, 10 mines)
 
-![](./assets/d-2ddresult.png)
+![](./assets/d-2dresult.png)
 
 ### 3D (4x4x4, 8 mines)
 
@@ -66,12 +66,24 @@ This normalises board difficulty and allows solver behaviour to be compared unde
 
 ![](./assets/d-4dresult.png)
 
-### Observations
+### Observation
 
-- The SAT solver achieves the highest win rate across all dimensions, showing strong logical completeness and robustness.
-- The Greedy solver is typically faster and requires fewer clicks, but is less reliable due to heuristic decisions.
-- The Exact solver guarantees correctness locally but can be slower and less practical on small boards due to computational overhead.
-- As dimensionality increases, the search space grows rapidly, making logical and constraint-based approaches more advantageous than pure heuristics.
+1. Dimensional Complexity:
+
+- As expected, higher dimensions significantly reduce solver win rates. The jump from 3D to 4D shows a dramatic drop, highlighting the exponential increase in combinatorial complexity.
+
+2. Solver Performance:
+
+- In 2D and 3D, Greedy and SAT perform similarly well, while Exact Solver is slightly lower due to forced guesses in edge cases.
+- In 4D, SAT outperforms both Greedy and Exact, likely due to its ability to reason globally across the hyperplane, whereas Greedy often gets trapped by local uncertainty.
+
+3. Efficiency Trends:
+
+- Avg Steps and Avg Clicks increase with dimension, reflecting the growing difficulty in deducing safe moves.
+- Exact Solver tends to make more steps than Greedy in 4D, as it evaluates more possible combinations before acting.
+
+4. Overall Insight:
+   SAT-based strategies show strong scalability across dimensions, while simpler heuristics like Greedy are highly sensitive to dimensionality.
 
 ### Evaluation Metrics
 
