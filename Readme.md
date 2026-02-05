@@ -3,7 +3,10 @@
 ### Live Demo
 
 🔗 Deployed at : [https://feature-4dimension.tuberlin-sc-project.pages.dev](https://feature-4dimension.tuberlin-sc-project.pages.dev)
+
 Please note that, for 4D option, it takes some time to load the results due to complextity
+
+Sample Results CSV :[4D(3x3x3x3,10 mines result)](./assets/algorithm_comparison_summary.csv)
 
 ## Introduction
 
