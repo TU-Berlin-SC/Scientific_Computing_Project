@@ -1015,14 +1015,13 @@ const handleCellRightClick = (coordinates: number[]) => {
         <div className="comparison-results">
           <h3>Algorithm Comparison Results</h3>
           <div className="section-header">
-              <h3>Batch Results ({batchResults.length} games)</h3>
-              <button 
-                className="download-btn"
-                onClick={() => downloadCSV(allDetailedRecords, 'algorithm_comparison_summary')}
-              >
-                📥 Export Summary (CSV)
-              </button>
-            </div>
+            <button 
+              className="download-btn"
+              onClick={() => downloadCSV(allDetailedRecords, 'algorithm_comparison_summary')}
+            >
+              Export Detailed Results (CSV)
+            </button>
+          </div>
           <table>
             <thead>
               <tr>
