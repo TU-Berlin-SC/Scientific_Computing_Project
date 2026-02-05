@@ -1,19 +1,21 @@
 use crate::board::Board;
 use crate::algorithms::Algorithm;
+use std::collections::HashSet;
 
 pub struct GreedySolver {
     pub dimensions: Vec<usize>,
     pub mines: usize,
-    pub first_move: bool,
 }
 
 impl GreedySolver {
     pub fn new(dimensions: Vec<usize>, mines: usize) -> Self {
-        Self { dimensions, mines, first_move: true }
+        Self { dimensions, mines }
     }
 
-    // 특정 칸이 지뢰일 확률을 더 정교하게 계산
-    fn calculate_cell_risk(&self, board: &Board, coords: &[usize]) -> f64 {
+    /// 확정된 지뢰(Virtual Mines)를 기반으로 특정 칸의 위험도(지뢰 확률) 계산
+    fn calculate_cell_risk(&self, board: &Board, coords: &[usize], virtual_mines: &HashSet<usize>) -> f64 {
+        // warning 해결: 사용하지 않는 idx 변수 제거 또는 언더바 처리
+        let _idx = board.coords_to_index(coords); 
         let mut combined_prob = 0.0;
         let mut info_sources = 0;
 
@@ -22,82 +24,113 @@ impl GreedySolver {
             let n_cell = &board.cells[n_idx];
 
             if n_cell.is_revealed && n_cell.adjacent_mines > 0 {
-                let mut hidden_count = 0;
-                let mut flag_count = 0;
+                let mut hidden_unflagged = 0;
+                let mut flagged_count = 0;
                 
                 for nn in board.generate_neighbors(&neighbor) {
                     let nn_idx = board.coords_to_index(&nn);
-                    if board.cells[nn_idx].is_flagged { flag_count += 1; }
-                    else if !board.cells[nn_idx].is_revealed { hidden_count += 1; }
+                    if board.cells[nn_idx].is_flagged || virtual_mines.contains(&nn_idx) {
+                        flagged_count += 1;
+                    } else if !board.cells[nn_idx].is_revealed {
+                        hidden_unflagged += 1;
+                    }
                 }
 
-                if hidden_count > 0 {
-                    let remaining_mines = (n_cell.adjacent_mines as i32 - flag_count as i32).max(0);
-                    combined_prob += remaining_mines as f64 / hidden_count as f64;
+                if hidden_unflagged > 0 {
+                    let remaining_mines = (n_cell.adjacent_mines as i32 - flagged_count as i32).max(0);
+                    combined_prob += remaining_mines as f64 / hidden_unflagged as f64;
                     info_sources += 1;
                 }
             }
         }
 
         if info_sources == 0 {
-            // 주변에 열린 숫자가 없는 경우: 전역 확률 적용
-            let total_hidden = board.cells.iter().filter(|c| !c.is_revealed && !c.is_flagged).count();
-            let flagged = board.cells.iter().filter(|c| c.is_flagged).count();
-            let remaining_total = (self.mines as i32 - flagged as i32).max(0);
+            let total_cells: usize = self.dimensions.iter().product();
+            let remaining_cells = total_cells.saturating_sub(board.total_revealed);
+            let current_flags = board.cells.iter().filter(|c| c.is_flagged).count();
+            let remaining_mines = self.mines.saturating_sub(current_flags);
             
-            if total_hidden == 0 { 1.0 } else { remaining_total as f64 / total_hidden as f64 }
+            if remaining_cells > 0 {
+                remaining_mines as f64 / remaining_cells as f64
+            } else {
+                1.0
+            }
         } else {
-            // 여러 숫자 칸에서 오는 확률의 평균치 사용
             combined_prob / info_sources as f64
         }
     }
 }
 
 impl Algorithm for GreedySolver {
-    fn next_move(&mut self, board: &mut Board) -> Option<Vec<usize>> { // &mut 추가
-        // 1. 첫 수: 정중앙 클릭 (4D에서도 중앙이 정보를 가장 많이 얻음)
+    fn next_move(&mut self, board: &mut Board) -> Option<Vec<usize>> {
         if board.total_clicks == 0 {
             return Some(self.dimensions.iter().map(|&d| d / 2).collect());
         }
 
-        // 2. 확정 안전 칸 찾기 (리스크 0인 칸)
+        let mut virtual_mines = HashSet::new();
+        // error[E0282] 해결: 타입을 Vec<Vec<usize>>로 명시
+        let mut _safe_candidates: Vec<Vec<usize>> = Vec::new();
+
+        // 1차 패스: 가상 플래깅
         for i in 0..board.cells.len() {
             let cell = &board.cells[i];
             if cell.is_revealed && cell.adjacent_mines > 0 {
                 let coords = board.index_to_coords(i);
-                let mut flags = 0;
-                let mut hidden = Vec::new();
+                let mut hidden_unflagged = Vec::new();
+                let mut flagged_count = 0;
 
                 for neighbor in board.generate_neighbors(&coords) {
                     let n_idx = board.coords_to_index(&neighbor);
-                    if board.cells[n_idx].is_flagged { flags += 1; }
-                    else if !board.cells[n_idx].is_revealed { hidden.push(neighbor); }
+                    if board.cells[n_idx].is_flagged {
+                        flagged_count += 1;
+                    } else if !board.cells[n_idx].is_revealed {
+                        hidden_unflagged.push(n_idx);
+                    }
                 }
 
-                // 주변 지뢰를 다 찾았다면, 남은 닫힌 칸은 모두 안전!
-                if flags == cell.adjacent_mines as usize && !hidden.is_empty() {
-                    return Some(hidden[0].clone());
+                let needed_mines = (cell.adjacent_mines as usize).saturating_sub(flagged_count);
+                if !hidden_unflagged.is_empty() && hidden_unflagged.len() == needed_mines {
+                    for m_idx in hidden_unflagged {
+                        virtual_mines.insert(m_idx);
+                    }
                 }
             }
         }
 
-        // 3. 확정 지뢰 플래그 꼽기 (Greedy의 약점 보완)
-        // 지뢰찾기 로직상 '다음 클릭'을 반환해야 하므로, 
-        // 여기서 직접 보드에 플래그를 꼽을 수 없다면 가장 안전한 칸을 계산하러 가야 합니다.
-        // (참고: 플래그가 없으면 확률 계산이 정확해지지 않으므로, 
-        // 사실상 이 그리디는 '확실한 안전 칸'이 없을 때만 아래 확률 계산을 수행합니다.)
-        board.record_guess(); // [add data]
+        // 2차 패스: 확정 안전 칸 탐색
+        for i in 0..board.cells.len() {
+            let cell = &board.cells[i];
+            if cell.is_revealed && cell.adjacent_mines > 0 {
+                let coords = board.index_to_coords(i);
+                let mut hidden_unflagged = Vec::new();
+                let mut total_flagged = 0;
 
+                for neighbor in board.generate_neighbors(&coords) {
+                    let n_idx = board.coords_to_index(&neighbor);
+                    if board.cells[n_idx].is_flagged || virtual_mines.contains(&n_idx) {
+                        total_flagged += 1;
+                    } else if !board.cells[n_idx].is_revealed {
+                        hidden_unflagged.push(neighbor);
+                    }
+                }
+
+                if total_flagged == cell.adjacent_mines as usize && !hidden_unflagged.is_empty() {
+                    return Some(hidden_unflagged[0].clone());
+                }
+            }
+        }
+
+        // 확률 기반 추측
+        board.record_guess();
         let mut best_move = None;
-        let mut min_risk = 1.1;
+        let mut min_risk = 1.01;
 
         for i in 0..board.cells.len() {
-            if !board.cells[i].is_revealed && !board.cells[i].is_flagged {
+            if !board.cells[i].is_revealed && !board.cells[i].is_flagged && !virtual_mines.contains(&i) {
                 let coords = board.index_to_coords(i);
-                let risk = self.calculate_cell_risk(board, &coords);
+                let risk = self.calculate_cell_risk(board, &coords, &virtual_mines);
                 
-                // 미세한 랜덤값을 더해 같은 확률일 때 교착상태 방지
-                if risk < min_risk {
+                if risk < min_risk - 1e-6 {
                     min_risk = risk;
                     best_move = Some(coords);
                 }
