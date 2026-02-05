@@ -116,17 +116,12 @@ The project currently implements three families of strategies:
 | Partitioned SAT | 85.2%        |
 | SCIP ILP        | **89.5%**    |
 
-#### Results :
+### Results
 
-<div style="display:flex; gap:16px; margin-bottom:16px;">
-  <img src="./assets/g-success_by_algo__ALL.png" style="width:50%;"/>
-  <img src="./assets/g-success_vs_board_size__ALLALGOS.png" style="width:50%;"/>
-</div>
-
-<div style="display:flex; gap:16px;">
-  <img src="./assets/g-time_per_click_vs_cell_count__ALL.png" style="width:50%;"/>
-  <img src="./assets/g-tradeoff_success_vs_timeperclick__ALL.png" style="width:50%;"/>
-</div>
+|                                                       |                                                           |
+| ----------------------------------------------------- | --------------------------------------------------------- |
+| ![](./assets/g-success_by_algo__ALL.png)              | ![](./assets/g-success_vs_board_size__ALLALGOS.png)       |
+| ![](./assets/g-time_per_click_vs_cell_count__ALL.png) | ![](./assets/g-tradeoff_success_vs_timeperclick__ALL.png) |
 
 # Observations
 
