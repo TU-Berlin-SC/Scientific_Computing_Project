@@ -48,39 +48,44 @@ impl ExactSolver {
             else if !n.is_revealed { hidden.push(neighbor); }
         }
         if hidden.is_empty() { return None; }
-        Some(Constraint { center: coords.to_vec(), total_mines: cell.adjacent_mines as usize, flagged: flags, hidden_cells: hidden })
+        Some(Constraint { 
+            center: coords.to_vec(), 
+            total_mines: cell.adjacent_mines as usize, 
+            flagged: flags, 
+            hidden_cells: hidden 
+        })
     }
 
     fn collect_constraints(&self, board: &Board) -> Vec<Constraint> {
         board.cells.iter().enumerate().filter_map(|(i, c)| {
             if c.is_revealed && c.adjacent_mines > 0 {
-                Some(self.build_constraint(board, &board.index_to_coords(i)))
+                self.build_constraint(board, &board.index_to_coords(i))
             } else { None }
-        }).flatten().collect()
+        }).collect()
     }
 
-    // 0-constraint flood fill
-    fn flood_fill_safe(&self, board: &Board) -> Option<Vec<usize>> {
-        let mut visited = HashSet::new();
-        let mut queue = VecDeque::new();
+    /// Set Difference Logic: If Constraint A is a subset of Constraint B, 
+    /// and they have the same remaining mines, the difference cells are safe.
+    fn find_set_difference_safe(&self, constraints: &[Constraint]) -> Option<Vec<usize>> {
+        for i in 0..constraints.len() {
+            for j in 0..constraints.len() {
+                if i == j { continue; }
+                let c1 = &constraints[i];
+                let c2 = &constraints[j];
 
-        for idx in 0..board.cells.len() {
-            let c = &board.cells[idx];
-            if c.is_revealed && c.adjacent_mines == 0 {
-                let coords = board.index_to_coords(idx);
-                queue.push_back(coords);
-            }
-        }
+                let set1: HashSet<&Vec<usize>> = c1.hidden_cells.iter().collect();
+                let set2: HashSet<&Vec<usize>> = c2.hidden_cells.iter().collect();
 
-        while let Some(cell) = queue.pop_front() {
-            for neighbor in board.generate_neighbors(&cell) {
-                let nidx = board.coords_to_index(&neighbor);
-                if nidx >= board.cells.len() || visited.contains(&neighbor) { continue; }
-                let ncell = &board.cells[nidx];
-                if !ncell.is_revealed && !ncell.is_flagged {
-                    return Some(neighbor); // 가장 먼저 찾은 안전셀 return
+                // If c1 is a subset of c2 and mine counts match
+                if set1.is_subset(&set2) && c1.remaining_mines() == c2.remaining_mines() {
+                    let diff: Vec<Vec<usize>> = set2.difference(&set1)
+                        .map(|&v| v.clone())
+                        .collect();
+                    
+                    if !diff.is_empty() {
+                        return Some(diff[0].clone()); // Return the first guaranteed safe cell
+                    }
                 }
-                visited.insert(neighbor);
             }
         }
         None
@@ -94,10 +99,9 @@ impl ExactSolver {
 
         if total_hidden.is_empty() { return None; }
 
-        // frontier 기반 probability
         let constraints = self.collect_constraints(board);
         let mut best_cell = None;
-        let mut best_prob = 1.0;
+        let mut best_prob = 1.1;
 
         for cell in total_hidden {
             let mut prob = 0.0;
@@ -108,11 +112,15 @@ impl ExactSolver {
                     count += 1;
                 }
             }
-            if count > 0 { prob /= count as f64; } 
-            else { prob = self.global_mine_probability(board); }
+            
+            let final_prob = if count > 0 { 
+                prob / count as f64 
+            } else { 
+                self.global_mine_probability(board) 
+            };
 
-            if prob < best_prob {
-                best_prob = prob;
+            if final_prob < best_prob {
+                best_prob = final_prob;
                 best_cell = Some(cell);
             }
         }
@@ -126,34 +134,33 @@ impl ExactSolver {
         (self.mines.saturating_sub(flagged)) as f64 / total_hidden as f64
     }
 }
-// src/algorithms/exact_solver.rs
 
 impl Algorithm for ExactSolver {
-    // src/algorithms/exact_solver.rs 의 next_move 수정
-    fn next_move(&mut self, board: &mut Board) -> Option<Vec<usize>> { // &mut 추가
-    if board.total_clicks == 0 {
-        return Some(self.first_click_position());
-    }
+    fn next_move(&mut self, board: &mut Board) -> Option<Vec<usize>> {
+        if board.total_clicks == 0 {
+            return Some(self.first_click_position());
+        }
 
-    // 1. Flood Fill로 찾은 확실히 안전한 칸 (숫자 0 주변) 먼저 처리
-    if let Some(safe_coords) = self.flood_fill_safe(board) {
-        return Some(safe_coords);
-    }
-
-    // 2. 제약 조건 분석 (숫자 N 주변에 이미 N개 지뢰가 플래그된 경우)
-    let constraints = self.collect_constraints(board);
-    for c in constraints {
-        if c.remaining_mines() == 0 {
-            for cell in c.hidden_cells {
-                let idx = board.coords_to_index(&cell);
-                if !board.cells[idx].is_revealed && !board.cells[idx].is_flagged {
-                    return Some(cell);
+        // 1. Basic Constraint Analysis (Direct safe clicks)
+        let constraints = self.collect_constraints(board);
+        for c in &constraints {
+            if c.remaining_mines() == 0 {
+                for cell in &c.hidden_cells {
+                    let idx = board.coords_to_index(cell);
+                    if !board.cells[idx].is_revealed && !board.cells[idx].is_flagged {
+                        return Some(cell.clone());
+                    }
                 }
             }
         }
+
+        // 2. Advanced Analysis: Set Difference (The "Human Expert" part)
+        if let Some(safe_coords) = self.find_set_difference_safe(&constraints) {
+            return Some(safe_coords);
+        }
+
+        // 3. Last resort: Educated Guess
+        board.record_guess(); // Important: call before returning a probabilistic move
+        self.make_educated_guess(board)
     }
-    board.record_guess(); // [add data]
-    // 3. 그래도 없으면 추측
-    self.make_educated_guess(board)
-}
 }
