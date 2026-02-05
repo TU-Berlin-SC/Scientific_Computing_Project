@@ -49,13 +49,25 @@ interface GameConfig {
   useNDimensions: boolean;
 }
 
-interface GameStats {
+interface GameStats { // 요약용
   algorithm: string;
   total_games: number;
   wins: number;
   win_rate: number;
   avg_steps_wins: number;
   avg_clicks_wins: number;
+}
+
+interface GameRecord { // 상세
+  algorithm: string;
+  mines: number;
+  dims: string | number[];
+  win: "TRUE" | "FALSE";
+  clicks: number;
+  time_ms: number;
+  guesses: number;
+  completion: string | number;
+  objective?: string; 
 }
 
 function App() {
@@ -76,6 +88,7 @@ function App() {
     useNDimensions: false
   });
   const [comparisonResults, setComparisonResults] = useState<GameStats[]>([]);
+  const [allDetailedRecords, setAllDetailedRecords] = useState<GameRecord[]>([]); // for data records
   const [selectedPreset, setSelectedPreset] = useState<string>("9x9");
   const [showAdvancedSettings, setShowAdvancedSettings] = useState<boolean>(false);
 
@@ -377,40 +390,6 @@ function App() {
     }
   };
 
-  const downloadCSV = (data, filename) => {
-    if (!data || data.length === 0) return;
-  
-    // 1. 헤더 추출 (결과 객체의 키값들)
-    const headers = Object.keys(data[0]);
-    
-    // 2. CSV 내용 생성
-    const csvContent = [
-      headers.join(','), // 헤더 행
-      ...data.map(row => 
-        headers.map(header => {
-          let value = row[header];
-          // 배열(dimensions)의 경우 CSV에서 깨지지 않게 문자열 처리
-          if (Array.isArray(value)) {
-            return `"${value.join('x')}"`;
-          }
-          return value;
-        }).join(',')
-      )
-    ].join('\n');
-  
-    // 3. Blob 생성 및 다운로드 링크 트리거
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-    
-    link.setAttribute('href', url);
-    link.setAttribute('download', `${filename}_${new Date().getTime()}.csv`);
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   // 전체 게임 실행
   const handleRunGame = async () => {
     if (!simulator) {
@@ -546,99 +525,155 @@ function App() {
     setBatchResults(results);
   };
 
-  // check all algorithm in one click
+  // run single game and save
+const runSingleGame = (algoValue: any): any => {
+    let sim;
+    if (gameConfig.useNDimensions && gameConfig.dimensions) {
+      sim = new wasm.Simulator(
+        gameConfig.dimensions,
+        gameConfig.mines,
+        algoValue
+      );
+    } else {
+      sim = wasm.Simulator.new2D
+        ? wasm.Simulator.new2D(
+            gameConfig.width,
+            gameConfig.height,
+            gameConfig.mines,
+            algoValue
+          )
+        : new wasm.Simulator(
+            [gameConfig.width, gameConfig.height],
+            gameConfig.mines,
+            algoValue
+          );
+    }
+
+    const finalState = sim.runFullGame();
+
+    const processedState =
+      finalState instanceof Map ? Object.fromEntries(finalState.entries()) : finalState;
+
+    return processedState;
+  };
+
+  // 게임 여러 번 실행 후 모든 게임 기록 반환
+  const runGamesForAlgorithm = (algo: any, testGames: number) => {
+    const gameRecords = [];
+  
+    for (let i = 0; i < testGames; i++) {
+      const state = runSingleGame(algo.value);
+  
+      gameRecords.push({
+        algorithm: algo.label,
+        mines: gameConfig.mines,
+        dims:
+          state?.dims ||
+          (gameConfig.useNDimensions
+            ? gameConfig.dimensions
+            : [gameConfig.width, gameConfig.height]),
+        win: state.game_won ? "TRUE" : "FALSE",
+        clicks: state.total_clicks || 0,
+        time_ms: state.time_ms || 0,
+        guesses: state.total_guesses || 0,
+        completion:
+          state.completion ??
+          (state.total_revealed != null && state.total_cells != null
+            ? ((state.total_revealed / (state.total_cells - gameConfig.mines)) * 100).toFixed(2)
+            : 0),
+      });
+    }
+  
+    return gameRecords; // 모든 게임 기록 반환 for csv files
+  };
+
+  // for summary stats for comparison report
+  const getSummaryStats = (gameRecords: any[]) => {
+    const wins = gameRecords.filter(r => r.win === "TRUE").length;
+    const totalGames = gameRecords.length;
+    const winRate = (wins / totalGames) * 100;
+  
+    const avgClicksWins =
+      wins > 0
+        ? gameRecords
+            .filter(r => r.win === "TRUE")
+            .reduce((sum, r) => sum + (r.clicks || 0), 0) / wins
+        : 0;
+  
+    return {
+      total_games: totalGames,
+      wins,
+      win_rate: winRate,
+      avg_steps_wins: avgClicksWins,
+      avg_clicks_wins: avgClicksWins,
+    };
+  };
+  
+  // save csv and show summary on page
+  
   const handleCompareAlgorithms = async () => {
-    if (!wasm) {
-      addLog('WASM not ready');
+    if (!wasm) return addLog("WASM not ready");
+  
+    setIsRunning(true);
+    const allGameRecords: any[] = []; 
+    const summaryResults: any[] = []; 
+  
+    for (const algo of AlgorithmInfo) {
+      if (!algo.implemented) continue;
+  
+      addLog(`Testing ${algo.label}...`);
+      const gameRecords = runGamesForAlgorithm(algo, 100); 
+      
+      // 🔍 디버깅 로그: 개별 알고리즘 테스트 결과 확인
+      console.log(`[Debug] ${algo.label} 테스트 완료. 생성된 레코드 수:`, gameRecords.length);
+      if(gameRecords.length > 0) console.log(`[Debug] 첫 번째 레코드 샘플:`, gameRecords[0]);
+  
+      allGameRecords.push(...gameRecords);
+  
+      const summary = getSummaryStats(gameRecords);
+      summaryResults.push({ algorithm: algo.label, ...summary });
+    }
+  
+    setComparisonResults(summaryResults); 
+    setAllDetailedRecords(allGameRecords); // 상세 기록을 반드시 여기에 저장!
+    
+    setIsRunning(false);
+    console.log("[Debug] 전체 상세 레코드 수:", allGameRecords.length);
+    addLog("🎉 All algorithms tested!");
+  };
+
+  const downloadCSV = (gameRecords: any[], filename: string) => {
+    if (!gameRecords?.length) {
+      alert("❌ 데이터 없음");
       return;
     }
-    
-    addLog(`🚀 Starting Global Algorithm Comparison...`);
-    setIsRunning(true);
-    setComparisonResults([]); // 이전 결과 초기화
-    
-    try {
-      const allResults = [];
-      const testGames = 100; // 각 알고리즘당 100회 실행
-      
-      // 1. 등록된 모든 알고리즘 루프
-      for (const algo of AlgorithmInfo) {
-        // implemented 체크가 되어있어야 함 (simulation.ts 확인 필요)
-        if (!algo.implemented) {
-          addLog(`Skipping ${algo.label} (Not implemented)`);
-          continue;
-        }
-        
-        addLog(`🧪 Testing ${algo.label} for ${testGames} games...`);
-        let wins = 0;
-        let totalClicks = 0;
-        
-        for (let i = 0; i < testGames; i++) {
-          let sim;
-          
-          // 시뮬레이터 생성 (N차원/2D 구분)
-          if (gameConfig.useNDimensions && gameConfig.dimensions) {
-            sim = new wasm.Simulator(
-              gameConfig.dimensions,
-              gameConfig.mines,
-              algo.value // 루프 중인 알고리즘 값 주입
-            );
-          } else {
-            sim = wasm.Simulator.new2D ? 
-              wasm.Simulator.new2D(gameConfig.width, gameConfig.height, gameConfig.mines, algo.value) :
-              new wasm.Simulator([gameConfig.width, gameConfig.height], gameConfig.mines, algo.value);
-          }
-          
-          const finalState = sim.runFullGame();
-         // add log for debugging
-          console.log("Game Stats:", {
-              total_clicks: finalState.total_clicks,
-              revealed: finalState.total_revealed,
-              is_won: finalState.game_won,
-          });
-
-          const processedState = finalState instanceof Map ? 
-            Object.fromEntries(finalState.entries()) : 
-            finalState;
-          
-          if (processedState.game_won) {
-            wins++;
-            totalClicks += processedState.total_clicks || 0;
-          }
-        }
-        
-        const winRate = (wins / testGames) * 100;
-        const avgClicks = wins > 0 ? totalClicks / wins : 0;
-
-        allResults.push({
-          algorithm: algo.label,
-          total_games: testGames,
-          wins: wins,
-          win_rate: winRate,
-          avg_steps_wins: avgClicks, // steps와 clicks를 동일하게 처리
-          avg_clicks_wins: avgClicks,
-        });
-        
-        addLog(`✅ ${algo.label} Done: ${wins}/${testGames} wins (${winRate.toFixed(1)}%)`);
-      }
-      
-      // 모든 결과 한 번에 업데이트
-      setComparisonResults(allResults);
-      
-      // 결과 중 최고 알고리즘 찾기
-      if (allResults.length > 0) {
-        const best = allResults.reduce((prev, current) => 
-          prev.win_rate > current.win_rate ? prev : current
-        );
-        addLog(`🏆 Winner: ${best.algorithm} with ${best.win_rate.toFixed(1)}% win rate!`);
-      }
-
-    } catch (err) {
-      addLog(`❌ Comparison error: ${err}`);
-      console.error('Comparison error:', err);
-    } finally {
-      setIsRunning(false);
-    }
+  
+    const headers = ["algorithm", "objective", "dims", "win", "clicks", "time_ms", "guesses", "completion"];
+  
+    const rows = gameRecords.map(r => [
+      r.algorithm,
+      r.objective ?? "N/A",
+      Array.isArray(r.dims) ? r.dims.join("x") : r.dims,
+      r.win,
+      r.clicks,
+      r.time_ms,
+      r.guesses,
+      r.completion
+    ]);
+  
+    // 요청하신 형식의 헤더 추가
+    const titleHeader = `--- benchmark results ---`;
+    const csvContent = [
+      titleHeader,
+      headers.join(","), // 탭 대신 쉼표 사용 권장
+      ...rows.map(r => r.join(","))
+    ].join("\n");
+  
+    const blob = new Blob(["\ufeff" + csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `${filename}.csv`;
+    link.click();
   };
 
   // 게임 리셋
@@ -975,10 +1010,19 @@ const handleCellRightClick = (coordinates: number[]) => {
       {/* N dimensional */}
       {renderBoard()}
       
-      {/* 여기에 csv */}
+      {/* 1. 알고리즘 비교 결과 섹션 */}
       {comparisonResults.length > 0 && (
         <div className="comparison-results">
           <h3>Algorithm Comparison Results</h3>
+          <div className="section-header">
+              <h3>Batch Results ({batchResults.length} games)</h3>
+              <button 
+                className="download-btn"
+                onClick={() => downloadCSV(allDetailedRecords, 'algorithm_comparison_summary')}
+              >
+                📥 Export Summary (CSV)
+              </button>
+            </div>
           <table>
             <thead>
               <tr>
@@ -990,7 +1034,7 @@ const handleCellRightClick = (coordinates: number[]) => {
               </tr>
             </thead>
             <tbody>
-              {comparisonResults.map((result, index) => (
+            {comparisonResults.map((result, index) => (
                 <tr key={index} className={result.win_rate === Math.max(...comparisonResults.map(r => r.win_rate)) ? 'best' : ''}>
                   <td>{result.algorithm}</td>
                   <td>{result.wins}/{result.total_games}</td>
@@ -998,7 +1042,7 @@ const handleCellRightClick = (coordinates: number[]) => {
                   <td>{result.avg_steps_wins.toFixed(2)}</td>
                   <td>{result.avg_clicks_wins.toFixed(2)}</td>
                 </tr>
-              ))}
+          ))} 
             </tbody>
           </table>
         </div>
