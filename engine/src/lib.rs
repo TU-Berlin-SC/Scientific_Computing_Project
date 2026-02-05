@@ -6,7 +6,8 @@
 */
 
 use wasm_bindgen::prelude::*;
-use serde_wasm_bindgen::to_value;
+use serde_wasm_bindgen::{to_value, Serializer}; // Serializer 추가
+use serde::Serialize; // Serialize 트레이트를 직접 가져옵니다
 use js_sys::Date;
 
 mod board;
@@ -88,18 +89,19 @@ impl Simulator {
         let total_cells: usize = self.board.dimensions.iter().product();
         let completion = (self.board.total_revealed as f64) / ((total_cells - self.board.mines) as f64) * 100.0;
 
-        to_value(&serde_json::json!({
+        let state_json = serde_json::json!({
             "game_won": self.board.game_won,
             "game_over": self.board.game_over,
             "total_clicks": self.board.total_clicks,
             "total_revealed": self.board.total_revealed,
             "total_guesses": self.board.total_guesses,
             "dims": self.board.dimensions,
+            "cells": self.board.cells,
             "time_ms": self.time_ms,
             "completion": completion
-        })).unwrap()
+        });
+        state_json.serialize(&Serializer::json_compatible()).unwrap() // for BoardView
     }
-
     // Run a single step of the algorithm
     #[wasm_bindgen(js_name = runStep)]
     pub fn run_step(&mut self) -> JsValue {
