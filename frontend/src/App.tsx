@@ -56,6 +56,8 @@ interface GameStats { // 요약용
   win_rate: number;
   avg_steps_wins: number;
   avg_clicks_wins: number;
+  avg_time_wins: number;
+  avg_guesses_wins: number;
 }
 
 interface GameRecord { // 상세
@@ -590,23 +592,28 @@ const runSingleGame = (algoValue: any): any => {
 
   // for summary stats for comparison report
   const getSummaryStats = (gameRecords: any[]) => {
-    const wins = gameRecords.filter(r => r.win === "TRUE").length;
     const totalGames = gameRecords.length;
-    const winRate = (wins / totalGames) * 100;
+    // win이 문자열 "TRUE"인지 확인 (데이터 형식에 맞춤)
+    const winRecords = gameRecords.filter(r => r.win === "TRUE" || r.win === true);
+    const wins = winRecords.length;
+    const winRate = totalGames > 0 ? (wins / totalGames) * 100 : 0;
   
-    const avgClicksWins =
-      wins > 0
-        ? gameRecords
-            .filter(r => r.win === "TRUE")
-            .reduce((sum, r) => sum + (r.clicks || 0), 0) / wins
-        : 0;
+    // 평균 계산 공통 함수 (가독성 및 재사용성)
+    const getAverage = (records: any[], key: string) => {
+      if (records.length === 0) return 0;
+      const sum = records.reduce((acc, r) => acc + (Number(r[key]) || 0), 0);
+      return sum / records.length;
+    };
   
     return {
       total_games: totalGames,
       wins,
       win_rate: winRate,
-      avg_steps_wins: avgClicksWins,
-      avg_clicks_wins: avgClicksWins,
+      // 승리한 게임 기준 평균들
+      avg_steps_wins: getAverage(winRecords, 'steps'), // 데이터에 steps가 없다면 다른 키로 대체 가능
+      avg_clicks_wins: getAverage(winRecords, 'clicks'),
+      avg_time_wins: getAverage(winRecords, 'time_ms'),
+      avg_guesses_wins: getAverage(winRecords, 'guesses'),
     };
   };
   
@@ -1031,20 +1038,25 @@ const handleCellRightClick = (coordinates: number[]) => {
                 <th>Algorithm</th>
                 <th>Wins</th>
                 <th>Win Rate</th>
-                <th>Avg Steps (Wins)</th>
                 <th>Avg Clicks (Wins)</th>
+                <th>Avg Time (ms)</th>
+                <th>Avg Guesses</th>
               </tr>
             </thead>
             <tbody>
-            {comparisonResults.map((result, index) => (
-                <tr key={index} className={result.win_rate === Math.max(...comparisonResults.map(r => r.win_rate)) ? 'best' : ''}>
-                  <td>{result.algorithm}</td>
-                  <td>{result.wins}/{result.total_games}</td>
-                  <td>{result.win_rate.toFixed(1)}%</td>
-                  <td>{result.avg_steps_wins.toFixed(2)}</td>
-                  <td>{result.avg_clicks_wins.toFixed(2)}</td>
-                </tr>
-          ))} 
+              {comparisonResults.map((result, index) => {
+                const isBest = result.win_rate === Math.max(...comparisonResults.map(r => r.win_rate));
+                return (
+                  <tr key={index} className={isBest ? 'best' : ''}>
+                    <td>{result.algorithm}</td>
+                    <td>{result.wins}/{result.total_games}</td>
+                    <td>{result.win_rate.toFixed(1)}%</td>
+                    <td>{result.avg_clicks_wins.toFixed(2)}</td>
+                    <td>{result.avg_time_wins.toFixed(0)}ms</td>
+                    <td>{result.avg_guesses_wins.toFixed(2)}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
