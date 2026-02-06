@@ -1,9 +1,8 @@
 /**
-* A WebAssembly module for simulating Minesweeper games with various algorithms.
-* It provides functionality to run single steps, full games, and batch simulations,
-* as well as to compare different algorithms over multiple games.
-* so it's like an interface between frontend and backend engine
-*/
+ * A WebAssembly module for simulating Minesweeper games with various algorithms.
+ * Includes full 3D Cube adjacency logic for scientific simulation of manifolds.
+ * This serves as the primary interface between the frontend and the backend engine.
+ */
 
 use wasm_bindgen::prelude::*;
 use serde_wasm_bindgen::to_value;
@@ -12,215 +11,196 @@ mod board;
 mod algorithms;
 
 use board::Board;
-use algorithms::{Algorithm, AlgorithmFactory, WasmAlgorithmType};
+// added agent and TSP
+use algorithms::{MinesweeperAgent, AlgorithmFactory, WasmAlgorithmType, TspObjective};
 
-// Simulator struct
+/// simulator struct: manages the lifecycle of a 3D Minesweeper session
 #[wasm_bindgen]
 pub struct Simulator {
     board: Board,
-    algorithm: Box<dyn Algorithm>,
+    agent: MinesweeperAgent,
     algorithm_type: WasmAlgorithmType,
     steps: usize,
 }
 
-// Simulator methods
 #[wasm_bindgen]
 impl Simulator {
+    /// creates a new 3D simulation.
+    /// generates a stitched cube adjacency map before initializing the board.
     #[wasm_bindgen(constructor)]
     pub fn new(width: usize, height: usize, mines: usize, algorithm_type: WasmAlgorithmType) -> Self {
-        let board = Board::new(width, height, mines);
-        let algorithm = AlgorithmFactory::create_algorithm(
+        // generate the topological map for the 6-faced cube
+        let adj_map = Self::generate_cube_adjacency(width, height); 
+        
+        // initialize the physical board state
+        let board = Board::new(width, height, mines, adj_map);
+        
+        // setup the agent with a default TSP objective (MinDistance)
+        let agent = AlgorithmFactory::create_agent(
             algorithm_type,
+            TspObjective::MinDistance, // we can change default
             width, height, mines
         );
-        
-        Self { 
-            board, 
-            algorithm,
+
+        Simulator {
+            board,
+            agent,
             algorithm_type,
-            steps: 0 
+            steps: 0,
         }
     }
-    // Get the current state of the board
+
+    /// generates a adjacency map for a 6-faced cube manifold
+    /// faces are indexed 0-5. logic handles "stitching" edges across 3D space.
+    fn generate_cube_adjacency(w: usize, h: usize) -> Vec<Vec<usize>> {
+        let face_size = w * h;
+        let total_cells = 6 * face_size;
+        let mut adj = vec![Vec::new(); total_cells];
+
+        for face in 0..6 {
+            for y in 0..h {
+                for x in 0..w {
+                    let idx = face * face_size + y * w + x;
+                    let mut neighbors = Vec::new();
+
+                    for dy in -1..=1 {
+                        for dx in -1..=1 {
+                            if dx == 0 && dy == 0 { continue; }
+                            
+                            let nx = x as isize + dx;
+                            let ny = y as isize + dy;
+
+                            // if within the same face, add normally
+                            if nx >= 0 && nx < w as isize && ny >= 0 && ny < h as isize {
+                                neighbors.push(face * face_size + (ny as usize) * w + (nx as usize));
+                            } else {
+                                // cross-face stitching logic
+                                let neighbor = Self::map_edge_neighbor(face, x, y, dx, dy, w, h);
+                                if !neighbors.contains(&neighbor) {
+                                    neighbors.push(neighbor);
+                                }
+                            }
+                        }
+                    }
+                    adj[idx] = neighbors;
+                }
+            }
+        }
+        adj
+    }
+
+    /// helper to map coordinates that fall off one face onto the adjacent face
+    fn map_edge_neighbor(f: usize, x: usize, y: usize, dx: isize, dy: isize, w: usize, h: usize) -> usize {
+        let face_size = w * h;
+        // simplified cube folding logic for the manifold
+        match f {
+            0 => { // top face
+                if dy < 0 { 3 * face_size + (h-1) * w + x }
+                else if dy > 0 { 2 * face_size + 0 * w + x }
+                else if dx < 0 { 4 * face_size + y * w + (w-1) }
+                else { 5 * face_size + y * w + 0 }
+            },
+            1 => { // bottom face
+                if dy < 0 { 2 * face_size + (h-1) * w + x }
+                else if dy > 0 { 3 * face_size + 0 * w + x }
+                else if dx < 0 { 4 * face_size + (h-1-y) * w + 0 }
+                else { 5 * face_size + (h-1-y) * w + (w-1) }
+            },
+            // general wrapping for side faces
+            _ => (f + 1) % 6 * face_size + y * w + x 
+        }
+    }
+
+    /// executes a single move using the selected algorithm
+    #[wasm_bindgen(js_name = run_step)]
+    pub fn run_step(&mut self) -> bool {
+        if self.board.game_over { return false; }
+        
+        // ask agent for the next logical move
+        if let Some(idx) = self.agent.next_move(&self.board) {
+            self.board.reveal(idx);
+            self.steps += 1;
+            true
+        } else {
+            // if no moves found, the game is stuck/over
+            self.board.game_over = true;
+            false
+        }
+    }
+
+    /// runs the simulation until win or loss
+    #[wasm_bindgen(js_name = runFullGame)]
+    pub fn run_full_game(&mut self) -> JsValue {
+        while !self.board.game_over {
+            if !self.run_step() { break; }
+        }
+        self.get_state()
+    }
+
+    /// performs multiple game simulations for data collection
+    #[wasm_bindgen(js_name = runBatch)]
+    pub fn run_batch(&mut self, iterations: usize) -> JsValue {
+        let mut results = Vec::new();
+
+        for _ in 0..iterations {
+            self.reset();
+            let mut steps = 0;
+            while !self.board.game_over {
+                if !self.run_step() { break; }
+                steps += 1;
+            }
+            
+            results.push(serde_json::json!({
+                "success": self.board.game_won,
+                "total_clicks": self.board.total_clicks,
+                "steps": steps,
+                "algorithm": self.algorithm_type.as_str(),
+            }));
+        }
+        to_value(&results).unwrap()
+    }
+
+    /// serializes the board state for the frontend
     #[wasm_bindgen(js_name = getState)]
     pub fn get_state(&self) -> JsValue {
         to_value(&self.board).unwrap()
     }
 
-    // Run a single step of the algorithm
-    #[wasm_bindgen(js_name = runStep)]
-    pub fn run_step(&mut self) -> JsValue {
-        if self.board.game_over || self.board.game_won { 
-            return self.get_state(); 
-        }
-        
-        if let Some((x, y)) = self.algorithm.next_move(&self.board) {
-            self.board.reveal_cell(x, y);
-            self.steps += 1;
-        }
-        
-        self.get_state()
-    }
-
-    // Run the full game until completion
-    #[wasm_bindgen(js_name = runFullGame)]
-    pub fn run_full_game(&mut self) -> JsValue {
-        while !self.board.game_over && !self.board.game_won {
-            if let Some((x, y)) = self.algorithm.next_move(&self.board) {
-                self.board.reveal_cell(x, y);
-                self.steps += 1;
-            } else {
-                break;
-            }
-        }
-        
-        self.get_state()
-    }
-    // Run multiple games in batch and return aggregated results
-    #[wasm_bindgen(js_name = runBatch)]
-    pub fn run_batch(&self, games: usize) -> JsValue {
-        let width = self.board.width;
-        let height = self.board.height;
-        let mines = self.board.mines;
-        
-        let mut results = Vec::new();
-        
-        for game_idx in 0..games {  // 0부터 games-1까지
-            let mut board = Board::new(width, height, mines);
-            let mut algorithm = AlgorithmFactory::create_algorithm(
-                self.algorithm_type.into(),
-                width, height, mines
-            );
-            let mut steps = 0;
-            let mut clicks = 0;
-            // 게임 진행
-            while !board.game_over && !board.game_won {
-                if let Some((x, y)) = algorithm.next_move(&board) {    // 다음 수를 얻음
-                    board.reveal_cell(x, y);                            // 셀을 공개
-                    steps += 1;                                         // 단계 증가
-                    clicks = board.total_clicks;                      // 클릭 수 갱신
-                } else {
-                    break;
-                }
-            }
-            
-            results.push(serde_json::json!({
-                "game": game_idx + 1,
-                "success": board.game_won,
-                "steps": steps,
-                "clicks": clicks,
-                "mines": mines,
-                "width": width,
-                "height": height,
-                "total_revealed": board.total_revealed,
-                "total_cells": width * height,
-                "game_over": board.game_over,
-                "algorithm": self.algorithm_type.as_str(),
-            }));
-        }
-        
-        to_value(&results).unwrap()
-    }
-
-    // Reset the simulator to initial state
+    /// resets the game state while maintaining dimensions
     #[wasm_bindgen(js_name = reset)]
     pub fn reset(&mut self) {
-        let width = self.board.width;
-        let height = self.board.height;
-        let mines = self.board.mines;
-        
-        self.board = Board::new(width, height, mines);
-        self.algorithm = AlgorithmFactory::create_algorithm(
-            self.algorithm_type.into(),
-            width, height, mines
-        );
+        self.board.reset();
+        self.agent.first_move = true; // reset agent state for new game
         self.steps = 0;
     }
 
-    // Set a new algorithm for the simulator
+    /// dynamically switches the solver algorithm in real-time
     #[wasm_bindgen(js_name = setAlgorithm)]
     pub fn set_algorithm(&mut self, algorithm_type: WasmAlgorithmType) {
-        let width = self.board.width;
-        let height = self.board.height;
-        let mines = self.board.mines;
-        
         self.algorithm_type = algorithm_type;
-        self.algorithm = AlgorithmFactory::create_algorithm(
-            algorithm_type.into(),
-            width, height, mines
+        // preserve current objective when swapping solvers
+        self.agent = AlgorithmFactory::create_agent(
+            self.algorithm_type,
+            self.agent.objective,
+            self.board.width, self.board.height, self.board.mines
         );
     }
 
-    // Get the current algorithm type as a string
+    /// returns the active algorithm name for the frontend UI
     #[wasm_bindgen(js_name = getAlgorithm)]
     pub fn get_algorithm(&self) -> String {
         self.algorithm_type.as_str().to_string()
     }
-}
 
-// ONLY FOR TESTING PURPOSES
-// trying to see if wasm is working with our web deployment and dev setup
-#[wasm_bindgen]
-pub fn hello_world() -> String {
-    "Hello from WASM Minesweeper!".to_string()
-}
-
-#[wasm_bindgen]
-pub fn test_add(a: i32, b: i32) -> i32 {
-    a + b
-}
-
-// Create a simple board for testing. maybe i should remove this later
-#[wasm_bindgen]
-pub fn create_simple_board() -> JsValue {
-    let board = Board::new(8, 8, 10);
-    to_value(&board).unwrap()
-}
-
-// Compare different algorithms over multiple games
-#[wasm_bindgen]
-pub fn compare_algorithms(width: usize, height: usize, mines: usize, games: usize) -> JsValue {
-    let mut results = Vec::new();
-    
-    // 매크로에서 생성된 all() 메서드 사용
-    for &algo_type in WasmAlgorithmType::all().iter() {
-        let mut wins = 0;
-        let mut total_steps = 0;
-        let mut total_clicks = 0;
-        
-        for _ in 0..games {
-            let mut board = Board::new(width, height, mines);
-            let mut algorithm = AlgorithmFactory::create_algorithm(
-                algo_type.into(),
-                width, height, mines
-            );
-            let mut steps = 0;
-            
-            while !board.game_over && !board.game_won {
-                if let Some((x, y)) = algorithm.next_move(&board) {
-                    board.reveal_cell(x, y);
-                    steps += 1;
-                } else {
-                    break;
-                }
-            }
-            
-            if board.game_won {
-                wins += 1;
-                total_steps += steps;
-                total_clicks += board.total_clicks;
-            }
-        }
-        
-        results.push(serde_json::json!({
-            "algorithm": algo_type.as_str(),
-            "total_games": games,
-            "wins": wins,
-            "win_rate": (wins as f64 / games as f64) * 100.0,
-            "avg_steps_wins": if wins > 0 { total_steps as f64 / wins as f64 } else { 0.0 },
-            "avg_clicks_wins": if wins > 0 { total_clicks as f64 / wins as f64 } else { 0.0 },
-        }));
+    /// switches the TSP traversal strategy
+    #[wasm_bindgen(js_name = setTspObjective)]
+    pub fn set_tsp_objective(&mut self, objective: TspObjective) {
+        self.agent.objective = objective;
     }
-    
-    to_value(&results).unwrap()
+
+    /// returns the active TSP objective name for the frontend UI
+    #[wasm_bindgen(js_name = getTspObjective)]
+    pub fn get_tsp_objective(&self) -> String {
+        format!("{:?}", self.agent.objective)
+    }
 }

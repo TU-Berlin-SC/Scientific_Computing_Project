@@ -1,53 +1,45 @@
-.board {
-    display: grid;
-    gap: 1px;
-    background-color: #999;
-    padding: 5px;
-    border: 3px solid #777;
-    border-radius: 4px;
-  }
-  
-  .cell {
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    cursor: pointer;
-    user-select: none;
-    font-size: 14px;
-    transition: background-color 0.1s;
-  }
-  
-  .cell.hidden {
-    background-color: #b0b0b0;
-    border: 2px outset #e0e0e0;
-  }
-  
-  .cell.hidden:hover {
-    background-color: #c0c0c0;
-  }
-  
-  .cell:not(.hidden) {
-    background-color: #e0e0e0;
-    border: 1px solid #b0b0b0;
-  }
-  
-  .cell.mine {
-    background-color: #ff4444;
-    color: white;
-  }
-  
-  .cell.flagged {
-    background-color: #ffd700;
-  }
-  
-  .cell.number-1 { color: blue; }
-  .cell.number-2 { color: green; }
-  .cell.number-3 { color: red; }
-  .cell.number-4 { color: purple; }
-  .cell.number-5 { color: maroon; }
-  .cell.number-6 { color: teal; }
-  .cell.number-7 { color: black; }
-  .cell.number-8 { color: gray; }
+.board-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  outline: none;
+}
+
+/* The announcement overlay for Wins/Mines */
+.status-announcement {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  pointer-events: none;
+  text-align: center;
+  padding: 30px 50px;
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.status-announcement.win {
+  background: rgba(16, 185, 129, 0.9);
+  color: white;
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
+}
+
+.status-announcement.loss {
+  background: rgba(239, 68, 68, 0.9);
+  color: white;
+  box-shadow: 0 0 30px rgba(239, 68, 68, 0.4);
+}
+
+.status-announcement h2 {
+  font-size: 3rem;
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
