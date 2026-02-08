@@ -1,0 +1,23 @@
+.config-section {
+  width: 100%;
+  max-width: 700px;         /* 화면 안에서 여백 확보 */
+  background: #fff;
+  border-radius: 16px;
+  padding: 30px 25px;       /* 컨테이너 안 여백 */
+  margin: 0 auto 40px auto; /* 화면 가운데 + 아래 여백 */
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  border: 1px solid #e0e0e0;
+  text-align: left;
+}
+
+.config-section:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08); /* 마우스 오버 시 살짝 강조 */
+}
+
+.config-section h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+  color: #2d3748;
+  gap: 10px;
+}

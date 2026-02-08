@@ -1,0 +1,107 @@
+.advanced-settings {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 2D 설정 */
+.advanced-2d {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.advanced-2d input {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 80px;
+}
+
+/* N차원 설정 */
+.nd-advanced {
+  margin-bottom: 20px;
+}
+
+.dimension-control label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #495057;
+}
+
+.dimension-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.dimension-buttons button {
+  flex: 1;
+  padding: 8px 12px;
+  background: #e9ecef;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.dimension-buttons button.active {
+  background: #007bff;
+  color: white;
+  border-color: #0056b3;
+}
+
+.size-inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.size-input {
+  background: white;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+}
+
+.size-input input {
+  width: 100%;
+  margin-top: 5px;
+}
+
+/* 지뢰 설정 */
+.mines-control {
+  border-top: 1px solid #dee2e6;
+  padding-top: 15px;
+}
+
+.mines-control label {
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.mines-control input {
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  width: 100px;
+}
+
+.mines-control span {
+  font-size: 12px;
+  color: #6c757d;
+  margin-left: 10px;
+}
+
