@@ -69,7 +69,9 @@ const App: React.FC = () => {
   const [boardState, setBoardState] = useState<any>(null);
   const [selectedAlgorithm, setSelectedAlgorithm] = useState<AlgorithmType>(AlgorithmType.Greedy);
   const [isRunning, setIsRunning] = useState<boolean>(false);
-
+  useEffect(() => {
+    handleCreateBoard();
+  }, []);
   // 통계 결과 상태
   const [batchResults, setBatchResults] = useState<any[]>([]);
   const [comparisonResults, setComparisonResults] = useState<GameStats[]>([]);
@@ -164,11 +166,9 @@ const App: React.FC = () => {
         disabled={isRunning}
       />
 
-
-
       <main>        
-        {/* 새 컴포넌트 1: 컨트롤 버튼들 */}
-        <ControlPanel 
+                {/* 새 컴포넌트 1: 컨트롤 버튼들 */}
+      <ControlPanel 
           onStep={handleStep}
           onRunFull={handleRunFull}
           onRunBatch={handleRunBatch}
@@ -181,6 +181,7 @@ const App: React.FC = () => {
           board={boardState} 
           onCellClick={(coords) => console.log('Clicked:', coords)}
         />
+
         {/* 새 컴포넌트 2: 결과 리포트 */}
         <ResultPanel 
           batchResults={batchResults}

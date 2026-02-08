@@ -59,7 +59,9 @@ const BoardView: React.FC<BoardViewProps> = ({
         </div>
       </header>
 
-      <main className={`board-content ${is3D || dimensionCount >= 4 ? 'is-3d' : ''}`}>
+      <main className={`board-content ${
+    is3D ? 'is-3d' : dimensionCount >= 4 ? 'hyperplane' : ''}`}>
+
         {is2D ? (
             <TwoDBoard board={board} onCellClick={onCellClick} />
         ) : is3D ? (
