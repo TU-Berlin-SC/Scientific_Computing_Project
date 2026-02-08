@@ -59,3 +59,4 @@ engine/test_correct_guess.csv
 # =====================
 
 data_analysis/plots/*.png
+data_analysis/analyzed_csv/*.csv
