@@ -53,3 +53,9 @@ engine/new_18_corrected.csv
 engine/new_18_greedy.csv
 engine/new_18_trial.csv
 engine/test_correct_guess.csv
+
+# =====================
+# Plots
+# =====================
+
+data_analysis/plots/*.png
