@@ -1,0 +1,217 @@
+.hyperplane-nd-view {
+  width: 100%;
+  height: 900px;
+  background: #919bc979;
+  display: flex;
+  flex-direction: column;
+}
+
+.w-nav-container {
+  padding: 15px;
+  background: #1e293b;
+  border-bottom: 2px solid #334155;
+}
+
+.w-btn-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.w-btn {
+  padding: 5px 12px;
+  background: #334155;
+  color: white;
+  border: 1px solid #475569;
+  cursor: pointer;
+}
+
+.w-btn.active { background: #3b82f6; }
+
+.view-toggle { margin-left: auto; background: #10b981; color: white; border: none; padding: 5px 15px; border-radius: 4px; cursor: pointer; }
+
+.view-stage {
+  flex: 1;
+  position: relative;
+  perspective: 2000px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 입체 층 쌓기 */
+.perspective-stack {
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(55deg) rotateZ(-30deg);
+}
+
+.layer-plane {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
+  translate: -50% -50%;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid #3b82f6;
+  padding: 10px;
+  transform-style: preserve-3d;
+}
+
+.layer-label {
+  position: absolute;
+  left: -50px;
+  color: #60a5fa;
+  font-weight: bold;
+}
+
+/* 3D 큐브 */
+.cube-canvas {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.cell-3d {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 전체 컨테이너: 깊이감을 위해 단순 색상보다는 그라데이션 추천 */
+.hyperplane-nd-view {
+  width: 100%;
+  height: 900px;
+  background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+  display: flex;
+  flex-direction: column;
+  color: #f8fafc;
+}
+
+/* 뷰포트 영역: 레이어들이 배경과 분리되도록 그림자 효과 추가 */
+.view-stage {
+  flex: 1;
+  position: relative;
+  perspective: 2000px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 배경이 너무 밝으면 레이어가 안 보이므로 약간의 암전 효과 */
+  background: rgba(0, 0, 0, 0.2); 
+}
+
+/* 입체 층 쌓기 - 레이어 자체의 가시성 강화 */
+.layer-plane {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
+  translate: -50% -50%;
+  /* 배경색을 불투명하게 하고 테두리를 밝게 */
+  background: #1e293b; 
+  border: 2px solid #3b82f6;
+  padding: 12px;
+  transform-style: preserve-3d;
+  /* 레이어 하단에 강한 그림자를 주어 띄워진 느낌 강조 */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+/* 셀(Cell) 가시성: 배경과 확실히 대조되도록 */
+.board-cell {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(30, 41, 59, 0.5);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* 3D 큐브 모드일 때 셀들이 더 잘 보이도록 글로우 효과 */
+.cell-3d {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: #334155;
+  border: 1px solid #60a5fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  /* 네온 효과 */
+  box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+}
+
+/* 숫자별 색상 강조 (기존 InteractiveNDBoard 클래스에 맞춰 추가하세요) */
+.cell-number-1 { color: #60a5fa; text-shadow: 0 0 8px #60a5fa; }
+.cell-number-2 { color: #34d399; text-shadow: 0 0 8px #34d399; }
+.cell-number-3 { color: #f87171; text-shadow: 0 0 8px #f87171; }
+
+.layer-label {
+  position: absolute;
+  left: -70px;
+  top: 5px;
+  color: #f1f5f9; /* 라벨을 더 밝게 */
+  font-size: 1.1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+  white-space: nowrap;
+}
+
+/* 우측 상단 플로팅 컨트롤러 */
+.top-zoom-bar {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid #3b82f6;
+  border-radius: 8px;
+  padding: 4px;
+  z-index: 1000;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+}
+
+.zoom-btn {
+  background: transparent;
+  border: none;
+  color: #60a5fa;
+  padding: 8px 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+
+.zoom-btn:hover {
+  background: rgba(59, 130, 246, 0.2);
+  color: white;
+}
+
+.zoom-btn.reset {
+  border-left: 1px solid #334155;
+  border-right: 1px solid #334155;
+  min-width: 70px;
+  color: #94a3b8;
+}
+
+/* 드래그 조작감 개선 */
+.view-stage {
+  cursor: grab;
+}
+.view-stage:active {
+  cursor: grabbing;
+}
+
+/* 줌 적용 시 부드러운 움직임 */
+.transform-area {
+  transition: transform 0.2s cubic-bezier(0.1, 0.7, 0.1, 1);
+}
