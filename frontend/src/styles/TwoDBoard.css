@@ -1,0 +1,53 @@
+.two-d-view {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .grid-container {
+    display: grid;
+    /* 셀 사이 간격이 하얗게 보이도록 배경을 흰색으로 설정 */
+    background-color: #ffffff; 
+    gap: 3px; /* 간격을 살짝 벌려서 시원하게 */
+    padding: 2px;
+  }
+  
+  /* 셀 디자인 */
+  .board-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 4px; /* 살짝 굴려야 세련돼 보임 */
+    transition: all 0.1s ease;
+  }
+  
+  /* 가려진 셀: 너무 짙지 않은 그레이 */
+  .board-cell.cell-hidden {
+    background-color: #f1f3f5; 
+  }
+  
+  .board-cell.cell-hidden:hover {
+    background-color: #e9ecef;
+    transform: scale(1.02);
+  }
+  
+  /* 열린 셀: 하얀색에 가까운 아주 연한 그레이 */
+  .board-cell.cell-empty,
+  .board-cell.cell-number {
+    background-color: #f8f9fa;
+    cursor: default;
+  }
+  
+  /* 숫자 컬러 (가독성 높은 톤) */
+  .cell-number-1 { color: #228be6; }
+  .cell-number-2 { color: #40c057; }
+  .cell-number-3 { color: #fa5252; }
+  .cell-number-4 { color: #be4bdb; }
+  
+  .cell-mine { 
+    background-color: #fff5f5 !important; 
+    border: 1px solid #ffc9c9;
+  }
+  .cell-flagged { color: #fab005; }
