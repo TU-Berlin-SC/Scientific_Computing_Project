@@ -1,95 +1,92 @@
-import React from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Text, Float } from '@react-three/drei';
-import type { Board } from '../types/simulation';
+import React, { useState, useEffect } from 'react';
+import '../styles/BoardView.css';
+import { Board } from '../types/simulation';
+import TwoDBoard from './TwoDBoard';
+import ThreeDBoardView from './ThreeDBoardView';
+// import NDBoard from './NDBoard'; // NDBoard도 분리되어 있다고 가정
+// 프론트엔드 뷰어(View)에서 필요한 부분만 "필터링"해서 보여주는 것이 important
 
-const FACE_COLORS = ["#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6", "#ec4899"];
+interface BoardViewProps {
+  board: Board | null;
+  onCellClick?: (coordinates: number[]) => void;
+  onCellRightClick?: (coordinates: number[]) => void;
+}
 
-const BoardView: React.FC<{ board: Board; onCellClick: (i: number) => void }> = ({ board, onCellClick }) => {
-  const cameraDist = board.width * 2.3;
+const BoardView: React.FC<BoardViewProps> = ({ 
+  board, 
+  onCellClick, 
+  onCellRightClick 
+}) => {
+  const [sliceIndex, setSliceIndex] = useState(0);
+  const [sliceDimension, setSliceDimension] = useState(2);
 
-  return (
-    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-      <Canvas camera={{ position: [cameraDist, cameraDist, cameraDist], fov: 45 }}>
-        <color attach="background" args={['#020617']} />
-        <OrbitControls enableDamping dampingFactor={0.05} />
-        <ambientLight intensity={0.5} />
-        <pointLight position={[20, 20, 20]} intensity={1.5} />
+  // 보드가 변경될 때(예: 2D -> 3D) 슬라이스 설정 초기화
+  useEffect(() => {
+    if (board && board.dimensions.length > 2) {
+      setSliceIndex(0);
+      setSliceDimension(2); // 3번째 차원(Z축)을 기본 슬라이스로 설정
+    }
+  }, [board?.dimensions.length]);
 
-        <Float speed={board.game_over && !board.game_won ? 15 : 1.2} rotationIntensity={0.5}>
-          <group>
-            <mesh>
-              <boxGeometry args={[board.width - 0.1, board.width - 0.1, board.width - 0.1]} />
-              <meshStandardMaterial color="#0f172a" metalness={0.9} roughness={0.1} />
-            </mesh>
-            {[0, 1, 2, 3, 4, 5].map(f => (
-              <CubeFace key={f} faceIdx={f} board={board} onCellClick={onCellClick} />
-            ))}
-          </group>
-        </Float>
-      </Canvas>
-
-      {/* Your announcement-overlay logic */}
-      {board.game_over && (
-        <div className={`announcement-overlay ${board.game_won ? 'won' : 'lost'}`}>
-          <div className="announcement-content">
-            <h1>{board.game_won ? "CUBE SECURED" : "SYSTEM FAILURE"}</h1>
-            <p>{board.game_won ? "ALL MINES NEUTRALIZED" : "DETONATION DETECTED"}</p>
-          </div>
+  if (!board) {
+    return (
+      <div className="board-container empty">
+        <div className="empty-message">
+          <p>🎮 No board data available.</p>
+          <p>Start a simulation to see the board.</p>
         </div>
-      )}
-    </div>
-  );
-};
+      </div>
+    );
+  }
 
-const CubeFace: React.FC<{ faceIdx: number; board: Board; onCellClick: (i: number) => void }> = ({ faceIdx, board, onCellClick }) => {
-  const offset = (board.width - 1) / 2;
-  const faceSize = board.width * board.width;
-  const d = board.width / 2;
-
-  const positions: [number, number, number][] = [[0,0,d], [0,0,-d], [0,d,0], [0,-d,0], [-d,0,0], [d,0,0]];
-  const rotations: [number, number, number][] = [[0,0,0], [0,Math.PI,0], [-Math.PI/2,0,0], [Math.PI/2,0,0], [0,-Math.PI/2,0], [0,Math.PI/2,0]];
+  const dimensionCount = board.dimensions.length;
+  const is2D = dimensionCount === 2;
+  const is3D = dimensionCount === 3; // 3D check
 
   return (
-    <group position={positions[faceIdx]} rotation={rotations[faceIdx]}>
-      {board.cells.slice(faceIdx * faceSize, (faceIdx + 1) * faceSize).map((cell, i) => {
-        const globalIdx = faceIdx * faceSize + i;
-        const isHitMine = board.game_over && !board.game_won && board.last_click_idx === globalIdx;
-        
-        let cellColor = FACE_COLORS[faceIdx];
-        let emissive = "#000";
-        let intensity = 0;
+    <div className="board-view-wrapper">
+      <header className="board-header">
+        <div className="header-main">
+          <h2>{dimensionCount}D Minesweeper</h2>
+          <span className={`status-badge ${board.game_over ? 'over' : board.game_won ? 'won' : 'playing'}`}>
+            {board.game_over ? '💥 Game Over' : board.game_won ? '🎉 You Win!' : '🎮 Playing'}
+          </span>
+        </div>
+        <div className="board-info">
+          <span>📏 Size: <strong>{board.dimensions.join(' × ')}</strong></span>
+          <span>💣 Mines: <strong>{board.mines}</strong></span>
+        </div>
+      </header>
 
-        if (cell.is_revealed) {
-          cellColor = cell.is_mine ? "#ef4444" : "#1e293b";
-        } else if (cell.is_flagged) {
-          cellColor = "#fbbf24"; 
-          emissive = "#fbbf24";
-          intensity = 2;
-        }
+      <main className={`board-content ${is3D ? 'is-3d' : ''}`}>
+        {is2D ? (
+            <TwoDBoard board={board} onCellClick={onCellClick} />
+        ) : is3D ? (
+            <ThreeDBoardView board={board} onCellClick={onCellClick} />
+        ) : (
+            <div style={{ padding: '2rem', color: 'white' }}>
+      <h3>{dimensionCount}D Mode Enabled</h3>
+      <p>Slice Dimension: {sliceDimension}</p>
+      <p>Slice Index: {sliceIndex}</p>
+      <p>(NDBoard 컴포넌트를 연결해주세요)</p>
+    </div>
+        //   <NDBoard 
+        //     board={board}
+        //     sliceIndex={sliceIndex}
+        //     sliceDimension={sliceDimension}
+        //     onSliceChange={setSliceIndex}
+        //     onSliceDimensionChange={setSliceDimension}
+        //     onCellClick={onCellClick}
+        //     onCellRightClick={onCellRightClick}
+        //   />
+        )}
+      </main>
 
-        if (isHitMine) {
-          emissive = "#ff0000";
-          intensity = 20;
-          cellColor = "#ff0000";
-        }
-
-        return (
-          <group key={globalIdx} position={[cell.x - offset, -(cell.y - offset), cell.is_revealed ? 0.01 : 0.08]}>
-            <mesh onClick={() => onCellClick(globalIdx)}>
-              <boxGeometry args={[0.94, 0.94, cell.is_revealed ? 0.05 : 0.18]} />
-              <meshStandardMaterial color={cellColor} emissive={emissive} emissiveIntensity={intensity} />
-            </mesh>
-            {cell.is_revealed && !cell.is_mine && cell.adjacent_mines > 0 && (
-              <Text position={[0, 0, 0.06]} fontSize={0.4} color="#60a5fa" fontWeight="bold">{cell.adjacent_mines}</Text>
-            )}
-            {((cell.is_revealed && cell.is_mine) || isHitMine) && (
-               <Text position={[0, 0, 0.07]} fontSize={0.5} color="white">M</Text>
-            )}
-          </group>
-        );
-      })}
-    </group>
+      <footer className="board-footer">
+        <div className="stat-item">Revealed: {board.total_revealed}</div>
+        <div className="stat-item">Clicks: {board.total_clicks}</div>
+      </footer>
+    </div>
   );
 };
 
