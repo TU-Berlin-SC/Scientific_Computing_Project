@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/BoardView.css';
 import { Board } from '../types/simulation';
-import TwoDBoard from './TwoDBoard';
-import ThreeDBoardView from './ThreeDBoardView';
+import TwoDBoard from './Boards/TwoDBoard';
+import ThreeDBoardView from './Boards/ThreeDBoardView';
+import HyperplaneView from './Boards/HyperplaneView';
 // import NDBoard from './NDBoard'; // NDBoard도 분리되어 있다고 가정
 // 프론트엔드 뷰어(View)에서 필요한 부분만 "필터링"해서 보여주는 것이 important
 
@@ -58,27 +59,15 @@ const BoardView: React.FC<BoardViewProps> = ({
         </div>
       </header>
 
-      <main className={`board-content ${is3D ? 'is-3d' : ''}`}>
+      <main className={`board-content ${is3D || dimensionCount >= 4 ? 'is-3d' : ''}`}>
         {is2D ? (
             <TwoDBoard board={board} onCellClick={onCellClick} />
         ) : is3D ? (
             <ThreeDBoardView board={board} onCellClick={onCellClick} />
+        ) : dimensionCount >= 4 ? (
+            <HyperplaneView board={board} onCellClick={onCellClick} />
         ) : (
-            <div style={{ padding: '2rem', color: 'white' }}>
-      <h3>{dimensionCount}D Mode Enabled</h3>
-      <p>Slice Dimension: {sliceDimension}</p>
-      <p>Slice Index: {sliceIndex}</p>
-      <p>(NDBoard 컴포넌트를 연결해주세요)</p>
-    </div>
-        //   <NDBoard 
-        //     board={board}
-        //     sliceIndex={sliceIndex}
-        //     sliceDimension={sliceDimension}
-        //     onSliceChange={setSliceIndex}
-        //     onSliceDimensionChange={setSliceDimension}
-        //     onCellClick={onCellClick}
-        //     onCellRightClick={onCellRightClick}
-        //   />
+            <div>Unsupported Dimension</div>
         )}
       </main>
 

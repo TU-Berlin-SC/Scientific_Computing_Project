@@ -1,23 +1,28 @@
-.config-section {
+.config-actions {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ddd;
+}
+
+.create-board-btn {
   width: 100%;
-  max-width: 700px;         /* 화면 안에서 여백 확보 */
-  background: #fff;
-  border-radius: 16px;
-  padding: 30px 25px;       /* 컨테이너 안 여백 */
-  margin: 0 auto 40px auto; /* 화면 가운데 + 아래 여백 */
-  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-  border: 1px solid #e0e0e0;
-  text-align: left;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: all 0.3s;
 }
 
-.config-section:hover {
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08); /* 마우스 오버 시 살짝 강조 */
+.create-board-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
-.config-section h3 {
-  margin-top: 0;
-  margin-bottom: 20px;
-  font-size: 1.3rem;
-  color: #2d3748;
-  gap: 10px;
+.create-board-btn:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
 }

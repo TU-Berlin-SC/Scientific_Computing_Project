@@ -1,68 +1,81 @@
-/* src/styles/Menu.css */
+.menu-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
 
-/* 부모 컨테이너가 좁게 잡혀있을 수 있으므로 확인 */
 .config-section {
-    background: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    padding: 20px; /* 패딩을 살짝 줄여 공간 확보 */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .mode-indicator-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* 양 끝 정렬의 핵심 */
-    width: 100%;                   /* 카드 전체 너비 사용 */
-    background: #ffffff;
-    padding: 16px;
-    border-radius: 12px;
-    box-sizing: border-box;
-  }
-  
-  /* 왼쪽 정보 그룹 */
-  .mode-info {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* 요소들 사이 간격 */
-    flex-wrap: wrap; /* 화면이 좁아지면 자연스럽게 줄바꿈 */
-  }
-  
-  /* 글씨 굵기 강조 */
-  .mode-title {
-    font-weight: 900 !important;   /* 가장 두꺼운 수치 */
-    font-size: 1.1rem;
-    color: #111827;
-    letter-spacing: -0.02em;       /* 가독성을 위해 자간 살짝 축소 */
-  }
-  
-  .preset-label {
-    font-weight: 800 !important;   /* Selected: 부분 강조 */
-    font-size: 0.95rem;
-    color: #374151;
-  }
-  
-  /* 오른쪽 버튼 래퍼 */
-  .advanced-toggle-wrapper {
-    flex-shrink: 0;                /* 버튼이 찌그러지지 않게 고정 */
-  }
-  
-  .advanced-toggle {
-    background: #ffffff;
-    border: 1.5px solid #e5e7eb;   /* 테두리 살짝 강조 */
-    padding: 8px 16px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 0.9rem;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-  }
-  
-  .advanced-toggle:hover {
-    background: #f9fafb;
-    border-color: #d1d5db;
-    transform: translateY(-1px);    /* 살짝 떠오르는 효과 */
-  }
+  background: #fff;
+  border-radius: 10px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.mode-indicator-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.mode-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.mode-title {
+  font-weight: 700;
+  color: #333;
+}
+
+.mode-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+}
+
+.mode-badge.mode-2d {
+  background: #4299e1;
+}
+
+.mode-badge.mode-nd {
+  background: #2b3a68;
+}
+
+.preset-label {
+  font-weight: 600;
+}
+
+.preset-badge {
+  background: #f1f3f5;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+.advanced-toggle-wrapper {
+  margin-left: auto;
+}
+
+.advanced-toggle {
+  background: transparent;
+  color: #6c757d;
+  border: 1px solid #dee2e6;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.advanced-toggle:hover {
+  background: #f8f9fa;
+}

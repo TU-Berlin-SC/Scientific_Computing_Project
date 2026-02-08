@@ -1,5 +1,5 @@
 import React, { useState, useRef, useMemo } from 'react';
-import '../styles/HyperplaneView.css';
+import '../../styles/HyperplaneView.css';
 
 interface CellLocal {
   is_mine: boolean;

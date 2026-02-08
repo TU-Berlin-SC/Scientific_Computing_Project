@@ -1,0 +1,57 @@
+.algorithm-selector-container {
+  max-width: 1200px;      /* 최대 너비 */
+  margin: 0 auto;         /* 가운데 정렬 */
+
+}
+
+/* Card : in same row */
+.algorithm-grid {
+  display: flex;
+  gap: 20px;              /* 카드 사이 간격 */
+  flex-wrap: wrap;        /* 화면이 좁아지면 다음 줄로 이동 */
+}
+
+/* 카드 개별 */
+.algorithm-card {
+  flex: 1 1 200px;        /* 최소 200px, 필요하면 늘어남 */
+  max-width: 250px;       /* 카드 최대 너비 */
+  padding: 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.algorithm-card.selected {
+  border-color: #007bff;
+  background-color: #f0f8ff;
+}
+
+.algorithm-card.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.algorithm-card h4 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.algorithm-card p {
+  margin: 0;
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.coming-soon {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 3px 8px;
+  background: #6c757d;
+  color: white;
+  border-radius: 4px;
+  font-size: 11px;
+}

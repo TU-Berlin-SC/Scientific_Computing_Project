@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'; // 👈 useMemo 추가 확인!
-import { Board } from '../types/simulation';
-import CellComponent from './CellComponent';
-import '../styles/TwoDBoard.css'; // 2D 전용 CSS 임포트
+import  type { Board } from '../../types/simulation';
+import CellComponent from '../CellComponent';
+import '../../styles/TwoDBoard.css'; // 2D 전용 CSS 임포트
 
 interface TwoDBoardProps {
   board: Board;

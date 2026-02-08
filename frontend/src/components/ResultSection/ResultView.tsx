@@ -1,5 +1,5 @@
 import React from 'react';
-import type { SimulationResult } from '../types/simulation';
+import type { SimulationResult } from '../../types/simulation';
 
 interface ResultViewProps {
   results: SimulationResult[];

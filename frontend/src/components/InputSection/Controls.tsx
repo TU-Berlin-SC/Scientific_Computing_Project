@@ -1,6 +1,6 @@
 import React from 'react';
-import { AlgorithmInfo, TspInfo } from '../types/simulation';
-import type { AlgorithmType, TspObjective } from '../types/simulation';
+import { AlgorithmInfo, TspInfo } from '../../types/simulation';
+import type { AlgorithmType, TspObjective } from '../../types/simulation';
 
 const Controls: React.FC<any> = (props) => {
   const { config, isRunning, algorithm, tspObjective, board } = props;

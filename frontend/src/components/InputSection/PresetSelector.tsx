@@ -1,6 +1,6 @@
 import React from 'react';
-import type { Preset } from '../types';
-import '../styles/PresetSelector.css';
+import type { Preset } from '../../types';
+import '../../styles/PresetSelector.css';
 interface PresetSelectorProps {
   presets: Preset[];
   selectedPreset: string;

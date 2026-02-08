@@ -1,6 +1,6 @@
 import React from 'react';
-import type { GameConfig } from '../types';
-import '../styles/AdvancedSettings.css';
+import type { GameConfig } from '../../types';
+import '../../styles/AdvancedSettings.css';
 interface AdvancedSettingsProps {
   config: GameConfig;
   onChangeConfig: (key: 'width' | 'height' | 'mines', value: number) => void;

@@ -1,6 +1,6 @@
 import React from 'react';
-import type { GameConfig } from '../types';
-import '../styles/ConfigActions.css';
+import type { GameConfig } from '../../types';
+import '../../styles/ConfigActions.css';
 interface ConfigActionsProps {
   config: GameConfig;
   wasm: boolean;

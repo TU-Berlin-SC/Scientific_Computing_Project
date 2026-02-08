@@ -3,8 +3,8 @@ import StatusBar from './StatusBar';
 import PresetSelector from './PresetSelector';
 import AdvancedSettings from './AdvancedSettings';
 import ConfigActions from './ConfigActions';
-import type { GameConfig, Preset } from '../types';
-import '../styles/Menu.css';
+import type { GameConfig, Preset } from '../../types';
+import '../../styles/Menu.css';
 interface MenuProps {
   config: GameConfig;
   setConfig: React.Dispatch<React.SetStateAction<GameConfig>>;
@@ -86,30 +86,35 @@ const Menu: React.FC<MenuProps> = ({
 </div>
 
 
-        {/* 3. AdvancedSettings와 PresetSelector 표시 */}
-        {showAdvancedSettings && (
-          <>
-            <PresetSelector 
-              presets={presets} 
-              selectedPreset={selectedPreset} 
-              useNDimensions={config.useNDimensions}
-              onSelectPreset={handleSelectPreset} 
-            />
+{/* 3. AdvancedSettings와 PresetSelector 표시 */}
+{showAdvancedSettings && (
+  <>
+    <PresetSelector 
+      presets={presets} 
+      selectedPreset={selectedPreset} 
+      useNDimensions={config.useNDimensions}
+      onSelectPreset={handleSelectPreset} 
+    />
 
-            <AdvancedSettings 
-              config={config} 
-              onChangeConfig={handleChangeConfig} 
-              onChangeDimensionCount={handleChangeDimensionCount}
-              onChangeDimensionSize={handleChangeDimensionSize}
-            />
+    <AdvancedSettings 
+      config={config} 
+      onChangeConfig={handleChangeConfig} 
+      onChangeDimensionCount={handleChangeDimensionCount}
+      onChangeDimensionSize={handleChangeDimensionSize}
+    />
 
-            <ConfigActions 
-              config={config} 
-              wasm={wasm} 
-              onCreateBoard={onCreateBoard} 
-            />
-          </>
-        )}
+    {/* <div className="algorithm-selector-wrapper">
+      <AlgorithmSelector />
+    </div> */}
+
+    <ConfigActions 
+      config={config} 
+      wasm={wasm} 
+      onCreateBoard={onCreateBoard} 
+    />
+  </>
+)}
+
       </div>
     </div>
   );
