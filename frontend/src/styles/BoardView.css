@@ -1,0 +1,86 @@
+.board-view-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1rem;
+  background-color: #f1f3f5; /* 페이지 전체 배경 (연한 그레이) */
+  min-height: 100vh;
+}
+
+.board-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.header-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.board-header h2 {
+  font-size: 1.6rem;
+  margin: 0;
+  color: #212529;
+}
+
+.status-badge {
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.board-info {
+  font-size: 0.9rem;
+  color: #868e96;
+}
+
+.board-content {
+  /* 보드판을 감싸는 메인 컨테이너 (하얀 박스) */
+  background-color: #ffffff; 
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.board-footer {
+  margin-top: 2rem;
+  display: flex;
+  gap: 24px;
+  color: #adb5bd;
+  font-weight: 500;
+}
+
+/* BoardView.css 하단에 추가 */
+
+/* src/styles/BoardView.css */
+
+/* 3D일 때만 적용될 스타일 */
+.board-content.is-3d {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  width: 90vw;   /* 화면의 90% 사용 */
+  height: 80vh;  /* 화면의 80% 사용 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ThreeDBoardView.css 도 함께 수정 */
+.three-d-board-wrapper {
+  width: 100%;
+  height: 100%;
+  min-height: 700px; /* 높이를 확실히 확보 */
+  background: #020617;
+  border-radius: 20px;
+  overflow: hidden;
+}
