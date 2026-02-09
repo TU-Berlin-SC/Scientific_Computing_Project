@@ -49,7 +49,7 @@ const getTspLabel = (objective: TspObjective) => {
       r.win,
       r.clicks,
       r.time_ms,
-      r.guesses,
+      r.total_guesses,
       r.completion
     ]);
   
@@ -104,7 +104,10 @@ const getTspLabel = (objective: TspObjective) => {
                     <td>{result.win_rate.toFixed(1)}%</td>
                     <td>{result.avg_clicks_wins.toFixed(2)}</td>
                     <td>{result.avg_time_wins.toFixed(0)}ms</td>
-                    <td>{result.avg_guesses_wins.toFixed(2)}</td>
+                    {/* 💡 이 부분이 0.00으로 나온다면 result.avg_guesses_wins가 맞는지 확인 */}
+                    <td style={{ fontWeight: 'bold', color: '#e74c3c' }}>
+                      {result.avg_guesses_wins?.toFixed(2) || '0.00'}
+                    </td>
                   </tr>
                 );
               })}
@@ -146,6 +149,15 @@ const getTspLabel = (objective: TspObjective) => {
                     : '0.00'}
                 </span>
               </div>
+              <div className="stat highlight">
+                <span className="stat-label">Avg Guesses</span>
+                <span className="stat-value">
+                  {batchResults.length > 0 
+                    ? (batchResults.reduce((sum: number, r: any) => sum + (r.total_guesses || 0), 0) / batchResults.length).toFixed(2)
+                    : '0.00'
+                  }
+                </span>
+              </div>
             </div>
           </div>
           
@@ -161,6 +173,10 @@ const getTspLabel = (objective: TspObjective) => {
                 <div className="game-details">
                   <div>Clicks: {result.clicks || 0}</div>
                   <div>Mines: {result.mines || 0}</div>
+                 {/* 💡 여기를 result.total_guesses로 변경! */}
+                  <div style={{ fontWeight: 'bold', color: '#3498db' }}>
+                      Guesses: {result.total_guesses ?? 0}
+                  </div>
                   <div>
                     {/* 엔진이 뱉은 6x9x9를 무시하고, 유저가 설정한 값을 그대로 출력 */}
                     Size: {

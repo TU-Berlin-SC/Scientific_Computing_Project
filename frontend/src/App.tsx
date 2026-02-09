@@ -255,7 +255,7 @@ const handleRunBatch = useCallback(async () => {
       results.push({
         success: finalStateJson.game_won,
         clicks: finalStateJson.total_clicks,
-        mines: finalStateJson.mines,
+        total_guesses: finalStateJson.total_guesses,
         dimensions: finalStateJson.dimensions,
         completion: finalStateJson.completion
       });
@@ -308,8 +308,8 @@ const handleCompareAlgorithms = useCallback(async () => {
           algorithm: algo.label,
           win: res.game_won ? "TRUE" : "FALSE",
           clicks: res.total_clicks,
-          time_ms: res.time_ms,
-          guesses: 0,
+          guesses: res.total_guesses, // 💡 0에서 res.total_guesses로 변경!
+          total_guesses: res.total_guesses, // 💡 ResultPanel이 total_guesses를 쓴다면 이것도 추가
           completion: res.completion,
           dims: res.dimensions.join('x'),
           steps: res.total_clicks
