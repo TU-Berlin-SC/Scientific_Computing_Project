@@ -38,8 +38,8 @@ export enum TspObjective {
 }
 
 export const AlgorithmInfo = [
-  { value: AlgorithmType.Greedy, label: 'Greedy Solver', description: 'Local constraints logic.', implemented: true },
-  { value: AlgorithmType.ExactSolver, label: 'Exact Solver', description: 'ILP based optimized solver.', implemented: true },
+  { value: AlgorithmType.Greedy, label: 'Greedy Solver', description: 'Local heuristic logic', implemented: true },
+  { value: AlgorithmType.ExactSolver, label: 'Exact Solver', description: 'Exact constraint solver', implemented: true },
   { value: AlgorithmType.SatSolver, label: 'SAT Solver', description: 'Boolean satisfiability logic.', implemented: true },
   
 ];
