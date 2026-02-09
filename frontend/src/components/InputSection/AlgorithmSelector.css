@@ -1,57 +1,58 @@
 .algorithm-selector-container {
-  max-width: 1200px;      /* 최대 너비 */
-  margin: 0 auto;         /* 가운데 정렬 */
-
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 20px;
 }
 
-/* Card : in same row */
 .algorithm-grid {
   display: flex;
-  gap: 20px;              /* 카드 사이 간격 */
-  flex-wrap: wrap;        /* 화면이 좁아지면 다음 줄로 이동 */
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
-/* 카드 개별 */
 .algorithm-card {
-  flex: 1 1 200px;        /* 최소 200px, 필요하면 늘어남 */
-  max-width: 250px;       /* 카드 최대 너비 */
-  padding: 20px;
+  flex: 1 1 220px;
+  max-width: 280px;
+  padding: 16px;
   border: 2px solid #e0e0e0;
-  border-radius: 8px;
+  border-radius: 12px;
   background: white;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 }
 
+/* 💡 선택되었을 때의 확실한 피드백 */
 .algorithm-card.selected {
   border-color: #007bff;
-  background-color: #f0f8ff;
+  background-color: #f0f7ff;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.15);
+  transform: translateY(-3px);
 }
 
-.algorithm-card.disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.algorithm-card:hover:not(.disabled):not(.not-implemented) {
+  border-color: #b3d7ff;
+  transform: translateY(-2px);
 }
 
-.algorithm-card h4 {
-  margin: 0 0 10px 0;
-  font-size: 16px;
-  color: #333;
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
 }
 
-.algorithm-card p {
-  margin: 0;
-  font-size: 13px;
-  color: #666;
-  line-height: 1.4;
-}
-
-.coming-soon {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 3px 8px;
-  background: #6c757d;
+.active-badge {
+  font-size: 10px;
+  background: #007bff;
   color: white;
-  border-radius: 4px;
-  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
+.algorithm-card.not-implemented {
+  background: #f8f9fa;
+  cursor: not-allowed;
+  opacity: 0.7;
 }
