@@ -59,14 +59,15 @@ const BoardView: React.FC<BoardViewProps> = ({ board, onCellClick, onCellRightCl
           <h2>{dimensionCount}D Minesweeper</h2>
         </div>
         <div className="board-info">
-          <span>  {/* 엔진이 뱉은 6x9x9를 무시하고, 유저가 설정한 값을 그대로 출력 */}
-                    Size: {
-                      gameConfig.dimensions && gameConfig.dimensions.length > 0
-                        ? gameConfig.dimensions.join('×')
-                        : `${gameConfig.height}×${gameConfig.width}`
-                    }
-                    </span>
-          <span>📏 Size: <strong>{dims.join(' × ')}</strong></span>
+          <span>  
+            {/* 엔진이 뱉은 6x9x9를 무시하고, 유저가 설정한 값을 그대로 출력 */}
+                Size: {
+                  gameConfig.dimensions && gameConfig.dimensions.length > 0
+                    ? gameConfig.dimensions.join('×')
+                    : `${gameConfig.height}×${gameConfig.width}`
+                }
+          </span>
+     
         </div>
       </header>
 
