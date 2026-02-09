@@ -116,7 +116,7 @@ impl MinesweeperAgent {
     }
 }
 
-// 1. WASM용 (SCIP 제외)
+// 1. WASM Purpose (Exclude SCIP - NOT SUPPORTED!)
 #[cfg(not(feature = "native"))]
 register_algorithms!(
     Greedy => "greedy", crate::algorithms::greedy::GreedyAlgorithm,
@@ -126,7 +126,7 @@ register_algorithms!(
     SATSolver4D => "sat_solver_4d", crate::algorithms::sat_solver_4d::SatSolver4D,
 );
 
-// 2. Runner용 (SCIP 포함)
+// 2. Runner Purpose
 #[cfg(feature = "native")]
 register_algorithms!(
     Greedy => "greedy", crate::algorithms::greedy::GreedyAlgorithm,
