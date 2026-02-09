@@ -4,10 +4,12 @@
 * This test codes cannot be used with frontend, because of the scip and wasm dependencies, 
 * and since its main purpose is to test the metaheuristic algorithm, i decided to put it in a separate crate.
 **/
-use engine::algorithms::{WasmAlgorithmType, TspObjective};
-use engine::Simulator;
-use std::time::Instant;
-use serde::{Serialize, Deserialize};
+
+// remove warnings for unused code (imports from previous architecture)
+// use engine::algorithms::{WasmAlgorithmType, TspObjective};
+// use engine::Simulator;
+// use std::time::Instant;
+// use serde::{Serialize, Deserialize};
 
 mod benchmark;
 use benchmark::metaheuristic::MetaHeuristicRunner;
