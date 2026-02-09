@@ -15,7 +15,7 @@ const AlgorithmSelector: React.FC<AlgorithmSelectorProps> = ({
 }) => {
   return (
     <div className="algorithm-selector-container">
-      <h3>Select AI Strategy</h3>
+      <h3>Select Strategy</h3>
       <div className="algorithm-grid">
         {AlgorithmInfo.map((algo) => {
           // 💡 타입 매칭 이슈 방지를 위해 Number로 강제 변환하여 비교
