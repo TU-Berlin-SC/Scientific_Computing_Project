@@ -13,27 +13,35 @@ import type { GameConfig, Preset, GameRecord, GameStats } from './types';
 // WASM 패키지 임포트
 import initWasmEngine, { Simulator } from './wasm_pkg/engine';
 
-// Preset 정의
 const gamePresets: Preset[] = [
+  // 2D: 표준 규격 유지 (이미 검증된 난이도)
   { id: "2d-beginner", name: "2D Beginner", width: 9, height: 9, mines: 10, dimensions: [9, 9] },
-  { id: "2d-intermediate", name: "2D Beginner", width: 16, height: 16, mines: 40, dimensions: [16, 16] },
+  { id: "2d-intermediate", name: "2D Intermediate", width: 16, height: 16, mines: 40, dimensions: [16, 16] },
   { id: "2d-expert", name: "2D Expert", width: 30, height: 16, mines: 99, dimensions: [30, 16] },
-  { id: "3d-beginner", name: "3D Beginner", dimensions: [4, 4, 4], mines: 8 },
-  { id: "3d-intermediate", name: "3D Intermediate", dimensions: [6, 6, 6], mines: 40 },
-  { id: "3d-expert", name: "3D Expert", dimensions: [8, 8, 8], mines: 99 },
-  { id: "4d-beginner", name: "4D Beginner", dimensions: [3, 3, 3, 3], mines: 10 },
-  { id: "4d-intermediate", name: "4D Intermediate", dimensions: [4, 4, 4, 4], mines: 40 },
+  // 4x4x4 = 64칸. 지뢰 12개 (약 18.7%)
+  { id: "3d-beginner", name: "3D Beginner", dimensions: [4, 4, 4], mines: 12 },
+  // 6x6x6 = 216칸. 지뢰 45개 (약 20.8%)
+  { id: "3d-intermediate", name: "3D Intermediate", dimensions: [6, 6, 6], mines: 45 },
+  // 8x8x8 = 512칸. 지뢰 100개 (약 19.5%)
+  { id: "3d-expert", name: "3D Expert", dimensions: [8, 8, 8], mines: 100 },
+  // 3x3x3x3 = 81칸. 지뢰 16개 (약 19.7%) 
+  { id: "4d-beginner", name: "4D Beginner", dimensions: [3, 3, 3, 3], mines: 16 },
+  // 4x4x4x4 = 256칸. 지뢰 55개 (약 21.4%)
+  { id: "4d-intermediate", name: "4D Intermediate", dimensions: [4, 4, 4, 4], mines: 55 },
+  // [추가안] 5x5x5x5 = 625칸. 지뢰 130개 (약 20.8%)
+  { id: "4d-expert", name: "4D Expert", dimensions: [5, 5, 5, 5], mines: 130 },
 ];
 const App: React.FC = () => {
   // --- 1. 상태 관리 ---
   const [gameConfig, setGameConfig] = useState<GameConfig>({
-    useNDimensions: false,
+    useNDimensions: true,
     dimensionCount: 3,
-    dimensions: [3, 3, 3],
-    width: 9,
-    height: 9,
-    mines: 10,
+    dimensions: [4, 4, 4],
+    width: 4,
+    height: 4,
+    mines: 12,
   });
+  
 
   const [wasmReady, setWasmReady] = useState<boolean>(false);
   const [simulator, setSimulator] = useState<Simulator | null>(null);
@@ -51,9 +59,9 @@ const App: React.FC = () => {
       try {
         await initWasmEngine(); 
         setWasmReady(true);
-        console.log("🎊 WASM 로딩 완료!");
+        console.log("Loaded WASM engine successfully.");
       } catch (e) {
-        console.error("💀 WASM 초기화 실패:", e);
+        console.error("Failed to load WASM:", e);
       }
     };
     init();
@@ -91,9 +99,9 @@ const App: React.FC = () => {
       const initialState = newSim.getState();
       setSimulator(newSim);
       setBoardState(initialState);
-      console.log("✅ 보드 생성 성공!");
+      console.log("Successfully created new board with config", gameConfig);
     } catch (e) {
-      console.error("💀 WASM 생성 오류:", e);
+      console.error("WASM Setup error:", e);
     }
   }, [wasmReady, gameConfig, selectedAlgorithm]);
 
@@ -104,6 +112,18 @@ const App: React.FC = () => {
       handleCreateBoard();
     }
   }, [wasmReady, simulator, handleCreateBoard]);
+
+  // for 4D SAT Solver, we need to ensure that when the user selects SAT Solver, if it's 4D, we switch to the 4D-specific algorithm variant.
+  const getEffectiveAlgorithm = (): AlgorithmType => {
+    if (
+      selectedAlgorithm === AlgorithmType.SatSolver &&
+      gameConfig.useNDimensions &&
+      gameConfig.dimensions.length === 4
+    ) {
+      return AlgorithmType.SatSolver4D; // 4D 전용 SAT
+    }
+    return selectedAlgorithm;
+  };
 
   // --- 4. 알고리즘 변경 핸들러 (UI 리렌더링 및 엔진 동기화) ---
   const handleAlgorithmChange = useCallback((algo: AlgorithmType) => {
@@ -184,6 +204,9 @@ const App: React.FC = () => {
     // UI 렌더링 차단을 방지하기 위해 setTimeout 사용
     setTimeout(() => {
       try {
+        const effectiveAlgo = getEffectiveAlgorithm();
+        simulator.setAlgorithm(effectiveAlgo as any);
+  
         simulator.runFullGame();
         const newState = simulator.getState();
         
@@ -222,9 +245,10 @@ const handleRunBatch = useCallback(async () => {
       ? (dimensionCount === 3 ? [6, height, width] : dimensions) 
       : [height, width];
 
+    const effectiveAlgo = getEffectiveAlgorithm();
     for (let i = 0; i < 100; i++) {
       // 매 판마다 새로운 시뮬레이터 생성 (새로운 시드)
-      const sim = new Simulator(finalDims, mines, selectedAlgorithm);
+      const sim = new Simulator(finalDims, mines, effectiveAlgo as any);
       // 시드를 판마다 다르게 주려면 Rust의 set_seed 사용 가능
       
       const finalStateJson = sim.runFullGame(); // WASM에서 최종 상태 반환
@@ -245,6 +269,7 @@ const handleRunBatch = useCallback(async () => {
 }, [wasmReady, gameConfig, selectedAlgorithm]);
 
 // 2. Algorithm Comparison 실행 로직
+// --- 6. 알고리즘 비교 실행 ---
 const handleCompareAlgorithms = useCallback(async () => {
   if (!wasmReady) return;
   setIsRunning(true);
@@ -253,46 +278,60 @@ const handleCompareAlgorithms = useCallback(async () => {
     const algorithms = [
       { type: AlgorithmType.Greedy, label: "Greedy" },
       { type: AlgorithmType.ExactSolver, label: "Exact Solver" },
-      { type: AlgorithmType.SatSolver, label: "SAT Solver" }
+      { type: AlgorithmType.SatSolver, label: "SAT Solver" } // 4D 전용일 때 자동 SatSolver4D로 변환
     ];
-    
-    const records: GameRecord[] = [];
-    const summaries: GameStats[] = [];
-    const gamesPerAlgo = 10; // 비교를 위해 각 알고리즘당 10판씩 수행
+
+    const allRecords: GameRecord[] = [];
+    const summaryStats: GameStats[] = [];
+    const gamesPerAlgo = 100;
 
     algorithms.forEach(algo => {
-      const algoRecords: any[] = [];
-      
+      const algoRecords: GameRecord[] = [];
+
+      // 자동으로 4D SAT 알고리즘 선택
+      const effectiveAlgo =
+        algo.type === AlgorithmType.SatSolver &&
+        gameConfig.useNDimensions &&
+        gameConfig.dimensions.length === 4
+          ? AlgorithmType.SatSolver4D
+          : algo.type;
+
       for (let i = 0; i < gamesPerAlgo; i++) {
         const sim = new Simulator(
           gameConfig.useNDimensions ? gameConfig.dimensions : [gameConfig.height, gameConfig.width],
           gameConfig.mines,
-          algo.type
+          effectiveAlgo as any
         );
-        
+
         const res = sim.runFullGame();
+
         const record: GameRecord = {
           algorithm: algo.label,
           win: res.game_won ? "TRUE" : "FALSE",
           clicks: res.total_clicks,
           time_ms: res.time_ms,
-          guesses: 0, // 엔진에서 구현 시 추가 가능
+          guesses: 0,
           completion: res.completion,
           dims: res.dimensions.join('x'),
           steps: res.total_clicks
         };
+
         algoRecords.push(record);
-        records.push(record);
+        allRecords.push(record);
       }
-      
-      summaries.push(getSummaryStats(algoRecords, algo.label));
+
+      summaryStats.push(getSummaryStats(algoRecords, algo.label));
     });
 
-    setAllDetailedRecords(records);
-    setComparisonResults(summaries); // 👈 여기서 상태가 업데이트되면 결과 표가 나타납니다.
+    setAllDetailedRecords(allRecords);
+    setComparisonResults(summaryStats);
     setIsRunning(false);
+
+    console.log("✅ Algorithm Comparison 완료:", summaryStats);
   }, 50);
 }, [wasmReady, gameConfig]);
+
+
 
 // 1. 통계 계산 함수 (App 내부에 두거나 별도 유틸로 분리)
 const getSummaryStats = (gameRecords: GameRecord[], algorithmLabel: string): GameStats => {
@@ -352,6 +391,8 @@ const getSummaryStats = (gameRecords: GameRecord[], algorithmLabel: string): Gam
           <BoardView 
             board={boardState} 
             onCellClick={(coords) => console.log('Click:', coords)}
+            onCellRightClick={(coords) => console.log('Right Click:', coords)}
+            gameConfig={gameConfig}
           />
         ) : (
           <div className="placeholder">보드를 생성하는 중입니다...</div>
