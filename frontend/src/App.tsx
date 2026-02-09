@@ -7,9 +7,8 @@ import ControlPanel from './components/InputSection/ControlPanel';
 import ResultPanel from './components/ResultSection/ResultPanel';
 
 // 타입 정의
-import { AlgorithmType } from './types/simulation';
+import { AlgorithmType , TspObjective} from './types/simulation';
 import type { GameConfig, Preset, GameRecord, GameStats } from './types';
-
 // WASM 패키지 임포트
 import initWasmEngine, { Simulator } from './wasm_pkg/engine';
 
@@ -356,7 +355,7 @@ const getSummaryStats = (gameRecords: GameRecord[], algorithmLabel: string): Gam
     avg_guesses_wins: getAverage(winRecords, 'guesses'),
   };
 };
-
+ const [tspObjective, setTspObjective] = useState<TspObjective>("min_clicks");
   return (
     <div className="App">
       <Header useNDimensions={gameConfig.useNDimensions} />
@@ -385,6 +384,8 @@ const getSummaryStats = (gameRecords: GameRecord[], algorithmLabel: string): Gam
         isRunning={isRunning}
         hasSimulator={!!simulator}
         onReset={handleReset}
+        tspObjective={tspObjective}        // 💡 추가
+        onTspChange={setTspObjective}      // 💡 추가
       />
 
         {boardState ? (
@@ -403,6 +404,7 @@ const getSummaryStats = (gameRecords: GameRecord[], algorithmLabel: string): Gam
           comparisonResults={comparisonResults}
           allDetailedRecords={allDetailedRecords}
           gameConfig={gameConfig}
+          tspObjective={tspObjective}        // 💡 추가
         />
       </main>
     </div>

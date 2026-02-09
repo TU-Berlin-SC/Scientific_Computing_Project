@@ -1,19 +1,36 @@
 import React from 'react';
 import { GameRecord, GameStats, GameConfig } from '../../types';
 import '../../styles/ResultView.css';
+import { TspObjective } from '../../types/simulation';
+
+// TSP 타입 & 정보 예시
+const TspInfo = [
+  { value: TspObjective.MinDistance, label: 'Shortest Path' },
+  { value: TspObjective.MinRotation, label: 'Min Rotation' },
+  { value: TspObjective.MaxInformation, label: 'Max Information' },
+];
+
 interface ResultPanelProps {
   batchResults: any[];
   comparisonResults: any[];
   allDetailedRecords: GameRecord[];
   gameConfig: GameConfig;
+  tspObjective: TspObjective;
 }
 
 const ResultPanel: React.FC<ResultPanelProps> = ({ 
   batchResults, 
   comparisonResults, 
   allDetailedRecords, 
-  gameConfig 
+  gameConfig,
+  tspObjective
 }) => {
+
+//util
+const getTspLabel = (objective: TspObjective) => {
+  const found = TspInfo.find(t => t.value === objective);
+  return found ? found.label : objective;
+};
 
   // CSV Export (유저님의 헤더 형식 유지)
   const downloadCSV = (gameRecords: GameRecord[], filename: string) => {
@@ -21,32 +38,35 @@ const ResultPanel: React.FC<ResultPanelProps> = ({
       alert("❌ 데이터 없음");
       return;
     }
-
+  
     const headers = ["algorithm", "objective", "dims", "win", "clicks", "time_ms", "guesses", "completion"];
     const rows = gameRecords.map(r => [
       r.algorithm,
-      r.objective ?? "N/A",
-      Array.isArray(r.dims) ? r.dims.join("x") : r.dims,
+      getTspLabel(tspObjective),
+      gameConfig.dimensions && gameConfig.dimensions.length > 0
+        ? gameConfig.dimensions.join("x")
+        : `${gameConfig.height}x${gameConfig.width}`,
       r.win,
       r.clicks,
       r.time_ms,
       r.guesses,
       r.completion
     ]);
-
-    const titleHeader = `--- benchmark results ---`;
+  
+    const titleHeader = `--- Benchmark Results (${gameConfig.dimensions?.join('×')}, Mines: ${gameConfig.mines}) ---`;
     const csvContent = [
       titleHeader,
       headers.join(","),
       ...rows.map(r => r.join(","))
     ].join("\n");
-
+  
     const blob = new Blob(["\ufeff" + csvContent], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
     link.download = `${filename}.csv`;
     link.click();
   };
+  
 
   return (
     <div className="results-container">

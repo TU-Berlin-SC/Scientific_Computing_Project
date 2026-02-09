@@ -102,3 +102,39 @@
   font-size: 13px;
   color: #666;
 }
+.tsp-group {
+  display: flex;
+  align-items: center; /* 글씨와 버튼 수평 정렬 */
+  gap: 16px;           /* 글씨와 버튼 사이 간격 */
+  margin-top: 16px;
+}
+
+.tsp-group .label {
+  font-weight: 700;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.tsp-stack.horizontal {
+  display: flex;
+  gap: 8px; /* 버튼 사이 간격 */
+}
+
+.tsp-tab {
+  background-color:  #74787a; /* 통일된 보라색 배경 */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.tsp-tab:hover {
+  background-color:  #353a43;
+}
+
+.tsp-tab.active {
+  background-color:  #6a7fa7; /* 선택된 버튼 강조 */
+}
