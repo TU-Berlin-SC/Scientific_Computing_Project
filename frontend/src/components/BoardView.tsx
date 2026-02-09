@@ -5,14 +5,16 @@ import { Board } from '../types/simulation';
 import TwoDBoard from './Boards/TwoDBoard';
 import ThreeDBoardView from './Boards/ThreeDBoardView';
 import HyperplaneView from './Boards/HyperplaneView';
+import { GameConfig } from '../types';
 
 interface BoardViewProps {
   board: Board | null;
   onCellClick?: (coordinates: number[]) => void;
   onCellRightClick?: (coordinates: number[]) => void;
+  gameConfig: GameConfig;
 }
 
-const BoardView: React.FC<BoardViewProps> = ({ board, onCellClick, onCellRightClick }) => {
+const BoardView: React.FC<BoardViewProps> = ({ board, onCellClick, onCellRightClick, gameConfig }) => {
   
   useEffect(() => {
     if (!board) return;
@@ -55,11 +57,15 @@ const BoardView: React.FC<BoardViewProps> = ({ board, onCellClick, onCellRightCl
       <header className="board-header">
         <div className="header-main">
           <h2>{dimensionCount}D Minesweeper</h2>
-          {/* <span className={`status-badge ${board.game_over ? 'over' : board.game_won ? 'won' : 'playing'}`}>
-            {board.game_over ? '💥 Over' : board.game_won ? '🎉 Won' : '🎮 Playing'}
-          </span> */}
         </div>
         <div className="board-info">
+          <span>  {/* 엔진이 뱉은 6x9x9를 무시하고, 유저가 설정한 값을 그대로 출력 */}
+                    Size: {
+                      gameConfig.dimensions && gameConfig.dimensions.length > 0
+                        ? gameConfig.dimensions.join('×')
+                        : `${gameConfig.height}×${gameConfig.width}`
+                    }
+                    </span>
           <span>📏 Size: <strong>{dims.join(' × ')}</strong></span>
         </div>
       </header>
