@@ -1,53 +1,61 @@
 .two-d-view {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .grid-container {
-    display: grid;
-    /* 셀 사이 간격이 하얗게 보이도록 배경을 흰색으로 설정 */
-    background-color: #ffffff; 
-    gap: 3px; /* 간격을 살짝 벌려서 시원하게 */
-    padding: 2px;
-  }
-  
-  /* 셀 디자인 */
-  .board-cell {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 0.95rem;
-    font-weight: 700;
-    border-radius: 4px; /* 살짝 굴려야 세련돼 보임 */
-    transition: all 0.1s ease;
-  }
-  
-  /* 가려진 셀: 너무 짙지 않은 그레이 */
-  .board-cell.cell-hidden {
-    background-color: #f1f3f5; 
-  }
-  
-  .board-cell.cell-hidden:hover {
-    background-color: #e9ecef;
-    transform: scale(1.02);
-  }
-  
-  /* 열린 셀: 하얀색에 가까운 아주 연한 그레이 */
-  .board-cell.cell-empty,
-  .board-cell.cell-number {
-    background-color: #f8f9fa;
-    cursor: default;
-  }
-  
-  /* 숫자 컬러 (가독성 높은 톤) */
-  .cell-number-1 { color: #228be6; }
-  .cell-number-2 { color: #40c057; }
-  .cell-number-3 { color: #fa5252; }
-  .cell-number-4 { color: #be4bdb; }
-  
-  .cell-mine { 
-    background-color: #fff5f5 !important; 
-    border: 1px solid #ffc9c9;
-  }
-  .cell-flagged { color: #fab005; }
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.grid-container {
+  display: grid;
+  /* 간격을 벌려 그리드 라인 효과를 주되, 배경을 부드러운 다크톤으로 */
+  background-color: #dee2e6; 
+  gap: 2px; 
+  padding: 2px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* 모든 셀의 공통 디자인 */
+.board-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+
+/* 가려진 셀 (아직 안 눌렀을 때) */
+.board-cell:not(.revealed) {
+  background-color: #f1f3f5; /* 사용자님의 원래 그레이 */
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.05); /* 약간의 입체감 */
+}
+
+.board-cell:not(.revealed):hover {
+  background-color: #e9ecef;
+  transform: translateY(-1px);
+}
+
+/* 열린 셀 (숫자나 빈공간) */
+.board-cell.revealed {
+  background-color: #ffffff !important;
+  cursor: default;
+  border: none !important;
+}
+
+/* 지뢰 셀 (터졌을 때 혹은 게임오버) */
+.board-cell.mine {
+  background-color: #fff5f5 !important; 
+  border: 1px solid #ffc9c9 !important;
+  animation: explode 0.4s ease-out;
+}
+
+/* 깃발은 클래스 따로 없어도 되지만 호환성을 위해 */
+.cell-flagged { color: #fab005; }
+
+@keyframes explode {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); background-color: #ffc9c9; }
+  100% { transform: scale(1); }
+}

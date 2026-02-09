@@ -50,8 +50,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.4); /* 0.6 -> 0.4로 흐리게 */
+    backdrop-filter: blur(4px); /* 8px -> 4px로 낮춤 */
     z-index: 100;
     pointer-events: none;
   }

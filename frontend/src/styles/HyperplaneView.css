@@ -215,3 +215,26 @@
 .transform-area {
   transition: transform 0.2s cubic-bezier(0.1, 0.7, 0.1, 1);
 }
+
+/* HyperplaneView.css 하단에 추가 또는 수정 */
+
+.board-cell.cell-mine {
+  background-color: #ff5252 !important; /* 쨍한 레드 */
+  color: white;
+  border: 1px solid #ffc9c9;
+  box-shadow: 0 0 10px rgba(255, 82, 82, 0.8); /* 네온 효과로 뒈짐 강조 */
+  z-index: 10;
+}
+
+/* 3D 큐브 모드(Hologram)에서 지뢰가 더 잘 보이게 */
+.cell-3d.cell-mine {
+  background: #ef4444 !important;
+  box-shadow: 0 0 15px #ef4444;
+  border-color: #fee2e2;
+}
+
+/* 숫자 색상 (기존에 1, 2, 3만 있었다면 추가) */
+.cell-number-1 { color: #60a5fa; }
+.cell-number-2 { color: #34d399; }
+.cell-number-3 { color: #f87171; }
+.cell-number-4 { color: #a78bfa; }

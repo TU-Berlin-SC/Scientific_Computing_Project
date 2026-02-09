@@ -142,3 +142,49 @@
   overflow: hidden;
   perspective: 2000px;
 }
+
+.stats-grid {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  background: #2a2a2a;
+  padding: 15px;
+  border-radius: 8px;
+  color: white;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+.value {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.sub-value {
+  font-size: 0.7rem;
+  color: #ef5350; /* 지뢰 개수는 약간 붉은색으로 */
+}
+
+.value-algo {
+  color: #4fc3f7; /* 알고리즘 이름은 하늘색 */
+  font-weight: bold;
+}
+
+.status-badge {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 800;
+  margin-left: auto; /* 오른쪽 끝으로 밀기 */
+}
+
+.status-badge.won { background: #2e7d32; color: white; }
+.status-badge.lost { background: #c62828; color: white; }
+.status-badge.running { background: #1565c0; color: white; }
