@@ -42,6 +42,7 @@ const HyperplaneView: React.FC<HyperplaneViewProps> = ({
   const [zoom, setZoom] = useState(1.0);
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const isLost = board.game_over && !board.game_won;
 
   // 💡 [수정] 차원 수에 상관없이 항상 마지막 인덱스부터 역순으로 할당
   // [..., W, Z, Y, X] 순서입니다.
@@ -70,6 +71,9 @@ const HyperplaneView: React.FC<HyperplaneViewProps> = ({
   );
 
   const getCellClassName = (cell: CellLocal): string => {
+    const shouldShowMine = cell.is_mine && (cell.is_revealed || isLost);
+    if (shouldShowMine) return 'board-cell cell-mine revealed'; // 클래스명 통일
+
     if (cell.is_revealed) {
       if (cell.is_mine) return 'cell-mine';
       if (cell.adjacent_mines > 0) return `cell-number cell-number-${Math.min(cell.adjacent_mines, 8)}`;
@@ -80,8 +84,12 @@ const HyperplaneView: React.FC<HyperplaneViewProps> = ({
   };
 
   const getCellContent = (cell: CellLocal): string => {
+    // 💡 [추가] 졌을 때 모든 지뢰를 보여줌
+    const isLost = board.game_over && !board.game_won;
+    const shouldShowMine = cell.is_mine && (cell.is_revealed || isLost);
+
+    if (shouldShowMine) return '💣'; 
     if (!cell.is_revealed) return cell.is_flagged ? '🚩' : '';
-    if (cell.is_mine) return '💣';
     return cell.adjacent_mines > 0 ? cell.adjacent_mines.toString() : '';
   };
 
