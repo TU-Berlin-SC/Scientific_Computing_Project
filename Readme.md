@@ -1,342 +1,119 @@
-# N-Dimensional Minesweeper Solver
+# Minesweeper Simulation
 
 ### Evaluating Algorithm Performance and Movement Prioritisation in 3D/4D Minesweeper
 
-This project extends the classical 2D Minesweeper game into **3D and higher dimensions** and studies how different solving algorithms behave under increased logical and topological complexity.
+Evaluating Algorithm Performance and Movement Prioritization in 3D/4D Environments
+This project explores the extension of classical 2D Minesweeper into 3D (Cube) and 4D (Hyperplane) dimensions.
 
-It accompanies our research paper:
-
-> _Evaluating Algorithm Performance and Movement Prioritisation in 3D Minesweeper_
-
-We compare **heuristic**, **constraint-based**, and **exact optimisation** solvers on:
-
-- win rate
-- efficiency
-- computational cost
-- user-experience metrics (movement & rotations)
-
-The system is built as:
-
-**Rust engine → WebAssembly → React visualisation**, fully client-side.
-
----
+It serves as a benchmarking platform to analyze how various computational solvers—ranging from simple heuristics to complex SAT and ILP models—handle increased logical density and topological complexity.
 
 ## Live Demo
 
-### 3D Minesweeper
+url : 🔗 [https://tuberlin-sc-project.pages.dev/](https://tuberlin-sc-project.pages.dev/)
 
-⚠️ Deployment currently failing on this branch. Will be fixed soon.
+- Step-by-step execution (Test Step)
+- Run full game automatically (Test Full Game)
+- Batch test (100 games)
+- Compare all algorithms & save csv
+- Reset current run
+  More details can be found in [here](./frontend/).
 
-### 4D Hyperplane Minesweeper
+# Project Architecture
 
-Because N-dimensional support required both backend and frontend reconstruction, this version is deployed from the feature branch.
+The system follows a decoupled, high-performance architecture to ensure heavy computations don't freeze the UI.
 
-- 🔗 https://feature-4dimension.tuberlin-sc-project.pages.dev
-- 🔗 Source: https://github.com/TU-Berlin-SC/Scientific_Computing_Project/tree/feature/4dimension
+- `engine` **(Rust Core)**: The "brain" containing game logic, Cube map, N-dimensional adjacency maps, and solver implementations.
+- `frontend` **(React + TS)**: An interactive dashboard for visualization, step-by-step inspection, and real-time benchmarking.
+- **WASM Bridge**: Compiles the Rust engine into WebAssembly for near-native performance directly in the browser.
+- `runner` **(Native CLI)**: A specialized tool for heavy-duty batch processing and ILP (SCIP) solvers that cannot run in a browser environment.
+  ![](./assets/d-architecture.png)
 
-> Note: 4D boards take longer to load due to higher constraint density.
+## Solvers and Algorithms
 
-Sample benchmark CSV:  
-`assets/algorithm_comparison_summary.csv`
+We implement and compare three distinct families of solving strategies:
 
----
+| Category         | Algorithm  | Description                                                    | Strength                 |
+| ---------------- | ---------- | -------------------------------------------------------------- | ------------------------ |
+| **Heuristic**    | Greedy     | Local neighbor reasoning mimicking human play.                 | Lightning fast.          |
+| **Logic-Based**  | SAT Solver | Converts the board to CNF constraints; proves safety via DPLL. | Balanced speed/accuracy. |
+| **Optimization** | ILP (SCIP) | Integer Linear Programming for global board optimization.      | Highest win rate.        |
 
-## Architecture
-
-![](./assets/d-architecture.png)
-
-**Stack**
-
-- Rust core solver engine
-- WebAssembly build
-- React frontend
-- Fully client-side execution (no backend)
-
----
-
-## Board Visualisation
-
-### UI examples
-
-![](./assets/d-boards.png)
+Detailed information about the algorithms can be found in [here](./engine/).
 
 ---
 
-## Features
+## Scientific Observations
 
-- Dimension-agnostic board (supports arbitrary N)
-- 3D cube surface Minesweeper
-- 4D hyperplane prototype with slice navigation
-- Multiple solving algorithms
-- Automated benchmarking & CSV export
-- Interactive visualisation
-- High-performance Rust → WASM
+### The Dimensionality Gap
 
----
+As dimensions increase, the number of neighbors per cell grows exponentially (). This leads to a "combinatorial explosion" in constraints.
 
-# Solvers
+- **2D:** 8 Neighbors
+- **3D:** 26 Neighbors
+- **4D:** 80 Neighbors
 
-The project currently implements three families of strategies:
+### Benchmark Results (100 Board Sample)
 
-## Greedy (Heuristic)
+| Dimension                                                                                                             | Greedy Win Rate | SAT Win Rate | ILP Win Rate |
+| --------------------------------------------------------------------------------------------------------------------- | --------------- | ------------ | ------------ |
+| **2D**                                                                                                                | 36%             | 95%          | 41%\*        |
+| **3D**                                                                                                                | 20%             | 97%          | 14%\*        |
+| **4D**                                                                                                                | 4%              | 50%          | 9%\*         |
+| \*_Note: ILP performance varies significantly based on timeout constraints and global vs. local optimization passes._ |                 |              |              |
 
-- Local neighbour reasoning
-- Human-like rules
-- Falls back to probability when stuck
-- Very fast
-- Low success rate on large boards
+Evaluated date : 06/02/2026.
 
-## SAT (Exact logical solver)
+## Getting Started
 
-- Converts board → CNF constraints
-- Uses DPLL reasoning
-- Proves safety by contradiction
-- High win rate
-- Moderate computational cost
+### Prerequisites
 
-## Exact / ILP
+- **Rust:** `rustup` (latest stable)
+- **Wasm-pack:** `cargo install wasm-pack`
+- **Node.js:** v18+ and `npm`
 
-- Integer Linear Programming formulation
-- Binary variables per cell
-- Global optimisation
-- Highest success rate
-- Slowest runtime
+### 1. Test Benchmarks
 
----
-
-# 3D Results
-
-### Overall success rate
-
-| Algorithm       | Success Rate |
-| --------------- | ------------ |
-| Human Mimetic   | 14.4%        |
-| Greedy          | 2.5%         |
-| SAT             | 85.2%        |
-| Partitioned SAT | 85.2%        |
-| SCIP ILP        | **89.5%**    |
-
-### Results
-
-|                                                       |                                                           |
-| ----------------------------------------------------- | --------------------------------------------------------- |
-| ![](./assets/g-success_by_algo__ALL.png)              | ![](./assets/g-success_vs_board_size__ALLALGOS.png)       |
-| ![](./assets/g-time_per_click_vs_cell_count__ALL.png) | ![](./assets/g-tradeoff_success_vs_timeperclick__ALL.png) |
-
-# Observations
-
-### Solver quality
-
-- Exact methods (SAT/ILP) dominate win rate
-- Heuristics fail on large boards
-
-### Scaling behaviour
-
-- Constraint count grows exponentially with dimension
-- Partitioning significantly reduces SAT runtime
-
-### Trade-off
-
-- Greedy → fastest but unreliable
-- ILP → most accurate but slow
-- SAT → best balance
-
-### Movement objectives matter
-
-- Information-gain prioritisation improves success
-- Distance minimisation improves UX smoothness
-- Rotation minimisation reduces camera overhead
-
----
-
-# Evaluation Metrics
-
-We evaluate solvers using:
-
-### Win metrics
-
-- **Wins / Win Rate** – how often the board is cleared
-
-### Efficiency
-
-- **Avg Steps (Wins)** – logical deductions needed
-- **Avg Clicks (Wins)** – information usage
-- **Efficiency Score** = completion / clicks
-
-### Computational cost
-
-- **Normalised time per move** = time / clicks
-
-### Combined score
-
-- **Success-adjusted efficiency**  
-  balances reliability + speed + completeness
-
-### Stability
-
-- variance of clicks / time / completion
-
----
-
-# 🔬 4D Hyperplane Prototype
-
-To test scalability, we generalised the board to **N dimensions**.
-
-Each cell: neighbors = `3^d − 1`
-
-| Dimension | Neighbours |
-| --------- | ---------- |
-| 2D        | 8          |
-| 3D        | 26         |
-| 4D        | 80         |
-
-The 4D board is visualised as **3D slices along the w-axis**.
-
-### Win rates (100 boards)
-
-| Dimension | Greedy | Exact | SAT |
-| --------- | ------ | ----- | --- |
-| 2D        | 36%    | 41%   | 95% |
-| 3D        | 20%    | 14%   | 97% |
-| 4D        | 4%     | 9%    | 50% |
-
-**Key takeaway:**  
-Higher dimension ⇒ combinatorial explosion ⇒ lower win rate + longer solve time.
-
----
-
-# Getting Started
-
-### How to setup the Environment
-
-```bash
-# clone this repo
-git clone https://github.com/TU-Berlin-SC/Scientific_Computing_Project.git
-
-# Make sure you have Rust (I'm sure we all do)
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-# Install wasm-pack
-cargo install wasm-pack
-
-# Check your Node.js (v18 or higher)
-node -v
-npm -v
-
-# and do you perhaps have npm installed?
-npm install -g npm@latest
+```
+Cargo run
 ```
 
-### How to Build for the first time
+### 2. With Visuals
 
-```bash
-cd engine # Backend route
-cargo check # check dependencies
-cargo update # Update dependencies
-wasm-pack build --target web --out-dir ../frontend/src/wasm_pkg # WASM Build
+#### Build the WASM Engine
 
-cd ../frontend # frontend
-npm i # only install for first time
-npm run build
-npm run dev
-```
-
-After building for first time,
-(Also, I recommend to use separate bash to run front and backend)
-
-### Backend
+The frontend relies on the compiled Rust logic. You must build this first:
 
 ```bash
 cd engine
-cargo update # Update dependencies
-wasm-pack build --target web --out-dir ../frontend/src/wasm_pkg # WASM Build
+wasm-pack build --target web --out-dir ../frontend/src/wasm_pkg
+
 ```
 
-### Frontend
+#### Launch with React
 
 ```bash
 cd frontend
-npm run dev # this allows to show your changes in real time with the url it gives you
+npm install
+npm run dev
+
+```
+
+## Repository Structure
+
+```text
+.
+├── engine/                # Core Rust Logic
+│   ├── src/algorithms/    # Solver implementations (SAT, Greedy, ILP)
+│   └── src/board.rs       # N-D Adjacency and Game State
+├── frontend/              # React Visualization App
+│   └── src/components/    # 3D/4D Renderers & Control Panels
+└── runner/                # Native CLI for Research Benchmarking
+
 ```
 
 ---
 
-# Architecture
+## Future Roadmap
 
-```bash
-.
-├── Readme.md
-├── engine
-│   ├── Cargo.toml # add library dependencies
-│   ├── Readme.md
-│   ├── src
-│   │   ├── algorithms          # <- this is where we put our algorithms!
-│   │   │   ├── exact_solver.rs # exact solver using ilp
-│   │   │   ├── greedy.rs       # greedy (but it's not so good right now)
-│   │   │   ├── sat_solver.rs   # for later
-│   │   │   ├── macros.rs       # macro tool to make my life easier
-                                #(so we dont have to call 239048 times of our new algorithm)
-│   │   │   └── mod.rs # [IMPORTANT] you need to add your algorithm here as well!
-│   └─── board.rs               # common module for our board logic
-│     ├── lib.rs                # WebAssembly module for simulation
-└── frontend
-    ├── src
-    │   ├── App.css
-    │   ├── App.tsx
-    │   ├── assets
-    │   │   └── react.svg
-    │   ├── components
-    │   │   ├── AlgorithmSelector.css
-    │   │   ├── AlgorithmSelector.tsx
-    │   │   ├── BoardView.css
-    │   │   ├── BoardView.tsx
-    │   │   ├── InteractiveNDBoard.css
-    │   │   ├── InteractiveNDBoard.tsx # added
-    │   │   ├── Controls.css
-    │   │   ├── Controls.tsx
-    │   │   ├── ResultView.css
-    │   │   └── ResultView.tsx
-    │   ├── index.css
-    │   ├── main.tsx
-    │   ├── types
-    │   │   ├── simulation.ts
-    │   │   └── wasm.d.ts
-    │   └── utils
-    │       └── visualization.ts
-    ├── tsconfig.app.json
-    ├── tsconfig.json
-    ├── tsconfig.node.json
-    └── vite.config.ts
-
-```
-
-### Setting up Cloudflare pages
-
-took me forever but..this is only for my reference. it's already all setup.
-
-```
-Build configuration
-Build command:
-if ! command -v rustc &> /dev/null; then curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y; . "$HOME/.cargo/env"; fi && if ! command -v wasm-pack &> /dev/null; then curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh; fi && cd ../engine && wasm-pack build --target web --out-dir ../frontend/src/wasm_pkg && cd ../frontend && npm run build
-Build output:
-dist
-Root directory:
-frontend
-Build comments:
-Enabled
-```
-
-and vite.config.ts, package.json, and \_headers had to be modified as well
-
-### How to add to our codes?
-
-still working on writing this.
-
-```bash
-# create branch
-# git add <files>
-# git commit -m "something"
-# git push
-# pull requst & merge
-# if we merge it, let's update our tag as well
-```
+- **Parallel SAT Solving:** Implementing partitioned SAT solving to handle 4D boards faster.
+- **Advanced Topology:** Moving beyond grids to spherical and toroidal manifolds.
