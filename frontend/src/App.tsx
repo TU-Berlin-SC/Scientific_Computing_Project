@@ -13,12 +13,17 @@ import type { GameConfig, Preset, GameRecord, GameStats } from './types';
 // WASM 패키지 임포트
 import initWasmEngine, { Simulator } from './wasm_pkg/engine';
 
-const defaultPresets: Preset[] = [
-  { id: 'preset1', name: 'Easy (9x9)', width: 9, height: 9, mines: 10 },
-  { id: 'preset2', name: 'Medium (16x16)', width: 16, height: 16, mines: 40 },
-  { id: 'preset3', name: 'Hard (30x16)', width: 30, height: 16, mines: 99 },
+// Preset 정의
+const gamePresets: Preset[] = [
+  { id: "2d-beginner", name: "2D Beginner", width: 9, height: 9, mines: 10, dimensions: [9, 9] },
+  { id: "2d-intermediate", name: "2D Beginner", width: 16, height: 16, mines: 40, dimensions: [16, 16] },
+  { id: "2d-expert", name: "2D Expert", width: 30, height: 16, mines: 99, dimensions: [30, 16] },
+  { id: "3d-beginner", name: "3D Beginner", dimensions: [4, 4, 4], mines: 8 },
+  { id: "3d-intermediate", name: "3D Intermediate", dimensions: [6, 6, 6], mines: 40 },
+  { id: "3d-expert", name: "3D Expert", dimensions: [8, 8, 8], mines: 99 },
+  { id: "4d-beginner", name: "4D Beginner", dimensions: [3, 3, 3, 3], mines: 10 },
+  { id: "4d-intermediate", name: "4D Intermediate", dimensions: [4, 4, 4, 4], mines: 40 },
 ];
-
 const App: React.FC = () => {
   // --- 1. 상태 관리 ---
   const [gameConfig, setGameConfig] = useState<GameConfig>({
@@ -55,69 +60,42 @@ const App: React.FC = () => {
   }, []);
 
   // --- 3. 보드 생성 로직 (WASM 인터페이스 맞춤) ---
-// App.tsx 내부의 handleCreateBoard 수정
-const handleCreateBoard = useCallback(() => {
-  if (!wasmReady) {
-    console.warn("WASM이 아직 준비되지 않았습니다.");
-    return;
-  }
-
-  try {
-    const { width, height, mines, useNDimensions, dimensionCount, dimensions } = gameConfig;
-    
-    let finalDims;
-    if (useNDimensions) {
-      if (dimensionCount === 3) {
-        // 3D 주사위 모드: 백엔드 [face, y, x] 구조에 맞춰 [6, height, width] 전달
-        finalDims = [6, height, width];
-      } else {
-        finalDims = dimensions; // 4D 이상
-      }
-    } else {
-      finalDims = [height, width]; // 2D: [row, col]
-    }
-
-    console.log("🛠️ 시뮬레이터 생성 시도:", finalDims);
-    const newSim = new Simulator(finalDims, mines, selectedAlgorithm);
-    
-    // 생성 직후 상태 확인
-    const initialState = newSim.getState();
-    if (!initialState || !initialState.cells) {
-       throw new Error("WASM에서 유효한 보드 데이터를 받지 못했습니다.");
-    }
-
-    setSimulator(newSim);
-    setBoardState(initialState);
-    console.log("✅ 보드 생성 성공:", initialState);
-  } catch (e) {
-    console.error("💀 WASM 생성 오류:", e);
-    alert("보드 생성 중 오류가 발생했습니다. 콘솔을 확인하세요.");
-  }
-}, [wasmReady, gameConfig, selectedAlgorithm]);
-  // const handleCreateBoard = useCallback(() => {
-  //   if (!wasmReady) return;
+  const handleCreateBoard = useCallback(() => {
+    if (!wasmReady) return;
   
-  //   try {
-  //     const { width, height, mines, useNDimensions, dimensions } = gameConfig;
+    try {
+      const { width, height, mines, useNDimensions, dimensionCount, dimensions } = gameConfig;
+      let rawDims: number[];
+  
+      if (useNDimensions) {
+        if (dimensionCount === 3) {
+          // 3D Beginner [4,4,4] -> [6,4,4]
+          rawDims = [6, dimensions[1], dimensions[2]];
+        } else {
+          // 4D 이상은 프리셋 값 그대로 전달
+          rawDims = dimensions;
+        }
+      } else {
+        rawDims = [height, width];
+      }
+  
+      const finalDims = new Uint32Array(rawDims);
       
-  //     let newSim;
-  //     if (useNDimensions) {
-  //       // 💡 dimensions 배열이 [z, y, x] 혹은 [w, z, y, x] 순서인지 확인
-  //       console.log("Creating ND Simulator with:", dimensions);
-  //       newSim = new Simulator(dimensions, mines, selectedAlgorithm);
-  //     } else {
-  //       // 💡 2D인 경우 확실하게 [height, width] 배열로 전달
-  //       newSim = new Simulator([height, width], mines, selectedAlgorithm);
-  //     }
+      // 지뢰 개수 체크 로그 추가
+      const totalPossible = rawDims.reduce((a, b) => a * b, 1);
+      console.log(`📊 예상 전체 셀 수: ${totalPossible}, 지뢰: ${mines}`);
+  
+      // Simulator 생성 (타입 캐스팅으로 에러 방지)
+      const newSim = new Simulator(finalDims, mines, selectedAlgorithm as any);
       
-  //     setSimulator(newSim);
-  //     setBoardState(newSim.getState());
-  //   } catch (e) {
-  //     // 💡 여기서 에러가 나면 Rust 내부 panic입니다.
-  //     console.error("WASM 엔진 내부 오류 (Panic):", e);
-  //   }
-  // }, [wasmReady, gameConfig, selectedAlgorithm]);
-
+      const initialState = newSim.getState();
+      setSimulator(newSim);
+      setBoardState(initialState);
+      console.log("✅ 보드 생성 성공!");
+    } catch (e) {
+      console.error("💀 WASM 생성 오류:", e);
+    }
+  }, [wasmReady, gameConfig, selectedAlgorithm]);
 
 
   // 초기 로드 시 생성
@@ -156,7 +134,12 @@ const handleCreateBoard = useCallback(() => {
     const totalCells = state.cells.length;
     const revealedCells = state.cells.filter((c: any) => c.is_revealed);
     const mineCells = state.cells.filter((c: any) => c.is_mine);
-    
+    const total = state.total_cells; // 전체 칸 수
+    const mines = state.mines;       // 지뢰 수
+    const goal = total - mines;      // 파내야 할 칸 수
+    const current = state.total_revealed; // 현재 판 칸 수
+
+  console.log(`📊 보드 상태: 전체 ${total}칸 중 ${current}칸 오픈 (지뢰 제외 남은 목표: ${goal - current}칸)`);
     // 면(Face)별 데이터 분포 확인
     const faceStats = [0, 1, 2, 3, 4, 5].map(f => ({
       face: f,
@@ -342,12 +325,11 @@ const getSummaryStats = (gameRecords: GameRecord[], algorithmLabel: string): Gam
       <Menu 
         config={gameConfig} 
         setConfig={setGameConfig}
-        presets={defaultPresets} 
+        presets={gamePresets}
         wasm={wasmReady}
         simulator={!!simulator} 
         onCreateBoard={handleCreateBoard}
-      />
-
+    />
       {/* 알고리즘 선택 섹션 */}
       <AlgorithmSelector
         selectedAlgorithm={selectedAlgorithm}
