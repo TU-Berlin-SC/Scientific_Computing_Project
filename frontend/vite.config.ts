@@ -10,12 +10,15 @@ export default defineConfig({
     topLevelAwait()
   ],
   worker: {
-    // Required if your WASM uses web workers
-    plugins: () => [wasm(), topLevelAwait()],
+    // ⚠️ 수정됨: 함수 () => [] 가 아니라 그냥 배열 [] 이어야 합니다.
+    plugins: [
+        wasm(), 
+        topLevelAwait()
+    ],
   },
   optimizeDeps: {
-    // This forces Vite to treat the WASM package as a dependency
-    exclude: ['your-wasm-package-name'] 
+    // ⚠️ 수정됨: 실제 engine 패키지 이름을 적거나, 잘 모르겠으면 일단 비워두셔도 됩니다.
+    exclude: ['engine'] 
   },
   server: {
     fs: {
