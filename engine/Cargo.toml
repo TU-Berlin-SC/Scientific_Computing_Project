@@ -9,13 +9,28 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-serde-wasm-bindgen = "0.5.0"
 rand = "0.8"
 wasm-bindgen = "0.2"
 getrandom = { version = "0.2", features = ["js"] }
 itertools = "0.14.0"
-russcip = "0.9.1"
+js-sys = "0.3"
+serde-wasm-bindgen = "0.5"
+
+# SCIP related dependencies
+russcip = { version = "0.9.1", optional = true }
 scip-sys = { version = "0.1.26", optional = true }
+
+# for wasm debugging
+[dependencies.web-sys]
+version = "0.3"
+features = [
+  "console"
+]
+
+# seperate runner and wasm environment
+[features]
+default = []
+native = ["russcip", "scip-sys"]
 
 [profile.release]
 lto = true
