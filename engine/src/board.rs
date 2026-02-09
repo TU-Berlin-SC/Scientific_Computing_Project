@@ -14,15 +14,13 @@ pub struct Cell {
     pub is_revealed: bool,
     pub is_flagged: bool,
     pub adjacent_mines: u8,
-    pub x: usize,     // local face coordinate
-    pub y: usize,     // local face coordinate
-    pub face: usize,   // the face of the cube - numbered 0 to 5
+    /// 3D Cube: [face, y, x], ND: [d1, d2, ...]
+    pub coordinates: Vec<usize>, 
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Board {
-    pub width: usize,
-    pub height: usize,
+    pub dimensions: Vec<usize>, 
     pub mines: usize,
     pub cells: Vec<Cell>,
     pub game_over: bool,
@@ -31,37 +29,47 @@ pub struct Board {
     pub total_clicks: usize,
     pub last_click_idx: usize,         
     pub adjacency_map: Vec<Vec<usize>>,
-    pub seed: Option<u64>, // added for benchmark consistency 
+    pub seed: Option<u64>, 
 }
 
 impl Board {
-    pub fn new(width: usize, height: usize, mines: usize, adjacency_map: Vec<Vec<usize>>) -> Self {
-        let total_cells = 6 * width * height; 
+    pub fn new(dims: Vec<usize>, mines: usize, adjacency_map: Vec<Vec<usize>>) -> Self {
+        let total_cells = adjacency_map.len(); 
+        
         if mines >= total_cells {
             panic!("Too many mines for board size!");
         }
         
-        // intialising all the cells on all the faces
         let mut cells = Vec::with_capacity(total_cells);
-        for face in 0..6 {
-            for y in 0..height {
-                for x in 0..width {
-                    cells.push(Cell {
-                        is_mine: false,
-                        is_revealed: false,
-                        is_flagged: false,
-                        adjacent_mines: 0,
-                        x,
-                        y,
-                        face
-                    });
+        let is_3d_cube = dims.len() == 3 && dims[0] == 6;
+        let face_size = if is_3d_cube { dims[1] * dims[2] } else { 0 };
+
+        for i in 0..total_cells {
+            let mut coords = Vec::new();
+            if is_3d_cube {
+                let face = i / face_size;
+                let rem = i % face_size;
+                coords = vec![face, rem / dims[2], rem % dims[2]];
+            } else {
+                let mut temp_idx = i;
+                for &d in dims.iter().rev() {
+                    coords.push(temp_idx % d);
+                    temp_idx /= d;
                 }
+                coords.reverse();
             }
+
+            cells.push(Cell {
+                is_mine: false,
+                is_revealed: false,
+                is_flagged: false,
+                adjacent_mines: 0,
+                coordinates: coords,
+            });
         }
 
         Board {
-            width,
-            height,
+            dimensions: dims,
             mines,
             cells,
             game_over: false,
@@ -70,19 +78,14 @@ impl Board {
             total_clicks: 0,
             last_click_idx: 0,
             adjacency_map,
-            seed: None, // Initialized as None
+            seed: None,
         }
     }
 
-    /// logic for placing mines randomly on the board
-    /// Modified to ensure first-click safety: excludes start_idx and its neighbors
     pub fn place_mines_after_first_click(&mut self, first_idx: usize) {
         let mut indices: Vec<usize> = (0..self.cells.len()).collect();
-        
-        // Ensure the first click (and its immediate 3D neighbors) are safe
         indices.retain(|&idx| idx != first_idx && !self.adjacency_map[first_idx].contains(&idx));
         
-        // Use seed if available for reproducibility across solvers, otherwise use thread_rng
         if let Some(s) = self.seed {
             let mut rng = StdRng::seed_from_u64(s);
             indices.shuffle(&mut rng);
@@ -95,75 +98,50 @@ impl Board {
             self.cells[idx].is_mine = true;
         }
 
-        // Calculate adjacent mines for the whole board
         for i in 0..self.cells.len() {
             if !self.cells[i].is_mine {
                 let count = self.adjacency_map[i].iter()
-                    .filter(|&&neighbor_idx| self.cells[neighbor_idx].is_mine)
+                    .filter(|&&n| self.cells[n].is_mine)
                     .count();
                 self.cells[i].adjacent_mines = count as u8;
             }
         }
     }
 
-    /// function for revealing a cell, handles game over and flood fill
     pub fn reveal_cell(&mut self, idx: usize) {
         if self.game_over || self.cells[idx].is_revealed || self.cells[idx].is_flagged {
             return;
         }
-
-        // Place mines only on the very first click
         if self.total_clicks == 0 {
             self.place_mines_after_first_click(idx);
         }
-
         self.last_click_idx = idx;
         self.total_clicks += 1;
-
         if self.cells[idx].is_mine {
             self.game_over = true;
-            self.game_won = false;
             return;
         }
-
         self.flood_fill(idx);
-        
-        // check for the win condition
-        let total_cells = self.cells.len();
-        if self.total_revealed == total_cells - self.mines {
+        if self.total_revealed == self.cells.len() - self.mines {
             self.game_over = true;
             self.game_won = true;
-            
-            // auto flag all mines upon winning
-            for cell in &mut self.cells {
-                if cell.is_mine {
-                    cell.is_flagged = true;
-                }
-            }
         }
     }
 
-    /// revealed cells recursively if they have 0 mines around them
     fn flood_fill(&mut self, start_idx: usize) {
         let mut stack = vec![start_idx];
-        
         if !self.cells[start_idx].is_revealed {
             self.cells[start_idx].is_revealed = true;
             self.total_revealed += 1;
         }
-
-        if self.cells[start_idx].adjacent_mines > 0 {
-            return;
-        }
-
+        if self.cells[start_idx].adjacent_mines > 0 { return; }
         while let Some(curr_idx) = stack.pop() {
-            for &neighbor_idx in &self.adjacency_map[curr_idx] {
-                let cell = &self.cells[neighbor_idx];
-                if !cell.is_revealed && !cell.is_mine && !cell.is_flagged {
-                    self.cells[neighbor_idx].is_revealed = true;
+            for &n_idx in &self.adjacency_map[curr_idx] {
+                if !self.cells[n_idx].is_revealed && !self.cells[n_idx].is_mine && !self.cells[n_idx].is_flagged {
+                    self.cells[n_idx].is_revealed = true;
                     self.total_revealed += 1;
-                    if self.cells[neighbor_idx].adjacent_mines == 0 {
-                        stack.push(neighbor_idx);
+                    if self.cells[n_idx].adjacent_mines == 0 {
+                        stack.push(n_idx);
                     }
                 }
             }
@@ -178,10 +156,7 @@ impl Board {
 
     pub fn reset(&mut self) {
         for cell in &mut self.cells {
-            cell.is_mine = false; 
-            cell.is_revealed = false;
-            cell.is_flagged = false; 
-            cell.adjacent_mines = 0;
+            cell.is_mine = false; cell.is_revealed = false; cell.is_flagged = false; cell.adjacent_mines = 0;
         }
         self.game_over = false; 
         self.game_won = false;
@@ -217,5 +192,18 @@ impl Board {
         self.adjacency_map[idx].iter()
             .filter(|&&n| !self.cells[n].is_revealed && !self.cells[n].is_flagged)
             .count()
+    }
+    /// for meta-heuristic purposes,thats calling from runner
+    pub fn get_width(&self) -> usize {
+        *self.dimensions.last().unwrap_or(&0)
+    }
+
+    pub fn get_height(&self) -> usize {
+        if self.dimensions.len() >= 2 {
+            self.dimensions[self.dimensions.len() - 2]
+        } else {
+            // 1D 보드일 경우 높이를 1로 간주
+            1
+        }
     }
 }
