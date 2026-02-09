@@ -66,11 +66,20 @@ impl GreedyAlgorithm {
         let remaining_cells = total_cells.saturating_sub(board.total_revealed).saturating_sub(flag_count);
         let remaining_mines = board.mines.saturating_sub(flag_count);
         
-        if remaining_cells > 0 {
+        let mut prob = if remaining_cells > 0 {
             remaining_mines as f64 / remaining_cells as f64
         } else {
             1.0
+        };
+
+        // [2026-02-09] Added: Penalty for "blind" guesses.
+        // If a cell has no revealed neighbors, it's a blind guess. In 4D, these are very risky.
+        // Adding a small penalty (0.1) forces the greedy solver to pick cells near the frontier.
+        if revealed_neighbors == 0 {
+            prob += 0.1;
         }
+
+        prob
     }
 
     /// finding all the safe cells on the board
@@ -140,7 +149,7 @@ impl GreedyAlgorithm {
         }
 
         // Probability-based guessing
-        let mut best_prob = 1.1; // Start higher than 1.0
+        let mut best_prob = 1.2; // [2026-02-09] Modified: Increased from 1.1 to accommodate penalty
         let mut best_indices = Vec::new();
 
         for idx in 0..board.cells.len() {
