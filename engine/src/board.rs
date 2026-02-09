@@ -213,7 +213,6 @@ impl Board {
         if self.dimensions.len() >= 2 {
             self.dimensions[self.dimensions.len() - 2]
         } else {
-            // 1D 보드일 경우 높이를 1로 간주
             1
         }
     }
