@@ -1,0 +1,61 @@
+.algorithm-selector-container {
+  max-width: 1200px;
+  margin: 10px auto;
+  padding: 0 20px;
+}
+
+.algorithm-grid {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.algorithm-card {
+  flex: 1 1 220px;
+  /* max-width: 280px; */
+  padding: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+/* 💡 선택되었을 때의 확실한 피드백 */
+.algorithm-card.selected {
+  border-color: #007bff;
+  background-color: #f0f7ff;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.15);
+  transform: translateY(-3px);
+}
+
+.algorithm-card:hover:not(.disabled):not(.not-implemented) {
+  border-color: #b3d7ff;
+  transform: translateY(-2px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  padding-left: 8px;
+}
+
+.active-badge {
+  font-size: 10px;
+  background: #007bff;
+  color: white;
+  /* padding: 2px 6px; */
+  border-radius: 10px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+}
+
+.algorithm-card.not-implemented {
+  background: #f8f9fa;
+  cursor: not-allowed;
+  opacity: 0.7;
+  padding: 16px;
+}

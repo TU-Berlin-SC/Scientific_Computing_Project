@@ -1,0 +1,158 @@
+.menu-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.config-section {
+  background: #fff;
+  border-radius: 10px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.mode-indicator-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.mode-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.mode-title {
+  font-weight: 700;
+  color: #333;
+}
+
+.mode-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+}
+
+.mode-badge.mode-2d {
+  background: #4299e1;
+}
+
+.mode-badge.mode-nd {
+  background: #2b3a68;
+}
+
+.preset-label {
+  font-weight: 600;
+}
+
+.preset-badge {
+  background: #f1f3f5;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+.advanced-toggle-wrapper {
+  margin-left: auto;
+}
+
+.advanced-toggle {
+  background: transparent;
+  color: #6c757d;
+  border: 1px solid #dee2e6;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.advanced-toggle:hover {
+  background: #f8f9fa;
+}
+.menu-wrapper {
+  padding: 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.main-control-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f9fa; /* 밝은 회색 배경 */
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.selectors-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.control-label {
+  font-weight: 600;
+  color: #495057;
+  margin-right: 5px;
+}
+
+.styled-select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  background-color: white;
+  color: #212529;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.styled-select:hover {
+  border-color: #007bff;
+}
+
+.create-btn-primary {
+  padding: 8px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.create-btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.create-btn-primary:active {
+  transform: scale(0.98);
+}
+
+.settings-toggle-btn {
+  background: none;
+  border: none;
+  color: #6c757d;
+  text-decoration: underline;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

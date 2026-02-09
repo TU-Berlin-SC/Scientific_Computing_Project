@@ -1,0 +1,222 @@
+.hyperplane-nd-view {
+  width: 100%;
+  height: 900px;
+  background: #919bc979;
+  display: flex;
+  flex-direction: column;
+}
+
+.w-nav-container {
+  padding: 15px;
+  background: #1e293b;
+  border-bottom: 2px solid #334155;
+}
+
+.w-btn-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.w-btn {
+  padding: 5px 12px;
+  background: #334155;
+  color: white;
+  border: 1px solid #475569;
+  cursor: pointer;
+}
+
+.w-btn.active { background: #3b82f6; }
+
+.view-toggle { margin-left: auto; background: #10b981; color: white; border: none; padding: 5px 15px; border-radius: 4px; cursor: pointer; }
+
+.view-stage {
+  flex: 1;
+  position: relative;
+  perspective: 2000px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.perspective-stack {
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(55deg) rotateZ(-30deg);
+}
+
+.layer-plane {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
+  translate: -50% -50%;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid #3b82f6;
+  padding: 10px;
+  transform-style: preserve-3d;
+}
+
+.layer-label {
+  position: absolute;
+  left: -50px;
+  color: #60a5fa;
+  font-weight: bold;
+}
+
+.cube-canvas {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.cell-3d {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hyperplane-nd-view {
+  width: 100%;
+  height: 900px;
+  background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+  display: flex;
+  flex-direction: column;
+  color: #f8fafc;
+}
+
+.view-stage {
+  flex: 1;
+  position: relative;
+  perspective: 2000px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.2); 
+}
+
+.layer-plane {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
+  translate: -50% -50%;
+  background: #1e293b; 
+  border: 2px solid #3b82f6;
+  padding: 12px;
+  transform-style: preserve-3d;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.board-cell {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(30, 41, 59, 0.5);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.cell-3d {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: #334155;
+  border: 1px solid #60a5fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+}
+
+.cell-number-1 { color: #60a5fa; text-shadow: 0 0 8px #60a5fa; }
+.cell-number-2 { color: #34d399; text-shadow: 0 0 8px #34d399; }
+.cell-number-3 { color: #f87171; text-shadow: 0 0 8px #f87171; }
+
+.layer-label {
+  position: absolute;
+  left: -70px;
+  top: 5px;
+  color: #f1f5f9;
+  font-size: 1.1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+  white-space: nowrap;
+}
+
+.top-zoom-bar {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid #3b82f6;
+  border-radius: 8px;
+  padding: 4px;
+  z-index: 1000;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+}
+
+.zoom-btn {
+  background: transparent;
+  border: none;
+  color: #60a5fa;
+  padding: 8px 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+
+.zoom-btn:hover {
+  background: rgba(59, 130, 246, 0.2);
+  color: white;
+}
+
+.zoom-btn.reset {
+  border-left: 1px solid #334155;
+  border-right: 1px solid #334155;
+  min-width: 70px;
+  color: #94a3b8;
+}
+
+.view-stage {
+  cursor: grab;
+}
+.view-stage:active {
+  cursor: grabbing;
+}
+
+.transform-area {
+  transition: transform 0.2s cubic-bezier(0.1, 0.7, 0.1, 1);
+}
+
+.board-cell.cell-mine {
+  background-color: #ff5252 !important; 
+  color: white;
+  border: 1px solid #ffc9c9;
+  box-shadow: 0 0 10px rgba(255, 82, 82, 0.8);
+  z-index: 10;
+}
+
+.cell-3d.cell-mine {
+  background: #ef4444 !important;
+  box-shadow: 0 0 15px #ef4444;
+  border-color: #fee2e2;
+}
+
+/* 숫자 색상 (기존에 1, 2, 3만 있었다면 추가) */
+.cell-number-1 { color: #60a5fa; }
+.cell-number-2 { color: #34d399; }
+.cell-number-3 { color: #f87171; }
+.cell-number-4 { color: #a78bfa; }

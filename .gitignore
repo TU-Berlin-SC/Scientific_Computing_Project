@@ -38,3 +38,25 @@ frontend/src/wasm/wasm_pkg/*.d.ts
 *.sln
 *.sw?
 
+engine/simulation_results.csv
+.gitignore
+engine/trial_2.csv
+engine/trial_2_final.csv
+engine/final.csv
+engine/test.csv
+engine/trial_4.csv
+engine/trial_3.csv
+engine/trial_all.csv
+
+engine/new_18_corrected_greedy.csv
+engine/new_18_corrected.csv
+engine/new_18_greedy.csv
+engine/new_18_trial.csv
+engine/test_correct_guess.csv
+
+# =====================
+# Plots
+# =====================
+
+data_analysis/plots/*.png
+data_analysis/analyzed_csv/*.csv
