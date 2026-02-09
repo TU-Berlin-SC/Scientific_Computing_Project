@@ -1,7 +1,8 @@
-import React, { useMemo } from 'react'; // 👈 useMemo 추가 확인!
-import  type { Board } from '../../types/simulation';
+// TwoDBoard.tsx
+import React, { useMemo } from 'react';
+import type { Board } from '../../types/simulation';
 import CellComponent from '../CellComponent';
-import '../../styles/TwoDBoard.css'; // 2D 전용 CSS 임포트
+import '../../styles/TwoDBoard.css';
 
 interface TwoDBoardProps {
   board: Board;
@@ -10,7 +11,11 @@ interface TwoDBoardProps {
 }
 
 const TwoDBoard: React.FC<TwoDBoardProps> = ({ board, onCellClick, onCellRightClick }) => {
-  const [width, height] = board.dimensions;
+  // 💡 기존 [width, height] = board.dimensions 를 아래와 같이 수정하여 3D 배열 데이터 대응
+  const dims = board.dimensions;
+  const width = dims[dims.length - 1]; // 마지막 값이 가로
+  const height = dims[dims.length - 2] || 1; // 그 앞의 값이 세로
+
   const cellSize = Math.max(20, Math.min(45, 500 / Math.max(width, height)));
 
   return (

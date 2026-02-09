@@ -30,29 +30,45 @@ const HyperplaneView: React.FC<HyperplaneViewProps> = ({
   onCellClick, 
   onCellRightClick 
 }) => {
-  const dimensionCount = board.dimensions.length;
+  // 💡 [수정] 누락되었던 Ref 선언 추가
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  const dims = board.dimensions;
+  const dimensionCount = dims.length;
+  
   const [viewW, setViewW] = useState(0);
   const [isHologram, setIsHologram] = useState(false);
   const [rotation, setRotation] = useState({ x: 30, y: 45 });
+  const [zoom, setZoom] = useState(1.0);
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [zoom, setZoom] = useState(1.0); // 줌 상태값
-  const wDimension = board.dimensions[3] || 1;
-  const zDimension = board.dimensions[2] || 1;
-  const width = board.dimensions[0];
-  const height = board.dimensions[1];
-  
 
-// 줌 핸들러: 한 번 클릭 시 20%씩 증감
-const handleZoom = (type: 'in' | 'out' | 'reset') => {
-  setZoom(prev => {
-    if (type === 'in') return Math.min(prev + 0.2, 3.5); // 최대 3.5배
-    if (type === 'out') return Math.max(prev - 0.2, 0.3); // 최소 0.3배
-    return 1.0;
-  });
-};
-  // 셀 상태 클래스 (기존 로직 유지)
+  // 💡 [수정] 차원 수에 상관없이 항상 마지막 인덱스부터 역순으로 할당
+  // [..., W, Z, Y, X] 순서입니다.
+  const X_IDX = dimensionCount - 1;
+  const Y_IDX = dimensionCount - 2;
+  const Z_IDX = dimensionCount - 3;
+  const W_IDX = dimensionCount - 4;
+
+  const width = dims[X_IDX];
+  const height = dims[Y_IDX];
+  const zDimension = dims[Z_IDX] || 1;
+  const wDimension = dims[W_IDX] || 1;
+
+  const handleZoom = (type: 'in' | 'out' | 'reset') => {
+    setZoom(prev => {
+      if (type === 'in') return Math.min(prev + 0.2, 3.5);
+      if (type === 'out') return Math.max(prev - 0.2, 0.3);
+      return 1.0;
+    });
+  };
+
+  // 💡 [수정] W 차원 필터링 인덱스를 W_IDX로 고정
+  const currentWCells = useMemo(() => 
+    board.cells.filter(cell => (dimensionCount >= 4 ? cell.coordinates[W_IDX] === viewW : true)),
+    [board.cells, viewW, dimensionCount, W_IDX]
+  );
+
   const getCellClassName = (cell: CellLocal): string => {
     if (cell.is_revealed) {
       if (cell.is_mine) return 'cell-mine';
@@ -69,15 +85,8 @@ const handleZoom = (type: 'in' | 'out' | 'reset') => {
     return cell.adjacent_mines > 0 ? cell.adjacent_mines.toString() : '';
   };
 
-  // 현재 W축 데이터 필터링
-  const currentWCells = useMemo(() => 
-    board.cells.filter(cell => cell.coordinates[3] === viewW),
-    [board.cells, viewW]
-  );
-
   return (
     <div className="hyperplane-nd-view">
-      {/* 4D 이동 컨트롤러 */}
       <div className="w-nav-container">
         <div className="w-info">Dimension W: <strong>{viewW}</strong> / {wDimension - 1}</div>
         <div className="w-btn-row">
@@ -97,22 +106,19 @@ const handleZoom = (type: 'in' | 'out' | 'reset') => {
       </div>
 
       <div className="view-stage">
-        {/* 우측 상단 줌 컨트롤 버튼 (사용자 요청 반영) */}
         <div className="top-zoom-bar">
-          <button onClick={() => handleZoom('out')} className="zoom-btn" title="zoomout">🔍 -</button>
-          <button onClick={() => handleZoom('reset')} className="zoom-btn reset" title="default">{Math.round(zoom * 100)}%</button>
-
-          <button onClick={() => handleZoom('in')} className="zoom-btn" title="zoomin">🔍 +</button>
-
+          <button onClick={() => handleZoom('out')} className="zoom-btn">🔍 -</button>
+          <button onClick={() => handleZoom('reset')} className="zoom-btn reset">{Math.round(zoom * 100)}%</button>
+          <button onClick={() => handleZoom('in')} className="zoom-btn">🔍 +</button>
         </div>
+
         {isHologram ? (
-            /* 기존 3D 큐브 렌더링 로직 (드래그 포함) */
             <div 
               className="cube-canvas"
               ref={containerRef}
               style={{ 
-                /* ⭐ 여기에 scale(${zoom}) 추가! */
-                transform: `perspective(1000px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(${zoom})` 
+                transform: `perspective(1000px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(${zoom})`,
+                transformStyle: 'preserve-3d'
               }}              
               onMouseDown={(e) => { setIsDragging(true); setDragStart({ x: e.clientX, y: e.clientY }); }}
               onMouseMove={(e) => {
@@ -126,7 +132,10 @@ const handleZoom = (type: 'in' | 'out' | 'reset') => {
               onMouseUp={() => setIsDragging(false)}
             >
               {currentWCells.map((cell, idx) => {
-                const [x, y, z] = cell.coordinates;
+                // 💡 [수정] 3D 큐브 모드에서도 동적 인덱스 사용
+                const x = cell.coordinates[X_IDX];
+                const y = cell.coordinates[Y_IDX];
+                const z = cell.coordinates[Z_IDX] || 0;
                 return (
                   <div
                     key={`cell-3d-${idx}`}
@@ -134,7 +143,7 @@ const handleZoom = (type: 'in' | 'out' | 'reset') => {
                     style={{
                       left: `${(x / width) * 100}%`,
                       top: `${(y / height) * 100}%`,
-                      transform: `translate3d(-50%, -50%, ${(z - zDimension/2) * 40}px)`,
+                      transform: `translate3d(-50%, -50%, ${(z - (zDimension-1)/2) * 50}px)`,
                     }}
                     onClick={() => onCellClick?.(cell.coordinates)}
                   >
@@ -144,38 +153,35 @@ const handleZoom = (type: 'in' | 'out' | 'reset') => {
               })}
             </div>
         ) : (
-          /* 입체적인 Z-Layers (원하시던 계단식 뷰) */
           <div 
-          className="perspective-stack"
-          style={{ 
-            transform: `perspective(1000px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(${zoom})`,
-            transformStyle: 'preserve-3d' // 3D 효과 유지
-          }}
-          /* ⭐ 아래 드래그 이벤트를 이 태그에도 넣어줘야 합니다! */
-          onMouseDown={(e) => { 
-            setIsDragging(true); 
-            setDragStart({ x: e.clientX, y: e.clientY }); 
-          }}
-          onMouseMove={(e) => {
-            if (isDragging) {
-              const dx = e.clientX - dragStart.x;
-              const dy = e.clientY - dragStart.y;
-              setRotation(r => ({ 
-                y: r.y + dx * 0.5, 
-                x: Math.max(-90, Math.min(90, r.x - dy * 0.5)) 
-              }));
-              setDragStart({ x: e.clientX, y: e.clientY });
-            }
-          }}
-          onMouseUp={() => setIsDragging(false)}
-          onMouseLeave={() => setIsDragging(false)}
-        >
-      
+            className="perspective-stack"
+            style={{ 
+              transform: `perspective(1000px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(${zoom})`,
+              transformStyle: 'preserve-3d'
+            }}
+            onMouseDown={(e) => { 
+              setIsDragging(true); 
+              setDragStart({ x: e.clientX, y: e.clientY }); 
+            }}
+            onMouseMove={(e) => {
+              if (isDragging) {
+                const dx = e.clientX - dragStart.x;
+                const dy = e.clientY - dragStart.y;
+                setRotation(r => ({ 
+                  y: r.y + dx * 0.5, 
+                  x: Math.max(-90, Math.min(90, r.x - dy * 0.5)) 
+                }));
+                setDragStart({ x: e.clientX, y: e.clientY });
+              }
+            }}
+            onMouseUp={() => setIsDragging(false)}
+            onMouseLeave={() => setIsDragging(false)}
+          >
             {Array.from({ length: zDimension }).map((_, z) => (
               <div 
                 key={`z-layer-group-${z}`} 
                 className="layer-plane"
-                style={{ transform: `translateZ(${z * 70}px) translateY(${z * -35}px)` }}
+                style={{ transform: `translateZ(${(z - (zDimension-1)/2) * 80}px) translateY(${z * -20}px)` }}
               >
                 <div className="layer-label">Z = {z}</div>
                 <div 
@@ -185,16 +191,19 @@ const handleZoom = (type: 'in' | 'out' | 'reset') => {
                     gridTemplateColumns: `repeat(${width}, 25px)`,
                   }}
                 >
-                  {currentWCells.filter(c => c.coordinates[2] === z).map((cell, idx) => (
-                    <div
-                      key={`cell-2d-${z}-${idx}`}
-                      className={`board-cell ${getCellClassName(cell)}`}
-                      style={{ width: 25, height: 25 }}
-                      onClick={() => onCellClick?.(cell.coordinates)}
-                      onContextMenu={(e) => { e.preventDefault(); onCellRightClick?.(cell.coordinates); }}
-                    >
-                      {getCellContent(cell)}
-                    </div>
+                  {/* 💡 [수정] Z_IDX를 사용하여 해당 층의 셀만 필터링 */}
+                  {currentWCells
+                    .filter(c => (dimensionCount >= 3 ? c.coordinates[Z_IDX] === z : true))
+                    .map((cell, idx) => (
+                      <div
+                        key={`cell-2d-${z}-${idx}`}
+                        className={`board-cell ${getCellClassName(cell)}`}
+                        style={{ width: 25, height: 25 }}
+                        onClick={() => onCellClick?.(cell.coordinates)}
+                        onContextMenu={(e) => { e.preventDefault(); onCellRightClick?.(cell.coordinates); }}
+                      >
+                        {getCellContent(cell)}
+                      </div>
                   ))}
                 </div>
               </div>
