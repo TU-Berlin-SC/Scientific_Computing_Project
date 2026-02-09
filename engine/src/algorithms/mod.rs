@@ -12,7 +12,10 @@ pub mod exact_solver;
 pub mod sat_utils;
 pub mod sat_global;
 pub mod sat_partitioned;
-pub mod metaheuristic;
+// pub mod metaheuristic; 
+pub mod sat_solver_4d;
+
+#[cfg(feature = "native")]
 pub mod scip_solver;
 /// [0] when adding a new algorithm, create a new module here
 
@@ -49,16 +52,20 @@ impl MinesweeperAgent {
         let total_cells = board.cells.len();
         if total_cells == 0 { return None; }
 
-        // start at the center of a face for the first move 
-        // will trigger place_mines_after_first_click inside the board
         if self.first_move {
             self.first_move = false;
-            let face_size = board.width * board.height;
-            let center_idx = (board.width / 2) + (board.height / 2) * board.width + (0 * face_size);
+            
+            let w = board.get_width();
+            let h = board.get_height();
+            let _face_size = w * h;
+
+            // 첫 클릭: 0번 면(Front/Top)의 정중앙 인덱스 계산
+            // 공식: (y_mid * width) + x_mid + (face_offset)
+            let center_idx = (h / 2) * w + (w / 2); 
             
             return Some(SolverResult {
                 candidates: vec![center_idx],
-                is_guess: true, // first click is always a guess
+                is_guess: true,
             });
         }
 
@@ -68,10 +75,9 @@ impl MinesweeperAgent {
         Some(result)
     }
 
-    /// chooses the specific cell from candidates based on tsp
     pub fn pick_best_from_candidates(&self, board: &Board, mut result: SolverResult) -> usize {
-        let current_idx = board.last_click_idx;
-        let distance_map = board.get_distance_map(current_idx);
+        let last_idx = board.last_click_idx;
+        let distance_map = board.get_distance_map(last_idx);
         let candidates = &mut result.candidates;
 
         match self.objective {
@@ -80,7 +86,7 @@ impl MinesweeperAgent {
                     let hidden_a = board.get_hidden_neighbor_count(a);
                     let hidden_b = board.get_hidden_neighbor_count(b);
                     if hidden_a != hidden_b {
-                        hidden_b.cmp(&hidden_a) // more neighbors first
+                        hidden_b.cmp(&hidden_a)
                     } else {
                         distance_map[a].cmp(&distance_map[b])
                     }
@@ -88,27 +94,21 @@ impl MinesweeperAgent {
             }
             TspObjective::MinDistance => {
                 candidates.sort_by(|&a, &b| {
-                    let dist_a = distance_map[a];
-                    let dist_b = distance_map[b];
-                    if dist_a != dist_b {
-                        dist_a.cmp(&dist_b)
-                    } else {
-                        board.get_hidden_neighbor_count(b).cmp(&board.get_hidden_neighbor_count(a))
-                    }
+                    distance_map[a].cmp(&distance_map[b])
+                        .then_with(|| board.get_hidden_neighbor_count(b).cmp(&board.get_hidden_neighbor_count(a)))
                 });
             }
             TspObjective::MinRotation => {
-                let current_face = board.cells[current_idx].face;
+                // cell.face -> cell.coordinates[0] (차원의 첫 번째 요소가 면 번호)
+                let current_face = board.cells[last_idx].coordinates[0];
                 candidates.sort_by(|&a, &b| {
-                    let face_a = board.cells[a].face;
-                    let face_b = board.cells[b].face;
+                    let face_a = board.cells[a].coordinates[0];
+                    let face_b = board.cells[b].coordinates[0];
                     let cost_a = if face_a == current_face { 0 } else { 1 };
                     let cost_b = if face_b == current_face { 0 } else { 1 };
-                    if cost_a != cost_b {
-                        cost_a.cmp(&cost_b) 
-                    } else {
-                        distance_map[a].cmp(&distance_map[b])
-                    }
+                    
+                    cost_a.cmp(&cost_b)
+                        .then_with(|| distance_map[a].cmp(&distance_map[b]))
                 });
             }
         }
@@ -116,6 +116,18 @@ impl MinesweeperAgent {
     }
 }
 
+// 1. WASM용 (SCIP 제외)
+#[cfg(not(feature = "native"))]
+register_algorithms!(
+    Greedy => "greedy", crate::algorithms::greedy::GreedyAlgorithm,
+    ExactSolver => "exact_solver", crate::algorithms::exact_solver::ExactSolver,
+    GlobalSat => "global_sat", crate::algorithms::sat_global::GlobalSatSolver,
+    PartitionedSat => "partitioned_sat", crate::algorithms::sat_partitioned::PartitionedSatSolver,
+    SATSolver4D => "sat_solver_4d", crate::algorithms::sat_solver_4d::SatSolver4D,
+);
+
+// 2. Runner용 (SCIP 포함)
+#[cfg(feature = "native")]
 register_algorithms!(
     Greedy => "greedy", crate::algorithms::greedy::GreedyAlgorithm,
     ExactSolver => "exact_solver", crate::algorithms::exact_solver::ExactSolver,
