@@ -6,7 +6,8 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ useNDimensions }) => (
   <header className="app-header">
-    <h1>Minesweeper Simulator {useNDimensions ? "(N Dimension)" : "(2D)"}</h1>
+    <h1>Minesweeper Simulator</h1>
+    {/* <h1>Minesweeper Simulator {useNDimensions ? "(N Dimension)" : "(2D)"}</h1> */}
   </header>
 );
 
