@@ -1,94 +1,134 @@
-# Architecture
+# Frontend
 
-for now
+## Minesweeper Solver Simulator & Visualization (React + WASM)
+
+Interactive web interface for the **Rust-based Minesweeper Engine**.
+
+This frontend is **NOT a playable Minesweeper game**.
+
+Instead, it is a **solver simulation and benchmarking tool** designed for:
+
+- algorithm visualization
+- step-by-step solver inspection
+- performance testing
+- large-scale comparisons
+- N-dimensional board rendering
+
+The heavy computation runs in Rust and is compiled to **WebAssembly**, while this React app focuses purely on UI and visualization.
+
+# Purpose
+
+Project structure:
+
+| Crate    | Role                                  |
+| -------- | ------------------------------------- |
+| engine   | core logic + solvers (Rust)           |
+| runner   | offline benchmarking CLI              |
+| frontend | interactive simulator + visualization |
+
+The frontend is built for **experimentation and analysis**, not manual gameplay.
+
+---
+
+# Not Supported
+
+- manual human play mode
+- traditional Minesweeper interaction
+
+All board actions are performed by **algorithms only**.
+
+---
+
+# Features
+
+## ▶ Simulation Controls
+
+- Step-by-step execution (`Test Step`)
+- Run full game automatically (`Test Full Game`)
+- Batch test (100 games)
+- Compare all algorithms
+- Reset current run
+
+---
+
+## Algorithm Testing
+
+Select and test different solving strategies:
+
+- Greedy Solver
+- Exact (ILP-based) Solver
+- SAT Solver
+- Partitioned SAT
+- 4D SAT Solver
+
+You can:
+
+- run a single game
+- run 100-game batches
+- compare algorithms side-by-side
+
+---
+
+## Benchmark & Analysis
+
+After simulation:
+
+- win rate
+- average clicks
+- average time (ms)
+- average guesses
+- per-game records
+- CSV export
+
+Designed for **research-style evaluation**, not gameplay scoring.
+
+---
+
+## Multi-Dimensional Rendering
+
+Supports:
+
+- 2D boards
+- 3D cube boards
+- 4D hyperplane view
+
+---
+
+## 3D TSP Path Optimization (3D only)
+
+For 3D boards, solver traversal can use TSP-based ordering:
+
+- Shortest Path
+- Min Rotation
+- Max Information
+
+This improves solver efficiency by optimizing reveal order.
+
+---
+
+# Tech Stack
+
+- React + TypeScript
+- Rust → WebAssembly (wasm-bindgen)
+- Vite
+- CSS modules
+
+# Getting Started
 
 ```bash
-frontend/src/
-├─ App.tsx          # UI entry
-├─ main.tsx
-├─ minesweeper.ts   # wasm import & helper
-├─ components/
-│   ├─ BoardCanvas.tsx
-│   └─ Controls.tsx
-└─ wasm_pkg/        # wasm-pack output
-└─ worker/
-
+npm install
+npm run dev
 ```
 
-### Deprecated
+Make sure the Rust `engine` is built to WASM first:
 
-# React + TypeScript + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+wasm-pack build ../engine --target web
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+# Key Components
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+- ControlPanel → simulation controls
+- ResultPanel → batch/comparison results + CSV export
+- BoardRenderer → multi-dimensional visualization
+- WASM bridge → Rust engine integration
