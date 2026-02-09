@@ -21,7 +21,6 @@ const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
   return (
     <div className="advanced-settings">
       <h4>Advanced Settings</h4>
-      {config.useNDimensions ? (
         <div className="nd-advanced">
           <div className="dimension-control">
             <label>Number of Dimensions: </label>
@@ -55,14 +54,7 @@ const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
             </div>
           </div>
         </div>
-      ) : (
-        <div className="advanced-2d">
-          <label>Width:</label>
-          <input type="number" value={config.width} min={5} max={30} onChange={e => onChangeConfig('width', parseInt(e.target.value) || 9)} />
-          <label>Height:</label>
-          <input type="number" value={config.height} min={5} max={30} onChange={e => onChangeConfig('height', parseInt(e.target.value) || 9)} />
-        </div>
-      )}
+
       <div className="mines-control">
         <label>Mines:</label>
         <input type="number" value={config.mines} min={1} max={maxMines} onChange={e => onChangeConfig('mines', parseInt(e.target.value) || 10)} />
