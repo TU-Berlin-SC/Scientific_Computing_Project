@@ -1,0 +1,129 @@
+configurations: 4 board sizes x 5 algorithms x 3 tsp objectives
+Completed: greedy on 3x3x6 board (Seed: 0)
+Completed: greedy on 3x3x6 board (Seed: 0)
+Completed: greedy on 3x3x6 board (Seed: 0)
+Completed: exact_solver on 3x3x6 board (Seed: 0)
+Completed: exact_solver on 3x3x6 board (Seed: 0)
+Completed: exact_solver on 3x3x6 board (Seed: 0)
+Completed: global_sat on 3x3x6 board (Seed: 0)
+Completed: global_sat on 3x3x6 board (Seed: 0)
+Completed: global_sat on 3x3x6 board (Seed: 0)
+Completed: partitioned_sat on 3x3x6 board (Seed: 0)
+Completed: partitioned_sat on 3x3x6 board (Seed: 0)
+Completed: partitioned_sat on 3x3x6 board (Seed: 0)
+Completed: scip_solver on 3x3x6 board (Seed: 0)
+Completed: scip_solver on 3x3x6 board (Seed: 0)
+Completed: scip_solver on 3x3x6 board (Seed: 0)
+Completed: greedy on 5x5x6 board (Seed: 0)
+Completed: greedy on 5x5x6 board (Seed: 0)
+Completed: greedy on 5x5x6 board (Seed: 0)
+Completed: exact_solver on 5x5x6 board (Seed: 0)
+Completed: exact_solver on 5x5x6 board (Seed: 0)
+Completed: exact_solver on 5x5x6 board (Seed: 0)
+Completed: global_sat on 5x5x6 board (Seed: 0)
+Completed: global_sat on 5x5x6 board (Seed: 0)
+Completed: global_sat on 5x5x6 board (Seed: 0)
+Completed: partitioned_sat on 5x5x6 board (Seed: 0)
+Completed: partitioned_sat on 5x5x6 board (Seed: 0)
+Completed: partitioned_sat on 5x5x6 board (Seed: 0)
+Completed: scip_solver on 5x5x6 board (Seed: 0)
+Completed: scip_solver on 5x5x6 board (Seed: 0)
+Completed: scip_solver on 5x5x6 board (Seed: 0)
+Completed: greedy on 8x8x6 board (Seed: 0)
+Completed: greedy on 8x8x6 board (Seed: 0)
+Completed: greedy on 8x8x6 board (Seed: 0)
+Completed: exact_solver on 8x8x6 board (Seed: 0)
+Completed: exact_solver on 8x8x6 board (Seed: 0)
+Completed: exact_solver on 8x8x6 board (Seed: 0)
+Completed: global_sat on 8x8x6 board (Seed: 0)
+Completed: global_sat on 8x8x6 board (Seed: 0)
+Completed: global_sat on 8x8x6 board (Seed: 0)
+Completed: partitioned_sat on 8x8x6 board (Seed: 0)
+Completed: partitioned_sat on 8x8x6 board (Seed: 0)
+Completed: partitioned_sat on 8x8x6 board (Seed: 0)
+Completed: scip_solver on 8x8x6 board (Seed: 0)
+Completed: scip_solver on 8x8x6 board (Seed: 0)
+Completed: scip_solver on 8x8x6 board (Seed: 0)
+Completed: greedy on 10x10x6 board (Seed: 0)
+Completed: greedy on 10x10x6 board (Seed: 0)
+Completed: greedy on 10x10x6 board (Seed: 0)
+Completed: exact_solver on 10x10x6 board (Seed: 0)
+Completed: exact_solver on 10x10x6 board (Seed: 0)
+Completed: exact_solver on 10x10x6 board (Seed: 0)
+Completed: global_sat on 10x10x6 board (Seed: 0)
+Completed: global_sat on 10x10x6 board (Seed: 0)
+Completed: global_sat on 10x10x6 board (Seed: 0)
+Completed: partitioned_sat on 10x10x6 board (Seed: 0)
+Completed: partitioned_sat on 10x10x6 board (Seed: 0)
+Completed: partitioned_sat on 10x10x6 board (Seed: 0)
+Completed: scip_solver on 10x10x6 board (Seed: 0)
+Completed: scip_solver on 10x10x6 board (Seed: 0)
+Completed: scip_solver on 10x10x6 board (Seed: 0)
+
+--- benchmark results ---
+
+algorithm,objective,dims,seed,win,clicks,time_ms,guesses,completion
+greedy,MinDistance,3x3,0,true,11,1,1,100.00
+greedy,MinRotation,3x3,0,true,11,1,1,100.00
+greedy,MaxInformation,3x3,0,true,16,2,6,100.00
+exact_solver,MinDistance,3x3,0,true,11,29,1,100.00
+exact_solver,MinRotation,3x3,0,true,11,27,1,100.00
+exact_solver,MaxInformation,3x3,0,false,14,25,2,95.65
+global_sat,MinDistance,3x3,0,true,11,18,1,100.00
+global_sat,MinRotation,3x3,0,true,11,17,1,100.00
+global_sat,MaxInformation,3x3,0,true,11,24,1,100.00
+partitioned_sat,MinDistance,3x3,0,true,11,17,1,100.00
+partitioned_sat,MinRotation,3x3,0,true,11,17,1,100.00
+partitioned_sat,MaxInformation,3x3,0,true,11,24,1,100.00
+scip_solver,MinDistance,3x3,0,true,11,498,1,100.00
+scip_solver,MinRotation,3x3,0,true,11,453,1,100.00
+scip_solver,MaxInformation,3x3,0,true,18,850,1,100.00
+greedy,MinDistance,5x5,0,true,51,23,1,100.00
+greedy,MinRotation,5x5,0,true,50,22,1,100.00
+greedy,MaxInformation,5x5,0,true,41,23,1,100.00
+exact_solver,MinDistance,5x5,0,false,35,517,2,78.91
+exact_solver,MinRotation,5x5,0,false,30,407,2,78.91
+exact_solver,MaxInformation,5x5,0,true,43,1061,2,100.00
+global_sat,MinDistance,5x5,0,true,53,2008,1,100.00
+global_sat,MinRotation,5x5,0,true,48,1296,1,100.00
+global_sat,MaxInformation,5x5,0,true,61,3712,1,100.00
+partitioned_sat,MinDistance,5x5,0,true,54,1783,1,100.00
+partitioned_sat,MinRotation,5x5,0,true,50,1250,1,100.00
+partitioned_sat,MaxInformation,5x5,0,true,55,3246,1,100.00
+scip_solver,MinDistance,5x5,0,true,52,8196,1,100.00
+scip_solver,MinRotation,5x5,0,true,50,7091,1,100.00
+scip_solver,MaxInformation,5x5,0,true,44,7386,1,100.00
+greedy,MinDistance,8x8,0,true,83,79,1,100.00
+greedy,MinRotation,8x8,0,true,83,84,1,100.00
+greedy,MaxInformation,8x8,0,true,79,95,1,100.00
+exact_solver,MinDistance,8x8,0,false,59,4898,2,92.66
+exact_solver,MinRotation,8x8,0,false,61,6145,2,92.66
+exact_solver,MaxInformation,8x8,0,false,74,9502,7,97.55
+global_sat,MinDistance,8x8,0,true,85,27882,1,100.00
+global_sat,MinRotation,8x8,0,true,85,29779,1,100.00
+global_sat,MaxInformation,8x8,0,true,80,59062,1,100.00
+partitioned_sat,MinDistance,8x8,0,true,85,19734,1,100.00
+partitioned_sat,MinRotation,8x8,0,true,84,10215,1,100.00
+partitioned_sat,MaxInformation,8x8,0,true,79,50010,1,100.00
+scip_solver,MinDistance,8x8,0,true,88,37680,1,100.00
+scip_solver,MinRotation,8x8,0,true,84,36765,1,100.00
+scip_solver,MaxInformation,8x8,0,true,82,41335,1,100.00
+greedy,MinDistance,10x10,0,true,139,204,1,100.00
+greedy,MinRotation,10x10,0,true,131,208,1,100.00
+greedy,MaxInformation,10x10,0,true,139,232,2,100.00
+exact_solver,MinDistance,10x10,0,false,121,27367,2,97.45
+exact_solver,MinRotation,10x10,0,false,115,27389,2,97.45
+exact_solver,MaxInformation,10x10,0,false,123,30266,6,95.29
+global_sat,MinDistance,10x10,0,true,140,240705,1,100.00
+global_sat,MinRotation,10x10,0,true,140,136242,1,100.00
+global_sat,MaxInformation,10x10,0,true,146,393130,1,100.00
+partitioned_sat,MinDistance,10x10,0,true,136,108339,1,100.00
+partitioned_sat,MinRotation,10x10,0,true,141,63292,1,100.00
+partitioned_sat,MaxInformation,10x10,0,true,139,301657,1,100.00
+scip_solver,MinDistance,10x10,0,true,137,100586,1,100.00
+scip_solver,MinRotation,10x10,0,true,135,101522,1,100.00
+scip_solver,MaxInformation,10x10,0,false,144,157201,2,99.41
+
+--- summary ---
+total games played: 60
+overall win rate: 83.33%
