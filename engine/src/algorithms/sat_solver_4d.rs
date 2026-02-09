@@ -2,8 +2,8 @@ use crate::board::Board;
 use crate::algorithms::{Algorithm, SolverResult};
 use std::collections::{BTreeSet, HashMap, HashSet};
 
-/// 4D 전용 초고속 logical SAT-lite solver
-/// DPLL 없이 constraint reduction만 사용
+/// 4D-optimized logical SAT-lite solver
+/// Uses constraint reduction without full DPLL for speed
 pub struct SatSolver4D {
     mines: usize,
 }
@@ -12,17 +12,55 @@ impl SatSolver4D {
     pub fn new(_w: usize, _h: usize, mines: usize) -> Self {
         Self { mines }
     }
-}
 
-#[derive(Clone, PartialEq, Eq, PartialOrd, Ord)] // 이 부분을 추가/수정하세요
-struct Constraint {
-    cells: BTreeSet<usize>,
-    mines: usize,
-}
+    // [2026-02-09] Helper: Basic flag/mine based deduction
+    // Ensures simple patterns are solved without heavy SAT logic (improves 2D/3D win rate)
+    fn perform_simple_deduction(&self, board: &Board) -> Vec<usize> {
+        let mut safe_indices = HashSet::new();
+        for idx in 0..board.cells.len() {
+            let cell = &board.cells[idx];
+            if cell.is_revealed && cell.adjacent_mines > 0 {
+                let neighbors = &board.adjacency_map[idx];
+                let mut flags = 0;
+                let mut hidden = Vec::new();
 
-impl SatSolver4D {
+                for &n_idx in neighbors {
+                    if board.cells[n_idx].is_flagged { flags += 1; }
+                    else if !board.cells[n_idx].is_revealed { hidden.push(n_idx); }
+                }
 
-    // frontier constraint 수집
+                if (cell.adjacent_mines as usize).saturating_sub(flags) == 0 {
+                    for h_idx in hidden { safe_indices.insert(h_idx); }
+                }
+            }
+        }
+        safe_indices.into_iter().collect()
+    }
+
+    // [2026-02-09] Helper: Higher-level subset inference logic
+    fn perform_subset_deduction(&self, board: &Board) -> Vec<usize> {
+        let mut constraints = self.collect_constraints(board);
+        self.reduce_constraints(&mut constraints);
+        self.find_safe(&constraints)
+    }
+
+    // [2026-02-09] Helper: Core SAT-lite matrix/probabilistic logic
+    fn run_complex_sat_probabilistic(&self, board: &Board) -> SolverResult {
+        let mut constraints = self.collect_constraints(board);
+        self.reduce_constraints(&mut constraints);
+
+        let safe_cells = self.find_safe(&constraints);
+        if !safe_cells.is_empty() {
+            return SolverResult { candidates: safe_cells, is_guess: false };
+        }
+
+        SolverResult {
+            candidates: self.guess(board, &constraints),
+            is_guess: true,
+        }
+    }
+
+    // Collect frontier constraints
     fn collect_constraints(&self, board: &Board) -> Vec<Constraint> {
         let mut constraints = Vec::new();
 
@@ -36,7 +74,6 @@ impl SatSolver4D {
 
             for &n in &board.adjacency_map[idx] {
                 let nc = &board.cells[n];
-
                 if nc.is_flagged {
                     flagged += 1;
                 } else if !nc.is_revealed {
@@ -52,27 +89,38 @@ impl SatSolver4D {
             }
         }
 
+        // Global constraint: total mines remaining on board
+        let all_hidden: BTreeSet<usize> = board.cells.iter().enumerate()
+            .filter(|(_, c)| !c.is_revealed && !c.is_flagged)
+            .map(|(i, _)| i).collect();
+        
+        let flagged_count = board.cells.iter().filter(|c| c.is_flagged).count();
+        let remaining_total_mines = self.mines.saturating_sub(flagged_count);
+
+        if !all_hidden.is_empty() {
+            constraints.push(Constraint {
+                cells: all_hidden,
+                mines: remaining_total_mines,
+            });
+        }
+
         constraints
     }
 
-    // 핵심: subset reduction
+    // Core logic: Subset reduction
     fn reduce_constraints(&self, constraints: &mut Vec<Constraint>) {
         let mut changed = true;
         while changed {
             changed = false;
-            let old_len = constraints.len();
             
-            // 1. 단순화 및 중복 제거
             constraints.sort_by(|a, b| a.cells.cmp(&b.cells));
             constraints.dedup();
     
-            // 2. Subset Reduction (핵심 루프)
             let mut new_constraints = Vec::new();
             for i in 0..constraints.len() {
                 for j in 0..constraints.len() {
                     if i == j { continue; }
                     
-                    // a 가 b의 진부분집합인 경우
                     if constraints[i].cells.is_subset(&constraints[j].cells) {
                         let diff: BTreeSet<_> = constraints[j].cells
                             .difference(&constraints[i].cells)
@@ -83,7 +131,6 @@ impl SatSolver4D {
                         let new_mines = constraints[j].mines.saturating_sub(constraints[i].mines);
                         let new_c = Constraint { cells: diff, mines: new_mines };
                         
-                        // 이미 있는 제약 조건이 아닐 때만 추가
                         if !constraints.contains(&new_c) && !new_constraints.contains(&new_c) {
                             new_constraints.push(new_c);
                             changed = true;
@@ -92,13 +139,12 @@ impl SatSolver4D {
                 }
             }
             constraints.extend(new_constraints);
-            if constraints.len() > 200 { break; } // 무한 루프 방지 및 성능 캡핑
+            if constraints.len() > 200 { break; } // Performance capping
         }
     }
-    // 확정 safe
+
     fn find_safe(&self, constraints: &[Constraint]) -> Vec<usize> {
         let mut safe = HashSet::new();
-
         for c in constraints {
             if c.mines == 0 {
                 for &i in &c.cells {
@@ -106,30 +152,14 @@ impl SatSolver4D {
                 }
             }
         }
-
         safe.into_iter().collect()
     }
 
-    // 확정 mine
-    fn mark_mines(&self, constraints: &[Constraint]) -> HashSet<usize> {
-        let mut mines = HashSet::new();
-
-        for c in constraints {
-            if c.mines == c.cells.len() {
-                for &i in &c.cells {
-                    mines.insert(i);
-                }
-            }
-        }
-
-        mines
-    }
-
-    // 확률 기반 guess
     fn guess(&self, board: &Board, constraints: &[Constraint]) -> Vec<usize> {
         let mut probs: HashMap<usize, f64> = HashMap::new();
 
         for c in constraints {
+            if c.cells.is_empty() { continue; }
             let p = c.mines as f64 / c.cells.len() as f64;
             for &idx in &c.cells {
                 let entry = probs.entry(idx).or_insert(0.0);
@@ -141,9 +171,7 @@ impl SatSolver4D {
         let mut min_p = 1.1;
 
         for (idx, cell) in board.cells.iter().enumerate() {
-            if cell.is_revealed || cell.is_flagged {
-                continue;
-            }
+            if cell.is_revealed || cell.is_flagged { continue; }
 
             let p = *probs.get(&idx).unwrap_or(&0.5);
 
@@ -154,39 +182,33 @@ impl SatSolver4D {
                 best.push(idx);
             }
         }
-
         best
     }
 }
 
+#[derive(Clone, PartialEq, Eq, PartialOrd, Ord)]
+struct Constraint {
+    cells: BTreeSet<usize>,
+    mines: usize,
+}
+
 impl Algorithm for SatSolver4D {
+    /// Primary entry point for the SAT solver
     fn find_candidates(&mut self, board: &Board) -> SolverResult {
-        let mut constraints = self.collect_constraints(board);
-
-        if constraints.is_empty() {
-            return SolverResult {
-                candidates: (0..board.cells.len())
-                    .filter(|&i| !board.cells[i].is_revealed && !board.cells[i].is_flagged)
-                    .collect(),
-                is_guess: true,
-            };
+        // [2026-02-09] Layered Inference Strategy:
+        // 1. Simple Scan (Flags/Numbers)
+        let simple_safe = self.perform_simple_deduction(board);
+        if !simple_safe.is_empty() {
+            return SolverResult { candidates: simple_safe, is_guess: false };
         }
 
-        self.reduce_constraints(&mut constraints);
-
-        let safe = self.find_safe(&constraints);
-        if !safe.is_empty() {
-            return SolverResult {
-                candidates: safe,
-                is_guess: false,
-            };
+        // 2. Subset Reduction Logic
+        let subset_safe = self.perform_subset_deduction(board);
+        if !subset_safe.is_empty() {
+            return SolverResult { candidates: subset_safe, is_guess: false };
         }
 
-        let _mines = self.mark_mines(&constraints);
-
-        SolverResult {
-            candidates: self.guess(board, &constraints),
-            is_guess: true,
-        }
+        // 3. Complex SAT/Probabilistic Analysis
+        self.run_complex_sat_probabilistic(board)
     }
 }
