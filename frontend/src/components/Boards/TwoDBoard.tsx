@@ -28,16 +28,18 @@ const TwoDBoard: React.FC<TwoDBoardProps> = ({ board, onCellClick, onCellRightCl
           gap: '2px'
         }}
       >
-        {board.cells.map((cell, index) => (
-          <CellComponent
-            key={`2d-${index}`}
-            cell={cell}
-            coordinates={cell.coordinates}
-            onClick={onCellClick}
-            onRightClick={onCellRightClick}
-            cellSize={cellSize}
-          />
-        ))}
+  
+      {board.cells.map((cell, index) => (
+        <CellComponent
+          key={`2d-${index}`}
+          cell={cell}
+          board={board}
+          // coordinates={cell.coordinates} <-- 이 줄을 삭제하세요! (에러의 원인)
+          onClick={onCellClick}
+          onRightClick={onCellRightClick}
+          cellSize={cellSize}
+        />
+      ))}
       </div>
     </div>
   );
