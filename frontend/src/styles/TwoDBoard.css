@@ -6,7 +6,6 @@
 
 .grid-container {
   display: grid;
-  /* 간격을 벌려 그리드 라인 효과를 주되, 배경을 부드러운 다크톤으로 */
   background-color: #dee2e6; 
   gap: 2px; 
   padding: 2px;
@@ -15,7 +14,6 @@
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
-/* 모든 셀의 공통 디자인 */
 .board-cell {
   display: flex;
   align-items: center;
@@ -26,10 +24,9 @@
   user-select: none;
 }
 
-/* 가려진 셀 (아직 안 눌렀을 때) */
 .board-cell:not(.revealed) {
-  background-color: #f1f3f5; /* 사용자님의 원래 그레이 */
-  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.05); /* 약간의 입체감 */
+  background-color: #f1f3f5; 
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.05); 
 }
 
 .board-cell:not(.revealed):hover {
@@ -37,21 +34,18 @@
   transform: translateY(-1px);
 }
 
-/* 열린 셀 (숫자나 빈공간) */
 .board-cell.revealed {
   background-color: #ffffff !important;
   cursor: default;
   border: none !important;
 }
 
-/* 지뢰 셀 (터졌을 때 혹은 게임오버) */
 .board-cell.mine {
   background-color: #fff5f5 !important; 
   border: 1px solid #ffc9c9 !important;
   animation: explode 0.4s ease-out;
 }
 
-/* 깃발은 클래스 따로 없어도 되지만 호환성을 위해 */
 .cell-flagged { color: #fab005; }
 
 @keyframes explode {

@@ -6,29 +6,23 @@ import AlgorithmSelector from './components/InputSection/AlgorithmSelector';
 import ControlPanel from './components/InputSection/ControlPanel'; 
 import ResultPanel from './components/ResultSection/ResultPanel';
 
-// 타입 정의
 import { AlgorithmType , TspObjective} from './types/simulation';
 import type { GameConfig, Preset, GameRecord, GameStats } from './types';
-// WASM 패키지 임포트
+
 import initWasmEngine, { Simulator } from './wasm_pkg/engine';
 
 const gamePresets: Preset[] = [
-  // 2D: 표준 규격 유지 (이미 검증된 난이도)
   { id: "2d-beginner", name: "2D Beginner", width: 9, height: 9, mines: 10, dimensions: [9, 9] },
   { id: "2d-intermediate", name: "2D Intermediate", width: 16, height: 16, mines: 40, dimensions: [16, 16] },
   { id: "2d-expert", name: "2D Expert", width: 30, height: 16, mines: 99, dimensions: [30, 16] },
-  // 4x4x4 = 64칸. 지뢰 12개 (약 18.7%)
-  { id: "3d-beginner", name: "3D Beginner", dimensions: [4, 4, 4], mines: 12 },
-  // 6x6x6 = 216칸. 지뢰 45개 (약 20.8%)
-  { id: "3d-intermediate", name: "3D Intermediate", dimensions: [6, 6, 6], mines: 45 },
-  // 8x8x8 = 512칸. 지뢰 100개 (약 19.5%)
-  { id: "3d-expert", name: "3D Expert", dimensions: [8, 8, 8], mines: 100 },
-  // 3x3x3x3 = 81칸. 지뢰 16개 (약 19.7%) 
-  { id: "4d-beginner", name: "4D Beginner", dimensions: [3, 3, 3, 3], mines: 16 },
-  // 4x4x4x4 = 256칸. 지뢰 55개 (약 21.4%)
-  { id: "4d-intermediate", name: "4D Intermediate", dimensions: [4, 4, 4, 4], mines: 55 },
-  // [추가안] 5x5x5x5 = 625칸. 지뢰 130개 (약 20.8%)
-  { id: "4d-expert", name: "4D Expert", dimensions: [5, 5, 5, 5], mines: 130 },
+
+  { id: "3d-beginner", name: "3D Beginner", dimensions: [4, 4, 4], mines: 12 },  // 4x4x4 = 64. 12 (18.7%)
+  { id: "3d-intermediate", name: "3D Intermediate", dimensions: [6, 6, 6], mines: 45 },  // 6x6x6 = 216,45개 (20.8%)
+  { id: "3d-expert", name: "3D Expert", dimensions: [8, 8, 8], mines: 100 },  // 8x8x8 = 512칸, 100개 (19.5%)
+
+  { id: "4d-beginner", name: "4D Beginner", dimensions: [3, 3, 3, 3], mines: 16 },  // 3x3x3x3 = 81, 16개 (19.7%) 
+  { id: "4d-intermediate", name: "4D Intermediate", dimensions: [4, 4, 4, 4], mines: 55 },// 4x4x4x4 = 256, 55 (21.4%)
+  { id: "4d-expert", name: "4D Expert", dimensions: [5, 5, 5, 5], mines: 130 }, // 5x5x5x5 = 625칸, 130 (20.8%)
 ];
 const App: React.FC = () => {
   // --- 1. 상태 관리 ---
@@ -52,7 +46,7 @@ const App: React.FC = () => {
   const [comparisonResults, setComparisonResults] = useState<GameStats[]>([]);
   const [allDetailedRecords, setAllDetailedRecords] = useState<GameRecord[]>([]);
 
-  // --- 2. WASM 초기화 ---
+  // Initialize WASM Engine : On component mount, we need to initialize the WASM engine. This involves calling the init function from the WASM package, which loads the WebAssembly module and prepares it for use. We also need to handle any potential errors during this process, such as failed loading or initialization issues, and set a state variable to indicate when the WASM engine is ready for interaction.
   useEffect(() => {
     const init = async () => {
       try {
@@ -66,7 +60,7 @@ const App: React.FC = () => {
     init();
   }, []);
 
-  // --- 3. 보드 생성 로직 (WASM 인터페이스 맞춤) ---
+  // WASM Interface - Board Creation : When user clicks "Create Board" or when WASM becomes ready with no existing simulator, we need to create a new board based on the current gameConfig. This involves translating the gameConfig into the appropriate format for the Simulator constructor, handling both 2D and N-D configurations, and then initializing the Simulator instance. We also need to handle any potential errors during this process, such as invalid configurations or WASM memory issues.
   const handleCreateBoard = useCallback(() => {
     if (!wasmReady) return;
   
@@ -75,11 +69,9 @@ const App: React.FC = () => {
       let rawDims: number[];
   
       if (useNDimensions) {
-        if (dimensionCount === 3) {
-          // 3D Beginner [4,4,4] -> [6,4,4]
+        if (dimensionCount === 3) { // 3D Beginner [4,4,4] -> [6,4,4]
           rawDims = [6, dimensions[1], dimensions[2]];
-        } else {
-          // 4D 이상은 프리셋 값 그대로 전달
+        } else { // 4D or custom N-D
           rawDims = dimensions;
         }
       } else {
@@ -87,12 +79,10 @@ const App: React.FC = () => {
       }
   
       const finalDims = new Uint32Array(rawDims);
-      
-      // 지뢰 개수 체크 로그 추가
       const totalPossible = rawDims.reduce((a, b) => a * b, 1);
-      console.log(`📊 예상 전체 셀 수: ${totalPossible}, 지뢰: ${mines}`);
+      console.log(`Expected total cells : ${totalPossible}, mines: ${mines}`);
   
-      // Simulator 생성 (타입 캐스팅으로 에러 방지)
+      // Generate Simulator (typecasting to prevent err)
       const newSim = new Simulator(finalDims, mines, selectedAlgorithm as any);
       
       const initialState = newSim.getState();
@@ -105,7 +95,7 @@ const App: React.FC = () => {
   }, [wasmReady, gameConfig, selectedAlgorithm]);
 
 
-  // 초기 로드 시 생성
+  // generate board on WASM ready or when simulator is reset/cleared (to ensure we always have a board when WASM is ready and no existing simulator)
   useEffect(() => {
     if (wasmReady && !simulator) {
       handleCreateBoard();
@@ -119,47 +109,41 @@ const App: React.FC = () => {
       gameConfig.useNDimensions &&
       gameConfig.dimensions.length === 4
     ) {
-      return AlgorithmType.SatSolver4D; // 4D 전용 SAT
+      return AlgorithmType.SatSolver4D; // 4D SAT
     }
     return selectedAlgorithm;
   };
 
-  // --- 4. 알고리즘 변경 핸들러 (UI 리렌더링 및 엔진 동기화) ---
+  // Change Algorithm Handler : When user changes algorithm selection, we need to update the simulator's algorithm if the game is not currently running. If it is running, we can either ignore the change or reset the board with the new algorithm (here we choose to ignore to prevent mid-game changes).
   const handleAlgorithmChange = useCallback((algo: AlgorithmType) => {
     console.log("알고리즘 변경 요청:", algo);
     setSelectedAlgorithm(algo);
-    
-    // 💡 simulator가 존재하는지, 그리고 유효한지 체크
     if (simulator) {
       try {
-        // setTimeout을 제거하고 동기적으로 실행하거나, 
-        // 실행 중(isRunning)일 때는 아예 막아야 합니다.
         if (!isRunning) {
           simulator.setAlgorithm(algo);
           setBoardState({ ...simulator.getState() });
         }
       } catch (e) {
-        console.error("💀 WASM Memory Error:", e);
-        // 메모리 에러가 나면 시뮬레이터를 새로 생성해주는 것이 가장 안전합니다.
+        console.error("WASM Memory Error:", e);
         handleCreateBoard(); 
       }
     }
   }, [simulator, isRunning, handleCreateBoard]);
 
-  // 🔍 [추가] 셀 데이터 분석 함수
   const analyzeBoardData = (state: any) => {
     if (!state || !state.cells) return;
 
     const totalCells = state.cells.length;
     const revealedCells = state.cells.filter((c: any) => c.is_revealed);
     const mineCells = state.cells.filter((c: any) => c.is_mine);
-    const total = state.total_cells; // 전체 칸 수
-    const mines = state.mines;       // 지뢰 수
-    const goal = total - mines;      // 파내야 할 칸 수
-    const current = state.total_revealed; // 현재 판 칸 수
+    const total = state.total_cells; 
+    const mines = state.mines;      
+    const goal = total - mines;     
+    const current = state.total_revealed; 
 
   console.log(`📊 보드 상태: 전체 ${total}칸 중 ${current}칸 오픈 (지뢰 제외 남은 목표: ${goal - current}칸)`);
-    // 면(Face)별 데이터 분포 확인
+    // Check the FACE distribution (for 3D/4D) - how many cells are on each face, how many revealed, how many mines
     const faceStats = [0, 1, 2, 3, 4, 5].map(f => ({
       face: f,
       revealed: state.cells.filter((c: any) => c.coordinates[0] === f && c.is_revealed).length,
@@ -175,7 +159,7 @@ const App: React.FC = () => {
     console.log("📍 Face-by-Face Distribution:");
     console.table(faceStats);
 
-    // 첫 5개 셀의 좌표와 상태 샘플링 (구조 확인용)
+    // FOR TESTING 
     console.log("🧩 Sample Cells (First 5):", state.cells.slice(0, 5).map((c: any) => ({
       coords: c.coordinates,
       is_revealed: c.is_revealed,
@@ -185,14 +169,13 @@ const App: React.FC = () => {
     console.groupEnd();
   };
 
-  // --- 5. 게임 컨트롤 핸들러 수정 ---
   const handleStep = () => {
     if (!simulator) return;
     console.log("🕹️ Step Execution");
     simulator.runStep(); 
     const newState = simulator.getState();
     setBoardState({ ...newState });
-    analyzeBoardData(newState); // 데이터 분석 로그 출력
+    analyzeBoardData(newState); // data analysis log after each step for debugging and insight into algorithm behavior
   };
 
   const handleRunFull = () => {
@@ -229,46 +212,44 @@ const App: React.FC = () => {
       handleCreateBoard();
     }
   };
-  // 1. Batch 실행 로직 (100판 연속 실행)
-const handleRunBatch = useCallback(async () => {
-  if (!wasmReady) return;
-  setIsRunning(true);
-  
-  // 메인 스레드 차단을 방지하기 위해 setTimeout 사용
-  setTimeout(() => {
-    const results = [];
-    const { width, height, mines, useNDimensions, dimensionCount, dimensions } = gameConfig;
+
+  // Batch Testing : 100 games with current config and algorithm, collect results (win/loss, clicks, guesses, completion rate) for analysis
+  const handleRunBatch = useCallback(async () => {
+    if (!wasmReady) return;
+    setIsRunning(true);
     
-    // 차원 설정 동일하게 적용
-    let finalDims = useNDimensions 
-      ? (dimensionCount === 3 ? [6, height, width] : dimensions) 
-      : [height, width];
-
-    const effectiveAlgo = getEffectiveAlgorithm();
-    for (let i = 0; i < 100; i++) {
-      // 매 판마다 새로운 시뮬레이터 생성 (새로운 시드)
-      const sim = new Simulator(finalDims, mines, effectiveAlgo as any);
-      // 시드를 판마다 다르게 주려면 Rust의 set_seed 사용 가능
+    // use setTimeout to allow UI to update before starting the batch process, preventing potential freezing
+    setTimeout(() => {
+      const results = [];
+      const { width, height, mines, useNDimensions, dimensionCount, dimensions } = gameConfig;
       
-      const finalStateJson = sim.runFullGame(); // WASM에서 최종 상태 반환
-      
-      results.push({
-        success: finalStateJson.game_won,
-        clicks: finalStateJson.total_clicks,
-        total_guesses: finalStateJson.total_guesses,
-        dimensions: finalStateJson.dimensions,
-        completion: finalStateJson.completion
-      });
-    }
+      let finalDims = useNDimensions 
+        ? (dimensionCount === 3 ? [6, height, width] : dimensions) 
+        : [height, width];
 
-    setBatchResults(results); // 👈 여기서 상태가 업데이트되면 ResultPanel이 보입니다.
+      const effectiveAlgo = getEffectiveAlgorithm();
+      for (let i = 0; i < 100; i++) {
+        // New Seed for each game to ensure different board
+        const sim = new Simulator(finalDims, mines, effectiveAlgo as any);
+        // need to use set_seedd constructor or reset with new seed to ensure different board each time
+        
+        const finalStateJson = sim.runFullGame(); // WASM -> converts final state to JSON for easier JS handling
+        
+        results.push({
+          success: finalStateJson.game_won,
+          clicks: finalStateJson.total_clicks,
+          total_guesses: finalStateJson.total_guesses,
+          dimensions: finalStateJson.dimensions,
+          completion: finalStateJson.completion
+        });
+     }
+    setBatchResults(results);
     setIsRunning(false);
-    console.log("✅ Batch Test 완료:", results);
+    console.log("Completed Batch Test :", results);
   }, 50);
 }, [wasmReady, gameConfig, selectedAlgorithm]);
 
-// 2. Algorithm Comparison 실행 로직
-// --- 6. 알고리즘 비교 실행 ---
+// Algorithm Comparison
 const handleCompareAlgorithms = useCallback(async () => {
   if (!wasmReady) return;
   setIsRunning(true);
@@ -277,7 +258,7 @@ const handleCompareAlgorithms = useCallback(async () => {
     const algorithms = [
       { type: AlgorithmType.Greedy, label: "Greedy" },
       { type: AlgorithmType.ExactSolver, label: "Exact Solver" },
-      { type: AlgorithmType.SatSolver, label: "SAT Solver" } // 4D 전용일 때 자동 SatSolver4D로 변환
+      { type: AlgorithmType.SatSolver, label: "SAT Solver" }
     ];
 
     const allRecords: GameRecord[] = [];
@@ -287,7 +268,8 @@ const handleCompareAlgorithms = useCallback(async () => {
     algorithms.forEach(algo => {
       const algoRecords: GameRecord[] = [];
 
-      // 자동으로 4D SAT 알고리즘 선택
+      // For 4D Algorithms, Select the effective algorithm variant 
+      // (due to frontend crash when SAT Solver is selected for 4D, we need to ensure we use the 4D-specific SAT variant)
       const effectiveAlgo =
         algo.type === AlgorithmType.SatSolver &&
         gameConfig.useNDimensions &&
@@ -308,8 +290,8 @@ const handleCompareAlgorithms = useCallback(async () => {
           algorithm: algo.label,
           win: res.game_won ? "TRUE" : "FALSE",
           clicks: res.total_clicks,
-          guesses: res.total_guesses, // 💡 0에서 res.total_guesses로 변경!
-          total_guesses: res.total_guesses, // 💡 ResultPanel이 total_guesses를 쓴다면 이것도 추가
+          guesses: res.total_guesses, 
+          total_guesses: res.total_guesses, // ResultPanel is using this total_guesses (can be refactored later)
           completion: res.completion,
           dims: res.dimensions.join('x'),
           steps: res.total_clicks
@@ -332,7 +314,7 @@ const handleCompareAlgorithms = useCallback(async () => {
 
 
 
-// 1. 통계 계산 함수 (App 내부에 두거나 별도 유틸로 분리)
+// getSummary Stats : calculate total games, wins, win rate, average steps/clicks/time/guesses for wins
 const getSummaryStats = (gameRecords: GameRecord[], algorithmLabel: string): GameStats => {
   const totalGames = gameRecords.length;
   const winRecords = gameRecords.filter(r => r.win === "TRUE" || r.win === true);
@@ -356,10 +338,11 @@ const getSummaryStats = (gameRecords: GameRecord[], algorithmLabel: string): Gam
   };
 };
  const [tspObjective, setTspObjective] = useState<TspObjective>("min_clicks");
+
   return (
     <div className="App">
       <Header useNDimensions={gameConfig.useNDimensions} />
-      
+      {/* Game Configuration */}
       <Menu 
         config={gameConfig} 
         setConfig={setGameConfig}
@@ -368,26 +351,28 @@ const getSummaryStats = (gameRecords: GameRecord[], algorithmLabel: string): Gam
         simulator={!!simulator} 
         onCreateBoard={handleCreateBoard}
     />
-      {/* 알고리즘 선택 섹션 */}
+
+      {/* Select Algorithms */}
       <AlgorithmSelector
         selectedAlgorithm={selectedAlgorithm}
         onAlgorithmChange={handleAlgorithmChange}
         disabled={isRunning}
       />
 
-      <main>        
+      <main>
+        {/* Select : Next, Run Full, Compare Algo...  */}
       <ControlPanel 
         onStep={handleStep}
         onRunFull={handleRunFull}
-        onRunBatch={handleRunBatch}       // 👈 연결
-        onCompare={handleCompareAlgorithms} // 👈 연결
+        onRunBatch={handleRunBatch}
+        onCompare={handleCompareAlgorithms} 
         isRunning={isRunning}
         hasSimulator={!!simulator}
         onReset={handleReset}
-        tspObjective={tspObjective}        // 💡 추가
-        onTspChange={setTspObjective}      // 💡 추가
+        tspObjective={tspObjective}
+        onTspChange={setTspObjective}
       />
-
+        {/* Render */}
         {boardState ? (
           <BoardView 
             board={boardState} 
@@ -398,13 +383,13 @@ const getSummaryStats = (gameRecords: GameRecord[], algorithmLabel: string): Gam
         ) : (
           <div className="placeholder">보드를 생성하는 중입니다...</div>
         )}
-
+        {/* Result Panel */}
         <ResultPanel 
           batchResults={batchResults}
           comparisonResults={comparisonResults}
           allDetailedRecords={allDetailedRecords}
           gameConfig={gameConfig}
-          tspObjective={tspObjective}        // 💡 추가
+          tspObjective={tspObjective} 
         />
       </main>
     </div>

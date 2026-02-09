@@ -64,7 +64,7 @@ const HyperplaneView: React.FC<HyperplaneViewProps> = ({
     });
   };
 
-  // 💡 [수정] W 차원 필터링 인덱스를 W_IDX로 고정
+  // Fix to W_IDX for consistent access regardless of dimension count
   const currentWCells = useMemo(() => 
     board.cells.filter(cell => (dimensionCount >= 4 ? cell.coordinates[W_IDX] === viewW : true)),
     [board.cells, viewW, dimensionCount, W_IDX]
@@ -72,7 +72,7 @@ const HyperplaneView: React.FC<HyperplaneViewProps> = ({
 
   const getCellClassName = (cell: CellLocal): string => {
     const shouldShowMine = cell.is_mine && (cell.is_revealed || isLost);
-    if (shouldShowMine) return 'board-cell cell-mine revealed'; // 클래스명 통일
+    if (shouldShowMine) return 'board-cell cell-mine revealed';
 
     if (cell.is_revealed) {
       if (cell.is_mine) return 'cell-mine';
@@ -84,7 +84,7 @@ const HyperplaneView: React.FC<HyperplaneViewProps> = ({
   };
 
   const getCellContent = (cell: CellLocal): string => {
-    // 💡 [추가] 졌을 때 모든 지뢰를 보여줌
+    // show mines if revealed or if game is lost, regardless of reveal state
     const isLost = board.game_over && !board.game_won;
     const shouldShowMine = cell.is_mine && (cell.is_revealed || isLost);
 
@@ -140,7 +140,6 @@ const HyperplaneView: React.FC<HyperplaneViewProps> = ({
               onMouseUp={() => setIsDragging(false)}
             >
               {currentWCells.map((cell, idx) => {
-                // 💡 [수정] 3D 큐브 모드에서도 동적 인덱스 사용
                 const x = cell.coordinates[X_IDX];
                 const y = cell.coordinates[Y_IDX];
                 const z = cell.coordinates[Z_IDX] || 0;
@@ -199,7 +198,7 @@ const HyperplaneView: React.FC<HyperplaneViewProps> = ({
                     gridTemplateColumns: `repeat(${width}, 25px)`,
                   }}
                 >
-                  {/* 💡 [수정] Z_IDX를 사용하여 해당 층의 셀만 필터링 */}
+                  {/* Filter the layer using z_index */}
                   {currentWCells
                     .filter(c => (dimensionCount >= 3 ? c.coordinates[Z_IDX] === z : true))
                     .map((cell, idx) => (

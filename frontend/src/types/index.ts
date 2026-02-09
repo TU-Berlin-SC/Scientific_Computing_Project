@@ -1,5 +1,4 @@
 // src/types/index.ts
-
 export interface GameConfig {
   useNDimensions: boolean;
   dimensionCount?: number;
@@ -18,7 +17,7 @@ export interface Preset {
   mines: number;
 }
 
-// 상세 게임 기록 (CSV 저장용)
+// Write Details of a Game Record (For Game Summary Section)
 export interface GameRecord {
   algorithm: string;
   mines: number;
@@ -32,7 +31,7 @@ export interface GameRecord {
   steps?: number;
 }
 
-// 요약 통계 (결과 표 출력용)
+// Summary of Game Records for Each Algorithm (For Overall Stats Section)
 export interface GameStats {
   algorithm: string;
   total_games: number;

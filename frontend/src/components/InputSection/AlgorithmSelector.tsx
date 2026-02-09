@@ -18,7 +18,7 @@ const AlgorithmSelector: React.FC<AlgorithmSelectorProps> = ({
       <h3>Select Strategy</h3>
       <div className="algorithm-grid">
         {AlgorithmInfo.map((algo) => {
-          // 💡 타입 매칭 이슈 방지를 위해 Number로 강제 변환하여 비교
+          // Compare selectedAlgorithm and algo.value as numbers to ensure correct comparison regardless of type (string or number)
           const isSelected = Number(selectedAlgorithm) === Number(algo.value);
           
           return (

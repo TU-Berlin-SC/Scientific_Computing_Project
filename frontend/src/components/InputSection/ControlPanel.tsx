@@ -3,7 +3,6 @@ import React from 'react';
 import '../../styles/ControlPanel.css';
 import { TspObjective } from '../../types/simulation';
 
-// TSP 타입 & 정보 예시
 const TspInfo = [
   { value: TspObjective.MinDistance, label: 'Shortest Path' },
   { value: TspObjective.MinRotation, label: 'Min Rotation' },
@@ -36,32 +35,32 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   return (
     <div className="controls">
       <div className="control-buttons">
-        {/* Step 버튼: simulator가 있을 때만 활성화 */}
+        {/* Next step*/}
         <button onClick={onStep} disabled={!hasSimulator || isRunning}>
           Test Step
         </button>
 
-        {/* Full Game 버튼: simulator가 있을 때만 활성화 */}
+        {/* Full Game */}
         <button onClick={onRunFull} disabled={!hasSimulator || isRunning}>
           Test Full Game
         </button>
 
-        {/* Batch 버튼: 시뮬레이터 생성 전이라도 WASM만 로드되면 실행 가능 */}
+        {/* Batch button */}
         <button onClick={onRunBatch} disabled={isRunning}>
           Test Batch (100 games)
         </button>
 
-        {/* Compare 버튼: 모든 알고리즘 성능 비교 */}
+        {/* Compare with all algorithms  */}
         <button onClick={onCompare} disabled={isRunning} className="compare-btn">
           Compare Algorithms
         </button>
 
-        {/* Reset 버튼 */}
+        {/* Reset */}
         <button onClick={onReset} disabled={!hasSimulator || isRunning} className="reset-btn">
           Reset Current Game
         </button>
       </div>
-      {/* TSP? */}
+      {/* TSP */}
       <div className="group tsp-group">
         <h4 className="label">TSP STRATEGY</h4>
         <div className="tsp-stack horizontal">

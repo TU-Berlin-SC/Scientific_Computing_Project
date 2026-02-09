@@ -11,10 +11,10 @@ interface TwoDBoardProps {
 }
 
 const TwoDBoard: React.FC<TwoDBoardProps> = ({ board, onCellClick, onCellRightClick }) => {
-  // 💡 기존 [width, height] = board.dimensions 를 아래와 같이 수정하여 3D 배열 데이터 대응
+  // [width, height] = board.dimensions to handle cases where dimensions might be [1, width, height] or just [width, height]
   const dims = board.dimensions;
-  const width = dims[dims.length - 1]; // 마지막 값이 가로
-  const height = dims[dims.length - 2] || 1; // 그 앞의 값이 세로
+  const width = dims[dims.length - 1]; // last value is width
+  const height = dims[dims.length - 2] || 1; // prev value is height, default to 1 if not present
 
   const cellSize = Math.max(20, Math.min(45, 500 / Math.max(width, height)));
 
@@ -34,7 +34,6 @@ const TwoDBoard: React.FC<TwoDBoardProps> = ({ board, onCellClick, onCellRightCl
           key={`2d-${index}`}
           cell={cell}
           board={board}
-          // coordinates={cell.coordinates} <-- 이 줄을 삭제하세요! (에러의 원인)
           onClick={onCellClick}
           onRightClick={onCellRightClick}
           cellSize={cellSize}

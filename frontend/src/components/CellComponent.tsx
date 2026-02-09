@@ -3,7 +3,7 @@ import { Cell, Board } from '../types/simulation';
 
 interface CellComponentProps {
   cell: Cell;
-  board: Board; // 전체 보드 상태
+  board: Board;
   cellSize: number;
   onClick?: (coords: number[]) => void;
   onRightClick?: (coords: number[]) => void;
@@ -17,11 +17,7 @@ const CellComponent: React.FC<CellComponentProps> = ({
   onRightClick 
 }) => {
   const isLost = board.game_over && !board.game_won;
-  
-  // 지뢰 공개 조건: 파헤쳐졌거나, 게임에서 졌을 때 지뢰인 경우
   const shouldShowMine = cell.is_mine && (cell.is_revealed || isLost);
-  
-  // 숫자 색상 로직 (선택 사항)
   const getNumberColor = (num: number) => {
     const colors = ['', '#2196f3', '#4caf50', '#f44336', '#9c27b0', '#ff9800', '#00bcd4', '#3f51b5', '#212121'];
     return colors[num] || 'white';
@@ -34,7 +30,7 @@ const CellComponent: React.FC<CellComponentProps> = ({
         width: cellSize, 
         height: cellSize, 
         fontSize: cellSize * 0.6,
-        backgroundColor: shouldShowMine && isLost ? '#ff5252' : undefined // 졌을 때 지뢰 배경 빨간색
+        backgroundColor: shouldShowMine && isLost ? '#ff5252' : undefined
       }}
       onClick={() => onClick?.(cell.coordinates)}
       onContextMenu={(e) => {

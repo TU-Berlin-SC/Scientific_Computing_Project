@@ -5,11 +5,11 @@
 
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
 
-  background: #f6f7f9;   /* 🔥 핵심: 완전 흰색 대신 연회색 */
+  background: #f6f7f9;
   color: #1f2328;
 }
 
-/* 공통 카드 스타일 (모든 패널이 공유) */
+/* Common Panel Style (shared with all) */
 .panel {
   background: #ffffff;
   border-radius: 14px;

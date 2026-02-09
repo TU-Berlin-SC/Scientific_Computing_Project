@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   padding: 3rem 1rem;
-  background-color: #f1f3f5; /* 페이지 전체 배경 (연한 그레이) */
+  background-color: #f1f3f5;
   min-height: 100vh;
 }
 
@@ -58,34 +58,27 @@
   font-weight: 500;
 }
 
-/* BoardView.css 하단에 추가 */
-
-/* src/styles/BoardView.css */
-
-/* 3D일 때만 적용될 스타일 */
 .board-content.is-3d {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
-  width: 90vw;   /* 화면의 90% 사용 */
-  height: 80vh;  /* 화면의 80% 사용 */
+  width: 90vw;   
+  height: 80vh; 
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* ThreeDBoardView.css 도 함께 수정 */
 .three-d-board-wrapper {
   width: 100%;
   height: 100%;
-  min-height: 700px; /* 높이를 확실히 확보 */
+  min-height: 700px; 
   background: #020617;
   border-radius: 20px;
   overflow: hidden;
 }
 
-/* BoardView 공통 */
 .board-content {
   background-color: #ffffff; 
   padding: 24px;
@@ -101,15 +94,13 @@
   height: auto;
 }
 
-/* 3D Cube 모드 */
 .board-content.is-3d {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
   width: 90%;
-  max-width: 1000px; /* 큐브 전용 최대폭 */
-  /* height: 70vh; */
+  max-width: 1000px; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -118,9 +109,9 @@
 /* HyperplaneView */
 .board-content.hyperplane {
   width: 95%;
-  max-width: 1000px;  /* 너무 커지지 않게 제한 */
-  min-width: 700px;   /* 너무 작아지지 않게 */
-  height: 700px;      /* 일정 높이 확보 */
+  max-width: 1000px;
+  min-width: 700px;  
+  height: 700px;     
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -170,11 +161,11 @@
 
 .sub-value {
   font-size: 0.7rem;
-  color: #ef5350; /* 지뢰 개수는 약간 붉은색으로 */
+  color: #ef5350; 
 }
 
 .value-algo {
-  color: #4fc3f7; /* 알고리즘 이름은 하늘색 */
+  color: #4fc3f7;
   font-weight: bold;
 }
 
@@ -182,7 +173,7 @@
   padding: 8px 16px;
   border-radius: 20px;
   font-weight: 800;
-  margin-left: auto; /* 오른쪽 끝으로 밀기 */
+  margin-left: auto; 
 }
 
 .status-badge.won { background: #2e7d32; color: white; }

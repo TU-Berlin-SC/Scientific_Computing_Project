@@ -124,7 +124,6 @@
   border-color: #007bff;
 }
 
-/* 생성 버튼 포인트 컬러 */
 .create-btn-primary {
   padding: 8px 20px;
   background-color: #007bff;
@@ -152,16 +151,6 @@
   font-size: 13px;
   cursor: pointer;
 }
-
-/* 설정창 패널 */
-/* .advanced-dropdown-panel {
-  margin-top: 10px;
-  padding: 20px;
-  background: white;
-  border-radius: 12px;
-  border: 1px solid #e9ecef;
-  animation: slideDown 0.3s ease-out;
-} */
 
 @keyframes slideDown {
   from { opacity: 0; transform: translateY(-10px); }

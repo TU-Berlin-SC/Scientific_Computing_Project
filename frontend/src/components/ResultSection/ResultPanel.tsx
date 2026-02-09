@@ -1,9 +1,8 @@
 import React from 'react';
-import { GameRecord, GameStats, GameConfig } from '../../types';
+import { GameRecord, GameConfig } from '../../types';
 import '../../styles/ResultView.css';
 import { TspObjective } from '../../types/simulation';
 
-// TSP 타입 & 정보 예시
 const TspInfo = [
   { value: TspObjective.MinDistance, label: 'Shortest Path' },
   { value: TspObjective.MinRotation, label: 'Min Rotation' },
@@ -32,45 +31,44 @@ const getTspLabel = (objective: TspObjective) => {
   return found ? found.label : objective;
 };
 
-  // CSV Export (유저님의 헤더 형식 유지)
-  const downloadCSV = (gameRecords: GameRecord[], filename: string) => {
-    if (!gameRecords?.length) {
-      alert("❌ 데이터 없음");
-      return;
-    }
-  
-    const headers = ["algorithm", "objective", "dims", "win", "clicks", "time_ms", "guesses", "completion"];
-    const rows = gameRecords.map(r => [
-      r.algorithm,
-      getTspLabel(tspObjective),
-      gameConfig.dimensions && gameConfig.dimensions.length > 0
-        ? gameConfig.dimensions.join("x")
-        : `${gameConfig.height}x${gameConfig.width}`,
-      r.win,
-      r.clicks,
-      r.time_ms,
-      r.total_guesses,
-      r.completion
-    ]);
-  
-    const titleHeader = `--- Benchmark Results (${gameConfig.dimensions?.join('×')}, Mines: ${gameConfig.mines}) ---`;
-    const csvContent = [
-      titleHeader,
-      headers.join(","),
-      ...rows.map(r => r.join(","))
-    ].join("\n");
-  
-    const blob = new Blob(["\ufeff" + csvContent], { type: "text/csv;charset=utf-8;" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = `${filename}.csv`;
-    link.click();
-  };
-  
+// CSV Export
+const downloadCSV = (gameRecords: GameRecord[], filename: string) => {
+  if (!gameRecords?.length) {
+    alert("NO DATA TO EXPORT");
+    return;
+  }
+
+  const headers = ["algorithm", "objective", "dims", "win", "clicks", "time_ms", "guesses", "completion"];
+  const rows = gameRecords.map(r => [
+    r.algorithm,
+    getTspLabel(tspObjective),
+    gameConfig.dimensions && gameConfig.dimensions.length > 0
+      ? gameConfig.dimensions.join("x")
+      : `${gameConfig.height}x${gameConfig.width}`,
+    r.win,
+    r.clicks,
+    r.time_ms,
+    r.total_guesses,
+    r.completion
+  ]);
+
+  const titleHeader = `--- Benchmark Results (${gameConfig.dimensions?.join('×')}, Mines: ${gameConfig.mines}) ---`;
+  const csvContent = [
+    titleHeader,
+    headers.join(","),
+    ...rows.map(r => r.join(","))
+  ].join("\n");
+
+  const blob = new Blob(["\ufeff" + csvContent], { type: "text/csv;charset=utf-8;" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `${filename}.csv`;
+  link.click();
+};
+
 
   return (
     <div className="results-container">
-      {/* 1. 알고리즘 비교 결과 섹션 (CSS: .comparison-results 적용) */}
       {comparisonResults.length > 0 && (
         <div className="comparison-results">
           <h3>Algorithm Comparison Results</h3>
@@ -95,7 +93,6 @@ const getTspLabel = (objective: TspObjective) => {
             </thead>
             <tbody>
               {comparisonResults.map((result, index) => {
-                // 가장 높은 승률을 가진 행에 .best 클래스 부여
                 const isBest = result.win_rate === Math.max(...comparisonResults.map(r => r.win_rate));
                 return (
                   <tr key={index} className={isBest ? 'best' : ''}>
@@ -104,7 +101,6 @@ const getTspLabel = (objective: TspObjective) => {
                     <td>{result.win_rate.toFixed(1)}%</td>
                     <td>{result.avg_clicks_wins.toFixed(2)}</td>
                     <td>{result.avg_time_wins.toFixed(0)}ms</td>
-                    {/* 💡 이 부분이 0.00으로 나온다면 result.avg_guesses_wins가 맞는지 확인 */}
                     <td style={{ fontWeight: 'bold', color: '#e74c3c' }}>
                       {result.avg_guesses_wins?.toFixed(2) || '0.00'}
                     </td>
@@ -116,7 +112,7 @@ const getTspLabel = (objective: TspObjective) => {
         </div>
       )}
 
-      {/* 2. 배치 결과 섹션 (CSS: .batch-results 적용) */}
+      {/* 2. Batch result (CSS: .batch-results) */}
       {batchResults.length > 0 && (
         <div className="batch-results">
           <h3>Batch Results ({batchResults.length} games)</h3>
@@ -173,12 +169,10 @@ const getTspLabel = (objective: TspObjective) => {
                 <div className="game-details">
                   <div>Clicks: {result.clicks || 0}</div>
                   <div>Mines: {result.mines || 0}</div>
-                 {/* 💡 여기를 result.total_guesses로 변경! */}
                   <div style={{ fontWeight: 'bold', color: '#3498db' }}>
                       Guesses: {result.total_guesses ?? 0}
                   </div>
                   <div>
-                    {/* 엔진이 뱉은 6x9x9를 무시하고, 유저가 설정한 값을 그대로 출력 */}
                     Size: {
                       gameConfig.dimensions && gameConfig.dimensions.length > 0
                         ? gameConfig.dimensions.join('×')

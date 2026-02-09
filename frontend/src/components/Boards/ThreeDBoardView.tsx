@@ -10,8 +10,8 @@ interface ThreeDBoardViewProps {
 
 const FACE_COLORS = ["#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6", "#ec4899"];
 const ThreeDBoardView: React.FC<ThreeDBoardViewProps> = ({ board, onCellClick }) => {
-  // board.dimensions가 [3, 3, 3]으로 온다면, size는 3입니다.
-  // 하지만 우리는 6개의 면(0~5)을 순회하며 렌더링합니다.
+  // board.dimensions가 [3, 3, 3] =? size = 3
+  // but we have 6 faces, so we will use the second dimension as the size of each face.
   const size = board.dimensions[1] || 3; 
   const cameraDist = size * 4;
 
@@ -25,13 +25,13 @@ const ThreeDBoardView: React.FC<ThreeDBoardViewProps> = ({ board, onCellClick })
 
         <Float speed={1.2} rotationIntensity={0.5}>
           <group>
-            {/* 코어 정육면체 */}
+            {/* CUBE */}
             <mesh>
               <boxGeometry args={[size - 0.1, size - 0.1, size - 0.1]} />
               <meshStandardMaterial color="#050505" />
             </mesh>
 
-            {/* 6개의 면을 강제로 렌더링 (0~5번 Face) */}
+            {/* Render 6 faces */}
             {[0, 1, 2, 3, 4, 5].map(f => (
               <CubeFace 
                 key={f} 
@@ -56,7 +56,7 @@ const CubeFace: React.FC<{ faceIdx: number; board: Board; size: number; onCellCl
   const offset = (size - 1) / 2;
   const d = size / 2;
 
-  // 6개 면의 위치와 회전값 (표준 주사위 배치)
+  // 6 faces location and rotation setup
   const positions: [number, number, number][] = [
     [0, 0, d],    // Front (Face 0)
     [0, 0, -d],   // Back (Face 1)
@@ -78,7 +78,7 @@ const CubeFace: React.FC<{ faceIdx: number; board: Board; size: number; onCellCl
   return (
     <group position={positions[faceIdx]} rotation={rotations[faceIdx]}>
       {faceCells.map((cell, i) => {
-        // [face, y, x] 구조에서 y, x 추출
+        // Extract y,x from [face, y, x]
         const y = cell.coordinates[1];
         const x = cell.coordinates[2];
         const shouldShowMine = cell.is_mine && (cell.is_revealed || isLost);
@@ -89,17 +89,16 @@ const CubeFace: React.FC<{ faceIdx: number; board: Board; size: number; onCellCl
           <boxGeometry args={[0.9, 0.9, 0.05]} />
           <meshStandardMaterial 
             color={shouldShowMine ? "#ef4444" : (cell.is_revealed ? "#111" : FACE_COLORS[faceIdx])} 
-            /* 💡 졌을 때 겉면을 반투명하게 만들어 내부 지뢰가 보이게 함 */
+            // Trying to make it transparent when lost but not showing mine, to give a "ghostly" effect to unrevealed cells on lost game
             transparent={true}
             opacity={isLost && !shouldShowMine ? 0.3 : 1} 
           />
         </mesh>
-        {/* 💣 지뢰 아이콘: 겹침 방지를 위해 position z를 0.06으로 살짝 띄웁니다 */}
         {shouldShowMine && (
           <Text 
             position={[0, 0, 0.06]} 
             fontSize={0.6} 
-            color="#ffffff" // 검정 배경이니까 하얀색(또는 이모지 그대로)으로 쨍하게!
+            color="#ffffff"
             anchorX="center" 
             anchorY="middle"
           >
@@ -107,7 +106,6 @@ const CubeFace: React.FC<{ faceIdx: number; board: Board; size: number; onCellCl
           </Text>
         )}
 
-        {/* 숫자 표시: 이것도 원래대로! */}
         {cell.is_revealed && !cell.is_mine && cell.adjacent_mines > 0 && (
           <Text 
             position={[0, 0, 0.06]} 

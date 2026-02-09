@@ -1,4 +1,4 @@
-// WASM 엔진 로드 및 시뮬레이터 인스턴스 관리
+// Manage the Minesweeper WASM module and simulator instance, along with logging functionality.
 // hooks/useMinesweeperWasm.ts
 import { useState } from 'react';
 import type { AlgorithmType } from '../types/simulation';

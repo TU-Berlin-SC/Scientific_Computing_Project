@@ -21,14 +21,12 @@ const BoardView: React.FC<BoardViewProps> = ({ board, onCellClick, onCellRightCl
 
     const dims = board.dimensions;
     const dimensionCount = dims.length;
-    
-    // ✅ 변수 정의 누락 해결
     const isActually2D = dimensionCount === 2 || (dimensionCount === 3 && dims[0] === 1);
     const isDice3D = dimensionCount === 3 && dims[0] === 6;
     const is4DPlus = dimensionCount >= 4;
     const isGeneral3D = dimensionCount === 3 && !isActually2D && !isDice3D;
 
-    console.group("🔍 [DEBUG] Board Logic Trace");
+    console.group("[DEBUG] Board Logic Trace");
     console.log("Dimensions:", dims);
     console.table({
       "Is 2D?": isActually2D,
@@ -48,7 +46,7 @@ const BoardView: React.FC<BoardViewProps> = ({ board, onCellClick, onCellRightCl
   const dims = board.dimensions;
   const dimensionCount = dims.length;
 
-  // 렌더링 분기 로직
+  // IMPORTANT : Determines 3D rendering logic based on dimension count and specific configurations (like 6x9x9 for dice mode).
   const isActually2D = dimensionCount === 2 || (dimensionCount === 3 && dims[0] === 1);
   const isDice3D = dimensionCount === 3 && dims[0] === 6;
 
@@ -60,7 +58,7 @@ const BoardView: React.FC<BoardViewProps> = ({ board, onCellClick, onCellRightCl
         </div>
         <div className="board-info">
           <span>  
-            {/* 엔진이 뱉은 6x9x9를 무시하고, 유저가 설정한 값을 그대로 출력 */}
+            {/* ignore 6x9x9 (6 is face) and print game config settings*/}
                 Size: {
                   gameConfig.dimensions && gameConfig.dimensions.length > 0
                     ? gameConfig.dimensions.join('×')
@@ -77,14 +75,11 @@ const BoardView: React.FC<BoardViewProps> = ({ board, onCellClick, onCellRightCl
         ) : isDice3D ? (
           <ThreeDBoardView board={board} onCellClick={onCellClick} />
         ) : (
-          /* [3,3,3] 또는 [3,3,3,3] 등 고차원은 HyperplaneView에서 슬라이스로 렌더링 */
           <HyperplaneView board={board} onCellClick={onCellClick} onCellRightClick={onCellRightClick} />
         )}
       </main>
 
       <footer className="board-footer">
-        {/* <div className="stat-item">Revealed: {board.total_revealed} / {board.total_cells - board.mines}</div>
-        <div className="stat-item">Clicks: {board.total_clicks}</div> */}
         <div className="simulation-stats">
           <div className="stats-grid">
             <div className="stat-item">

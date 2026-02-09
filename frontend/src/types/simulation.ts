@@ -1,7 +1,7 @@
 // frontend/src/types/simulation.ts
 
 export interface Cell {
-  coordinates: number[]; // [z, y, x] 등
+  coordinates: number[]; // [z, y, x] 
   is_mine: boolean;
   is_revealed: boolean;
   is_flagged: boolean;
@@ -11,13 +11,13 @@ export interface Cell {
 export interface Board {
   cells: Cell[];
   dimensions: number[];
-  total_cells: number;      // 💡 추가
+  total_cells: number;    
   mines: number;
   total_revealed: number;
   game_over: boolean;
   game_won: boolean;
-  algorithm: string;        // 💡 추가
-  total_clicks: number;     // 💡 추가
+  algorithm: string;     
+  total_clicks: number;  
   total_guesses: number;
   time_ms: number;
   completion: number;
@@ -37,7 +37,6 @@ export enum TspObjective {
   MaxInformation = 2,
 }
 
-// 💡 implemented: true를 명시하여 "준비 중" 상태를 해제합니다.
 export const AlgorithmInfo = [
   { value: AlgorithmType.Greedy, label: 'Greedy Solver', description: 'Local constraints logic.', implemented: true },
   { value: AlgorithmType.ExactSolver, label: 'Exact Solver', description: 'ILP based optimized solver.', implemented: true },

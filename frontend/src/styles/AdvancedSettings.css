@@ -134,7 +134,6 @@
   box-shadow: none;
 }
 
-/* 반응형 */
 @media (max-width: 768px) {
   .dimension-buttons {
     flex-wrap: wrap;
