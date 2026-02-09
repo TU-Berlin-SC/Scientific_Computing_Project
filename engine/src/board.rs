@@ -27,6 +27,7 @@ pub struct Board {
     pub game_won: bool,
     pub total_revealed: usize,
     pub total_clicks: usize,
+    pub total_guesses: usize, // added
     pub last_click_idx: usize,         
     pub adjacency_map: Vec<Vec<usize>>,
     pub seed: Option<u64>, 
@@ -76,6 +77,7 @@ impl Board {
             game_won: false,
             total_revealed: 0,
             total_clicks: 0,
+            total_guesses: 0, 
             last_click_idx: 0,
             adjacency_map,
             seed: None,
@@ -154,6 +156,14 @@ impl Board {
         }
     }
 
+    pub fn record_guess(&mut self) {
+        self.total_guesses += 1;
+    }
+
+    pub fn get_dimensions(&self) -> &Vec<usize> {
+        &self.dimensions
+    }
+
     pub fn reset(&mut self) {
         for cell in &mut self.cells {
             cell.is_mine = false; cell.is_revealed = false; cell.is_flagged = false; cell.adjacent_mines = 0;
@@ -162,6 +172,7 @@ impl Board {
         self.game_won = false;
         self.total_revealed = 0;
         self.total_clicks = 0;
+        self.total_guesses = 0;
         // mine placement is done on first click
     }
 
