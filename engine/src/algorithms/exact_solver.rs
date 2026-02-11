@@ -1,7 +1,7 @@
 // src/algorithms/exact_solver.rs
 use crate::board::Board;
 use crate::algorithms::{Algorithm, SolverResult};
-use std::collections::HashSet;
+use std::collections::{HashSet, HashMap};
 
 /// human expert algorithm
 /// uses set difference rules to mimic how a human expert would play the game
@@ -20,34 +20,70 @@ impl ExactSolver {
 
     /// primary solver logic to find all safe cells using constraint analysis
     fn solve_exact(&self, board: &Board) -> SolverResult {
-        let mut constraints = Vec::new();
+        let mut all_safe = HashSet::new();
+        let mut all_mines = HashSet::new();
+        let mut last_valid_constraints = Vec::new();
+    
+        // repeatedly apply logical deduction until no new safe cells appear
+        loop {
+            let mut constraints = Vec::new();
+    
+            // rebuild constraints each iteration (new info may exist)
+            for idx in 0..board.cells.len() {
+                let cell = &board.cells[idx];
+    
+                if cell.is_revealed && cell.adjacent_mines > 0 {
+                    let mut constraint = self.build_constraint(board, idx);
+                    
+                    // remove cells already identified as mines in this loop
+                    constraint.hidden_cells.retain(|c_idx| {
+                        if all_mines.contains(c_idx) {
+                            constraint.flagged += 1;
+                            false
+                        } else {
+                            true
+                        }
+                    });
 
-        // collect constraints using the 3d adjacency map
-        for idx in 0..board.cells.len() {
-            let cell = &board.cells[idx];
-
-            if cell.is_revealed && cell.adjacent_mines > 0 {
-                let constraint = self.build_constraint(board, idx);
-                if !constraint.hidden_cells.is_empty() {
-                    constraints.push(constraint);
+                    if !constraint.hidden_cells.is_empty() {
+                        constraints.push(constraint);
+                    }
                 }
             }
-        }
 
-        // look for definitely safe cells through constraint analysis
-        let safe_cells = self.find_all_definitely_safe(&constraints, board);
+            // store for fallback probability calculation
+            last_valid_constraints = constraints.clone();
+    
+            let (safe_found, mines_found) = self.find_deterministic_cells(&constraints);
+    
+            let mut new_info = false;
+            for s in safe_found {
+                if all_safe.insert(s) { new_info = true; }
+            }
+            for m in mines_found {
+                if all_mines.insert(m) { new_info = true; }
+            }
+    
+            // stop when no more deductions
+            if !new_info {
+                break;
+            }
+        }
+    
+        // if we found any safe moves → deterministic
+        // filter out any cell that might have been flagged as mine
+        all_safe.retain(|idx| !all_mines.contains(idx));
         
-        // if logic finds safe cells, it is not a guess
-        if !safe_cells.is_empty() {
+        if !all_safe.is_empty() {
             return SolverResult {
-                candidates: safe_cells,
+                candidates: all_safe.into_iter().collect(),
                 is_guess: false,
             };
         }
-
-        // if no definitely safe cells, return probabilistic candidates and mark as guess
+    
+        // otherwise fallback to probability using the best available constraints
         SolverResult {
-            candidates: self.get_best_probability_candidates(&constraints, board),
+            candidates: self.get_best_probability_candidates(&last_valid_constraints, board, &all_mines),
             is_guess: true,
         }
     }
@@ -77,59 +113,66 @@ impl ExactSolver {
         }
     }
 
-    fn find_all_definitely_safe(&self, constraints: &[Constraint], _board: &Board) -> Vec<usize> {
+    /// performs set-based reasoning to find guaranteed safe or mine cells
+    fn find_deterministic_cells(&self, constraints: &[Constraint]) -> (HashSet<usize>, HashSet<usize>) {
         let mut safe_indices = HashSet::new();
+        let mut mine_indices = HashSet::new();
 
-        // if remaining mines == 0, all hidden neighbors are safe
-        for constraint in constraints {
-            if constraint.remaining_mines() == 0 {
-                for &idx in &constraint.hidden_cells {
-                    safe_indices.insert(idx);
-                }
+        // 1. apply basic rules (all-safe or all-mines)
+        for c in constraints {
+            let remaining = c.remaining_mines();
+            if remaining == 0 {
+                for &idx in &c.hidden_cells { safe_indices.insert(idx); }
+            } else if remaining == c.hidden_cells.len() {
+                for &idx in &c.hidden_cells { mine_indices.insert(idx); }
             }
         }
 
-        // set difference analysis - comparing pairs of constraints
-        if safe_indices.is_empty() {
-            // we iterate through all pairs (i, j) to find subset relationships
+        // 2. apply subset reduction (set difference)
+        // human experts often look at two overlapping numbers
+        if safe_indices.is_empty() && mine_indices.is_empty() {
             for i in 0..constraints.len() {
                 for j in 0..constraints.len() {
                     if i == j { continue; }
-
                     let c1 = &constraints[i];
                     let c2 = &constraints[j];
 
-                    let set1: HashSet<usize> = c1.hidden_cells.iter().cloned().collect();
-                    let set2: HashSet<usize> = c2.hidden_cells.iter().cloned().collect();
+                    let s1: HashSet<usize> = c1.hidden_cells.iter().cloned().collect();
+                    let s2: HashSet<usize> = c2.hidden_cells.iter().cloned().collect();
 
-                    // subset reduction logic: if c1's cells are all inside c2's cells
-                    if set1.is_subset(&set2) {
-                        let m_diff = c2.remaining_mines() as isize - c1.remaining_mines() as isize;
-                        let only_in_c2: Vec<usize> = set2.difference(&set1).cloned().collect();
+                    if s1.is_subset(&s2) {
+                        let diff_cells: Vec<usize> = s2.difference(&s1).cloned().collect();
+                        let m_diff = c2.remaining_mines() as i32 - c1.remaining_mines() as i32;
 
-                        // if the number of mines in both constraints is the same,
-                        // then all cells that are only in the larger set must be safe.
                         if m_diff == 0 {
-                            for &idx in &only_in_c2 {
-                                safe_indices.insert(idx);
-                            }
+                            for idx in diff_cells { safe_indices.insert(idx); }
+                        } else if m_diff == diff_cells.len() as i32 {
+                            for idx in diff_cells { mine_indices.insert(idx); }
                         }
                     }
                 }
             }
         }
 
-        safe_indices.into_iter().collect()
+        (safe_indices, mine_indices)
     }
 
-    fn get_best_probability_candidates(&self, _constraints: &[Constraint], board: &Board) -> Vec<usize> {
-        let mut best_indices = Vec::new();
-        let mut min_prob = 1.1;
+    /// selects best candidates when logic fails, prioritizing lower local probability
+    fn get_best_probability_candidates(&self, constraints: &[Constraint], board: &Board, known_mines: &HashSet<usize>) -> Vec<usize> {
+        let mut prob_map: HashMap<usize, Vec<f64>> = HashMap::new();
+        
+        // collect all local probabilities from constraints
+        for c in constraints {
+            let p = c.remaining_mines() as f64 / c.hidden_cells.len() as f64;
+            for &idx in &c.hidden_cells {
+                prob_map.entry(idx).or_insert_with(Vec::new).push(p);
+            }
+        }
 
-        // optimized probability baseline calculation
-        let flag_count = board.cells.iter().filter(|c| c.is_flagged).count();
-        // ensure we subtract flags from the hidden count for a more accurate guess
-        let remaining_cells = board.cells.len().saturating_sub(board.total_revealed).saturating_sub(flag_count);
+        let flag_count = board.cells.iter().filter(|c| c.is_flagged).count() + known_mines.len();
+        let remaining_cells = board.cells.len()
+            .saturating_sub(board.total_revealed)
+            .saturating_sub(flag_count);
         let remaining_mines = self.mines.saturating_sub(flag_count);
 
         let global_prob = if remaining_cells > 0 {
@@ -138,21 +181,33 @@ impl ExactSolver {
             1.0
         };
 
-        // iterate through all hidden cells to find those matching the best probability
-        for idx in 0..board.cells.len() {
-            if !board.cells[idx].is_revealed && !board.cells[idx].is_flagged {
-                let prob = global_prob; // in this version, we use global baseline
+        let mut best_indices = Vec::new();
+        let mut min_prob = 1.1;
 
-                if prob < min_prob - 1e-6 {
-                    min_prob = prob;
-                    best_indices = vec![idx];
-                } else if (prob - min_prob).abs() < 1e-6 {
-                    best_indices.push(idx);
-                }
+        for idx in 0..board.cells.len() {
+            let cell = &board.cells[idx];
+            if cell.is_revealed || cell.is_flagged || known_mines.contains(&idx) {
+                continue;
+            }
+
+            // use the maximum local probability (most conservative) or global if isolated
+            let prob = if let Some(probs) = prob_map.get(&idx) {
+                // human intuition: if multiple numbers hint at a mine, believe the highest risk
+                *probs.iter().max_by(|a, b| a.partial_cmp(b).unwrap()).unwrap_or(&global_prob)
+            } else {
+                global_prob
+            };
+
+            if prob < min_prob - 1e-6 {
+                min_prob = prob;
+                best_indices = vec![idx];
+            } else if (prob - min_prob).abs() < 1e-6 {
+                best_indices.push(idx);
             }
         }
+
         best_indices
-    }
+    }   
 }
 
 /// represents a numbered cell and its hidden neighbors
