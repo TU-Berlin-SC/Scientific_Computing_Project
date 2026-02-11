@@ -61,7 +61,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
         </button>
       </div>
       {/* TSP */}
-      <div className="group tsp-group">
+      {/* <div className="group tsp-group">
         <h4 className="label">TSP STRATEGY</h4>
         <div className="tsp-stack horizontal">
           {TspInfo.map(t => (
@@ -74,7 +74,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
             </button>
           ))}
         </div>
-      </div>
+      </div> */}
 
 
       {/* 로딩 표시 (선택 사항) */}
